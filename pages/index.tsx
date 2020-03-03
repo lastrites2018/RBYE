@@ -55,6 +55,13 @@ const IndexPage = (props: any) => {
     return temp;
   };
 
+  let dataLength: number = 0;
+  if (year && data.length) {
+    dataLength = data.length;
+  } else if (!year) {
+    dataLength = props.data.length;
+  }
+
   return (
     <Layout title="RBYE">
       <div className="lg:max-w-6xl sm:m-auto">
@@ -67,8 +74,7 @@ const IndexPage = (props: any) => {
             </span>
           </h6>
           <h6 className="text-right text-gray-500 inline-block">
-            데이터 수 {data.length || props.data.length} 데이터 업데이트{" "}
-            {props.updated[0]}
+            데이터 수 {dataLength} 데이터 업데이트 {props.updated[0]}
           </h6>
         </div>
         {/* <div className="lg:mx-auto lg:mx-32"> */}
