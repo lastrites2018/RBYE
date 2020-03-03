@@ -2,7 +2,6 @@ import * as React from "react";
 import Layout from "../components/Layout";
 import fetch from "isomorphic-unfetch";
 
-import Head from "next/head";
 import Jobs from "./Job";
 
 interface Job {
@@ -44,27 +43,32 @@ const IndexPage = (props: any) => {
     }
   }, [year]);
 
+  const displayYear = () => {
+    let temp = [];
+    for (let i = 1; i < 11; i += 1) {
+      temp.push(
+        <span className="m-1" onClick={() => setYear(i)}>
+          [{i}년]
+        </span>
+      );
+    }
+    return temp;
+  };
+
   return (
     <Layout title="RBYE">
       <div className="lg:max-w-6xl sm:m-auto">
         {/* <div className="lg:mx-40 sm:m-auto"> */}
         <div className="flex justify-between">
           <h6 className="cursor-pointer inline-block text-right-left">
-            <span className="m-1" onClick={() => setYear(1)}>
-              [1년]
-            </span>
-            <span className="m-1" onClick={() => setYear(2)}>
-              [2년]
-            </span>
-            <span className="m-1" onClick={() => setYear(3)}>
-              [3년]
-            </span>
+            {displayYear()}
             <span className="m-1" onClick={() => setYear(0)}>
               [원래대로]
             </span>
           </h6>
           <h6 className="text-right text-gray-500 inline-block">
-            데이터 업데이트 {props.updated[0]} 데이터 수 {props.data.length}
+            데이터 수 {data.length || props.data.length} 데이터 업데이트{" "}
+            {props.updated[0]}
           </h6>
         </div>
         {/* <div className="lg:mx-auto lg:mx-32"> */}
