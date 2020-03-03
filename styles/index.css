@@ -1,5 +1,11 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 /* purgecss start ignore */
 @tailwind base;
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
+
+body {
+  @apply bg-gray-200;
+  font-family: "Noto Sans KR", sans-serif !important;
+}
