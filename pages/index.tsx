@@ -25,7 +25,9 @@ const IndexPage = (props: any) => {
     <Layout title="RBYE">
       <div className="lg:max-w-6xl sm:m-auto">
         {/* <div className="lg:mx-40 sm:m-auto"> */}
-        <h1 className="text-right">데이터 업데이트 : {props.updated[0]} </h1>
+        <h6 className="text-right text-gray-500">
+          데이터 업데이트 {props.updated[0]} 데이터 수 {props.data.length}
+        </h6>
         {/* <div className="lg:mx-auto lg:mx-32"> */}
         <div>
           {props.data.map((job: Job) => (
