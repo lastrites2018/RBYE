@@ -27,7 +27,8 @@ const IndexPage = (props: any) => {
   React.useEffect(() => {
     async function getData() {
       const res = await fetch(
-        `https://rbye-api.lastrites.now.sh/table?q=${year}년`
+        // `https://rbye-api.lastrites.now.sh/table?q=${year}년`
+        `https://rbye-api.now.sh/table?contentObj.requirement_like=${year}년`
       );
       const newData = await res.json();
       console.log("newData: ", newData);
