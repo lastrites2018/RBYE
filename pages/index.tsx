@@ -10,8 +10,8 @@ interface Job {
   contentObj: object;
   no: number;
   subject: string;
-  근무지역: string;
-  마감일: string;
+  workingArea: string;
+  closingDate: string;
   link: string;
 }
 
