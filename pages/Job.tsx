@@ -5,14 +5,14 @@ const Jobs = ({ subject, companyName, contentObj, link, closingDate }) => (
     <h1 className="text-green-500 text-3xl ">{companyName}</h1>
     <p className="text-gray-800">{subject}</p>
     <div className="text-red-800 sm:m-2 md:m-10">
-      <Markdown source={contentObj.requirement.replace(/• /gi, "- • ")} />
+      <Markdown source={contentObj?.requirement.replace(/• /gi, "- • ")} />
     </div>
     <h6 className="sm:m-2 md:m-4">우대사항</h6>
     <p className="text-gray-500 mb-2 sm:m-2 md:m-4">
-      {contentObj.preferentialTreatment}
+      {contentObj?.preferentialTreatment}
     </p>
     <h6 className="sm:m-2 md:m-4">주요업무</h6>
-    <p className="text-gray-600 mb-2 sm:m-2 md:m-4">{contentObj.mainTask}</p>
+    <p className="text-gray-600 mb-2 sm:m-2 md:m-4">{contentObj?.mainTask}</p>
     <div className="text-right">
       <a
         className="text-blue-600 hover:text-blue-400"
