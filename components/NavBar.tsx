@@ -5,13 +5,22 @@ interface Props {
   setSearchKeyword?: (searchKeyword: string) => void;
 }
 
-const NavBar: React.FunctionComponent<Props> = ({ setSearchKeyword }) => {
+const NavBar: React.FunctionComponent<Props> = ({
+  searchKeyword,
+  setSearchKeyword
+}) => {
   const [word, setWord] = React.useState("");
+
+  React.useEffect(() => {
+    if (!searchKeyword) setWord("");
+  }, [searchKeyword]);
+
   return (
     <nav className="flex justify-around mt-2">
       <div>
         <input
           type="text"
+          value={word}
           placeholder="전체 텍스트 검색"
           className="border border-solid border-blue-700 h-10 rounded-lg p-2"
           onChange={e => setWord(e.target.value)}

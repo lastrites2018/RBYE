@@ -54,7 +54,10 @@ const IndexPage = (props: Props) => {
           className={
             year === i ? "m-1 text-gray-500 text-lg" : "m-1 hover:text-gray-500"
           }
-          onClick={() => setYear(i)}
+          onClick={() => {
+            setYear(i);
+            setSearchKeyword("");
+          }}
         >
           [{i}
           년]
@@ -83,7 +86,13 @@ const IndexPage = (props: Props) => {
         <div className="flex flex-wrap justify-between">
           <h6 className="cursor-pointer">
             {displayYear()}
-            <span className="m-1" onClick={() => setYear(0)}>
+            <span
+              className="m-1"
+              onClick={() => {
+                setYear(0);
+                setSearchKeyword("");
+              }}
+            >
               [원래대로]
             </span>
           </h6>
