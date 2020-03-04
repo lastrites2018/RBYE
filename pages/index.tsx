@@ -3,22 +3,15 @@ import Layout from "../components/Layout";
 import fetch from "isomorphic-unfetch";
 
 import Jobs from "./Job";
+// import NavBar from "../components/NavBar";
+import { Job } from "../interfaces/index";
 
-interface Job {
-  companyName: string;
-  contentObj: object;
-  no: number;
-  subject: string;
-  workingArea: string;
-  closingDate: string;
-  link: string;
+interface Props {
+  data: Job[];
+  updated: string[];
 }
 
-// interface Props {
-//   data: Job[];
-// }
-
-const IndexPage = (props: any) => {
+const IndexPage = (props: Props) => {
   // const IndexPage: NextPage = props => {
   const [data, setData] = React.useState(props.data);
   const [year, setYear] = React.useState(0);
@@ -47,7 +40,7 @@ const IndexPage = (props: any) => {
     let temp = [];
     for (let i = 1; i < 11; i += 1) {
       temp.push(
-        <span className="m-1" onClick={() => setYear(i)}>
+        <span key={i} className="m-1" onClick={() => setYear(i)}>
           [{i}년]
         </span>
       );
@@ -64,27 +57,23 @@ const IndexPage = (props: any) => {
 
   return (
     <Layout title="RBYE">
-      <div className="lg:max-w-6xl sm:m-auto">
+      <div className="lg:max-w-6xl md:m-auto sm:m-auto">
         {/* <div className="lg:mx-40 sm:m-auto"> */}
-        <div className="flex justify-between">
-          <h6 className="cursor-pointer inline-block text-right-left">
+        <div className="flex flex-wrap justify-between">
+          <h6 className="cursor-pointer">
             {displayYear()}
             <span className="m-1" onClick={() => setYear(0)}>
               [원래대로]
             </span>
           </h6>
-          <h6 className="text-right text-gray-500 inline-block">
+          <span className="text-gray-500 text-sm">
             데이터 수 {dataLength} 데이터 업데이트 {props.updated[0]}
-          </h6>
+          </span>
         </div>
-        {/* <div className="lg:mx-auto lg:mx-32"> */}
         <div>
           {data.map((job: Job) => (
             <Jobs key={job.no} {...job} />
           ))}
-          {/* {props.data.map((job: Job) => (
-            <Jobs key={job.no} {...job} />
-          ))} */}
         </div>
       </div>
     </Layout>
