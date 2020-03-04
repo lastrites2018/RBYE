@@ -9,3 +9,12 @@ body {
   @apply bg-gray-200;
   font-family: "Noto Sans KR", sans-serif !important;
 }
+
+.keep-all {
+  word-break: keep-all;
+}
+
+.break-word-and-keep-all {
+  word-wrap: break-word;
+  word-break: keep-all;
+}

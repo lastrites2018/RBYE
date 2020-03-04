@@ -56,7 +56,7 @@ const IndexPage = (props: Props) => {
 
   return (
     <Layout title="RBYE">
-      <div className="lg:max-w-6xl md:m-auto sm:m-auto">
+      <div className="block m-auto lg:max-w-6xl">
         {/* <div className="lg:mx-40 sm:m-auto"> */}
         <div className="flex flex-wrap justify-between">
           <h6 className="cursor-pointer">
@@ -69,7 +69,7 @@ const IndexPage = (props: Props) => {
             데이터 수 {dataLength} 데이터 업데이트 {props.updated[0]}
           </span>
         </div>
-        <div>
+        <div className="break-word-and-keep-all">
           {data.map((job: Job) => (
             <Jobs key={job.no} {...job} />
           ))}
