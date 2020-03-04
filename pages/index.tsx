@@ -1,9 +1,8 @@
 import * as React from "react";
-import Layout from "../components/Layout";
 import fetch from "isomorphic-unfetch";
-
-import Jobs from "./Job";
-// import NavBar from "../components/NavBar";
+import JobList from "../components/JobList";
+import Layout from "../components/Layout";
+import NavBar from "../components/NavBar";
 
 interface Props {
   data: Job[];
@@ -11,9 +10,9 @@ interface Props {
 }
 
 const IndexPage = (props: Props) => {
-  // const IndexPage: NextPage = props => {
   const [data, setData] = React.useState(props.data);
   const [year, setYear] = React.useState(0);
+  const [searchKeyword, setSearchKeyword] = React.useState("");
 
   React.useEffect(() => {
     async function getData() {
@@ -22,7 +21,6 @@ const IndexPage = (props: Props) => {
         `https://rbye-api.now.sh/table?contentObj.requirement_like=${year}년`
       );
       const newData = await res.json();
-      console.log("newData: ", newData);
       await setData(newData);
     }
 
@@ -35,12 +33,31 @@ const IndexPage = (props: Props) => {
     }
   }, [year]);
 
+  React.useEffect(() => {
+    async function getData() {
+      const res = await fetch(
+        `https://rbye-api.now.sh/table?q=${searchKeyword}`
+      );
+      const newData = await res.json();
+      await setData(newData);
+      await setYear(0);
+    }
+    getData();
+  }, [searchKeyword]);
+
   const displayYear = () => {
     let temp = [];
     for (let i = 1; i < 11; i += 1) {
       temp.push(
-        <span key={i} className="m-1" onClick={() => setYear(i)}>
-          [{i}년]
+        <span
+          key={i}
+          className={
+            year === i ? "m-1 text-gray-500 text-lg" : "m-1 hover:text-gray-500"
+          }
+          onClick={() => setYear(i)}
+        >
+          [{i}
+          년]
         </span>
       );
     }
@@ -56,6 +73,11 @@ const IndexPage = (props: Props) => {
 
   return (
     <Layout title="RBYE">
+      <h1 className="text-center">프론트엔드 연차별 요구사항 보기</h1>
+      <NavBar
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+      />
       <div className="block m-auto lg:max-w-6xl">
         {/* <div className="lg:mx-40 sm:m-auto"> */}
         <div className="flex flex-wrap justify-between">
@@ -69,11 +91,7 @@ const IndexPage = (props: Props) => {
             데이터 수 {dataLength} 데이터 업데이트 {props.updated[0]}
           </span>
         </div>
-        <div className="break-word-and-keep-all">
-          {data.map((job: Job) => (
-            <Jobs key={job.no} {...job} />
-          ))}
-        </div>
+        <JobList data={data} />
       </div>
     </Layout>
   );
