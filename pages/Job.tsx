@@ -1,5 +1,4 @@
 import Markdown from "react-markdown";
-import { Job } from "../interfaces/index";
 
 const Jobs = ({
   subject,

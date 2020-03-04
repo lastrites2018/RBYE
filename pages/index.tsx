@@ -4,7 +4,6 @@ import fetch from "isomorphic-unfetch";
 
 import Jobs from "./Job";
 // import NavBar from "../components/NavBar";
-import { Job } from "../interfaces/index";
 
 interface Props {
   data: Job[];

@@ -13,5 +13,3 @@ interface Job {
   closingDate: string;
   link: string;
 }
-
-export type { ContentObj, Job };
