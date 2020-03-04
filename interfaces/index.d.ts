@@ -12,4 +12,5 @@ interface Job {
   workingArea: string;
   closingDate: string;
   link: string;
+  searchKeyword?: string;
 }
