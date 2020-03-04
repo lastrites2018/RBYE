@@ -1,5 +1,6 @@
 import * as React from "react";
 import Head from "next/head";
+import Footer from "./Footer";
 
 type Props = {
   title?: string;
@@ -20,6 +21,7 @@ const Layout: React.FunctionComponent<Props> = ({
       />
     </Head>
     {children}
+    <Footer />
   </div>
 );
 
