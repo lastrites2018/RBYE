@@ -65,7 +65,7 @@ const IndexPage = (props: Props) => {
   };
 
   let dataLength: number = 0;
-  if (year && data.length) {
+  if ((year && data.length) || searchKeyword) {
     dataLength = data.length;
   } else if (!year) {
     dataLength = props.data.length;
@@ -91,7 +91,7 @@ const IndexPage = (props: Props) => {
             데이터 수 {dataLength} 데이터 업데이트 {props.updated[0]}
           </span>
         </div>
-        <JobList data={data} />
+        <JobList data={data} searchKeyword={searchKeyword} />
       </div>
     </Layout>
   );
