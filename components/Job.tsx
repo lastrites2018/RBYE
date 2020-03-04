@@ -10,8 +10,14 @@ const Jobs = ({
   searchKeyword
 }: Job) => (
   <div className="p-4 shadow rounded bg-white mt-2 sm:p-2 sm:m-2">
-    <h2 className="text-gray-700">{companyName}</h2>
-    <p className="text-gray-800">{subject}</p>
+    <h2 className="text-gray-700">
+      {" "}
+      <HighLight content={companyName} searchText={searchKeyword} />
+    </h2>
+    <p className="text-gray-800">
+      {" "}
+      <HighLight content={subject} searchText={searchKeyword} />
+    </p>
     <div className="text-gray-600 sm:m-2 md:m-10 whitespace-pre-wrap">
       <HighLight
         content={contentObj?.requirement.replace(/• |\* /gi, "- ")}
