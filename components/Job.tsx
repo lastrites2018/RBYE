@@ -22,7 +22,9 @@ const Jobs = ({
       <HighLight
         content={
           contentObj?.requirement &&
-          contentObj?.requirement.replace(/• |\* /gi, "- ")
+          contentObj?.requirement
+            .replace(/\t/g, "") // 스타일 망가뜨리는 탭 문자 제거
+            .replace(/• |\* /gi, "- ")
         }
         searchText={searchKeyword}
       />
@@ -47,7 +49,6 @@ const Jobs = ({
         href={link}
         target="blank"
       >
-        {/* {link} */}
         <HighLight content={link} searchText={searchKeyword} />
       </a>
       <span className="ml-2 text-gray-500">
