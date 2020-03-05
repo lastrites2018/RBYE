@@ -34,6 +34,18 @@ const Layout: React.FunctionComponent<Props> = ({
             <a>nodejs 연차별 요구사항</a>
           </Link>
         </h1>
+        <span className="mx-2"> | </span>
+        <h1 className="text-center mb-4">
+          <Link href={`/t/server`}>
+            <a>백엔드 연차별 요구사항</a>
+          </Link>
+        </h1>
+        <span className="mx-2"> | </span>
+        <h1 className="text-center mb-4">
+          <Link href={`/t/pm`}>
+            <a>PM 연차별 요구사항</a>
+          </Link>
+        </h1>
       </div>
       {children}
       <Footer />
