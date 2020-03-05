@@ -12,12 +12,17 @@ interface Props {
   data?: Job[];
   updated?: string[];
   query?: QueryType;
+  // year?: number;
 }
 
 export default function Post(props: Props) {
   const [data, setData] = React.useState(props.data);
   const [year, setYear] = React.useState(0);
   const [searchKeyword, setSearchKeyword] = React.useState("");
+
+  // React.useEffect(() => {
+  //   props.year && setYear(props.year);
+  // }, []);
 
   React.useEffect(() => {
     async function getData() {
@@ -30,6 +35,16 @@ export default function Post(props: Props) {
 
     if (year === 0) {
       return setData(props.data);
+    }
+
+    if (year === 999) {
+      return setData(
+        props.data.filter(
+          item =>
+            item.contentObj.requirement &&
+            !item.contentObj.requirement.includes("년")
+        )
+      );
     }
 
     if (year > 0) {
@@ -89,6 +104,19 @@ export default function Post(props: Props) {
         <div className="flex flex-wrap justify-between">
           <div className="flex flex-wrap cursor-pointer">
             {displayYear()}
+            <span
+              className={
+                year === 999
+                  ? "m-1 text-gray-500 text-lg"
+                  : "m-1 hover:text-gray-500"
+              }
+              onClick={() => {
+                setYear(999);
+                setSearchKeyword("");
+              }}
+            >
+              [제한없음]
+            </span>
             <span
               className={
                 year === 0
