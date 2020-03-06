@@ -3,6 +3,7 @@ import Layout from "../../components/Layout";
 import JobList from "../../components/JobList";
 import NavBar from "../../components/NavBar";
 import fetch from "isomorphic-unfetch";
+import { useRootData } from "../../hooks";
 
 interface QueryType {
   type: string;
@@ -17,12 +18,15 @@ interface Props {
 
 export default function Post(props: Props) {
   const [data, setData] = React.useState(props.data);
-  const [year, setYear] = React.useState(0);
   const [searchKeyword, setSearchKeyword] = React.useState("");
 
-  // React.useEffect(() => {
-  //   props.year && setYear(props.year);
-  // }, []);
+  const store = useRootData(store => store);
+  const year = useRootData(store => store.year.get());
+  const setYear = year => store.setYear(year);
+
+  React.useEffect(() => {
+    store.setCurrentPage(props.query.type);
+  }, []);
 
   React.useEffect(() => {
     async function getData() {
@@ -61,7 +65,8 @@ export default function Post(props: Props) {
       await setData(newData);
       await setYear(0);
     }
-    getData();
+    searchKeyword && getData();
+    !searchKeyword && setData(props.data);
   }, [searchKeyword]);
 
   const displayYear = () => {
