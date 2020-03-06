@@ -1,10 +1,15 @@
 import * as React from "react";
 import fetch from "isomorphic-unfetch";
+import { useRootData } from "../hooks";
 
 import Post from "./t/[type]";
 
 const IndexPage = ({ data, updated }) => {
   let defaultQueryObject = { type: "frontend" };
+  const store = useRootData(store => store);
+  const { setCurrentPage } = store;
+  setCurrentPage("frontend");
+
   return (
     <>
       <Post query={defaultQueryObject} data={data} updated={updated} />
