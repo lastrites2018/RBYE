@@ -9,7 +9,8 @@ const Jobs = ({
   workingArea,
   searchKeyword
 }: Job) => {
-  const applyMultipleBlankToOneBlank = string => string.replace(/  +/g, " ");
+  const applyMultipleBlankToOneBlank = string =>
+    string && string.replace(/  +/g, " ");
 
   let requirement =
     contentObj.requirement &&
