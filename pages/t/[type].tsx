@@ -1,5 +1,6 @@
 import * as React from "react";
 import fetch from "isomorphic-unfetch";
+import parse from "date-fns/parse";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import koLocale from "date-fns/locale/ko";
 
@@ -141,7 +142,11 @@ export default function Post(props: Props) {
           <span className="text-gray-500 text-sm">
             데이터 수 {dataLength} 데이터 업데이트{" "}
             {formatDistanceToNow(
-              new Date(props.updated && props.updated[0][props.query.type]),
+              parse(
+                props.updated && props.updated[0][props.query.type],
+                "yyyy-M-dd HH:mm:ss",
+                new Date()
+              ),
               {
                 locale: koLocale
               }
