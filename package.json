@@ -9,6 +9,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "date-fns": "2.10.0",
     "isomorphic-unfetch": "3.0.0",
     "mobx": "5.15.4",
     "mobx-react-lite": "1.5.2",

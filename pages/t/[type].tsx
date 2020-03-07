@@ -1,8 +1,11 @@
 import * as React from "react";
-import Layout from "../../components/Layout";
-import JobList from "../../components/JobList";
-import NavBar from "../../components/NavBar";
 import fetch from "isomorphic-unfetch";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import koLocale from "date-fns/locale/ko";
+
+import JobList from "../../components/JobList";
+import Layout from "../../components/Layout";
+import NavBar from "../../components/NavBar";
 import { useRootData } from "../../hooks";
 
 interface QueryType {
@@ -99,8 +102,7 @@ export default function Post(props: Props) {
   }
 
   return (
-    <Layout title={`${props.query.type} 연차별 요구사항`}>
-      {/* <h1 className="text-center">{props.query.type} 연차별 요구사항 보기</h1> */}
+    <Layout title={`${props.query.type} 연차별 요구사항 - RBYE.NOW.SH`}>
       <NavBar
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
@@ -138,7 +140,16 @@ export default function Post(props: Props) {
           </div>
           <span className="text-gray-500 text-sm">
             데이터 수 {dataLength} 데이터 업데이트{" "}
-            {props.updated && props.updated[0]}
+            {formatDistanceToNow(
+              new Date(props.updated && props.updated[0][props.query.type]),
+              {
+                locale: koLocale
+              }
+            )}{" "}
+            전
+            <span className="text-gray-500 text-xs">
+              ({props.updated && props.updated[0][props.query.type]})
+            </span>
           </span>
         </div>
         <JobList data={data} searchKeyword={searchKeyword} />
