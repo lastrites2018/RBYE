@@ -75,8 +75,10 @@ export default function Post(props: Props) {
       await setData(newData);
       year !== 998 && (await setYear(0));
     }
-    searchKeyword && getData();
-    !searchKeyword && setData(props.data);
+    if (!year || year === 998) {
+      searchKeyword && getData();
+      !searchKeyword && setData(props.data);
+    }
   }, [searchKeyword]);
 
   const displayYear = () => {
