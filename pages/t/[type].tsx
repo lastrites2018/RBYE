@@ -46,6 +46,7 @@ export default function Post(props: Props) {
     }
 
     if (year === 999) {
+      // 제한없음
       return setData(
         props.data.filter(
           item =>
@@ -53,6 +54,11 @@ export default function Post(props: Props) {
             !item.contentObj.requirement.includes("년")
         )
       );
+    }
+
+    if (year === 998) {
+      // 신입
+      return;
     }
 
     if (year > 0) {
@@ -67,7 +73,7 @@ export default function Post(props: Props) {
       );
       const newData = await res.json();
       await setData(newData);
-      await setYear(0);
+      year !== 998 && (await setYear(0));
     }
     searchKeyword && getData();
     !searchKeyword && setData(props.data);
@@ -124,6 +130,19 @@ export default function Post(props: Props) {
               }}
             >
               [제한없음]
+            </span>
+            <span
+              className={
+                year === 998
+                  ? "m-1 text-gray-500 text-lg"
+                  : "m-1 hover:text-gray-500"
+              }
+              onClick={() => {
+                setYear(998);
+                setSearchKeyword("신입");
+              }}
+            >
+              [신입]
             </span>
             <span
               className={
