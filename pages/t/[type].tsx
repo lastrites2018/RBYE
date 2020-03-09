@@ -14,28 +14,42 @@ interface QueryType {
 }
 
 interface Props {
-  data?: Job[];
-  updated?: string[];
+  data: Job[];
+  updated: object[];
   query?: QueryType;
   // year?: number;
 }
 
 export default function Post(props: Props) {
-  const [data, setData] = React.useState(props.data);
+  const [data, setData] = React.useState(props.data || []);
   const [searchKeyword, setSearchKeyword] = React.useState("");
 
   const store = useRootData(store => store);
   const year = useRootData(store => store.year.get());
   const setYear = year => store.setYear(year);
 
+  if (
+    !Array.isArray(props.data) ||
+    props.data.length === 0 ||
+    !props.query?.type
+  ) {
+    return (
+      <Layout title="데이터 오류 | RBYE.NOW.SH">
+        <div className="text-center text-teal-500 text-xl">
+          이런, 데이터를 찾을 수가 없습니다. 정확한 경로인지 확인해주세요.
+        </div>
+      </Layout>
+    );
+  }
+
   React.useEffect(() => {
-    store.setCurrentPage(props.query.type);
+    props.query?.type && store.setCurrentPage(props.query?.type);
   }, []);
 
   React.useEffect(() => {
     async function getData() {
       const res = await fetch(
-        `https://rbye-api.now.sh/${props.query.type}?contentObj.requirement_like=${year}년`
+        `https://rbye-api.now.sh/${props.query?.type}?contentObj.requirement_like=${year}년`
       );
       const newData = await res.json();
       await setData(newData);
@@ -69,7 +83,7 @@ export default function Post(props: Props) {
   React.useEffect(() => {
     async function getData() {
       const res = await fetch(
-        `https://rbye-api.now.sh/${props.query.type}?q=${searchKeyword}`
+        `https://rbye-api.now.sh/${props.query?.type}?q=${searchKeyword}`
       );
       const newData = await res.json();
       await setData(newData);
@@ -82,7 +96,7 @@ export default function Post(props: Props) {
   }, [searchKeyword]);
 
   const displayYear = () => {
-    let temp = [];
+    let temp: JSX.Element[] = [];
     for (let i = 1; i < 11; i += 1) {
       temp.push(
         <span
@@ -111,7 +125,7 @@ export default function Post(props: Props) {
   }
 
   return (
-    <Layout title={`${props.query.type} 연차별 요구사항 - RBYE.NOW.SH`}>
+    <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.NOW.SH`}>
       <NavBar
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
@@ -162,16 +176,17 @@ export default function Post(props: Props) {
           </div>
           <span className="text-gray-500 text-sm">
             데이터 수 {dataLength} 데이터 업데이트{" "}
-            {formatDistanceToNow(
-              parse(
-                props.updated && props.updated[0][props.query.type],
-                "yyyy-M-dd HH:mm:ss",
-                new Date()
-              ),
-              {
-                locale: koLocale
-              }
-            )}{" "}
+            {props.updated[0]?.[props.query.type] &&
+              formatDistanceToNow(
+                parse(
+                  props.updated && props.updated[0][props.query.type],
+                  "yyyy-M-dd HH:mm:ss",
+                  new Date()
+                ),
+                {
+                  locale: koLocale
+                }
+              )}{" "}
             전
             <span className="text-gray-500 text-xs">
               ({props.updated && props.updated[0][props.query.type]})
@@ -187,8 +202,8 @@ export default function Post(props: Props) {
 Post.getInitialProps = async function({ query }) {
   const res = await fetch(`https://rbye-api.lastrites.now.sh/${query.type}`);
   const res2 = await fetch("https://rbye-api.lastrites.now.sh/updated");
-  const data = await res.json();
-  const updated = await res2.json();
+  const data: Job[] = await res.json();
+  const updated: object[] = await res2.json();
 
   return {
     data,
