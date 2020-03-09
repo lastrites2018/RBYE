@@ -22,11 +22,18 @@ interface Props {
 
 export default function Post(props: Props) {
   const [data, setData] = React.useState(props.data || []);
-  const [searchKeyword, setSearchKeyword] = React.useState("");
+  const [isFirstLoading, setIsFirstLoading] = React.useState(true);
 
   const store = useRootData(store => store);
   const year = useRootData(store => store.year.get());
+  const searchKeyword = useRootData(store => store.searchKeyword.get());
+  const currentCategory = useRootData(store => store.currentCategory.get());
+
   const setYear = year => store.setYear(year);
+  const setSearchKeyword = searchKeyword =>
+    store.setSearchKeyword(searchKeyword);
+  const setCurrentCategory = currentCategory =>
+    store.setCurrentCategory(currentCategory);
 
   if (
     !Array.isArray(props.data) ||
@@ -49,18 +56,32 @@ export default function Post(props: Props) {
   React.useEffect(() => {
     async function getData() {
       const res = await fetch(
+        `https://rbye-api.now.sh/${props.query?.type}?q=${searchKeyword}`
+      );
+      const newData = await res.json();
+      await setData(newData);
+      await setYear(0);
+    }
+    currentCategory !== "햇수" &&
+      currentCategory !== "제한없음" &&
+      !isFirstLoading &&
+      getData();
+  }, [searchKeyword]);
+
+  React.useEffect(() => {
+    async function getData() {
+      const res = await fetch(
         `https://rbye-api.now.sh/${props.query?.type}?contentObj.requirement_like=${year}년`
       );
       const newData = await res.json();
       await setData(newData);
     }
 
-    if (year === 0) {
+    if (currentCategory === "전체") {
       return setData(props.data);
     }
 
-    if (year === 999) {
-      // 제한없음
+    if (currentCategory === "제한없음") {
       return setData(
         props.data.filter(
           item =>
@@ -70,30 +91,14 @@ export default function Post(props: Props) {
       );
     }
 
-    if (year === 998) {
-      // 신입
-      return;
-    }
-
-    if (year > 0) {
+    if (year > 0 && currentCategory !== "신입") {
       getData();
     }
-  }, [year]);
+  }, [year, currentCategory]);
 
   React.useEffect(() => {
-    async function getData() {
-      const res = await fetch(
-        `https://rbye-api.now.sh/${props.query?.type}?q=${searchKeyword}`
-      );
-      const newData = await res.json();
-      await setData(newData);
-      year !== 998 && (await setYear(0));
-    }
-    if (!year || year === 998) {
-      searchKeyword && getData();
-      !searchKeyword && setData(props.data);
-    }
-  }, [searchKeyword]);
+    setIsFirstLoading(false);
+  }, []);
 
   const displayYear = () => {
     let temp: JSX.Element[] = [];
@@ -106,6 +111,7 @@ export default function Post(props: Props) {
           }
           onClick={() => {
             setYear(i);
+            setCurrentCategory("햇수");
             setSearchKeyword("");
           }}
         >
@@ -118,7 +124,11 @@ export default function Post(props: Props) {
   };
 
   let dataLength: number = 0;
-  if ((year && data.length) || searchKeyword) {
+  if (
+    (year && data.length) ||
+    searchKeyword ||
+    currentCategory === "제한없음"
+  ) {
     dataLength = data.length;
   } else if (!year) {
     dataLength = props.data && props.data.length;
@@ -126,22 +136,20 @@ export default function Post(props: Props) {
 
   return (
     <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.NOW.SH`}>
-      <NavBar
-        searchKeyword={searchKeyword}
-        setSearchKeyword={setSearchKeyword}
-      />
+      <NavBar />
       <div className="block m-auto lg:max-w-6xl">
         <div className="flex flex-wrap justify-between">
           <div className="flex flex-wrap cursor-pointer">
             {displayYear()}
             <span
               className={
-                year === 999
+                currentCategory === "제한없음"
                   ? "m-1 text-gray-500 text-lg"
                   : "m-1 hover:text-gray-500"
               }
               onClick={() => {
-                setYear(999);
+                setCurrentCategory("제한없음");
+                setYear(0);
                 setSearchKeyword("");
               }}
             >
@@ -149,12 +157,13 @@ export default function Post(props: Props) {
             </span>
             <span
               className={
-                year === 998
+                currentCategory === "신입"
                   ? "m-1 text-gray-500 text-lg"
                   : "m-1 hover:text-gray-500"
               }
               onClick={() => {
-                setYear(998);
+                setCurrentCategory("신입");
+                setYear(0);
                 setSearchKeyword("신입");
               }}
             >
@@ -162,12 +171,12 @@ export default function Post(props: Props) {
             </span>
             <span
               className={
-                year === 0
+                currentCategory === "전체"
                   ? "m-1 text-gray-500 text-lg"
                   : "m-1 hover:text-gray-500"
               }
               onClick={() => {
-                setYear(0);
+                setCurrentCategory("전체");
                 setSearchKeyword("");
               }}
             >
