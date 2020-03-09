@@ -4,7 +4,12 @@ import { useRootData } from "../hooks";
 
 import Post from "./t/[type]";
 
-const IndexPage = ({ data, updated }) => {
+interface Props {
+  data: Job[];
+  updated: object[];
+}
+
+const IndexPage = ({ data, updated }: Props) => {
   let defaultQueryObject = { type: "frontend" };
   const store = useRootData(store => store);
   const { setCurrentPage } = store;
@@ -20,8 +25,8 @@ const IndexPage = ({ data, updated }) => {
 IndexPage.getInitialProps = async function() {
   const res = await fetch("https://rbye-api.lastrites.now.sh/frontend");
   const res2 = await fetch("https://rbye-api.lastrites.now.sh/updated");
-  const data = await res.json();
-  const updated = await res2.json();
+  const data: Job[] = await res.json();
+  const updated: object[] = await res2.json();
 
   return {
     data,

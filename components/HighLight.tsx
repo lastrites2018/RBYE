@@ -1,7 +1,12 @@
 import React from "react";
 import Highlighter from "react-highlight-words";
 
-export default function HighLight({ searchText, content }) {
+interface IHighlight {
+  searchText: string | undefined;
+  content: string;
+}
+
+export default function HighLight({ searchText, content }: IHighlight) {
   if (!searchText) {
     return <>{content}</>;
   }

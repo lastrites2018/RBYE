@@ -2,7 +2,7 @@ import * as React from "react";
 
 interface Props {
   searchKeyword: string;
-  setSearchKeyword?: (searchKeyword: string) => void;
+  setSearchKeyword: (searchKeyword: string) => void;
 }
 
 const NavBar: React.FunctionComponent<Props> = ({
