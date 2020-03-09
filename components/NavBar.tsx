@@ -29,7 +29,7 @@ const NavBar: React.FunctionComponent = () => {
           type="text"
           value={word}
           placeholder="전체 텍스트 검색"
-          className="border border-solid border-blue-700 h-10 rounded-lg p-2"
+          className="border border-solid border-blue-700 h-10 rounded-lg p-2 w-56"
           onChange={e => setWord(e.target.value)}
           onKeyPress={e => e.key === "Enter" && startSearch(word)}
         />
