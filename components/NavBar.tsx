@@ -37,7 +37,7 @@ const NavBar: React.FunctionComponent = () => {
           type="submit"
           className="ml-2 bg-blue-600 text-white font-bold py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-dark hover:border-blue rounded"
           value="search"
-          onClick={() => startSearch(searchKeyword)}
+          onClick={() => startSearch(word)}
         >
           검색
         </button>
