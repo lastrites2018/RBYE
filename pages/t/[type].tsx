@@ -29,7 +29,6 @@ export default function Post(props: Props) {
   const currentPage = React.useRef(1);
   const totalPage = React.useRef(1);
   const rootRef = React.useRef(null);
-  const targetRef = React.useRef(null);
 
   const store = useRootData(store => store);
   const year = useRootData(store => store.year.get());
@@ -43,7 +42,7 @@ export default function Post(props: Props) {
     store.setCurrentCategory(currentCategory);
 
   const lastChildBefore = () =>
-    document.querySelector(".job-wrapper:nth-last-child(2)");
+    document.querySelector(".job-wrapper:last-child");
 
   React.useEffect(() => {
     const maxPage = (props.totalCount && props.totalCount / 30) || 1;
@@ -58,7 +57,7 @@ export default function Post(props: Props) {
     );
 
     const newData = await res.json();
-    setData([...data, ...newData]);
+    await setData([...data, ...newData]);
     setLoading(false);
   }, [data]);
 
@@ -86,8 +85,8 @@ export default function Post(props: Props) {
 
   useIntersectionObserver({
     root: rootRef.current,
-    target: targetRef.current,
-    onIntersect: async (entries, observer) => {
+    target: lastChildBefore,
+    onIntersect: (entries, observer) => {
       const intersectionObserverEntry = entries.pop();
       const isIntersecting = intersectionObserverEntry.isIntersecting;
 
@@ -101,9 +100,7 @@ export default function Post(props: Props) {
         !searchKeyword &&
         currentPage.current < totalPage.current
       ) {
-        await loadMoreData();
-        observer.unobserve(intersectionObserverEntry.target);
-        observer.observe(lastChildBefore());
+        loadMoreData();
       }
     }
   });
@@ -123,7 +120,6 @@ export default function Post(props: Props) {
 
   React.useEffect(() => {
     if (currentCategory === "전체") {
-      console.log("전체 call?");
       return setData(props.data);
     }
 
@@ -254,14 +250,12 @@ export default function Post(props: Props) {
             </span>
           </span>
         </div>
-        <div>
-          <JobList data={data} searchKeyword={searchKeyword} />
-          {searchKeyword && data.length === 0 && !loading && (
-            <div className="text-center text-teal-500 text-xl">
-              {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
-            </div>
-          )}
-        </div>
+        <JobList data={data} searchKeyword={searchKeyword} />
+        {searchKeyword && data.length === 0 && !loading && (
+          <div className="text-center text-teal-500 text-xl">
+            {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
+          </div>
+        )}
       </div>
     </Layout>
   );

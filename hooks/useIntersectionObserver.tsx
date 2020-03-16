@@ -4,7 +4,7 @@ export default ({
   root,
   target,
   onIntersect,
-  threshold = 1.0,
+  threshold = 0.1,
   rootMargin = "0px"
 }) => {
   useEffect(() => {
@@ -14,6 +14,7 @@ export default ({
       threshold
     });
 
+    target = target();
     if (!target) {
       return;
     }
