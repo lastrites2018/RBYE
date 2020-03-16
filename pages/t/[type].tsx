@@ -232,7 +232,7 @@ export default function Post(props: Props) {
           <span className="text-gray-500 text-sm">
             데이터 수{" "}
             {currentCategory === "전체" ? props.totalCount : data.length} 데이터
-            업데이트
+            업데이트{" "}
             {props.updated[0]?.[props.query.type] &&
               formatDistanceToNow(
                 parse(
