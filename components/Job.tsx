@@ -21,7 +21,7 @@ const Jobs = ({
   requirement = applyMultipleBlankToOneBlank(requirement); // 스타일 망가뜨리는 다중 공백 제거
 
   return (
-    <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3">
+    <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper">
       <h2 className="text-gray-700">
         {" "}
         <HighLight content={companyName} searchText={searchKeyword} />
