@@ -68,7 +68,6 @@ export default function Post(props: Props) {
       setLoading(true);
       const res = await fetch(requestLink);
       let newData = await res.json();
-
       if (currentCategory === "제한없음") {
         newData = newData.filter(
           item =>
@@ -80,7 +79,7 @@ export default function Post(props: Props) {
       setData(newData);
       setLoading(false);
     },
-    [data, year]
+    [data, year, currentCategory]
   );
 
   useIntersectionObserver({
@@ -231,8 +230,10 @@ export default function Post(props: Props) {
           </div>
           <span className="text-gray-500 text-sm">
             데이터 수{" "}
-            {currentCategory === "전체" ? props.totalCount : data.length} 데이터
-            업데이트{" "}
+            {!searchKeyword && currentCategory === "전체"
+              ? props.totalCount
+              : data.length}{" "}
+            데이터 업데이트{" "}
             {props.updated[0]?.[props.query.type] &&
               formatDistanceToNow(
                 parse(
@@ -250,6 +251,7 @@ export default function Post(props: Props) {
             </span>
           </span>
         </div>
+        {loading && <div className="spinner"></div>}
         <JobList data={data} searchKeyword={searchKeyword} />
         {searchKeyword && data.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">
