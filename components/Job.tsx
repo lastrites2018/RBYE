@@ -30,6 +30,12 @@ const Jobs = ({
 
   return (
     <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper relative">
+      <div
+        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-600"
+        style={{ right: "1rem", top: "-0.5rem" }}
+      >
+        {index + 1}/{totalDataCount}
+      </div>
       <h2 className="text-gray-700">
         {" "}
         <HighLight content={companyName} searchText={searchKeyword} />
@@ -66,12 +72,6 @@ const Jobs = ({
         <span className="ml-2 text-gray-500">
           마감일 <HighLight content={closingDate} searchText={searchKeyword} />
         </span>
-      </div>
-      <div
-        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-600"
-        style={{ left: "1rem", bottom: "-0.5rem" }}
-      >
-        {index + 1}/{totalDataCount}
       </div>
     </div>
   );
