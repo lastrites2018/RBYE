@@ -30,15 +30,15 @@ export default function Post(props: Props) {
   const totalPage = React.useRef(1);
   const rootRef = React.useRef(null);
 
-  const store = useRootData(store => store);
-  const year = useRootData(store => store.year.get());
-  const searchKeyword = useRootData(store => store.searchKeyword.get());
-  const currentCategory = useRootData(store => store.currentCategory.get());
+  const store = useRootData((store) => store);
+  const year = useRootData((store) => store.year.get());
+  const searchKeyword = useRootData((store) => store.searchKeyword.get());
+  const currentCategory = useRootData((store) => store.currentCategory.get());
 
-  const setYear = year => store.setYear(year);
-  const setSearchKeyword = searchKeyword =>
+  const setYear = (year) => store.setYear(year);
+  const setSearchKeyword = (searchKeyword) =>
     store.setSearchKeyword(searchKeyword);
-  const setCurrentCategory = currentCategory =>
+  const setCurrentCategory = (currentCategory) =>
     store.setCurrentCategory(currentCategory);
 
   const lastChildBefore = () =>
@@ -70,7 +70,7 @@ export default function Post(props: Props) {
       let newData = await res.json();
       if (currentCategory === "제한없음") {
         newData = newData.filter(
-          item =>
+          (item) =>
             item.contentObj.requirement &&
             !item.contentObj.requirement.includes("년")
         );
@@ -101,7 +101,7 @@ export default function Post(props: Props) {
       ) {
         loadMoreData();
       }
-    }
+    },
   });
 
   React.useEffect(() => {
@@ -143,22 +143,25 @@ export default function Post(props: Props) {
   const displayYear = () => {
     let temp: JSX.Element[] = [];
     for (let i = 1; i < 11; i += 1) {
-      temp.push(
-        <span
-          key={i}
-          className={
-            year === i ? "m-1 text-gray-500 text-lg" : "m-1 hover:text-gray-500"
-          }
-          onClick={() => {
-            setYear(i);
-            setCurrentCategory("햇수");
-            setSearchKeyword("");
-          }}
-        >
-          [{i}
-          년]
-        </span>
-      );
+      i !== 9 &&
+        temp.push(
+          <span
+            key={i}
+            className={
+              year === i
+                ? "m-1 text-gray-500 text-lg"
+                : "m-1 hover:text-gray-500"
+            }
+            onClick={() => {
+              setYear(i);
+              setCurrentCategory("햇수");
+              setSearchKeyword("");
+            }}
+          >
+            [{i}
+            년]
+          </span>
+        );
     }
     return temp;
   };
@@ -215,6 +218,48 @@ export default function Post(props: Props) {
             </span>
             <span
               className={
+                currentCategory === "주니어"
+                  ? "m-1 text-gray-500 text-lg"
+                  : "m-1 hover:text-gray-500"
+              }
+              onClick={() => {
+                setCurrentCategory("주니어");
+                setYear(0);
+                setSearchKeyword("주니어");
+              }}
+            >
+              [주니어]
+            </span>
+            <span
+              className={
+                currentCategory === "senior"
+                  ? "m-1 text-gray-500 text-lg"
+                  : "m-1 hover:text-gray-500"
+              }
+              onClick={() => {
+                setCurrentCategory("senior");
+                setYear(0);
+                setSearchKeyword("senior");
+              }}
+            >
+              [senior]
+            </span>
+            {/* <span
+              className={
+                currentCategory === "시니어"
+                  ? "m-1 text-gray-500 text-lg"
+                  : "m-1 hover:text-gray-500"
+              }
+              onClick={() => {
+                setCurrentCategory("시니어");
+                setYear(0);
+                setSearchKeyword("시니어");
+              }}
+            >
+              [시니어]
+            </span> */}
+            <span
+              className={
                 currentCategory === "전체"
                   ? "m-1 text-gray-500 text-lg"
                   : "m-1 hover:text-gray-500"
@@ -242,7 +287,7 @@ export default function Post(props: Props) {
                   new Date()
                 ),
                 {
-                  locale: koLocale
+                  locale: koLocale,
                 }
               )}{" "}
             전
@@ -263,7 +308,7 @@ export default function Post(props: Props) {
   );
 }
 
-Post.getInitialProps = async function({ query }) {
+Post.getInitialProps = async function ({ query }) {
   const res = await fetch(`https://rbye-api.lastrites.now.sh/${query.type}?_page=1&_limit=30
   `);
   const res2 = await fetch("https://rbye-api.lastrites.now.sh/updated");
@@ -276,6 +321,6 @@ Post.getInitialProps = async function({ query }) {
     data,
     updated,
     query,
-    totalCount
+    totalCount,
   };
 };
