@@ -1,5 +1,11 @@
 import HighLight from "./HighLight";
 
+interface IJob extends Job {
+  searchKeyword: string;
+  index: number;
+  totalDataCount: number | undefined;
+}
+
 const Jobs = ({
   subject,
   companyName,
@@ -7,9 +13,11 @@ const Jobs = ({
   link,
   closingDate,
   workingArea,
-  searchKeyword
-}: Job) => {
-  const applyMultipleBlankToOneBlank = string =>
+  searchKeyword,
+  index,
+  totalDataCount,
+}: IJob) => {
+  const applyMultipleBlankToOneBlank = (string) =>
     string && string.replace(/  +/g, " ");
 
   let requirement =
@@ -21,7 +29,7 @@ const Jobs = ({
   requirement = applyMultipleBlankToOneBlank(requirement); // 스타일 망가뜨리는 다중 공백 제거
 
   return (
-    <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper">
+    <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper relative">
       <h2 className="text-gray-700">
         {" "}
         <HighLight content={companyName} searchText={searchKeyword} />
@@ -58,6 +66,12 @@ const Jobs = ({
         <span className="ml-2 text-gray-500">
           마감일 <HighLight content={closingDate} searchText={searchKeyword} />
         </span>
+      </div>
+      <div
+        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-600"
+        style={{ left: "1rem", bottom: "-0.5rem" }}
+      >
+        {index + 1}/{totalDataCount}
       </div>
     </div>
   );

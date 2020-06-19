@@ -180,6 +180,11 @@ export default function Post(props: Props) {
     );
   }
 
+  const totalDataCount =
+    !searchKeyword && currentCategory === "전체"
+      ? props.totalCount
+      : data.length;
+
   return (
     <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.NOW.SH`}>
       <NavBar />
@@ -274,11 +279,7 @@ export default function Post(props: Props) {
             </span>
           </div>
           <span className="text-gray-500 text-sm">
-            데이터 수{" "}
-            {!searchKeyword && currentCategory === "전체"
-              ? props.totalCount
-              : data.length}{" "}
-            데이터 업데이트{" "}
+            데이터 수 {totalDataCount} 데이터 업데이트{" "}
             {props.updated[0]?.[props.query.type] &&
               formatDistanceToNow(
                 parse(
@@ -297,7 +298,11 @@ export default function Post(props: Props) {
           </span>
         </div>
         {loading && <div className="spinner"></div>}
-        <JobList data={data} searchKeyword={searchKeyword} />
+        <JobList
+          data={data}
+          searchKeyword={searchKeyword}
+          totalDataCount={totalDataCount}
+        />
         {searchKeyword && data.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">
             {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
