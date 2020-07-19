@@ -5,12 +5,16 @@ interface IJobList {
   data: Job[];
   searchKeyword: string;
   totalDataCount: number | undefined;
+  companyData?: any;
+  isMoreInfo: boolean;
 }
 
 export default React.memo(function JobList({
   data,
   searchKeyword,
   totalDataCount,
+  companyData,
+  isMoreInfo,
 }: IJobList) {
   return (
     <div className="break-word-and-keep-all">
@@ -22,6 +26,8 @@ export default React.memo(function JobList({
             {...job}
             index={index}
             totalDataCount={totalDataCount}
+            companyData={companyData}
+            isMoreInfo={isMoreInfo}
           />
         );
       })}

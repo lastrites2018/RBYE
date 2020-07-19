@@ -4,6 +4,8 @@ interface IJob extends Job {
   searchKeyword: string;
   index: number;
   totalDataCount: number | undefined;
+  companyData?: any;
+  isMoreInfo: boolean;
 }
 
 const Jobs = ({
@@ -16,6 +18,8 @@ const Jobs = ({
   searchKeyword,
   index,
   totalDataCount,
+  companyData,
+  isMoreInfo,
 }: IJob) => {
   const applyMultipleBlankToOneBlank = (string) =>
     string && string.replace(/  +/g, " ");
@@ -27,6 +31,11 @@ const Jobs = ({
       .replace(/• |\* /gi, "- ");
 
   requirement = applyMultipleBlankToOneBlank(requirement); // 스타일 망가뜨리는 다중 공백 제거
+
+  const companyInfoObject =
+    companyData &&
+    companyData.length > 0 &&
+    companyData.find((object) => object.원래이름 === companyName);
 
   return (
     <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper relative">
@@ -44,6 +53,55 @@ const Jobs = ({
         {" "}
         <HighLight content={subject} searchText={searchKeyword} />
       </p>
+      {isMoreInfo && companyInfoObject ? (
+        <div className="border-solid border-2 border-gray-500 rounded">
+          {companyInfoObject.인원 ? (
+            <>
+              {" "}
+              퇴사율 : {companyInfoObject.퇴사율}% 입사율 :{" "}
+              {companyInfoObject.입사율}% 인원 : {companyInfoObject.인원}명{" "}
+              {companyInfoObject.업력 ? <>업력: companyInfoObject.업력 </> : ""}
+              올해 입사자 평균연봉 : {companyInfoObject.올해입사자평균연봉}{" "}
+              평균연봉 : {companyInfoObject.평균연봉} 데이터 기록일 :{" "}
+              {companyInfoObject.createdAt}{" "}
+            </>
+          ) : (
+            <>
+              "정보 BLOCK"
+              <br />
+              데이터 기준일 : {companyInfoObject.createdAt}
+            </>
+          )}
+          <br />
+          <span className="text-gray-500">
+            이 정보는{" "}
+            <a
+              href={`${companyInfoObject.link || "http://kreditjob.com"}`}
+              target="_blank"
+              className="underline text-gray-800"
+            >
+              크레딧잡의 데이터
+            </a>
+            에 기초합니다. 정확한 정보는 링크로 방문해주세요.
+            <br />
+            {companyInfoObject.kisCode && (
+              <a
+                href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
+                target="_blank"
+                className="underline text-gray-800"
+              >
+                나이스평가정보 보기
+              </a>
+            )}
+          </span>
+        </div>
+      ) : isMoreInfo ? (
+        <div className="border-solid border-2 border-gray-500 rounded">
+          회사 상세 정보가 없습니다.
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="text-gray-600 sm:m-2 md:m-10 whitespace-pre-wrap">
         <HighLight content={requirement} searchText={searchKeyword} />
       </div>

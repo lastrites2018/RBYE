@@ -25,6 +25,8 @@ export default function Post(props: Props) {
   const [data, setData] = React.useState(props.data || []);
   const [isFirstLoading, setIsFirstLoading] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
+  const [isMoreInfo, setIsMoreInfo] = React.useState(false);
+  const [companyData, setCompanyData] = React.useState([]);
 
   const currentPage = React.useRef(1);
   const totalPage = React.useRef(1);
@@ -55,11 +57,21 @@ export default function Post(props: Props) {
     const res = await fetch(
       `https://rbye-api.now.sh/${props.query?.type}?_page=${currentPage.current}&_limit=30`
     );
+    console.log("res: ", res);
 
     const newData = await res.json();
     await setData([...data, ...newData]);
     setLoading(false);
   }, [data]);
+
+  const loadCompanyData = React.useCallback(async () => {
+    setLoading(true);
+    const res = await fetch(`https://rbye-api.now.sh/company`);
+    console.log("res: ", res);
+    const newData = await res.json();
+    await setCompanyData(newData);
+    setLoading(false);
+  }, [isMoreInfo]);
 
   const getData = React.useCallback(
     async (
@@ -107,6 +119,10 @@ export default function Post(props: Props) {
   React.useEffect(() => {
     props.query?.type && store.setCurrentPage(props.query?.type);
   }, []);
+
+  React.useEffect(() => {
+    isMoreInfo && companyData.length === 0 && loadCompanyData();
+  }, [isMoreInfo]);
 
   React.useEffect(() => {
     currentCategory !== "햇수" &&
@@ -187,6 +203,17 @@ export default function Post(props: Props) {
 
   return (
     <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.NOW.SH`}>
+      <div
+        className="text-center text-green-400 border-solid rounded-sm border-teal-500 border flex justify-around mx-20 "
+        onClick={() => setIsMoreInfo(!isMoreInfo)}
+      >
+        회사 정보 더 보기{" "}
+        {isMoreInfo ? (
+          <span className="text-teal-400 inline">ON</span>
+        ) : (
+          <span className="text-gray-400 inline">OFF</span>
+        )}
+      </div>
       <NavBar />
       <div className="block m-auto lg:max-w-6xl">
         <div className="flex flex-wrap justify-between">
@@ -279,7 +306,8 @@ export default function Post(props: Props) {
             </span>
           </div>
           <span className="text-gray-500 text-sm">
-            데이터 수 {totalDataCount} 데이터 업데이트{" "}
+            데이터 업데이트{" "}
+            {/* 데이터 수 {totalDataCount} 데이터 업데이트{" "} */}
             {props.updated[0]?.[props.query.type] &&
               formatDistanceToNow(
                 parse(
@@ -302,6 +330,8 @@ export default function Post(props: Props) {
           data={data}
           searchKeyword={searchKeyword}
           totalDataCount={totalDataCount}
+          companyData={companyData}
+          isMoreInfo={isMoreInfo}
         />
         {searchKeyword && data.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">
@@ -314,8 +344,9 @@ export default function Post(props: Props) {
 }
 
 Post.getInitialProps = async function ({ query }) {
-  const res = await fetch(`https://rbye-api.lastrites.now.sh/${query.type}?_page=1&_limit=30
-  `);
+  const res = await fetch(
+    `https://rbye-api.lastrites.now.sh/${query.type}?_page=1&_limit=30`
+  );
   const res2 = await fetch("https://rbye-api.lastrites.now.sh/updated");
   const data: Job[] = await res.json();
   const updated: object[] = await res2.json();
