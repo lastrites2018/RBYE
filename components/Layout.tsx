@@ -10,9 +10,9 @@ type Props = {
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
-  title = "기본 타이틀"
+  title = "기본 타이틀",
 }) => {
-  const currentPage = useRootData(store => store.currentPage.get());
+  const currentPage = useRootData((store) => store.currentPage.get());
 
   return (
     <div>
@@ -26,39 +26,38 @@ const Layout: React.FunctionComponent<Props> = ({
         />
       </Head>
       <div className="flex justify-center">
-        <h1 className="text-center mb-4">
+        <h1 className="text-center">
           <Link href={`/t/frontend`}>
             <a className={currentPage === "frontend" ? "bg-gray-400" : ""}>
-              프론트엔드 연차별 요구사항
+              프론트엔드
             </a>
           </Link>
         </h1>
         <span className="mx-2"> | </span>
-        <h1 className="text-center mb-4">
+        <h1 className="text-center">
           <Link href={`/t/nodejs`}>
             <a className={currentPage === "nodejs" ? "bg-gray-400" : ""}>
-              nodejs 연차별 요구사항
+              nodejs
             </a>
           </Link>
         </h1>
         <span className="mx-2"> | </span>
-        <h1 className="text-center mb-4">
+        <h1 className="text-center">
           <Link href={`/t/server`}>
             <a className={currentPage === "server" ? "bg-gray-400" : ""}>
               {" "}
-              백엔드 연차별 요구사항
+              백엔드
             </a>
           </Link>
         </h1>
         <span className="mx-2"> | </span>
-        <h1 className="text-center mb-4">
+        <h1 className="text-center">
           <Link href={`/t/pm`}>
-            <a className={currentPage === "pm" ? "bg-gray-400" : ""}>
-              PM 연차별 요구사항
-            </a>
+            <a className={currentPage === "pm" ? "bg-gray-400" : ""}>PM</a>
           </Link>
         </h1>
       </div>
+      <h1 className="text-center mb-4">연차별 요구사항</h1>
       {children}
       <Footer />
     </div>
