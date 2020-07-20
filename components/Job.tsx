@@ -60,7 +60,11 @@ const Jobs = ({
               {" "}
               퇴사율 : {companyInfoObject.퇴사율}% 입사율 :{" "}
               {companyInfoObject.입사율}% 인원 : {companyInfoObject.인원}명{" "}
-              {companyInfoObject.업력 ? <>업력: companyInfoObject.업력 </> : ""}
+              {companyInfoObject.업력 ? (
+                <>업력: {companyInfoObject.업력} </>
+              ) : (
+                ""
+              )}
               올해 입사자 평균연봉 : {companyInfoObject.올해입사자평균연봉}{" "}
               평균연봉 : {companyInfoObject.평균연봉} 데이터 기록일 :{" "}
               {companyInfoObject.createdAt}{" "}
