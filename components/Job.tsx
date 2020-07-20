@@ -43,7 +43,7 @@ const Jobs = ({
     <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper relative">
       <div
         className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-700 cursor-pointer"
-        style={{ right: "5rem", top: "-0.5rem" }}
+        style={{ right: "5.2rem", top: "-0.5rem" }}
         onClick={handleSetIsMoreInfo}
       >
         {isMoreInfo ? "ON" : "OFF"}
