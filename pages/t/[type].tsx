@@ -204,15 +204,17 @@ export default function Post(props: Props) {
   return (
     <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.NOW.SH`}>
       <div
-        className="text-center text-green-400 border-solid rounded-sm border-teal-500 border flex justify-around mx-20 "
+        className="text-center flex justify-around mx-20"
         onClick={() => setIsMoreInfo(!isMoreInfo)}
       >
-        회사 정보 더 보기{" "}
-        {isMoreInfo ? (
-          <span className="text-teal-400 inline">ON</span>
-        ) : (
-          <span className="text-gray-400 inline">OFF</span>
-        )}
+        <div className="px-6 text-green-400 border-solid rounded-sm border-teal-500 border">
+          회사 정보 더 보기{" "}
+          {isMoreInfo ? (
+            <span className="text-teal-400 inline">ON</span>
+          ) : (
+            <span className="text-gray-400 inline">OFF</span>
+          )}
+        </div>
       </div>
       <NavBar />
       <div className="block m-auto lg:max-w-6xl">
