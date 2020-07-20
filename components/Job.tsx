@@ -61,7 +61,7 @@ const Jobs = ({
               퇴사율 : {companyInfoObject.퇴사율}% 입사율 :{" "}
               {companyInfoObject.입사율}% 인원 : {companyInfoObject.인원}명{" "}
               {companyInfoObject.업력 ? (
-                <>업력: {companyInfoObject.업력} </>
+                <>업력: {companyInfoObject.업력} Years </>
               ) : (
                 ""
               )}
