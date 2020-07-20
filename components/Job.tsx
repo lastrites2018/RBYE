@@ -66,8 +66,9 @@ const Jobs = ({
                 ""
               )}
               올해 입사자 평균연봉 : {companyInfoObject.올해입사자평균연봉}{" "}
-              평균연봉 : {companyInfoObject.평균연봉} 데이터 기록일 :{" "}
-              {companyInfoObject.createdAt}{" "}
+              평균연봉 : {companyInfoObject.평균연봉}
+              <br />
+              데이터 기록일 : {companyInfoObject.createdAt}{" "}
             </>
           ) : (
             <>
@@ -86,7 +87,7 @@ const Jobs = ({
             >
               크레딧잡의 데이터
             </a>
-            에 기초합니다. 정확한 정보는 링크로 방문해주세요.
+            에 기초합니다.
             <br />
             {companyInfoObject.kisCode && (
               <a
