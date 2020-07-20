@@ -201,11 +201,13 @@ export default function Post(props: Props) {
       ? props.totalCount
       : data.length;
 
+  const handleSetIsMoreInfo = () => setIsMoreInfo(!isMoreInfo);
+
   return (
     <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.NOW.SH`}>
       <div
         className="text-center flex justify-around mx-20"
-        onClick={() => setIsMoreInfo(!isMoreInfo)}
+        onClick={handleSetIsMoreInfo}
       >
         <div className="px-6 text-green-400 border-solid rounded-sm border-teal-500 border">
           회사 정보 더 보기{" "}
@@ -334,6 +336,7 @@ export default function Post(props: Props) {
           totalDataCount={totalDataCount}
           companyData={companyData}
           isMoreInfo={isMoreInfo}
+          handleSetIsMoreInfo={handleSetIsMoreInfo}
         />
         {searchKeyword && data.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">
