@@ -111,7 +111,7 @@ const Jobs = ({
         </div>
       ) : isMoreInfo ? (
         <div className="border-solid border-2 border-gray-500 rounded">
-          회사 상세 정보가 없습니다.
+          RBYE에 기록된 회사 상세 정보가 없습니다.
         </div>
       ) : (
         <></>
