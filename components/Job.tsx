@@ -83,7 +83,7 @@ const Jobs = ({
             <>
               "크레딧잡 정보 BLOCK ✖️"
               <br />
-              데이터 기준일 : {companyInfoObject.createdAt}
+              데이터 기록일 : {companyInfoObject.createdAt}
             </>
           )}
           <br />
