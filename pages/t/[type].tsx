@@ -209,7 +209,7 @@ export default function Post(props: Props) {
         className="text-center flex justify-around mx-20"
         onClick={handleSetIsMoreInfo}
       >
-        <div className="px-6 text-green-400 border-solid rounded-sm border-teal-500 border">
+        <div className="px-6 text-green-400 border-solid rounded-sm border-teal-500 border cursor-pointer">
           회사 정보 더 보기{" "}
           {isMoreInfo ? (
             <span className="text-teal-400 inline">ON</span>
