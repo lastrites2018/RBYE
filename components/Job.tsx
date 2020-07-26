@@ -62,7 +62,7 @@ const Jobs = ({
         {" "}
         <HighLight content={subject} searchText={searchKeyword} />
       </p>
-      {isMoreInfo && companyInfoObject ? (
+      {isMoreInfo && companyInfoObject && !companyInfoObject.isError ? (
         <div className="border-solid border-2 border-gray-500 rounded">
           {companyInfoObject.인원 ? (
             <>
