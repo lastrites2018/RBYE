@@ -75,7 +75,7 @@ const Jobs = ({
                 Number(companyInfoObject.입사율).toFixed(0)}
               % 인원 : {companyInfoObject.인원}명{" "}
               {companyInfoObject.업력 ? (
-                <>업력: {companyInfoObject.업력} Years </>
+                <>업력: {companyInfoObject.업력}년 </>
               ) : (
                 ""
               )}
