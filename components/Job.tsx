@@ -82,26 +82,29 @@ const Jobs = ({
               올해 입사자 평균연봉 : {companyInfoObject.올해입사자평균연봉}{" "}
               평균연봉 : {companyInfoObject.평균연봉}
               <br />
-              데이터 기록일 : {companyInfoObject.createdAt}{" "}
+              데이터 기록일 : {companyInfoObject.createdAt.split(" ")[0] ||
+                ""}{" "}
+              {/* 데이터 기록일 : {companyInfoObject.createdAt}{" "} */}
             </>
           ) : (
             <>
               "크레딧잡 정보 BLOCK ✖️"
               <br />
-              데이터 기록일 : {companyInfoObject.createdAt}
+              데이터 기록일 : {companyInfoObject.createdAt.split(" ")[0] || ""}
             </>
           )}
           <br />
           <span className="text-gray-500">
-            이 정보는{" "}
+            {/* 이 정보는{" "} */}
+            출처 :{" "}
             <a
               href={`${companyInfoObject.link || "http://kreditjob.com"}`}
               target="_blank"
               className="underline text-gray-800"
             >
-              크레딧잡의 데이터
+              크레딧잡의 '{companyInfoObject.companyName}' 데이터
             </a>
-            에 기초합니다.
+            {/* 에 기초합니다. */}
             <br />
             {companyInfoObject.kisCode && (
               <a
