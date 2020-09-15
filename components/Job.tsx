@@ -82,15 +82,16 @@ const Jobs = ({
               올해 입사자 평균연봉 : {companyInfoObject.올해입사자평균연봉}{" "}
               평균연봉 : {companyInfoObject.평균연봉}
               <br />
-              데이터 기록일 : {companyInfoObject.createdAt.split(" ")[0] ||
-                ""}{" "}
-              {/* 데이터 기록일 : {companyInfoObject.createdAt}{" "} */}
+              크레딧잡 정보 체크시점 :{" "}
+              {companyInfoObject.createdAt.split(" ")[0] || ""}{" "}
+              {/* 크레딧잡 정보 체크시점 : {companyInfoObject.createdAt}{" "} */}
             </>
           ) : (
             <>
               "크레딧잡 정보 BLOCK ✖️"
               <br />
-              데이터 기록일 : {companyInfoObject.createdAt.split(" ")[0] || ""}
+              크레딧잡 정보 체크시점 :{" "}
+              {companyInfoObject.createdAt.split(" ")[0] || ""}
             </>
           )}
           <br />
