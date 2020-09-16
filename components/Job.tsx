@@ -107,15 +107,38 @@ const Jobs = ({
             </a>
             {/* 에 기초합니다. */}
             <br />
+            <span className="text-gray-500">외부 링크 : </span>
             {companyInfoObject.kisCode && (
               <a
                 href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
                 target="_blank"
-                className="underline text-gray-800"
+                className="underline text-gray-800 mr-3"
               >
-                나이스평가정보 보기
+                나이스평가
               </a>
             )}
+            {
+              <a
+                href={`https://www.jobplanet.co.kr/search?query=${encodeURI(
+                  companyInfoObject.companyName
+                )}`}
+                target="_blank"
+                className="underline text-gray-800 inline-block mr-3"
+              >
+                잡플래닛
+              </a>
+            }
+            {
+              <a
+                href={`http://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURI(
+                  companyInfoObject.companyName
+                )}`}
+                target="_blank"
+                className="underline text-gray-800 inline-block"
+              >
+                사람인
+              </a>
+            }
           </span>
         </div>
       ) : isMoreInfo ? (
