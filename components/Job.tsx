@@ -83,7 +83,7 @@ const Jobs = ({
               평균연봉 : {companyInfoObject.평균연봉}
               <br />
               크레딧잡 정보 체크시점 :{" "}
-              {companyInfoObject.updatedAt.split(" ")[0] || ""}{" "}
+              {companyInfoObject.updatedAt && companyInfoObject.updatedAt.split(" ")[0] || ""}{" "}
               {/* 크레딧잡 정보 체크시점 : {companyInfoObject.updatedAt}{" "} */}
             </>
           ) : (
@@ -91,7 +91,7 @@ const Jobs = ({
               "크레딧잡 정보 BLOCK ✖️"
               <br />
               크레딧잡 정보 체크시점 :{" "}
-              {companyInfoObject.updatedAt.split(" ")[0] || ""}
+              {companyInfoObject.updatedAt && companyInfoObject.updatedAt.split(" ")[0] || ""}
             </>
           )}
           <br />
