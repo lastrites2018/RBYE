@@ -1,6 +1,7 @@
 const Footer = () => {
   return (
     <footer className="bg-light py-3 text-center">
+      <div>RBYE [Requirements By Years of Experience]</div>
       <div>
         Made by lastrites2018
         <a
@@ -23,10 +24,11 @@ const Footer = () => {
           Wanted
         </a>
         의 데이터에 기반하며, 비영리적인 목적으로 사용합니다.
+        <p>데이터는 비정기적으로 업데이트 됩니다.</p>
         <p>
-          데이터는 비정기적으로 업데이트 되기에 최신 데이터가 아닐 수 있습니다.
+          구직의 목적이라면 직접 해당 사이트를 방문해서 정보를 확인하시길
+          권장합니다.
         </p>
-        <p>구직의 목적이라면 직접 원티드 사이트를 방문하시길 권장합니다.</p>
       </div>
     </footer>
   );
