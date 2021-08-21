@@ -83,7 +83,9 @@ const Jobs = ({
               평균연봉 : {companyInfoObject.평균연봉}
               <br />
               크레딧잡 정보 체크시점 :{" "}
-              {companyInfoObject.updatedAt && companyInfoObject.updatedAt.split(" ")[0] || ""}{" "}
+              {(companyInfoObject.updatedAt &&
+                companyInfoObject.updatedAt.split(" ")[0]) ||
+                ""}{" "}
               {/* 크레딧잡 정보 체크시점 : {companyInfoObject.updatedAt}{" "} */}
             </>
           ) : (
@@ -91,7 +93,9 @@ const Jobs = ({
               "크레딧잡 정보 BLOCK ✖️"
               <br />
               크레딧잡 정보 체크시점 :{" "}
-              {companyInfoObject.updatedAt && companyInfoObject.updatedAt.split(" ")[0] || ""}
+              {(companyInfoObject.updatedAt &&
+                companyInfoObject.updatedAt.split(" ")[0]) ||
+                ""}
             </>
           )}
           <br />
@@ -163,9 +167,12 @@ const Jobs = ({
         <HighLight content={contentObj?.mainTask} searchText={searchKeyword} />
       </p>
       <div className="text-right">
-        <p className="ml-2 text-gray-500 text-sm">
-          근무지 <HighLight content={workingArea} searchText={searchKeyword} />
-        </p>
+        {workingArea && (
+          <p className="ml-2 text-gray-500 text-sm">
+            근무지{" "}
+            <HighLight content={workingArea} searchText={searchKeyword} />
+          </p>
+        )}
         <a
           className="text-blue-600 hover:text-blue-400"
           href={link}
@@ -173,9 +180,12 @@ const Jobs = ({
         >
           <HighLight content={link} searchText={searchKeyword} />
         </a>
-        <span className="ml-2 text-gray-500">
-          마감일 <HighLight content={closingDate} searchText={searchKeyword} />
-        </span>
+        {closingDate && (
+          <span className="ml-2 text-gray-500">
+            마감일{" "}
+            <HighLight content={closingDate} searchText={searchKeyword} />
+          </span>
+        )}
       </div>
     </div>
   );
