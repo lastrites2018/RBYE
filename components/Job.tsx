@@ -152,7 +152,7 @@ const Jobs = ({
       ) : (
         <></>
       )}
-      <div className="text-gray-600 sm:m-2 md:m-10 whitespace-pre-wrap">
+      <div className="text-gray-600 sm:m-2 md:m-4 whitespace-pre-wrap">
         <HighLight content={requirement} searchText={searchKeyword} />
       </div>
       <h6 className="sm:m-2 md:m-4">우대사항</h6>
