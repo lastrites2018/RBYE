@@ -35,15 +35,16 @@ const Jobs = ({
   requirement = applyMultipleBlankToOneBlank(requirement); // 스타일 망가뜨리는 다중 공백 제거
 
   const companyInfoObject =
-    companyData &&
-    companyData.length > 0 &&
-    companyData.find((object) => object.원래이름 === companyName);
+    companyData.length > 0 ? companyData[0][companyName] : {};
 
   return (
     <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper relative">
       <div
         className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-700 cursor-pointer"
-        style={{ right: "5.2rem", top: "-0.5rem" }}
+        style={{
+          right: (totalDataCount || 0) > 1000 ? "5.4rem" : "5.2rem",
+          top: "-0.5rem",
+        }}
         onClick={handleSetIsMoreInfo}
       >
         {isMoreInfo ? "ON" : "OFF"}
