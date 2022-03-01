@@ -7,6 +7,7 @@ interface IJob extends Job {
   companyData?: any;
   isMoreInfo: boolean;
   handleSetIsMoreInfo: () => void;
+  companyLoading?: boolean;
 }
 
 const Jobs = ({
@@ -22,6 +23,7 @@ const Jobs = ({
   companyData,
   isMoreInfo,
   handleSetIsMoreInfo,
+  companyLoading,
 }: IJob) => {
   const applyMultipleBlankToOneBlank = (string) =>
     string && string.replace(/  +/g, " ");
@@ -65,7 +67,8 @@ const Jobs = ({
       </p>
       {isMoreInfo && companyInfoObject && !companyInfoObject.isError ? (
         <div className="border-solid border-2 border-gray-500 rounded">
-          {companyInfoObject.인원 ? (
+          {companyLoading && <span>회사 정보 로딩중...</span>}
+          {!companyLoading && companyInfoObject.인원 ? (
             <>
               {" "}
               퇴사율 :{" "}
