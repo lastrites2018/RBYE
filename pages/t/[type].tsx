@@ -10,6 +10,8 @@ import NavBar from "../../components/NavBar";
 import { useRootData } from "../../hooks";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
+import { apiUrl } from "../../utils/apiLocation";
+
 interface QueryType {
   type: string;
 }
@@ -55,7 +57,7 @@ export default function Post(props: Props) {
     setLoading(true);
     currentPage.current++;
     const res = await fetch(
-      `https://rbye-api.now.sh/${props.query?.type}?_page=${currentPage.current}&_limit=30`
+      `${apiUrl}/${props.query?.type}?_page=${currentPage.current}&_limit=30`
     );
     console.log("res: ", res);
 
@@ -66,8 +68,7 @@ export default function Post(props: Props) {
 
   const loadCompanyData = React.useCallback(async () => {
     setLoading(true);
-    const res = await fetch(`https://rbye-api.now.sh/company`);
-    console.log("res: ", res);
+    const res = await fetch(`${apiUrl}/company`);
     const newData = await res.json();
     await setCompanyData(newData);
     setLoading(false);
@@ -75,7 +76,7 @@ export default function Post(props: Props) {
 
   const getData = React.useCallback(
     async (
-      requestLink = `https://rbye-api.now.sh/${props.query?.type}?contentObj.requirement_like=${year}년`
+      requestLink = `${apiUrl}/${props.query?.type}?contentObj.requirement_like=${year}년`
     ) => {
       setLoading(true);
       const res = await fetch(requestLink);
@@ -128,9 +129,7 @@ export default function Post(props: Props) {
     currentCategory !== "햇수" &&
       currentCategory !== "제한없음" &&
       !isFirstLoading &&
-      getData(
-        `https://rbye-api.now.sh/${props.query?.type}?q=${searchKeyword}`
-      );
+      getData(`${apiUrl}/${props.query?.type}?q=${searchKeyword}`);
   }, [searchKeyword]);
 
   React.useEffect(() => {
@@ -139,7 +138,7 @@ export default function Post(props: Props) {
     }
 
     if (currentCategory === "제한없음") {
-      getData(`https://rbye-api.lastrites.now.sh/${props.query?.type}`);
+      getData(`${apiUrl}/${props.query?.type}`);
       return;
     }
 
@@ -349,10 +348,8 @@ export default function Post(props: Props) {
 }
 
 Post.getInitialProps = async function ({ query }) {
-  const res = await fetch(
-    `https://rbye-api.lastrites.now.sh/${query.type}?_page=1&_limit=30`
-  );
-  const res2 = await fetch("https://rbye-api.lastrites.now.sh/updated");
+  const res = await fetch(`${apiUrl}/${query.type}?_page=1&_limit=30`);
+  const res2 = await fetch(`${apiUrl}/updated`);
   const data: Job[] = await res.json();
   const updated: object[] = await res2.json();
 
