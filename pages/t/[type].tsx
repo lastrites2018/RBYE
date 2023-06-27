@@ -190,7 +190,7 @@ export default function Post(props: Props) {
     !props.query?.type
   ) {
     return (
-      <Layout title="데이터 오류 | RBYE.NOW.SH">
+      <Layout title="데이터 오류 | RBYE.VERCEL.APP">
         <div className="text-center text-teal-500 text-xl">
           이런, 데이터를 찾을 수가 없습니다. 정확한 경로인지 확인해주세요.
         </div>
@@ -206,7 +206,7 @@ export default function Post(props: Props) {
   const handleSetIsMoreInfo = () => setIsMoreInfo(!isMoreInfo);
 
   return (
-    <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.NOW.SH`}>
+    <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.VERCEL.APP`}>
       <div
         className="text-center flex justify-around mx-20"
         onClick={handleSetIsMoreInfo}
