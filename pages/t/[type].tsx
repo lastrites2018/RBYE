@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import fetch from "isomorphic-unfetch";
 import parse from "date-fns/parse";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -39,6 +39,7 @@ export default function Post(props: Props) {
   const year = useRootData((store) => store.year.get());
   const searchKeyword = useRootData((store) => store.searchKeyword.get());
   const currentCategory = useRootData((store) => store.currentCategory.get());
+  const currentPageName = useRootData((store) => store.currentPage.get());
 
   const setYear = (year) => store.setYear(year);
   const setSearchKeyword = (searchKeyword) =>
@@ -49,7 +50,7 @@ export default function Post(props: Props) {
   const lastChildBefore = () =>
     document.querySelector(".job-wrapper:last-child");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const maxPage = (props.totalCount && props.totalCount / 30) || 1;
     if (props.totalCount) totalPage.current = Number(maxPage.toFixed(0));
   }, []);
@@ -120,22 +121,30 @@ export default function Post(props: Props) {
     },
   });
 
-  React.useEffect(() => {
-    props.query?.type && store.setCurrentPage(props.query?.type);
-  }, []);
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (props.query?.type) {
+      store.setCurrentPage(props.query?.type);
+      setCurrentCategory("전체");
+      setSearchKeyword("");
+    }
+  }, [props.query?.type]);
+
+  useEffect(() => {
     isMoreInfo && companyData.length === 0 && loadCompanyData();
   }, [isMoreInfo]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     currentCategory !== "햇수" &&
       currentCategory !== "제한없음" &&
       !isFirstLoading &&
       getData(`${apiUrl}/${props.query?.type}?q=${searchKeyword}`);
   }, [searchKeyword]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentCategory === "전체") {
       return setData(props.data);
     }
@@ -154,7 +163,7 @@ export default function Post(props: Props) {
     }
   }, [year, currentCategory]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsFirstLoading(false);
   }, []);
 
