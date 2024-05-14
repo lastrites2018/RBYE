@@ -10,6 +10,6 @@ Requirements By Years of Experience
 
 https://rbye.vercel.app
 
-now.sh 도메인은 이제 잘 접속이 되지 않습니다. rbye.vercel.app으로 접속해주세요!
+rbye.now.sh 도메인은 이제 잘 접속이 되지 않습니다. rbye.vercel.app으로 접속해주세요!
 
 ###### 이 프로젝트는 https://github.com/kyrelldixon/next-tailwind-typescript-starter 보일러 플레이트의 도움을 받았습니다.
