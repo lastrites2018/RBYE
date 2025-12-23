@@ -27,7 +27,6 @@ export default function Post(props: Props) {
   const [data, setData] = React.useState(props.data || []);
   const [isFirstLoading, setIsFirstLoading] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
-  const [companyLoading, setCompanyLoading] = React.useState(false);
   const [isMoreInfo, setIsMoreInfo] = React.useState(false);
   const [companyData, setCompanyData] = React.useState([]);
 
@@ -70,12 +69,10 @@ export default function Post(props: Props) {
 
   const loadCompanyData = React.useCallback(async () => {
     setLoading(true);
-    setCompanyLoading(true);
     const res = await fetch(`${apiUrl}/company`);
     const newData = await res.json();
     await setCompanyData(newData);
     setLoading(false);
-    setCompanyLoading(false);
   }, [isMoreInfo]);
 
   const getData = React.useCallback(
@@ -348,7 +345,6 @@ export default function Post(props: Props) {
           companyData={companyData}
           isMoreInfo={isMoreInfo}
           handleSetIsMoreInfo={handleSetIsMoreInfo}
-          companyLoading={companyLoading}
         />
         {searchKeyword && data.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">

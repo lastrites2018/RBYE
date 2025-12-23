@@ -7,7 +7,6 @@ interface IJob extends Job {
   companyData?: any;
   isMoreInfo: boolean;
   handleSetIsMoreInfo: () => void;
-  companyLoading?: boolean;
 }
 
 const Jobs = ({
@@ -23,7 +22,6 @@ const Jobs = ({
   companyData,
   isMoreInfo,
   handleSetIsMoreInfo,
-  companyLoading,
 }: IJob) => {
   const applyMultipleBlankToOneBlank = (string) =>
     string && string.replace(/  +/g, " ");

@@ -8,7 +8,6 @@ interface IJobList {
   companyData?: any;
   isMoreInfo: boolean;
   handleSetIsMoreInfo: () => void;
-  companyLoading?: boolean;
 }
 
 export default React.memo(function JobList({
@@ -18,7 +17,6 @@ export default React.memo(function JobList({
   companyData,
   isMoreInfo,
   handleSetIsMoreInfo,
-  companyLoading,
 }: IJobList) {
   return (
     <div className="break-word-and-keep-all">
@@ -32,7 +30,6 @@ export default React.memo(function JobList({
             totalDataCount={totalDataCount}
             companyData={companyData}
             isMoreInfo={isMoreInfo}
-            companyLoading={companyLoading}
             handleSetIsMoreInfo={handleSetIsMoreInfo}
           />
         );
