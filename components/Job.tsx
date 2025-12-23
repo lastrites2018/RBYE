@@ -37,7 +37,7 @@ const Jobs = ({
   requirement = applyMultipleBlankToOneBlank(requirement); // 스타일 망가뜨리는 다중 공백 제거
 
   const companyInfoObject =
-    companyData.length > 0 ? companyData[0][companyName] : {};
+    companyData?.length > 0 ? companyData[0][companyName] : null;
 
   return (
     <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper relative">
@@ -65,93 +65,36 @@ const Jobs = ({
         {" "}
         <HighLight content={subject} searchText={searchKeyword} />
       </p>
-      {isMoreInfo && companyInfoObject && !companyInfoObject.isError ? (
+      {isMoreInfo ? (
         <div className="border-solid border-2 border-gray-500 rounded">
-          {companyLoading && <span>회사 정보 로딩중...</span>}
-          {!companyLoading && companyInfoObject.인원 ? (
-            <>
-              {" "}
-              퇴사율 :{" "}
-              {companyInfoObject.퇴사율 &&
-                Number(companyInfoObject.퇴사율).toFixed(0)}
-              % 입사율 :{" "}
-              {companyInfoObject.입사율 &&
-                Number(companyInfoObject.입사율).toFixed(0)}
-              % 인원 : {companyInfoObject.인원}명{" "}
-              {companyInfoObject.업력 ? (
-                <>업력: {companyInfoObject.업력}년 </>
-              ) : (
-                ""
-              )}
-              올해 입사자 평균연봉 : {companyInfoObject.올해입사자평균연봉}{" "}
-              평균연봉 : {companyInfoObject.평균연봉}
-              <br />
-              크레딧잡 정보 체크시점 :{" "}
-              {(companyInfoObject.updatedAt &&
-                companyInfoObject.updatedAt.split(" ")[0]) ||
-                ""}{" "}
-              {/* 크레딧잡 정보 체크시점 : {companyInfoObject.updatedAt}{" "} */}
-            </>
-          ) : (
-            <>
-              "크레딧잡 정보 BLOCK ✖️"
-              <br />
-              크레딧잡 정보 체크시점 :{" "}
-              {(companyInfoObject.updatedAt &&
-                companyInfoObject.updatedAt.split(" ")[0]) ||
-                ""}
-            </>
-          )}
-          <br />
-          <span className="text-gray-500">
-            {/* 이 정보는{" "} */}
-            출처 :{" "}
+          <span className="text-gray-500">외부 링크 : </span>
+          {companyInfoObject?.kisCode && (
             <a
-              href={`${companyInfoObject.link || "http://kreditjob.com"}`}
+              href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
               target="_blank"
-              className="underline text-gray-800"
+              className="underline text-gray-800 mr-3"
             >
-              크레딧잡의 '{companyInfoObject.companyName}' 데이터
+              나이스평가
             </a>
-            {/* 에 기초합니다. */}
-            <br />
-            <span className="text-gray-500">외부 링크 : </span>
-            {companyInfoObject.kisCode && (
-              <a
-                href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
-                target="_blank"
-                className="underline text-gray-800 mr-3"
-              >
-                나이스평가
-              </a>
-            )}
-            {
-              <a
-                href={`https://www.jobplanet.co.kr/search?query=${encodeURI(
-                  companyInfoObject.companyName
-                )}`}
-                target="_blank"
-                className="underline text-gray-800 inline-block mr-3"
-              >
-                잡플래닛
-              </a>
-            }
-            {
-              <a
-                href={`http://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURI(
-                  companyInfoObject.companyName
-                )}`}
-                target="_blank"
-                className="underline text-gray-800 inline-block"
-              >
-                사람인
-              </a>
-            }
-          </span>
-        </div>
-      ) : isMoreInfo ? (
-        <div className="border-solid border-2 border-gray-500 rounded">
-          RBYE에 기록된 회사 상세 정보가 없습니다.
+          )}
+          <a
+            href={`https://www.jobplanet.co.kr/search?query=${encodeURI(
+              companyInfoObject?.companyName || companyName
+            )}`}
+            target="_blank"
+            className="underline text-gray-800 inline-block mr-3"
+          >
+            잡플래닛
+          </a>
+          <a
+            href={`http://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURI(
+              companyInfoObject?.companyName || companyName
+            )}`}
+            target="_blank"
+            className="underline text-gray-800 inline-block"
+          >
+            사람인
+          </a>
         </div>
       ) : (
         <></>
