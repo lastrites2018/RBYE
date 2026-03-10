@@ -2,12 +2,14 @@ import * as React from "react";
 import Head from "next/head";
 import Footer from "./Footer";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type Props = {
   title?: string;
   children: React.ReactNode;
   pageType?: "job" | "stats" | "skillset";
   currentPage?: string;
+  canonicalPath?: string;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -15,10 +17,26 @@ const Layout: React.FunctionComponent<Props> = ({
   title = "기본 타이틀",
   pageType = "job",
   currentPage = "",
+  canonicalPath,
 }) => {
   const isStatsPage = pageType === "stats";
   const isSkillsetPage = pageType === "skillset";
   const isSpecialPage = pageType === "stats" || pageType === "skillset";
+  const router = useRouter();
+
+  const description =
+    pageType === "stats"
+      ? "기술 키워드별 채용 요구사항 통계를 제공합니다."
+      : pageType === "skillset"
+      ? "연차별 스킬셋 로드맵으로 학습 우선순위를 정리합니다."
+      : "RBYE: 웹개발자에게 연차별로 요구되는 능력을 빠르게 보여줍니다.";
+  const resolvedCanonicalPath = (
+    canonicalPath || (router.asPath ? router.asPath : "/")
+  ).split("?")[0];
+  const canonicalUrl = `https://rbye.vercel.app${
+    resolvedCanonicalPath.startsWith("/") ? resolvedCanonicalPath : `/${resolvedCanonicalPath}`
+  }`;
+  const pageTitle = title.includes("RBYE") ? title : `${title} | RBYE.VERCEL.APP`;
 
   const getPageTitle = () => {
     if (isStatsPage) return "기술 키워드 통계";
@@ -32,10 +50,19 @@ const Layout: React.FunctionComponent<Props> = ({
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta
-          name="description"
-          content="RBYE : 웹개발자에게 연차별로 요구되는 능력을 빠르게 보여줍니다."
-        />
+        <meta name="description" content={description} />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:site_name" content="RBYE" />
+        <meta property="og:image" content="https://rbye.vercel.app/github.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="https://rbye.vercel.app/github.png" />
+        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <div className="flex justify-center mb-2">
         <Link href={`/t/frontend`}>

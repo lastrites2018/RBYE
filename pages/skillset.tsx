@@ -414,7 +414,11 @@ const SkillsetPage = ({ stats }: Props) => {
   const coveragePercent = allVisibleSkills.length > 0 ? Math.round((checkedCount / allVisibleSkills.length) * 100) : 0;
 
   return (
-    <Layout title="스킬 로드맵 - RBYE.VERCEL.APP" pageType="skillset">
+    <Layout
+      title="스킬 로드맵 - RBYE.VERCEL.APP"
+      pageType="skillset"
+      canonicalPath="/skillset"
+    >
       <div className="block m-auto lg:max-w-3xl px-4">
         {/* 카테고리 */}
         <div className="flex justify-center gap-1 mb-6">

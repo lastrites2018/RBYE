@@ -213,8 +213,16 @@ export default function Post(props: Props) {
     props.data.length === 0 ||
     !props.query?.type
   ) {
+    const canonicalPath =
+      props.query && typeof props.query.type === "string"
+        ? `/t/${props.query.type}`
+        : "/t/frontend";
     return (
-      <Layout title="데이터 오류 | RBYE.VERCEL.APP" pageType="job">
+      <Layout
+        title="데이터 오류 | RBYE.VERCEL.APP"
+        pageType="job"
+        canonicalPath={canonicalPath}
+      >
         <div className="text-center text-teal-500 text-xl">
           이런, 데이터를 찾을 수가 없습니다. 정확한 경로인지 확인해주세요.
         </div>
@@ -226,6 +234,7 @@ export default function Post(props: Props) {
     !searchKeyword && currentCategory === "전체"
       ? props.totalCount
       : data.length;
+  const canonicalPath = `/t/${props.query?.type || "frontend"}`;
 
   const handleSetIsMoreInfo = () => setIsMoreInfo(!isMoreInfo);
 
@@ -234,6 +243,7 @@ export default function Post(props: Props) {
       title={`${props.query?.type} 연차별 요구사항 - RBYE.VERCEL.APP`}
       pageType="job"
       currentPage={currentPageName}
+      canonicalPath={canonicalPath}
     >
       <div
         className="text-center flex justify-around mx-20"
