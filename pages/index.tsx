@@ -30,17 +30,22 @@ const IndexPage = ({ data, updated, totalCount }: Props) => {
 };
 
 IndexPage.getInitialProps = async function () {
-  const res = await fetch(`${apiUrl}/frontend?_page=1&_limit=30`);
-  const res2 = await fetch(`${apiUrl}/updated`);
-  const data: Job[] = await res.json();
-  const updated: object[] = await res2.json();
-  const totalCount = Number(res.headers.get("X-Total-Count"));
+  try {
+    const res = await fetch(`${apiUrl}/frontend?_page=1&_limit=30`);
+    const res2 = await fetch(`${apiUrl}/updated`);
+    const data: Job[] = await res.json();
+    const updated: object[] = await res2.json();
+    const totalCount = Number(res.headers.get("X-Total-Count"));
 
-  return {
-    data,
-    updated,
-    totalCount,
-  };
+    return {
+      data,
+      updated,
+      totalCount,
+    };
+  } catch (e) {
+    console.error("API 요청 실패:", e);
+    return { data: [], updated: [{}], totalCount: 0 };
+  }
 };
 
 export default IndexPage;

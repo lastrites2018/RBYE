@@ -60,8 +60,6 @@ export default function Post(props: Props) {
     const res = await fetch(
       `${apiUrl}/${props.query?.type}?_page=${currentPage.current}&_limit=30`
     );
-    console.log("res: ", res);
-
     const newData = await res.json();
     await setData([...data, ...newData]);
     setLoading(false);
@@ -357,17 +355,22 @@ export default function Post(props: Props) {
 }
 
 Post.getInitialProps = async function ({ query }) {
-  const res = await fetch(`${apiUrl}/${query.type}?_page=1&_limit=30`);
-  const res2 = await fetch(`${apiUrl}/updated`);
-  const data: Job[] = await res.json();
-  const updated: object[] = await res2.json();
+  try {
+    const res = await fetch(`${apiUrl}/${query.type}?_page=1&_limit=30`);
+    const res2 = await fetch(`${apiUrl}/updated`);
+    const data: Job[] = await res.json();
+    const updated: object[] = await res2.json();
 
-  const totalCount = Number(res.headers.get("X-Total-Count"));
+    const totalCount = Number(res.headers.get("X-Total-Count"));
 
-  return {
-    data,
-    updated,
-    query,
-    totalCount,
-  };
+    return {
+      data,
+      updated,
+      query,
+      totalCount,
+    };
+  } catch (e) {
+    console.error("API 요청 실패:", e);
+    return { data: [], updated: [{}], query, totalCount: 0 };
+  }
 };
