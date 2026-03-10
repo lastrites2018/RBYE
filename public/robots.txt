@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_next/
+Disallow: /api/
+
+Sitemap: https://rbye.vercel.app/sitemap.xml
