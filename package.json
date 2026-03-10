@@ -11,20 +11,19 @@
   "dependencies": {
     "date-fns": "2.11.0",
     "isomorphic-unfetch": "3.0.0",
-    "mobx": "5.15.4",
-    "mobx-react-lite": "1.5.2",
     "next": "12.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-highlight-words": "0.16.0"
+    "react-highlight-words": "0.16.0",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "2.1.0",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "1.2.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.4.0",
     "typescript": "4.3.2"
   },
   "license": "ISC"
