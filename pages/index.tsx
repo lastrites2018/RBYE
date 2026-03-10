@@ -1,7 +1,6 @@
 import * as React from "react";
 import fetch from "isomorphic-unfetch";
 import { GetServerSideProps } from "next";
-import { useStore } from "../store";
 import { apiUrl } from "../utils/apiLocation";
 
 import Post from "./t/[type]";
@@ -13,9 +12,7 @@ interface Props {
 }
 
 const IndexPage = ({ data, updated, totalCount }: Props) => {
-  let defaultQueryObject = { type: "frontend" };
-  const setCurrentPage = useStore((state) => state.setCurrentPage);
-  setCurrentPage("frontend");
+  const defaultQueryObject = { type: "frontend" };
 
   return (
     <>

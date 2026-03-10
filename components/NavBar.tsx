@@ -1,13 +1,19 @@
 import * as React from "react";
-import { useStore } from "../store";
 
-const NavBar: React.FunctionComponent = () => {
+interface NavBarProps {
+  searchKeyword: string;
+  setSearchKeyword: (searchKeyword: string) => void;
+  setYear: (year: number) => void;
+  setCurrentCategory: (category: string) => void;
+}
+
+const NavBar: React.FunctionComponent<NavBarProps> = ({
+  searchKeyword,
+  setSearchKeyword,
+  setYear,
+  setCurrentCategory,
+}) => {
   const [word, setWord] = React.useState("");
-
-  const searchKeyword = useStore((state) => state.searchKeyword);
-  const setSearchKeyword = useStore((state) => state.setSearchKeyword);
-  const setYear = useStore((state) => state.setYear);
-  const setCurrentCategory = useStore((state) => state.setCurrentCategory);
 
   React.useEffect(() => {
     if (!searchKeyword) setWord("");

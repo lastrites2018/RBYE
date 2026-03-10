@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import fetch from "isomorphic-unfetch";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import parse from "date-fns/parse";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import koLocale from "date-fns/locale/ko";
@@ -8,7 +9,6 @@ import koLocale from "date-fns/locale/ko";
 import JobList from "../../components/JobList";
 import Layout from "../../components/Layout";
 import NavBar from "../../components/NavBar";
-import { useStore } from "../../store";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
 import { apiUrl } from "../../utils/apiLocation";
@@ -25,23 +25,22 @@ interface Props {
 }
 
 export default function Post(props: Props) {
+  const router = useRouter();
   const [data, setData] = React.useState(props.data || []);
   const [isFirstLoading, setIsFirstLoading] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [isMoreInfo, setIsMoreInfo] = React.useState(false);
   const [companyData, setCompanyData] = React.useState([]);
+  const [year, setYear] = React.useState(0);
+  const [searchKeyword, setSearchKeyword] = React.useState("");
+  const [currentCategory, setCurrentCategory] = React.useState("전체");
+  const [currentPageName, setCurrentPageName] = React.useState(
+    props.query?.type || ""
+  );
 
   const currentPage = React.useRef(1);
   const totalPage = React.useRef(1);
   const rootRef = React.useRef(null);
-
-  const year = useStore((state) => state.year);
-  const searchKeyword = useStore((state) => state.searchKeyword);
-  const currentCategory = useStore((state) => state.currentCategory);
-  const setYear = useStore((state) => state.setYear);
-  const setSearchKeyword = useStore((state) => state.setSearchKeyword);
-  const setCurrentCategory = useStore((state) => state.setCurrentCategory);
-  const setCurrentPage = useStore((state) => state.setCurrentPage);
 
   const lastChildBefore = () =>
     document.querySelector(".job-wrapper:last-child");
@@ -49,7 +48,7 @@ export default function Post(props: Props) {
   useEffect(() => {
     const maxPage = (props.totalCount && props.totalCount / 30) || 1;
     if (props.totalCount) totalPage.current = Number(maxPage.toFixed(0));
-  }, []);
+  }, [props.totalCount]);
 
   const loadMoreData = React.useCallback(async () => {
     try {
@@ -134,9 +133,11 @@ export default function Post(props: Props) {
 
   useEffect(() => {
     if (props.query?.type) {
-      setCurrentPage(props.query?.type);
+      setCurrentPageName(props.query.type);
       setCurrentCategory("전체");
       setSearchKeyword("");
+      setYear(0);
+      currentPage.current = 1;
     }
   }, [props.query?.type]);
 
@@ -169,6 +170,14 @@ export default function Post(props: Props) {
       getData();
     }
   }, [year, currentCategory]);
+
+  // URL q 파라미터 → searchKeyword 반영
+  useEffect(() => {
+    const q = router.query.q;
+    if (typeof q === "string" && q) {
+      setSearchKeyword(q);
+    }
+  }, [router.query.q]);
 
   useEffect(() => {
     setIsFirstLoading(false);
@@ -205,7 +214,7 @@ export default function Post(props: Props) {
     !props.query?.type
   ) {
     return (
-      <Layout title="데이터 오류 | RBYE.VERCEL.APP">
+      <Layout title="데이터 오류 | RBYE.VERCEL.APP" pageType="job">
         <div className="text-center text-teal-500 text-xl">
           이런, 데이터를 찾을 수가 없습니다. 정확한 경로인지 확인해주세요.
         </div>
@@ -221,12 +230,16 @@ export default function Post(props: Props) {
   const handleSetIsMoreInfo = () => setIsMoreInfo(!isMoreInfo);
 
   return (
-    <Layout title={`${props.query?.type} 연차별 요구사항 - RBYE.VERCEL.APP`}>
+    <Layout
+      title={`${props.query?.type} 연차별 요구사항 - RBYE.VERCEL.APP`}
+      pageType="job"
+      currentPage={currentPageName}
+    >
       <div
         className="text-center flex justify-around mx-20"
         onClick={handleSetIsMoreInfo}
       >
-        <div className="px-6 text-green-400 border-solid rounded-sm border-teal-500 border cursor-pointer">
+        <div className="px-6 text-green-600 border-solid rounded-sm border-teal-700 border cursor-pointer">
           회사 정보 더 보기{" "}
           {isMoreInfo ? (
             <span className="text-teal-400 inline">ON</span>
@@ -235,7 +248,12 @@ export default function Post(props: Props) {
           )}
         </div>
       </div>
-      <NavBar />
+      <NavBar
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+        setYear={setYear}
+        setCurrentCategory={setCurrentCategory}
+      />
       <div className="block m-auto lg:max-w-6xl">
         <div className="flex flex-wrap justify-between">
           <div className="flex flex-wrap cursor-pointer">
