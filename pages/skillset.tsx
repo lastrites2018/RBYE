@@ -57,6 +57,7 @@ const PHASE_CONFIG: { [category: string]: PhaseInfo[] } = {
     { key: "보조장비", phase: 3, title: "생태계", subtitle: "타입 시스템 · 상태관리 · API" },
     { key: "전투도구", phase: 4, title: "도구", subtitle: "CSS 프레임워크 · 번들러 · 버전관리" },
     { key: "고급장비", phase: 5, title: "인프라 & 테스트", subtitle: "테스팅 · CI/CD · 컨테이너" },
+    { key: "AI활용", phase: 6, title: "AI 활용", subtitle: "AI 도구 · LLM · 프롬프트 엔지니어링" },
   ],
   nodejs: [
     { key: "기본장착", phase: 1, title: "기초", subtitle: "런타임 언어와 OS" },
@@ -64,6 +65,7 @@ const PHASE_CONFIG: { [category: string]: PhaseInfo[] } = {
     { key: "보조장비", phase: 3, title: "데이터", subtitle: "데이터베이스와 ORM" },
     { key: "전투도구", phase: 4, title: "통신", subtitle: "API 설계와 메시징" },
     { key: "고급장비", phase: 5, title: "인프라 & 테스트", subtitle: "배포 · 모니터링 · 테스팅" },
+    { key: "AI활용", phase: 6, title: "AI 활용", subtitle: "LLM API · RAG · AI 백엔드" },
   ],
   server: [
     { key: "기본장착", phase: 1, title: "기초", subtitle: "언어와 OOP" },
@@ -71,12 +73,14 @@ const PHASE_CONFIG: { [category: string]: PhaseInfo[] } = {
     { key: "보조장비", phase: 3, title: "데이터", subtitle: "데이터베이스" },
     { key: "전투도구", phase: 4, title: "도구", subtitle: "빌드 도구와 버전관리" },
     { key: "고급장비", phase: 5, title: "인프라 & 아키텍처", subtitle: "MSA · 컨테이너 · 클라우드" },
+    { key: "AI활용", phase: 6, title: "AI 활용", subtitle: "LLM 서빙 · RAG 파이프라인 · AI 인프라" },
   ],
   pm: [
     { key: "기본장착", phase: 1, title: "방법론", subtitle: "애자일 · 성과 지표" },
     { key: "주무기", phase: 2, title: "협업", subtitle: "프로젝트 관리 도구" },
     { key: "보조장비", phase: 3, title: "데이터", subtitle: "분석과 실험" },
     { key: "전투도구", phase: 4, title: "디자인", subtitle: "UX/UI 협업" },
+    { key: "AI활용", phase: 5, title: "AI 활용", subtitle: "AI 서비스 기획 · 프롬프트 설계" },
   ],
 };
 
@@ -146,10 +150,10 @@ const SkillBar: React.FC<{
           style={{ width: `${Math.max(percent, 2)}%` }}
         />
       </div>
-      <span className="text-xs text-gray-500 w-10 text-right flex-shrink-0 tabular-nums">
+      <span className="text-sm text-gray-500 w-12 text-right flex-shrink-0 tabular-nums">
         {count}건
       </span>
-      <span className="text-xs text-gray-400 w-8 text-right flex-shrink-0 tabular-nums">
+      <span className="text-sm text-gray-400 w-10 text-right flex-shrink-0 tabular-nums">
         {percent}%
       </span>
     </div>
@@ -170,55 +174,67 @@ const PhaseSection: React.FC<{
   demandMap: Map<string, DemandLevel>;
   checkedSkills: Set<string>;
   checkMode: boolean;
+  collapsed: boolean;
+  onToggleCollapse: () => void;
   onToggleSkill: (skill: string) => void;
   onClickSkill: (skill: string) => void;
-}> = ({ info, roadmapArea, skills, totalJobs, demandMap, checkedSkills, checkMode, onToggleSkill, onClickSkill }) => {
+}> = ({ info, roadmapArea, skills, totalJobs, demandMap, checkedSkills, checkMode, collapsed, onToggleCollapse, onToggleSkill, onClickSkill }) => {
   const isEmpty = !skills || Object.keys(skills).length === 0;
   const sortedSkills = isEmpty ? [] : Object.entries(skills!).sort(([, a], [, b]) => b - a);
   const checkedCount = sortedSkills.filter(([s]) => checkedSkills.has(s)).length;
 
   return (
     <div className={`bg-white rounded-lg shadow-sm overflow-hidden ${isEmpty ? "opacity-50" : ""}`}>
-      <div className="px-4 py-3 border-b border-gray-100">
+      <div
+        className={`px-4 py-3 ${collapsed ? "" : "border-b border-gray-100"} ${checkMode && !isEmpty ? "cursor-pointer select-none" : ""}`}
+        onClick={checkMode && !isEmpty ? onToggleCollapse : undefined}
+      >
         <div className="flex items-center justify-between flex-wrap gap-1">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-white bg-teal-600 rounded px-1.5 py-0.5">
               {info.phase}
             </span>
-            <span className="text-sm font-semibold text-gray-800">{info.title}</span>
-            <span className="text-xs text-gray-400">{info.subtitle}</span>
+            <span className="text-base font-semibold text-gray-800">{info.title}</span>
+            <span className="text-sm text-gray-400">{info.subtitle}</span>
           </div>
-          {checkMode && sortedSkills.length > 0 && (
-            <span className="text-xs text-teal-600 font-medium">
-              {checkedCount}/{sortedSkills.length}
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            {checkMode && sortedSkills.length > 0 && (
+              <span className="text-sm text-teal-600 font-medium">
+                {checkedCount}/{sortedSkills.length}
+              </span>
+            )}
+            {checkMode && !isEmpty && (
+              <span className="text-gray-400 text-xs">{collapsed ? "▼" : "▲"}</span>
+            )}
+          </div>
         </div>
-        {roadmapArea && (
+        {!collapsed && roadmapArea && (
           <p className="text-xs text-gray-400 mt-1">{roadmapArea}</p>
         )}
       </div>
 
-      {isEmpty ? (
-        <div className="px-4 py-6 text-center text-gray-400 text-sm">
-          이 연차에서는 아직 요구되지 않는 영역입니다
-        </div>
-      ) : (
-        <div className="px-2 py-2 space-y-0.5">
-          {sortedSkills.map(([skill, count]) => (
-            <SkillBar
-              key={skill}
-              name={skill}
-              count={count}
-              totalJobs={totalJobs}
-              level={demandMap.get(skill) || "bonus"}
-              checked={checkedSkills.has(skill)}
-              checkMode={checkMode}
-              onToggle={() => onToggleSkill(skill)}
-              onClick={() => onClickSkill(skill)}
-            />
-          ))}
-        </div>
+      {!collapsed && (
+        isEmpty ? (
+          <div className="px-4 py-6 text-center text-gray-400 text-sm">
+            이 연차에서는 아직 요구되지 않는 영역입니다
+          </div>
+        ) : (
+          <div className="px-2 py-2 space-y-0.5">
+            {sortedSkills.map(([skill, count]) => (
+              <SkillBar
+                key={skill}
+                name={skill}
+                count={count}
+                totalJobs={totalJobs}
+                level={demandMap.get(skill) || "bonus"}
+                checked={checkedSkills.has(skill)}
+                checkMode={checkMode}
+                onToggle={() => onToggleSkill(skill)}
+                onClick={() => onClickSkill(skill)}
+              />
+            ))}
+          </div>
+        )
       )}
     </div>
   );
@@ -231,8 +247,8 @@ const RecommendationPanel: React.FC<{
   if (recommendations.length === 0) return null;
   return (
     <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 mb-5">
-      <h3 className="text-sm font-semibold text-teal-700 mb-1">다음에 배울 추천 기술</h3>
-      <p className="text-xs text-gray-500 mb-3">보유하지 않은 기술 중 시장 수요가 가장 높은 순서입니다.</p>
+      <h3 className="text-base font-semibold text-teal-700 mb-1">다음에 배울 추천 기술</h3>
+      <p className="text-sm text-gray-500 mb-3">보유하지 않은 기술 중 시장 수요가 가장 높은 순서입니다.</p>
       <div className="space-y-1.5">
         {recommendations.map((rec, i) => (
           <div
@@ -240,9 +256,9 @@ const RecommendationPanel: React.FC<{
             className="flex items-center gap-2 py-1 px-2 rounded cursor-pointer hover:bg-teal-100 transition-colors"
             onClick={() => onClickSkill(rec.name)}
           >
-            <span className="text-xs font-bold text-teal-600 w-4">{i + 1}.</span>
+            <span className="text-sm font-bold text-teal-600 w-4">{i + 1}.</span>
             <span className="text-sm font-medium text-gray-700">{rec.name}</span>
-            <span className="text-xs text-gray-400 flex-1 text-right">
+            <span className="text-sm text-gray-400 flex-1 text-right">
               {rec.count}건 ({rec.percent}%)
             </span>
           </div>
@@ -257,13 +273,13 @@ const PassiveSkills: React.FC<{ skills: string[] }> = ({ skills }) => {
   return (
     <div className="mt-5">
       <div className="bg-gray-50 border border-dashed border-gray-200 rounded-lg p-4">
-        <h3 className="text-sm font-semibold text-gray-600 mb-1">기본 소양</h3>
-        <p className="text-xs text-gray-400 mb-3">공고에 명시되지 않지만 기본으로 요구되는 영역</p>
+        <h3 className="text-base font-semibold text-gray-600 mb-1">기본 소양</h3>
+        <p className="text-sm text-gray-400 mb-3">공고에 명시되지 않지만 기본으로 요구되는 영역</p>
         <div className="flex flex-wrap gap-1.5">
           {skills.map((skill) => (
             <span
               key={skill}
-              className="px-2 py-1 bg-white border border-gray-200 text-gray-500 rounded text-xs"
+              className="px-2 py-1 bg-white border border-gray-200 text-gray-500 rounded text-sm"
             >
               {skill}
             </span>
@@ -282,18 +298,69 @@ const SkillsetPage = ({ stats }: Props) => {
   const [selectedYear, setSelectedYear] = React.useState("전체");
   const [checkMode, setCheckMode] = React.useState(false);
   const [checkedSkills, setCheckedSkills] = React.useState<Set<string>>(new Set());
+  const [collapsedPhases, setCollapsedPhases] = React.useState<Set<string>>(new Set());
+
+  // 접힘 상태 localStorage 복원
+  React.useEffect(() => {
+    try {
+      const saved = localStorage.getItem(`rbye-collapsed-${selectedCategory}`);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setCollapsedPhases(Array.isArray(parsed) ? new Set(parsed) : new Set());
+      } else {
+        setCollapsedPhases(new Set());
+      }
+    } catch {
+      setCollapsedPhases(new Set());
+    }
+  }, [selectedCategory]);
+
+  const toggleCollapse = (phaseKey: string) => {
+    setCollapsedPhases((prev) => {
+      const next = new Set(prev);
+      if (next.has(phaseKey)) next.delete(phaseKey);
+      else next.add(phaseKey);
+      try { localStorage.setItem(`rbye-collapsed-${selectedCategory}`, JSON.stringify([...next])); } catch {}
+      return next;
+    });
+  };
+
+  const categoryData = stats[selectedCategory] || {};
+  const categoryStats = categoryData.categoryStats as CategoryStats | undefined;
+
+  // 현재 카테고리에 존재하는 모든 스킬 목록 (유효성 검증용)
+  const validSkills = React.useMemo(() => {
+    const set = new Set<string>();
+    const cs = categoryData.categoryStats as CategoryStats | undefined;
+    if (cs?.["전체"]) {
+      Object.values(cs["전체"]).forEach((slot: CategorySkills) => {
+        if (slot?.skills) Object.keys(slot.skills).forEach((s) => set.add(s));
+      });
+    }
+    return set;
+  }, [selectedCategory, categoryData]);
 
   React.useEffect(() => {
     try {
       const saved = localStorage.getItem(`rbye-skills-${selectedCategory}`);
-      setCheckedSkills(saved ? new Set(JSON.parse(saved)) : new Set());
+      if (saved) {
+        const parsed: string[] = JSON.parse(saved);
+        if (!Array.isArray(parsed)) throw new Error("invalid format");
+        // 삭제/변경된 기술은 제외하고 유효한 것만 복원
+        const filtered = parsed.filter((s) => validSkills.has(s));
+        setCheckedSkills(new Set(filtered));
+        // 유효하지 않은 항목이 있었으면 정리된 상태로 다시 저장
+        if (filtered.length !== parsed.length) {
+          localStorage.setItem(`rbye-skills-${selectedCategory}`, JSON.stringify(filtered));
+        }
+      } else {
+        setCheckedSkills(new Set());
+      }
     } catch {
       setCheckedSkills(new Set());
+      try { localStorage.removeItem(`rbye-skills-${selectedCategory}`); } catch {}
     }
-  }, [selectedCategory]);
-
-  const categoryData = stats[selectedCategory] || {};
-  const categoryStats = categoryData.categoryStats as CategoryStats | undefined;
+  }, [selectedCategory, validSkills]);
   const yearCategoryData = categoryStats?.[selectedYear] || {};
   const passiveSkills = (categoryData.passiveSkills as string[]) || [];
   const roadmapMapping = (categoryData.roadmapMapping as { [slot: string]: string }) || {};
@@ -417,7 +484,7 @@ const SkillsetPage = ({ stats }: Props) => {
         </div>
 
         {/* 모드 안내 */}
-        <p className="text-xs text-gray-400 text-center mb-5">
+        <p className="text-sm text-gray-400 text-center mb-5">
           {checkMode
             ? "보유한 기술을 체크하세요. 시장 대비 커버리지와 학습 추천을 제공합니다."
             : "기술을 클릭하면 해당 기술을 요구하는 채용공고로 이동합니다."}
@@ -441,6 +508,8 @@ const SkillsetPage = ({ stats }: Props) => {
                 demandMap={demandMap}
                 checkedSkills={checkedSkills}
                 checkMode={checkMode}
+                collapsed={checkMode && collapsedPhases.has(phaseInfo.key)}
+                onToggleCollapse={() => toggleCollapse(phaseInfo.key)}
                 onToggleSkill={toggleSkill}
                 onClickSkill={handleClickSkill}
               />
@@ -493,8 +562,9 @@ const SkillsetPage = ({ stats }: Props) => {
             </li>
             <li>
               <span className="font-medium text-gray-700">기본 소양</span> &mdash;
-              DNS, HTTP 원리, DOM 조작, OOP 등은 거의 모든 공고에서 당연시하여 명시하지 않지만
-              실무에서 기본으로 요구되는 영역입니다.
+              {passiveSkills.length > 0
+                ? `${passiveSkills.slice(0, 3).join(", ")} 등은 거의 모든 공고에서 당연시하여 명시하지 않지만 실무에서 기본으로 요구되는 영역입니다.`
+                : "공고에 명시되지 않지만 실무에서 기본으로 요구되는 영역이 있습니다."}
             </li>
           </ul>
         </div>
@@ -509,7 +579,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const res = await fetch(`${apiUrl}/stats`);
     const statsArray = await res.json();
     const stats = Array.isArray(statsArray) && statsArray.length > 0 ? statsArray[0] : statsArray;
-    if (stats.frontend?.categoryStats?.["전체"]?.["기본장착"]) {
+    if (stats.frontend?.categoryStats?.["전체"]?.["기본장착"] &&
+        stats.frontend?.categoryStats?.["전체"]?.["AI활용"]) {
       return { props: { stats } };
     }
   } catch {}
