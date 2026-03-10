@@ -12,28 +12,47 @@
           "HTML": 74,
           "CI/CD": 71,
           "Vue": 64,
+          "Node.js": 53,
           "Zustand": 48,
           "REST API": 44,
           "Redux": 40,
+          "LLM": 33,
           "Docker": 30,
           "Figma": 27,
           "Tailwind": 27,
           "Webpack": 27,
           "Vite": 25,
           "Recoil": 25,
+          "Cursor": 24,
           "Jest": 24,
           "Storybook": 24,
+          "Claude": 23,
           "React Query": 23,
+          "웹 접근성": 21,
           "Tanstack Query": 19,
+          "SEO": 18,
           "Angular": 17,
           "GraphQL": 16,
+          "Sentry": 15,
           "Cypress": 14,
+          "Vercel": 13,
+          "RAG": 12,
+          "프롬프트": 12,
+          "Emotion": 10,
+          "D3": 10,
+          "WebGL": 9,
+          "styled-components": 8,
           "Playwright": 8,
+          "Copilot": 8,
           "SCSS": 7,
+          "LangChain": 7,
           "Nuxt": 7,
+          "ChatGPT": 7,
           "MobX": 7,
           "jQuery": 6,
+          "OpenAI": 5,
           "Sass": 4,
+          "Gemini": 3,
           "Svelte": 3
         },
         "10년": {
@@ -46,29 +65,48 @@
           "HTML": 54,
           "Vue": 52,
           "CI/CD": 49,
+          "Node.js": 36,
           "Zustand": 31,
           "REST API": 29,
           "Redux": 27,
           "Docker": 24,
           "Figma": 20,
+          "LLM": 20,
           "Webpack": 20,
           "Tailwind": 19,
           "Storybook": 17,
           "Vite": 16,
+          "SEO": 15,
+          "웹 접근성": 15,
           "Angular": 15,
           "Recoil": 15,
           "Jest": 14,
+          "Claude": 13,
           "React Query": 12,
           "Tanstack Query": 12,
+          "Cursor": 12,
+          "Sentry": 11,
           "GraphQL": 9,
+          "Vercel": 9,
           "Cypress": 8,
+          "D3": 8,
           "SCSS": 6,
+          "RAG": 6,
           "Nuxt": 6,
+          "Emotion": 5,
+          "WebGL": 5,
+          "프롬프트": 5,
           "MobX": 5,
+          "ChatGPT": 4,
+          "Copilot": 4,
+          "OpenAI": 4,
+          "LangChain": 4,
           "Playwright": 4,
           "jQuery": 3,
           "Svelte": 3,
-          "Sass": 3
+          "Sass": 3,
+          "Gemini": 2,
+          "styled-components": 2
         },
         "3년": {
           "React": 120,
@@ -80,28 +118,47 @@
           "HTML": 35,
           "Vue": 32,
           "CI/CD": 27,
+          "Node.js": 24,
           "Zustand": 22,
           "REST API": 19,
           "Redux": 19,
           "Figma": 15,
+          "LLM": 14,
           "Docker": 13,
+          "SEO": 13,
           "Tailwind": 13,
           "React Query": 13,
           "Jest": 13,
           "Angular": 12,
           "Recoil": 12,
           "Webpack": 11,
+          "웹 접근성": 10,
           "Storybook": 10,
           "Vite": 9,
+          "Claude": 8,
+          "Cursor": 8,
           "GraphQL": 7,
+          "Vercel": 7,
           "Cypress": 6,
+          "D3": 6,
+          "Sentry": 5,
           "SCSS": 5,
           "Tanstack Query": 5,
+          "WebGL": 5,
+          "RAG": 4,
+          "프롬프트": 4,
           "Nuxt": 4,
+          "Emotion": 3,
           "Svelte": 3,
           "Playwright": 2,
+          "OpenAI": 2,
+          "LangChain": 2,
+          "styled-components": 2,
           "Sass": 2,
-          "MobX": 1
+          "Gemini": 1,
+          "MobX": 1,
+          "ChatGPT": 1,
+          "Copilot": 1
         },
         "4년": {
           "React": 123,
@@ -113,27 +170,45 @@
           "HTML": 37,
           "Vue": 35,
           "CI/CD": 30,
+          "Node.js": 26,
           "Zustand": 21,
           "REST API": 19,
           "Redux": 18,
+          "LLM": 15,
           "Tailwind": 14,
           "Jest": 14,
           "Docker": 13,
           "Webpack": 13,
           "Figma": 13,
+          "SEO": 12,
           "React Query": 12,
           "Recoil": 11,
           "Angular": 11,
+          "웹 접근성": 10,
           "Storybook": 10,
           "Vite": 10,
+          "Claude": 8,
+          "Cursor": 8,
+          "Vercel": 7,
           "SCSS": 6,
           "Cypress": 6,
+          "D3": 6,
           "GraphQL": 6,
+          "Sentry": 5,
+          "WebGL": 5,
           "Tanstack Query": 4,
+          "RAG": 4,
+          "프롬프트": 4,
           "Nuxt": 4,
+          "Emotion": 3,
           "Svelte": 3,
+          "OpenAI": 3,
           "Playwright": 2,
           "MobX": 2,
+          "ChatGPT": 2,
+          "Copilot": 2,
+          "LangChain": 2,
+          "styled-components": 2,
           "Sass": 2,
           "jQuery": 1
         },
@@ -147,29 +222,48 @@
           "HTML": 49,
           "Vue": 45,
           "CI/CD": 42,
+          "Node.js": 32,
           "REST API": 28,
           "Zustand": 27,
           "Redux": 25,
           "Docker": 21,
           "Figma": 18,
+          "LLM": 18,
           "Webpack": 18,
           "Jest": 17,
           "Tailwind": 16,
+          "SEO": 15,
+          "웹 접근성": 15,
           "Recoil": 14,
           "Vite": 14,
           "React Query": 13,
           "Storybook": 13,
           "Angular": 13,
           "Tanstack Query": 10,
+          "Claude": 10,
+          "Sentry": 9,
           "Cypress": 9,
+          "Cursor": 9,
+          "D3": 8,
+          "Vercel": 8,
           "GraphQL": 7,
           "SCSS": 6,
+          "Emotion": 6,
+          "RAG": 6,
+          "WebGL": 5,
+          "프롬프트": 5,
           "Nuxt": 5,
           "Playwright": 4,
           "MobX": 3,
+          "Copilot": 3,
           "jQuery": 3,
           "Svelte": 3,
-          "Sass": 3
+          "OpenAI": 3,
+          "LangChain": 3,
+          "Sass": 3,
+          "ChatGPT": 2,
+          "styled-components": 2,
+          "Gemini": 1
         },
         "6년": {
           "React": 162,
@@ -181,29 +275,48 @@
           "HTML": 49,
           "Vue": 46,
           "CI/CD": 41,
+          "Node.js": 31,
           "REST API": 26,
           "Zustand": 26,
           "Redux": 24,
           "Docker": 21,
+          "LLM": 18,
           "Webpack": 18,
           "Figma": 17,
           "Tailwind": 17,
           "Jest": 15,
+          "SEO": 14,
+          "웹 접근성": 14,
           "Vite": 14,
           "Recoil": 14,
           "Storybook": 13,
           "React Query": 12,
           "Angular": 12,
+          "Claude": 10,
+          "Sentry": 9,
           "Tanstack Query": 9,
+          "Cursor": 9,
+          "Vercel": 8,
           "Cypress": 7,
+          "D3": 7,
           "GraphQL": 7,
           "SCSS": 6,
+          "RAG": 6,
+          "Emotion": 5,
+          "WebGL": 5,
+          "프롬프트": 5,
           "Nuxt": 5,
           "MobX": 3,
+          "Copilot": 3,
           "jQuery": 3,
           "Svelte": 3,
+          "OpenAI": 3,
+          "LangChain": 3,
           "Playwright": 3,
-          "Sass": 3
+          "Sass": 3,
+          "ChatGPT": 2,
+          "styled-components": 2,
+          "Gemini": 1
         },
         "7년": {
           "React": 170,
@@ -215,29 +328,48 @@
           "HTML": 52,
           "Vue": 49,
           "CI/CD": 47,
+          "Node.js": 32,
           "Zustand": 32,
           "REST API": 27,
           "Redux": 27,
           "Docker": 21,
+          "LLM": 20,
           "Figma": 19,
           "Tailwind": 19,
           "Webpack": 19,
           "Recoil": 16,
+          "SEO": 15,
+          "웹 접근성": 15,
           "Jest": 15,
           "Storybook": 15,
           "Vite": 14,
           "React Query": 13,
           "Angular": 13,
           "Tanstack Query": 12,
+          "Sentry": 11,
+          "Claude": 11,
+          "Cursor": 10,
+          "Vercel": 9,
           "Cypress": 8,
+          "D3": 8,
           "GraphQL": 8,
           "SCSS": 6,
+          "RAG": 6,
           "Nuxt": 6,
+          "Emotion": 5,
+          "WebGL": 5,
+          "프롬프트": 5,
           "MobX": 5,
           "Playwright": 5,
+          "Copilot": 4,
+          "OpenAI": 4,
+          "LangChain": 4,
+          "ChatGPT": 3,
           "jQuery": 3,
           "Svelte": 3,
-          "Sass": 3
+          "Sass": 3,
+          "styled-components": 2,
+          "Gemini": 1
         },
         "8년": {
           "React": 171,
@@ -249,13 +381,17 @@
           "HTML": 52,
           "Vue": 50,
           "CI/CD": 46,
+          "Node.js": 33,
           "Zustand": 31,
           "REST API": 28,
           "Redux": 26,
           "Docker": 22,
+          "LLM": 20,
           "Figma": 19,
           "Tailwind": 19,
           "Webpack": 18,
+          "SEO": 15,
+          "웹 접근성": 15,
           "Recoil": 15,
           "Jest": 14,
           "Storybook": 14,
@@ -263,15 +399,30 @@
           "Angular": 13,
           "React Query": 12,
           "Tanstack Query": 11,
+          "Claude": 11,
+          "Sentry": 10,
+          "Cursor": 10,
+          "Vercel": 9,
           "Cypress": 8,
+          "D3": 8,
           "GraphQL": 8,
           "SCSS": 6,
+          "RAG": 6,
           "Nuxt": 6,
+          "Emotion": 5,
+          "WebGL": 5,
+          "프롬프트": 5,
           "MobX": 5,
+          "Copilot": 4,
+          "OpenAI": 4,
+          "LangChain": 4,
           "Playwright": 4,
+          "ChatGPT": 3,
           "jQuery": 3,
           "Svelte": 3,
-          "Sass": 3
+          "Sass": 3,
+          "styled-components": 2,
+          "Gemini": 1
         },
         "9년": {
           "React": 171,
@@ -283,13 +434,17 @@
           "HTML": 52,
           "Vue": 50,
           "CI/CD": 46,
+          "Node.js": 33,
           "Zustand": 31,
           "REST API": 28,
           "Redux": 26,
           "Docker": 22,
+          "LLM": 20,
           "Figma": 19,
           "Tailwind": 19,
           "Webpack": 18,
+          "SEO": 15,
+          "웹 접근성": 15,
           "Recoil": 15,
           "Jest": 14,
           "Storybook": 14,
@@ -297,15 +452,30 @@
           "Angular": 13,
           "React Query": 12,
           "Tanstack Query": 11,
+          "Claude": 11,
+          "Sentry": 10,
+          "Cursor": 10,
+          "Vercel": 9,
           "Cypress": 8,
+          "D3": 8,
           "GraphQL": 8,
           "SCSS": 6,
+          "RAG": 6,
           "Nuxt": 6,
+          "Emotion": 5,
+          "WebGL": 5,
+          "프롬프트": 5,
           "MobX": 5,
+          "Copilot": 4,
+          "OpenAI": 4,
+          "LangChain": 4,
           "Playwright": 4,
+          "ChatGPT": 3,
           "jQuery": 3,
           "Svelte": 3,
-          "Sass": 3
+          "Sass": 3,
+          "styled-components": 2,
+          "Gemini": 1
         },
         "제한없음": {
           "React": 62,
@@ -315,26 +485,42 @@
           "CSS": 24,
           "Git": 23,
           "CI/CD": 16,
+          "Node.js": 13,
           "HTML": 13,
+          "LLM": 12,
           "Zustand": 11,
           "Vue": 9,
           "REST API": 9,
+          "Cursor": 9,
+          "Claude": 8,
           "Redux": 8,
+          "프롬프트": 7,
           "Vite": 6,
           "Docker": 6,
+          "RAG": 6,
           "Tailwind": 6,
           "React Query": 6,
           "Recoil": 6,
           "GraphQL": 5,
+          "styled-components": 5,
           "Webpack": 5,
+          "Vercel": 4,
+          "WebGL": 4,
           "Tanstack Query": 3,
+          "LangChain": 3,
           "Figma": 3,
           "jQuery": 3,
+          "Sentry": 3,
+          "웹 접근성": 3,
           "Jest": 3,
+          "Emotion": 3,
           "MobX": 2,
+          "Copilot": 2,
+          "ChatGPT": 2,
           "Sass": 1,
           "Playwright": 1,
           "Storybook": 1,
+          "D3": 1,
           "Nuxt": 1,
           "Cypress": 1
         },
@@ -345,17 +531,23 @@
           "JavaScript": 15,
           "CSS": 15,
           "Next.js": 13,
+          "Node.js": 8,
           "CI/CD": 7,
           "HTML": 7,
           "Redux": 7,
           "Zustand": 7,
+          "SEO": 5,
+          "웹 접근성": 5,
           "Vue": 4,
           "Figma": 3,
+          "Claude": 3,
+          "Cursor": 3,
           "Jest": 3,
           "Cypress": 3,
           "Recoil": 3,
           "React Query": 3,
           "REST API": 3,
+          "D3": 3,
           "Tailwind": 3,
           "GraphQL": 3,
           "Angular": 2,
@@ -363,9 +555,11 @@
           "Storybook": 2,
           "Vite": 2,
           "Webpack": 2,
+          "Gemini": 1,
           "SCSS": 1,
           "Playwright": 1,
-          "Docker": 1
+          "Docker": 1,
+          "LLM": 1
         },
         "2년": {
           "React": 53,
@@ -376,8 +570,10 @@
           "Next.js": 21,
           "CI/CD": 14,
           "HTML": 14,
+          "Node.js": 13,
           "Vue": 11,
           "Zustand": 10,
+          "SEO": 8,
           "Redux": 8,
           "React Query": 8,
           "Tailwind": 7,
@@ -391,12 +587,23 @@
           "GraphQL": 5,
           "Webpack": 5,
           "Tanstack Query": 4,
+          "LLM": 4,
+          "Claude": 4,
           "Recoil": 4,
+          "Cursor": 4,
           "Storybook": 4,
+          "웹 접근성": 4,
           "Vite": 4,
+          "D3": 3,
+          "Vercel": 3,
+          "Emotion": 2,
           "Playwright": 2,
+          "Copilot": 2,
           "MobX": 1,
+          "Sentry": 1,
+          "ChatGPT": 1,
           "Nuxt": 1,
+          "WebGL": 1,
           "Sass": 1
         },
         "0년": {
@@ -409,9 +616,12 @@
               "skills": {
                 "JavaScript": 121,
                 "CSS": 105,
-                "HTML": 74
+                "HTML": 74,
+                "Node.js": 53,
+                "웹 접근성": 21,
+                "SEO": 18
               },
-              "total": 300
+              "total": 392
             },
             "주무기": {
               "skills": {
@@ -445,10 +655,12 @@
                 "Tailwind": 27,
                 "Webpack": 27,
                 "Vite": 25,
+                "Emotion": 10,
+                "styled-components": 8,
                 "SCSS": 7,
                 "Sass": 4
               },
-              "total": 195
+              "total": 213
             },
             "고급장비": {
               "skills": {
@@ -457,10 +669,29 @@
                 "Figma": 27,
                 "Jest": 24,
                 "Storybook": 24,
+                "Sentry": 15,
                 "Cypress": 14,
+                "Vercel": 13,
+                "D3": 10,
+                "WebGL": 9,
                 "Playwright": 8
               },
-              "total": 198
+              "total": 245
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 33,
+                "Cursor": 24,
+                "Claude": 23,
+                "RAG": 12,
+                "프롬프트": 12,
+                "Copilot": 8,
+                "ChatGPT": 7,
+                "LangChain": 7,
+                "OpenAI": 5,
+                "Gemini": 3
+              },
+              "total": 134
             }
           },
           "10년": {
@@ -468,9 +699,12 @@
               "skills": {
                 "JavaScript": 91,
                 "CSS": 71,
-                "HTML": 54
+                "HTML": 54,
+                "Node.js": 36,
+                "SEO": 15,
+                "웹 접근성": 15
               },
-              "total": 216
+              "total": 282
             },
             "주무기": {
               "skills": {
@@ -505,9 +739,11 @@
                 "Tailwind": 19,
                 "Vite": 16,
                 "SCSS": 6,
-                "Sass": 3
+                "Emotion": 5,
+                "Sass": 3,
+                "styled-components": 2
               },
-              "total": 131
+              "total": 138
             },
             "고급장비": {
               "skills": {
@@ -516,10 +752,29 @@
                 "Figma": 20,
                 "Storybook": 17,
                 "Jest": 14,
+                "Sentry": 11,
+                "Vercel": 9,
                 "Cypress": 8,
+                "D3": 8,
+                "WebGL": 5,
                 "Playwright": 4
               },
-              "total": 136
+              "total": 169
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 20,
+                "Claude": 13,
+                "Cursor": 12,
+                "RAG": 6,
+                "프롬프트": 5,
+                "ChatGPT": 4,
+                "OpenAI": 4,
+                "Copilot": 4,
+                "LangChain": 4,
+                "Gemini": 2
+              },
+              "total": 74
             }
           },
           "3년": {
@@ -527,9 +782,12 @@
               "skills": {
                 "JavaScript": 58,
                 "CSS": 49,
-                "HTML": 35
+                "HTML": 35,
+                "Node.js": 24,
+                "SEO": 13,
+                "웹 접근성": 10
               },
-              "total": 142
+              "total": 189
             },
             "주무기": {
               "skills": {
@@ -563,9 +821,11 @@
                 "Webpack": 11,
                 "Vite": 9,
                 "SCSS": 5,
-                "Sass": 2
+                "Emotion": 3,
+                "Sass": 2,
+                "styled-components": 2
               },
-              "total": 93
+              "total": 98
             },
             "고급장비": {
               "skills": {
@@ -574,10 +834,29 @@
                 "Jest": 13,
                 "Docker": 13,
                 "Storybook": 10,
+                "Vercel": 7,
                 "Cypress": 6,
+                "D3": 6,
+                "Sentry": 5,
+                "WebGL": 5,
                 "Playwright": 2
               },
-              "total": 86
+              "total": 109
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 14,
+                "Claude": 8,
+                "Cursor": 8,
+                "RAG": 4,
+                "프롬프트": 4,
+                "OpenAI": 2,
+                "LangChain": 2,
+                "ChatGPT": 1,
+                "Gemini": 1,
+                "Copilot": 1
+              },
+              "total": 45
             }
           },
           "4년": {
@@ -585,9 +864,12 @@
               "skills": {
                 "JavaScript": 60,
                 "CSS": 51,
-                "HTML": 37
+                "HTML": 37,
+                "Node.js": 26,
+                "SEO": 12,
+                "웹 접근성": 10
               },
-              "total": 148
+              "total": 196
             },
             "주무기": {
               "skills": {
@@ -622,9 +904,11 @@
                 "Webpack": 13,
                 "Vite": 10,
                 "SCSS": 6,
-                "Sass": 2
+                "Emotion": 3,
+                "Sass": 2,
+                "styled-components": 2
               },
-              "total": 98
+              "total": 103
             },
             "고급장비": {
               "skills": {
@@ -633,10 +917,28 @@
                 "Docker": 13,
                 "Figma": 13,
                 "Storybook": 10,
+                "Vercel": 7,
                 "Cypress": 6,
+                "D3": 6,
+                "Sentry": 5,
+                "WebGL": 5,
                 "Playwright": 2
               },
-              "total": 88
+              "total": 111
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 15,
+                "Claude": 8,
+                "Cursor": 8,
+                "RAG": 4,
+                "프롬프트": 4,
+                "OpenAI": 3,
+                "ChatGPT": 2,
+                "Copilot": 2,
+                "LangChain": 2
+              },
+              "total": 48
             }
           },
           "5년": {
@@ -644,9 +946,12 @@
               "skills": {
                 "JavaScript": 80,
                 "CSS": 66,
-                "HTML": 49
+                "HTML": 49,
+                "Node.js": 32,
+                "SEO": 15,
+                "웹 접근성": 15
               },
-              "total": 195
+              "total": 257
             },
             "주무기": {
               "skills": {
@@ -681,9 +986,11 @@
                 "Tailwind": 16,
                 "Vite": 14,
                 "SCSS": 6,
-                "Sass": 3
+                "Emotion": 6,
+                "Sass": 3,
+                "styled-components": 2
               },
-              "total": 119
+              "total": 127
             },
             "고급장비": {
               "skills": {
@@ -693,9 +1000,28 @@
                 "Jest": 17,
                 "Storybook": 13,
                 "Cypress": 9,
+                "Sentry": 9,
+                "Vercel": 8,
+                "D3": 8,
+                "WebGL": 5,
                 "Playwright": 4
               },
-              "total": 124
+              "total": 154
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 18,
+                "Claude": 10,
+                "Cursor": 9,
+                "RAG": 6,
+                "프롬프트": 5,
+                "OpenAI": 3,
+                "Copilot": 3,
+                "LangChain": 3,
+                "ChatGPT": 2,
+                "Gemini": 1
+              },
+              "total": 60
             }
           },
           "6년": {
@@ -703,9 +1029,12 @@
               "skills": {
                 "JavaScript": 82,
                 "CSS": 66,
-                "HTML": 49
+                "HTML": 49,
+                "Node.js": 31,
+                "SEO": 14,
+                "웹 접근성": 14
               },
-              "total": 197
+              "total": 256
             },
             "주무기": {
               "skills": {
@@ -740,9 +1069,11 @@
                 "Tailwind": 17,
                 "Vite": 14,
                 "SCSS": 6,
-                "Sass": 3
+                "Emotion": 5,
+                "Sass": 3,
+                "styled-components": 2
               },
-              "total": 118
+              "total": 125
             },
             "고급장비": {
               "skills": {
@@ -751,10 +1082,29 @@
                 "Figma": 17,
                 "Jest": 15,
                 "Storybook": 13,
+                "Sentry": 9,
+                "Vercel": 8,
                 "Cypress": 7,
+                "D3": 7,
+                "WebGL": 5,
                 "Playwright": 3
               },
-              "total": 117
+              "total": 146
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 18,
+                "Claude": 10,
+                "Cursor": 9,
+                "RAG": 6,
+                "프롬프트": 5,
+                "OpenAI": 3,
+                "Copilot": 3,
+                "LangChain": 3,
+                "ChatGPT": 2,
+                "Gemini": 1
+              },
+              "total": 60
             }
           },
           "7년": {
@@ -762,9 +1112,12 @@
               "skills": {
                 "JavaScript": 87,
                 "CSS": 69,
-                "HTML": 52
+                "HTML": 52,
+                "Node.js": 32,
+                "SEO": 15,
+                "웹 접근성": 15
               },
-              "total": 208
+              "total": 270
             },
             "주무기": {
               "skills": {
@@ -799,9 +1152,11 @@
                 "Webpack": 19,
                 "Vite": 14,
                 "SCSS": 6,
-                "Sass": 3
+                "Emotion": 5,
+                "Sass": 3,
+                "styled-components": 2
               },
-              "total": 124
+              "total": 131
             },
             "고급장비": {
               "skills": {
@@ -810,10 +1165,29 @@
                 "Figma": 19,
                 "Jest": 15,
                 "Storybook": 15,
+                "Sentry": 11,
+                "Vercel": 9,
                 "Cypress": 8,
-                "Playwright": 5
+                "D3": 8,
+                "Playwright": 5,
+                "WebGL": 5
               },
-              "total": 130
+              "total": 163
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 20,
+                "Claude": 11,
+                "Cursor": 10,
+                "RAG": 6,
+                "프롬프트": 5,
+                "OpenAI": 4,
+                "Copilot": 4,
+                "LangChain": 4,
+                "ChatGPT": 3,
+                "Gemini": 1
+              },
+              "total": 68
             }
           },
           "8년": {
@@ -821,9 +1195,12 @@
               "skills": {
                 "JavaScript": 88,
                 "CSS": 69,
-                "HTML": 52
+                "HTML": 52,
+                "Node.js": 33,
+                "SEO": 15,
+                "웹 접근성": 15
               },
-              "total": 209
+              "total": 272
             },
             "주무기": {
               "skills": {
@@ -858,9 +1235,11 @@
                 "Webpack": 18,
                 "Vite": 14,
                 "SCSS": 6,
-                "Sass": 3
+                "Emotion": 5,
+                "Sass": 3,
+                "styled-components": 2
               },
-              "total": 123
+              "total": 130
             },
             "고급장비": {
               "skills": {
@@ -869,10 +1248,29 @@
                 "Figma": 19,
                 "Jest": 14,
                 "Storybook": 14,
+                "Sentry": 10,
+                "Vercel": 9,
                 "Cypress": 8,
+                "D3": 8,
+                "WebGL": 5,
                 "Playwright": 4
               },
-              "total": 127
+              "total": 159
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 20,
+                "Claude": 11,
+                "Cursor": 10,
+                "RAG": 6,
+                "프롬프트": 5,
+                "OpenAI": 4,
+                "Copilot": 4,
+                "LangChain": 4,
+                "ChatGPT": 3,
+                "Gemini": 1
+              },
+              "total": 68
             }
           },
           "9년": {
@@ -880,9 +1278,12 @@
               "skills": {
                 "JavaScript": 88,
                 "CSS": 69,
-                "HTML": 52
+                "HTML": 52,
+                "Node.js": 33,
+                "SEO": 15,
+                "웹 접근성": 15
               },
-              "total": 209
+              "total": 272
             },
             "주무기": {
               "skills": {
@@ -917,9 +1318,11 @@
                 "Webpack": 18,
                 "Vite": 14,
                 "SCSS": 6,
-                "Sass": 3
+                "Emotion": 5,
+                "Sass": 3,
+                "styled-components": 2
               },
-              "total": 123
+              "total": 130
             },
             "고급장비": {
               "skills": {
@@ -928,10 +1331,29 @@
                 "Figma": 19,
                 "Jest": 14,
                 "Storybook": 14,
+                "Sentry": 10,
+                "Vercel": 9,
                 "Cypress": 8,
+                "D3": 8,
+                "WebGL": 5,
                 "Playwright": 4
               },
-              "total": 127
+              "total": 159
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 20,
+                "Claude": 11,
+                "Cursor": 10,
+                "RAG": 6,
+                "프롬프트": 5,
+                "OpenAI": 4,
+                "Copilot": 4,
+                "LangChain": 4,
+                "ChatGPT": 3,
+                "Gemini": 1
+              },
+              "total": 68
             }
           },
           "제한없음": {
@@ -939,9 +1361,11 @@
               "skills": {
                 "JavaScript": 25,
                 "CSS": 24,
-                "HTML": 13
+                "HTML": 13,
+                "Node.js": 13,
+                "웹 접근성": 3
               },
-              "total": 62
+              "total": 78
             },
             "주무기": {
               "skills": {
@@ -972,22 +1396,41 @@
                 "Git": 23,
                 "Tailwind": 6,
                 "Vite": 6,
+                "styled-components": 5,
                 "Webpack": 5,
+                "Emotion": 3,
                 "Sass": 1
               },
-              "total": 41
+              "total": 49
             },
             "고급장비": {
               "skills": {
                 "CI/CD": 16,
                 "Docker": 6,
+                "Vercel": 4,
+                "WebGL": 4,
                 "Jest": 3,
+                "Sentry": 3,
                 "Figma": 3,
                 "Cypress": 1,
                 "Playwright": 1,
-                "Storybook": 1
+                "Storybook": 1,
+                "D3": 1
               },
-              "total": 31
+              "total": 43
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 12,
+                "Cursor": 9,
+                "Claude": 8,
+                "프롬프트": 7,
+                "RAG": 6,
+                "LangChain": 3,
+                "ChatGPT": 2,
+                "Copilot": 2
+              },
+              "total": 49
             }
           },
           "1년": {
@@ -995,9 +1438,12 @@
               "skills": {
                 "CSS": 15,
                 "JavaScript": 15,
-                "HTML": 7
+                "Node.js": 8,
+                "HTML": 7,
+                "SEO": 5,
+                "웹 접근성": 5
               },
-              "total": 37
+              "total": 55
             },
             "주무기": {
               "skills": {
@@ -1037,11 +1483,21 @@
                 "Jest": 3,
                 "Cypress": 3,
                 "Figma": 3,
+                "D3": 3,
                 "Storybook": 2,
                 "Playwright": 1,
                 "Docker": 1
               },
-              "total": 20
+              "total": 23
+            },
+            "AI활용": {
+              "skills": {
+                "Claude": 3,
+                "Cursor": 3,
+                "LLM": 1,
+                "Gemini": 1
+              },
+              "total": 8
             }
           },
           "2년": {
@@ -1049,9 +1505,12 @@
               "skills": {
                 "JavaScript": 27,
                 "CSS": 25,
-                "HTML": 14
+                "HTML": 14,
+                "Node.js": 13,
+                "SEO": 8,
+                "웹 접근성": 4
               },
-              "total": 66
+              "total": 91
             },
             "주무기": {
               "skills": {
@@ -1084,9 +1543,10 @@
                 "SCSS": 5,
                 "Webpack": 5,
                 "Vite": 4,
+                "Emotion": 2,
                 "Sass": 1
               },
-              "total": 49
+              "total": 51
             },
             "고급장비": {
               "skills": {
@@ -1096,9 +1556,23 @@
                 "Figma": 6,
                 "Cypress": 5,
                 "Storybook": 4,
-                "Playwright": 2
+                "Vercel": 3,
+                "D3": 3,
+                "Playwright": 2,
+                "Sentry": 1,
+                "WebGL": 1
               },
-              "total": 43
+              "total": 51
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 4,
+                "Claude": 4,
+                "Cursor": 4,
+                "Copilot": 2,
+                "ChatGPT": 1
+              },
+              "total": 15
             }
           },
           "0년": {
@@ -1143,8 +1617,9 @@
           "기본장착": "Internet · HTML · CSS · JavaScript",
           "주무기": "Framework · SSR Framework",
           "보조장비": "TypeScript · 상태관리 · Web APIs",
-          "전투도구": "CSS 심화 · Build Tools · Version Control",
-          "고급장비": "Testing · 인프라 · 디자인 협업"
+          "전투도구": "CSS 심화 · CSS-in-JS · Build Tools · Version Control",
+          "고급장비": "Testing · 모니터링 · 배포 · 시각화",
+          "AI활용": "AI Engineer · AI Agents — AI 도구와 LLM 활용이 개발 워크플로에 빠르게 통합되고 있습니다"
         }
       },
       "nodejs": {
@@ -1156,6 +1631,7 @@
           "MySQL": 28,
           "Docker": 22,
           "Redis": 22,
+          "Python": 20,
           "NestJS": 19,
           "JavaScript": 17,
           "PostgreSQL": 16,
@@ -1164,15 +1640,31 @@
           "MongoDB": 13,
           "Kafka": 13,
           "Kubernetes": 11,
+          "LLM": 10,
           "GraphQL": 10,
           "TypeORM": 9,
+          "Claude": 8,
           "Express": 7,
           "Linux": 6,
           "Elasticsearch": 5,
           "Jest": 5,
           "RabbitMQ": 5,
+          "RAG": 3,
+          "MariaDB": 3,
+          "gRPC": 3,
+          "Copilot": 3,
+          "Datadog": 3,
+          "ChatGPT": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "프롬프트": 2,
+          "Cursor": 2,
+          "Terraform": 2,
+          "DynamoDB": 2,
+          "GitHub Actions": 2,
+          "Sequelize": 1,
+          "OpenAI": 1,
+          "LangChain": 1,
+          "Gemini": 1
         },
         "3년": {
           "Node.js": 27,
@@ -1185,6 +1677,7 @@
           "NestJS": 10,
           "JavaScript": 10,
           "PostgreSQL": 9,
+          "Python": 9,
           "CI/CD": 9,
           "Kafka": 8,
           "Kubernetes": 7,
@@ -1198,7 +1691,15 @@
           "Elasticsearch": 3,
           "RabbitMQ": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "LLM": 2,
+          "MariaDB": 2,
+          "gRPC": 2,
+          "Sequelize": 1,
+          "Claude": 1,
+          "Copilot": 1,
+          "Terraform": 1,
+          "GitHub Actions": 1,
+          "DynamoDB": 1
         },
         "4년": {
           "AWS": 29,
@@ -1210,6 +1711,7 @@
           "NestJS": 11,
           "Redis": 11,
           "PostgreSQL": 10,
+          "Python": 10,
           "JavaScript": 9,
           "Kafka": 8,
           "Kubernetes": 8,
@@ -1224,7 +1726,15 @@
           "Elasticsearch": 3,
           "RabbitMQ": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "LLM": 2,
+          "MariaDB": 2,
+          "gRPC": 2,
+          "Sequelize": 1,
+          "Claude": 1,
+          "Copilot": 1,
+          "Datadog": 1,
+          "Terraform": 1,
+          "DynamoDB": 1
         },
         "5년": {
           "AWS": 39,
@@ -1235,6 +1745,7 @@
           "Docker": 17,
           "Redis": 17,
           "NestJS": 15,
+          "Python": 15,
           "JavaScript": 13,
           "PostgreSQL": 12,
           "CI/CD": 11,
@@ -1247,10 +1758,23 @@
           "Linux": 6,
           "Jest": 5,
           "Express": 5,
+          "LLM": 4,
+          "Claude": 4,
           "RabbitMQ": 4,
           "Elasticsearch": 3,
+          "MariaDB": 3,
+          "gRPC": 3,
+          "Copilot": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "Cursor": 2,
+          "Datadog": 2,
+          "Terraform": 2,
+          "ChatGPT": 2,
+          "DynamoDB": 2,
+          "Sequelize": 1,
+          "Gemini": 1,
+          "GitHub Actions": 1,
+          "프롬프트": 1
         },
         "6년": {
           "AWS": 39,
@@ -1261,6 +1785,7 @@
           "Docker": 17,
           "NestJS": 15,
           "Redis": 15,
+          "Python": 14,
           "PostgreSQL": 12,
           "JavaScript": 12,
           "CI/CD": 11,
@@ -1273,10 +1798,23 @@
           "Linux": 6,
           "Jest": 5,
           "Express": 5,
+          "LLM": 4,
           "RabbitMQ": 4,
           "Elasticsearch": 3,
+          "MariaDB": 3,
+          "gRPC": 3,
+          "Claude": 3,
+          "Copilot": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "Datadog": 2,
+          "Terraform": 2,
+          "ChatGPT": 2,
+          "DynamoDB": 2,
+          "Sequelize": 1,
+          "Gemini": 1,
+          "GitHub Actions": 1,
+          "Cursor": 1,
+          "프롬프트": 1
         },
         "7년": {
           "AWS": 39,
@@ -1287,6 +1825,7 @@
           "Docker": 17,
           "NestJS": 15,
           "Redis": 15,
+          "Python": 14,
           "PostgreSQL": 13,
           "JavaScript": 12,
           "CI/CD": 11,
@@ -1297,12 +1836,25 @@
           "TypeORM": 7,
           "GraphQL": 7,
           "Linux": 6,
+          "LLM": 5,
           "Jest": 5,
           "Express": 5,
+          "Claude": 4,
           "RabbitMQ": 4,
           "Elasticsearch": 3,
+          "MariaDB": 3,
+          "gRPC": 3,
+          "Copilot": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "Datadog": 2,
+          "Terraform": 2,
+          "ChatGPT": 2,
+          "DynamoDB": 2,
+          "Sequelize": 1,
+          "Gemini": 1,
+          "GitHub Actions": 1,
+          "Cursor": 1,
+          "프롬프트": 1
         },
         "8년": {
           "AWS": 39,
@@ -1313,6 +1865,7 @@
           "Docker": 17,
           "Redis": 15,
           "NestJS": 14,
+          "Python": 14,
           "PostgreSQL": 12,
           "JavaScript": 12,
           "CI/CD": 11,
@@ -1323,12 +1876,25 @@
           "TypeORM": 7,
           "GraphQL": 7,
           "Linux": 6,
+          "LLM": 5,
           "Jest": 5,
           "Express": 5,
+          "Claude": 4,
           "RabbitMQ": 4,
           "Elasticsearch": 3,
+          "MariaDB": 3,
+          "gRPC": 3,
+          "Copilot": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "Datadog": 2,
+          "Terraform": 2,
+          "ChatGPT": 2,
+          "DynamoDB": 2,
+          "Sequelize": 1,
+          "Gemini": 1,
+          "GitHub Actions": 1,
+          "Cursor": 1,
+          "프롬프트": 1
         },
         "9년": {
           "AWS": 39,
@@ -1339,6 +1905,7 @@
           "Docker": 17,
           "Redis": 15,
           "NestJS": 14,
+          "Python": 14,
           "PostgreSQL": 12,
           "JavaScript": 12,
           "CI/CD": 11,
@@ -1349,12 +1916,25 @@
           "TypeORM": 7,
           "GraphQL": 7,
           "Linux": 6,
+          "LLM": 5,
           "Jest": 5,
           "Express": 5,
+          "Claude": 4,
           "RabbitMQ": 4,
           "Elasticsearch": 3,
+          "MariaDB": 3,
+          "gRPC": 3,
+          "Copilot": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "Datadog": 2,
+          "Terraform": 2,
+          "ChatGPT": 2,
+          "DynamoDB": 2,
+          "Sequelize": 1,
+          "Gemini": 1,
+          "GitHub Actions": 1,
+          "Cursor": 1,
+          "프롬프트": 1
         },
         "10년": {
           "AWS": 39,
@@ -1365,6 +1945,7 @@
           "Docker": 17,
           "Redis": 15,
           "NestJS": 14,
+          "Python": 14,
           "PostgreSQL": 12,
           "JavaScript": 12,
           "CI/CD": 11,
@@ -1375,21 +1956,38 @@
           "TypeORM": 7,
           "GraphQL": 7,
           "Linux": 6,
+          "LLM": 5,
           "Jest": 5,
           "Express": 5,
+          "Claude": 4,
           "RabbitMQ": 4,
           "Elasticsearch": 3,
+          "MariaDB": 3,
+          "gRPC": 3,
+          "Copilot": 3,
           "Prisma": 2,
-          "Sequelize": 1
+          "Datadog": 2,
+          "Terraform": 2,
+          "ChatGPT": 2,
+          "DynamoDB": 2,
+          "Sequelize": 1,
+          "Gemini": 1,
+          "GitHub Actions": 1,
+          "Cursor": 1,
+          "프롬프트": 1
         },
         "제한없음": {
           "Node.js": 14,
           "AWS": 11,
           "TypeScript": 9,
           "MySQL": 6,
+          "LLM": 5,
+          "Python": 5,
           "Git": 5,
           "Redis": 4,
           "Docker": 4,
+          "Claude": 3,
+          "RAG": 3,
           "NestJS": 3,
           "JavaScript": 3,
           "MongoDB": 3,
@@ -1399,8 +1997,13 @@
           "REST API": 2,
           "PostgreSQL": 2,
           "GraphQL": 2,
+          "프롬프트": 1,
+          "OpenAI": 1,
+          "LangChain": 1,
+          "ChatGPT": 1,
           "Kubernetes": 1,
           "RabbitMQ": 1,
+          "Datadog": 1,
           "CI/CD": 1
         },
         "2년": {
@@ -1422,9 +2025,14 @@
           "TypeORM": 3,
           "Kubernetes": 3,
           "MongoDB": 2,
+          "gRPC": 2,
+          "Python": 2,
           "RabbitMQ": 2,
           "Elasticsearch": 1,
+          "MariaDB": 1,
           "Linux": 1,
+          "Terraform": 1,
+          "GitHub Actions": 1,
           "Express": 1
         },
         "1년": {
@@ -1441,13 +2049,18 @@
           "Docker": 3,
           "PostgreSQL": 2,
           "MongoDB": 2,
+          "gRPC": 2,
           "GraphQL": 2,
           "TypeORM": 2,
           "CI/CD": 2,
           "Kubernetes": 2,
           "Elasticsearch": 1,
+          "MariaDB": 1,
           "Linux": 1,
-          "Express": 1
+          "Terraform": 1,
+          "GitHub Actions": 1,
+          "Express": 1,
+          "Python": 1
         },
         "0년": {
           "NestJS": 1,
@@ -1458,10 +2071,11 @@
             "기본장착": {
               "skills": {
                 "TypeScript": 46,
+                "Python": 20,
                 "JavaScript": 17,
                 "Linux": 6
               },
-              "total": 69
+              "total": 89
             },
             "주무기": {
               "skills": {
@@ -1479,19 +2093,22 @@
                 "MongoDB": 13,
                 "TypeORM": 9,
                 "Elasticsearch": 5,
+                "MariaDB": 3,
+                "DynamoDB": 2,
                 "Prisma": 2,
                 "Sequelize": 1
               },
-              "total": 96
+              "total": 101
             },
             "전투도구": {
               "skills": {
                 "REST API": 13,
                 "Kafka": 13,
                 "GraphQL": 10,
-                "RabbitMQ": 5
+                "RabbitMQ": 5,
+                "gRPC": 3
               },
-              "total": 41
+              "total": 44
             },
             "고급장비": {
               "skills": {
@@ -1500,9 +2117,27 @@
                 "Docker": 22,
                 "CI/CD": 14,
                 "Kubernetes": 11,
-                "Jest": 5
+                "Jest": 5,
+                "Datadog": 3,
+                "GitHub Actions": 2,
+                "Terraform": 2
               },
-              "total": 134
+              "total": 141
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 10,
+                "Claude": 8,
+                "ChatGPT": 3,
+                "Copilot": 3,
+                "RAG": 3,
+                "Cursor": 2,
+                "프롬프트": 2,
+                "Gemini": 1,
+                "OpenAI": 1,
+                "LangChain": 1
+              },
+              "total": 34
             }
           },
           "3년": {
@@ -1510,9 +2145,10 @@
               "skills": {
                 "TypeScript": 24,
                 "JavaScript": 10,
+                "Python": 9,
                 "Linux": 4
               },
-              "total": 38
+              "total": 47
             },
             "주무기": {
               "skills": {
@@ -1530,19 +2166,22 @@
                 "MongoDB": 4,
                 "TypeORM": 4,
                 "Elasticsearch": 3,
+                "MariaDB": 2,
                 "Prisma": 2,
+                "DynamoDB": 1,
                 "Sequelize": 1
               },
-              "total": 49
+              "total": 52
             },
             "전투도구": {
               "skills": {
                 "Kafka": 8,
                 "GraphQL": 7,
                 "REST API": 6,
-                "RabbitMQ": 3
+                "RabbitMQ": 3,
+                "gRPC": 2
               },
-              "total": 24
+              "total": 26
             },
             "고급장비": {
               "skills": {
@@ -1551,19 +2190,30 @@
                 "Docker": 13,
                 "CI/CD": 9,
                 "Kubernetes": 7,
-                "Jest": 4
+                "Jest": 4,
+                "GitHub Actions": 1,
+                "Terraform": 1
               },
-              "total": 77
+              "total": 79
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 2,
+                "Claude": 1,
+                "Copilot": 1
+              },
+              "total": 4
             }
           },
           "4년": {
             "기본장착": {
               "skills": {
                 "TypeScript": 26,
+                "Python": 10,
                 "JavaScript": 9,
                 "Linux": 4
               },
-              "total": 39
+              "total": 49
             },
             "주무기": {
               "skills": {
@@ -1581,19 +2231,22 @@
                 "MongoDB": 5,
                 "TypeORM": 4,
                 "Elasticsearch": 3,
+                "MariaDB": 2,
                 "Prisma": 2,
+                "DynamoDB": 1,
                 "Sequelize": 1
               },
-              "total": 52
+              "total": 55
             },
             "전투도구": {
               "skills": {
                 "Kafka": 8,
                 "REST API": 7,
                 "GraphQL": 6,
-                "RabbitMQ": 3
+                "RabbitMQ": 3,
+                "gRPC": 2
               },
-              "total": 24
+              "total": 26
             },
             "고급장비": {
               "skills": {
@@ -1602,19 +2255,30 @@
                 "Docker": 13,
                 "Kubernetes": 8,
                 "CI/CD": 8,
-                "Jest": 4
+                "Jest": 4,
+                "Terraform": 1,
+                "Datadog": 1
               },
-              "total": 78
+              "total": 80
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 2,
+                "Claude": 1,
+                "Copilot": 1
+              },
+              "total": 4
             }
           },
           "5년": {
             "기본장착": {
               "skills": {
                 "TypeScript": 33,
+                "Python": 15,
                 "JavaScript": 13,
                 "Linux": 6
               },
-              "total": 52
+              "total": 67
             },
             "주무기": {
               "skills": {
@@ -1632,19 +2296,22 @@
                 "MongoDB": 10,
                 "TypeORM": 8,
                 "Elasticsearch": 3,
+                "MariaDB": 3,
+                "DynamoDB": 2,
                 "Prisma": 2,
                 "Sequelize": 1
               },
-              "total": 73
+              "total": 78
             },
             "전투도구": {
               "skills": {
                 "Kafka": 10,
                 "REST API": 9,
                 "GraphQL": 7,
-                "RabbitMQ": 4
+                "RabbitMQ": 4,
+                "gRPC": 3
               },
-              "total": 30
+              "total": 33
             },
             "고급장비": {
               "skills": {
@@ -1653,19 +2320,35 @@
                 "Docker": 17,
                 "CI/CD": 11,
                 "Kubernetes": 10,
-                "Jest": 5
+                "Jest": 5,
+                "Terraform": 2,
+                "Datadog": 2,
+                "GitHub Actions": 1
               },
-              "total": 103
+              "total": 108
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 4,
+                "Claude": 4,
+                "Copilot": 3,
+                "ChatGPT": 2,
+                "Cursor": 2,
+                "Gemini": 1,
+                "프롬프트": 1
+              },
+              "total": 17
             }
           },
           "6년": {
             "기본장착": {
               "skills": {
                 "TypeScript": 34,
+                "Python": 14,
                 "JavaScript": 12,
                 "Linux": 6
               },
-              "total": 52
+              "total": 66
             },
             "주무기": {
               "skills": {
@@ -1683,19 +2366,22 @@
                 "MongoDB": 9,
                 "TypeORM": 7,
                 "Elasticsearch": 3,
+                "MariaDB": 3,
+                "DynamoDB": 2,
                 "Prisma": 2,
                 "Sequelize": 1
               },
-              "total": 69
+              "total": 74
             },
             "전투도구": {
               "skills": {
                 "REST API": 10,
                 "Kafka": 9,
                 "GraphQL": 7,
-                "RabbitMQ": 4
+                "RabbitMQ": 4,
+                "gRPC": 3
               },
-              "total": 30
+              "total": 33
             },
             "고급장비": {
               "skills": {
@@ -1704,19 +2390,35 @@
                 "Docker": 17,
                 "CI/CD": 11,
                 "Kubernetes": 10,
-                "Jest": 5
+                "Jest": 5,
+                "Terraform": 2,
+                "Datadog": 2,
+                "GitHub Actions": 1
               },
-              "total": 103
+              "total": 108
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 4,
+                "Claude": 3,
+                "Copilot": 3,
+                "ChatGPT": 2,
+                "Gemini": 1,
+                "Cursor": 1,
+                "프롬프트": 1
+              },
+              "total": 15
             }
           },
           "7년": {
             "기본장착": {
               "skills": {
                 "TypeScript": 35,
+                "Python": 14,
                 "JavaScript": 12,
                 "Linux": 6
               },
-              "total": 53
+              "total": 67
             },
             "주무기": {
               "skills": {
@@ -1734,19 +2436,22 @@
                 "MongoDB": 9,
                 "TypeORM": 7,
                 "Elasticsearch": 3,
+                "MariaDB": 3,
+                "DynamoDB": 2,
                 "Prisma": 2,
                 "Sequelize": 1
               },
-              "total": 71
+              "total": 76
             },
             "전투도구": {
               "skills": {
                 "REST API": 10,
                 "Kafka": 9,
                 "GraphQL": 7,
-                "RabbitMQ": 4
+                "RabbitMQ": 4,
+                "gRPC": 3
               },
-              "total": 30
+              "total": 33
             },
             "고급장비": {
               "skills": {
@@ -1755,19 +2460,35 @@
                 "Docker": 17,
                 "CI/CD": 11,
                 "Kubernetes": 10,
-                "Jest": 5
+                "Jest": 5,
+                "Terraform": 2,
+                "Datadog": 2,
+                "GitHub Actions": 1
               },
-              "total": 104
+              "total": 109
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 5,
+                "Claude": 4,
+                "Copilot": 3,
+                "ChatGPT": 2,
+                "Gemini": 1,
+                "Cursor": 1,
+                "프롬프트": 1
+              },
+              "total": 17
             }
           },
           "8년": {
             "기본장착": {
               "skills": {
                 "TypeScript": 34,
+                "Python": 14,
                 "JavaScript": 12,
                 "Linux": 6
               },
-              "total": 52
+              "total": 66
             },
             "주무기": {
               "skills": {
@@ -1785,19 +2506,22 @@
                 "MongoDB": 9,
                 "TypeORM": 7,
                 "Elasticsearch": 3,
+                "MariaDB": 3,
+                "DynamoDB": 2,
                 "Prisma": 2,
                 "Sequelize": 1
               },
-              "total": 69
+              "total": 74
             },
             "전투도구": {
               "skills": {
                 "REST API": 10,
                 "Kafka": 9,
                 "GraphQL": 7,
-                "RabbitMQ": 4
+                "RabbitMQ": 4,
+                "gRPC": 3
               },
-              "total": 30
+              "total": 33
             },
             "고급장비": {
               "skills": {
@@ -1806,19 +2530,35 @@
                 "Docker": 17,
                 "CI/CD": 11,
                 "Kubernetes": 10,
-                "Jest": 5
+                "Jest": 5,
+                "Terraform": 2,
+                "Datadog": 2,
+                "GitHub Actions": 1
               },
-              "total": 104
+              "total": 109
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 5,
+                "Claude": 4,
+                "Copilot": 3,
+                "ChatGPT": 2,
+                "Gemini": 1,
+                "Cursor": 1,
+                "프롬프트": 1
+              },
+              "total": 17
             }
           },
           "9년": {
             "기본장착": {
               "skills": {
                 "TypeScript": 34,
+                "Python": 14,
                 "JavaScript": 12,
                 "Linux": 6
               },
-              "total": 52
+              "total": 66
             },
             "주무기": {
               "skills": {
@@ -1836,19 +2576,22 @@
                 "MongoDB": 9,
                 "TypeORM": 7,
                 "Elasticsearch": 3,
+                "MariaDB": 3,
+                "DynamoDB": 2,
                 "Prisma": 2,
                 "Sequelize": 1
               },
-              "total": 69
+              "total": 74
             },
             "전투도구": {
               "skills": {
                 "REST API": 10,
                 "Kafka": 9,
                 "GraphQL": 7,
-                "RabbitMQ": 4
+                "RabbitMQ": 4,
+                "gRPC": 3
               },
-              "total": 30
+              "total": 33
             },
             "고급장비": {
               "skills": {
@@ -1857,19 +2600,35 @@
                 "Docker": 17,
                 "CI/CD": 11,
                 "Kubernetes": 10,
-                "Jest": 5
+                "Jest": 5,
+                "Terraform": 2,
+                "Datadog": 2,
+                "GitHub Actions": 1
               },
-              "total": 104
+              "total": 109
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 5,
+                "Claude": 4,
+                "Copilot": 3,
+                "ChatGPT": 2,
+                "Gemini": 1,
+                "Cursor": 1,
+                "프롬프트": 1
+              },
+              "total": 17
             }
           },
           "10년": {
             "기본장착": {
               "skills": {
                 "TypeScript": 34,
+                "Python": 14,
                 "JavaScript": 12,
                 "Linux": 6
               },
-              "total": 52
+              "total": 66
             },
             "주무기": {
               "skills": {
@@ -1887,19 +2646,22 @@
                 "MongoDB": 9,
                 "TypeORM": 7,
                 "Elasticsearch": 3,
+                "MariaDB": 3,
+                "DynamoDB": 2,
                 "Prisma": 2,
                 "Sequelize": 1
               },
-              "total": 69
+              "total": 74
             },
             "전투도구": {
               "skills": {
                 "REST API": 10,
                 "Kafka": 9,
                 "GraphQL": 7,
-                "RabbitMQ": 4
+                "RabbitMQ": 4,
+                "gRPC": 3
               },
-              "total": 30
+              "total": 33
             },
             "고급장비": {
               "skills": {
@@ -1908,18 +2670,34 @@
                 "Docker": 17,
                 "CI/CD": 11,
                 "Kubernetes": 10,
-                "Jest": 5
+                "Jest": 5,
+                "Terraform": 2,
+                "Datadog": 2,
+                "GitHub Actions": 1
               },
-              "total": 104
+              "total": 109
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 5,
+                "Claude": 4,
+                "Copilot": 3,
+                "ChatGPT": 2,
+                "Gemini": 1,
+                "Cursor": 1,
+                "프롬프트": 1
+              },
+              "total": 17
             }
           },
           "제한없음": {
             "기본장착": {
               "skills": {
                 "TypeScript": 9,
+                "Python": 5,
                 "JavaScript": 3
               },
-              "total": 12
+              "total": 17
             },
             "주무기": {
               "skills": {
@@ -1954,9 +2732,22 @@
                 "Git": 5,
                 "Docker": 4,
                 "Kubernetes": 1,
-                "CI/CD": 1
+                "CI/CD": 1,
+                "Datadog": 1
               },
-              "total": 22
+              "total": 23
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 5,
+                "Claude": 3,
+                "RAG": 3,
+                "ChatGPT": 1,
+                "OpenAI": 1,
+                "LangChain": 1,
+                "프롬프트": 1
+              },
+              "total": 15
             }
           },
           "2년": {
@@ -1964,9 +2755,10 @@
               "skills": {
                 "TypeScript": 14,
                 "JavaScript": 6,
+                "Python": 2,
                 "Linux": 1
               },
-              "total": 21
+              "total": 23
             },
             "주무기": {
               "skills": {
@@ -1983,18 +2775,20 @@
                 "PostgreSQL": 3,
                 "TypeORM": 3,
                 "MongoDB": 2,
-                "Elasticsearch": 1
+                "Elasticsearch": 1,
+                "MariaDB": 1
               },
-              "total": 20
+              "total": 21
             },
             "전투도구": {
               "skills": {
                 "Kafka": 5,
                 "REST API": 4,
                 "GraphQL": 3,
+                "gRPC": 2,
                 "RabbitMQ": 2
               },
-              "total": 14
+              "total": 16
             },
             "고급장비": {
               "skills": {
@@ -2003,9 +2797,11 @@
                 "Git": 5,
                 "Jest": 4,
                 "CI/CD": 4,
-                "Kubernetes": 3
+                "Kubernetes": 3,
+                "GitHub Actions": 1,
+                "Terraform": 1
               },
-              "total": 35
+              "total": 37
             }
           },
           "1년": {
@@ -2013,9 +2809,10 @@
               "skills": {
                 "TypeScript": 8,
                 "JavaScript": 5,
+                "Python": 1,
                 "Linux": 1
               },
-              "total": 14
+              "total": 15
             },
             "주무기": {
               "skills": {
@@ -2032,16 +2829,18 @@
                 "PostgreSQL": 2,
                 "MongoDB": 2,
                 "TypeORM": 2,
-                "Elasticsearch": 1
+                "Elasticsearch": 1,
+                "MariaDB": 1
               },
-              "total": 14
+              "total": 15
             },
             "전투도구": {
               "skills": {
                 "Kafka": 3,
-                "GraphQL": 2
+                "GraphQL": 2,
+                "gRPC": 2
               },
-              "total": 5
+              "total": 7
             },
             "고급장비": {
               "skills": {
@@ -2050,9 +2849,11 @@
                 "Git": 4,
                 "Docker": 3,
                 "Kubernetes": 2,
-                "CI/CD": 2
+                "CI/CD": 2,
+                "GitHub Actions": 1,
+                "Terraform": 1
               },
-              "total": 19
+              "total": 21
             }
           },
           "0년": {
@@ -2097,8 +2898,9 @@
           "기본장착": "Node.js 기초 · Modules · 언어",
           "주무기": "Frameworks (Express/NestJS)",
           "보조장비": "Databases · ORM",
-          "전투도구": "REST APIs · 통신",
-          "고급장비": "Testing · Logging · Deployment"
+          "전투도구": "REST APIs · 메시징 · 통신",
+          "고급장비": "Testing · Logging · Deployment · 모니터링",
+          "AI활용": "AI Engineer · AI Agents — LLM API 연동과 AI 기반 백엔드 구축이 새로운 요구사항으로 부상하고 있습니다"
         }
       },
       "server": {
@@ -2112,21 +2914,57 @@
           "Kubernetes": 122,
           "MySQL": 111,
           "Kotlin": 107,
+          "TypeScript": 102,
           "Redis": 97,
+          "Node.js": 86,
           "Kafka": 86,
           "CI/CD": 82,
           "Spring Boot": 75,
           "PostgreSQL": 75,
           "Linux": 72,
+          "LLM": 64,
           "MSA": 61,
+          "JavaScript": 57,
+          "MongoDB": 57,
           "JPA": 55,
+          "FastAPI": 47,
+          "NestJS": 42,
+          "Django": 42,
           "Elasticsearch": 40,
+          "Go": 38,
           "C++": 35,
+          "Claude": 29,
+          "GitHub Actions": 28,
+          "RAG": 24,
+          "Terraform": 23,
+          "Grafana": 23,
+          "Prometheus": 23,
+          "Datadog": 23,
           "Hibernate": 22,
+          "Flask": 21,
+          "RabbitMQ": 21,
           "Jenkins": 20,
           "Oracle": 18,
+          "Cursor": 17,
+          "C#": 15,
+          "MariaDB": 15,
+          "Express": 14,
+          "gRPC": 14,
+          "LangChain": 14,
+          "PHP": 13,
+          "프롬프트": 12,
+          "Rust": 12,
+          "Gemini": 11,
+          ".NET": 11,
+          "OpenAI": 10,
+          "DynamoDB": 10,
           "MyBatis": 10,
-          "Gradle": 10
+          "Gradle": 10,
+          "Copilot": 9,
+          "Nginx": 9,
+          "Ansible": 8,
+          "Sentry": 7,
+          "ChatGPT": 4
         },
         "4년": {
           "AWS": 108,
@@ -2137,22 +2975,58 @@
           "Kubernetes": 60,
           "Git": 60,
           "MySQL": 47,
+          "TypeScript": 45,
           "Kotlin": 43,
           "Redis": 40,
+          "Node.js": 39,
           "PostgreSQL": 34,
           "CI/CD": 32,
           "Linux": 32,
           "Kafka": 31,
+          "LLM": 29,
+          "Django": 26,
           "Spring Boot": 25,
+          "FastAPI": 25,
+          "MongoDB": 21,
+          "NestJS": 20,
+          "JavaScript": 19,
           "Elasticsearch": 19,
           "C++": 17,
           "JPA": 15,
+          "Go": 15,
+          "GitHub Actions": 14,
+          "Flask": 13,
           "MSA": 12,
+          "RAG": 11,
+          "Claude": 10,
+          "Terraform": 10,
+          "Express": 9,
+          "RabbitMQ": 9,
+          "Rust": 8,
           "Jenkins": 8,
+          "Cursor": 7,
+          "프롬프트": 7,
+          "gRPC": 7,
+          "MariaDB": 7,
+          "Datadog": 7,
+          "Prometheus": 7,
           "Oracle": 7,
+          "LangChain": 6,
+          "PHP": 6,
+          "Grafana": 6,
+          "OpenAI": 5,
           "Hibernate": 5,
+          "Gemini": 4,
+          "Copilot": 4,
+          "DynamoDB": 3,
+          "Ansible": 3,
+          "Nginx": 3,
+          "C#": 2,
           "Gradle": 2,
-          "MyBatis": 1
+          ".NET": 2,
+          "Sentry": 2,
+          "MyBatis": 1,
+          "ChatGPT": 1
         },
         "5년": {
           "AWS": 168,
@@ -2164,21 +3038,57 @@
           "Kubernetes": 81,
           "MySQL": 69,
           "Kotlin": 67,
+          "TypeScript": 58,
           "Redis": 57,
+          "Node.js": 56,
           "CI/CD": 49,
           "PostgreSQL": 46,
           "Kafka": 46,
           "Spring Boot": 45,
           "Linux": 43,
+          "LLM": 35,
+          "FastAPI": 35,
+          "Django": 34,
+          "MongoDB": 32,
+          "NestJS": 30,
+          "JavaScript": 28,
           "MSA": 28,
           "JPA": 26,
           "Elasticsearch": 23,
           "C++": 20,
+          "Go": 20,
+          "GitHub Actions": 19,
+          "Claude": 17,
+          "Terraform": 16,
+          "Flask": 16,
+          "RAG": 13,
+          "Datadog": 13,
           "Jenkins": 12,
+          "RabbitMQ": 12,
+          "Cursor": 10,
           "Hibernate": 10,
+          "Rust": 10,
+          "Grafana": 10,
+          "gRPC": 10,
+          "Express": 9,
+          "Prometheus": 9,
+          "MariaDB": 9,
+          "PHP": 8,
           "Oracle": 8,
+          "OpenAI": 7,
+          "Gemini": 6,
+          "프롬프트": 6,
+          "C#": 6,
           "Gradle": 6,
-          "MyBatis": 4
+          "Copilot": 5,
+          "Ansible": 5,
+          "LangChain": 5,
+          ".NET": 5,
+          "DynamoDB": 4,
+          "MyBatis": 4,
+          "Nginx": 4,
+          "Sentry": 3,
+          "ChatGPT": 2
         },
         "6년": {
           "AWS": 171,
@@ -2190,21 +3100,57 @@
           "Git": 82,
           "MySQL": 69,
           "Kotlin": 69,
+          "TypeScript": 59,
           "Redis": 59,
+          "Node.js": 57,
           "CI/CD": 51,
           "Kafka": 49,
           "Spring Boot": 46,
           "PostgreSQL": 45,
           "Linux": 42,
+          "LLM": 35,
+          "FastAPI": 35,
+          "Django": 34,
+          "MongoDB": 31,
+          "NestJS": 30,
           "MSA": 30,
           "JPA": 27,
+          "JavaScript": 27,
           "Elasticsearch": 23,
           "C++": 20,
+          "Go": 20,
+          "GitHub Actions": 19,
+          "Terraform": 17,
+          "Claude": 16,
+          "Flask": 16,
+          "Datadog": 15,
+          "RAG": 13,
+          "RabbitMQ": 13,
           "Jenkins": 12,
+          "Rust": 10,
+          "Grafana": 10,
+          "gRPC": 10,
+          "Cursor": 9,
+          "Express": 9,
           "Hibernate": 9,
+          "Prometheus": 9,
+          "MariaDB": 9,
+          "PHP": 8,
+          "OpenAI": 7,
           "Oracle": 7,
+          "Gemini": 6,
+          "프롬프트": 6,
+          "C#": 6,
           "Gradle": 6,
-          "MyBatis": 4
+          ".NET": 6,
+          "Copilot": 5,
+          "Ansible": 5,
+          "LangChain": 5,
+          "DynamoDB": 4,
+          "MyBatis": 4,
+          "Nginx": 4,
+          "Sentry": 3,
+          "ChatGPT": 2
         },
         "7년": {
           "AWS": 186,
@@ -2217,20 +3163,56 @@
           "MySQL": 78,
           "Kotlin": 78,
           "Redis": 64,
+          "TypeScript": 63,
+          "Node.js": 57,
           "Kafka": 57,
           "Spring Boot": 56,
           "CI/CD": 53,
           "PostgreSQL": 48,
           "Linux": 44,
+          "LLM": 38,
+          "FastAPI": 35,
           "MSA": 35,
           "JPA": 34,
+          "Django": 34,
+          "MongoDB": 34,
+          "NestJS": 30,
+          "JavaScript": 29,
           "Elasticsearch": 26,
           "C++": 22,
+          "Go": 22,
+          "GitHub Actions": 20,
+          "Claude": 17,
+          "Terraform": 17,
+          "Datadog": 17,
+          "Flask": 16,
           "Hibernate": 14,
+          "RAG": 13,
+          "RabbitMQ": 13,
           "Jenkins": 13,
+          "Grafana": 11,
+          "Prometheus": 11,
+          "Cursor": 10,
+          "Express": 10,
+          "Rust": 10,
+          "gRPC": 10,
+          "MariaDB": 9,
           "Oracle": 9,
+          "C#": 8,
+          "PHP": 8,
+          "Gemini": 7,
+          "OpenAI": 7,
+          "Copilot": 7,
+          "프롬프트": 7,
           "Gradle": 7,
-          "MyBatis": 5
+          ".NET": 7,
+          "LangChain": 6,
+          "Ansible": 5,
+          "DynamoDB": 5,
+          "MyBatis": 5,
+          "Sentry": 4,
+          "Nginx": 4,
+          "ChatGPT": 3
         },
         "8년": {
           "AWS": 186,
@@ -2242,21 +3224,57 @@
           "Kubernetes": 85,
           "MySQL": 78,
           "Kotlin": 77,
+          "TypeScript": 65,
           "Redis": 64,
+          "Node.js": 57,
           "Spring Boot": 56,
           "Kafka": 56,
           "CI/CD": 54,
           "PostgreSQL": 48,
           "Linux": 44,
+          "LLM": 38,
           "MSA": 38,
+          "FastAPI": 35,
           "JPA": 34,
+          "Django": 34,
+          "MongoDB": 34,
+          "JavaScript": 30,
+          "NestJS": 29,
           "Elasticsearch": 26,
           "C++": 22,
+          "Go": 21,
+          "GitHub Actions": 21,
+          "Claude": 17,
+          "Terraform": 17,
+          "Datadog": 17,
+          "Flask": 16,
           "Hibernate": 14,
+          "RAG": 13,
+          "RabbitMQ": 13,
           "Jenkins": 13,
+          "Grafana": 11,
+          "Prometheus": 11,
+          "Cursor": 10,
+          "Express": 10,
+          "Rust": 10,
+          "gRPC": 10,
+          "MariaDB": 9,
           "Oracle": 9,
+          "C#": 8,
+          "PHP": 8,
+          "Gemini": 7,
+          "OpenAI": 7,
+          "Copilot": 7,
           "Gradle": 7,
-          "MyBatis": 5
+          ".NET": 7,
+          "프롬프트": 6,
+          "LangChain": 6,
+          "Ansible": 5,
+          "DynamoDB": 5,
+          "MyBatis": 5,
+          "Sentry": 4,
+          "Nginx": 4,
+          "ChatGPT": 3
         },
         "9년": {
           "AWS": 185,
@@ -2268,21 +3286,57 @@
           "Kubernetes": 85,
           "MySQL": 78,
           "Kotlin": 76,
+          "TypeScript": 65,
           "Redis": 64,
+          "Node.js": 57,
           "Spring Boot": 56,
           "Kafka": 56,
           "CI/CD": 54,
           "PostgreSQL": 48,
           "Linux": 44,
+          "LLM": 38,
           "MSA": 38,
+          "FastAPI": 35,
+          "Django": 34,
+          "MongoDB": 34,
           "JPA": 33,
+          "JavaScript": 30,
+          "NestJS": 29,
           "Elasticsearch": 26,
           "C++": 22,
+          "Go": 21,
+          "GitHub Actions": 21,
+          "Claude": 17,
+          "Datadog": 17,
+          "Terraform": 16,
+          "Flask": 16,
+          "RAG": 13,
+          "RabbitMQ": 13,
           "Jenkins": 13,
           "Hibernate": 13,
+          "Grafana": 11,
+          "Prometheus": 11,
+          "Cursor": 10,
+          "Express": 10,
+          "Rust": 10,
+          "gRPC": 10,
+          "MariaDB": 9,
           "Oracle": 9,
+          "C#": 8,
+          "PHP": 8,
+          "Gemini": 7,
+          "OpenAI": 7,
+          "Copilot": 7,
           "Gradle": 7,
-          "MyBatis": 5
+          ".NET": 7,
+          "프롬프트": 6,
+          "LangChain": 6,
+          "Ansible": 5,
+          "DynamoDB": 5,
+          "MyBatis": 5,
+          "Sentry": 4,
+          "Nginx": 4,
+          "ChatGPT": 3
         },
         "10년": {
           "AWS": 190,
@@ -2294,21 +3348,57 @@
           "Kubernetes": 88,
           "MySQL": 81,
           "Kotlin": 78,
+          "TypeScript": 66,
           "Redis": 66,
+          "Node.js": 59,
           "Spring Boot": 58,
           "CI/CD": 57,
           "Kafka": 57,
           "PostgreSQL": 51,
           "Linux": 44,
           "MSA": 39,
+          "LLM": 38,
+          "MongoDB": 36,
+          "FastAPI": 35,
+          "Django": 35,
           "JPA": 33,
+          "JavaScript": 31,
+          "NestJS": 29,
           "Elasticsearch": 26,
+          "GitHub Actions": 23,
           "C++": 22,
+          "Go": 22,
+          "Claude": 18,
+          "Datadog": 18,
+          "Flask": 17,
+          "Terraform": 16,
           "Jenkins": 14,
+          "RAG": 13,
+          "RabbitMQ": 13,
           "Hibernate": 13,
+          "Cursor": 11,
+          "Express": 11,
+          "Grafana": 11,
+          "Prometheus": 11,
+          "Rust": 10,
+          "gRPC": 10,
+          "MariaDB": 9,
           "Oracle": 9,
+          "Gemini": 8,
+          "C#": 8,
+          "PHP": 8,
+          "OpenAI": 7,
+          "Copilot": 7,
           "Gradle": 7,
-          "MyBatis": 5
+          ".NET": 7,
+          "프롬프트": 6,
+          "LangChain": 6,
+          "Ansible": 5,
+          "DynamoDB": 5,
+          "Sentry": 5,
+          "MyBatis": 5,
+          "ChatGPT": 4,
+          "Nginx": 4
         },
         "2년": {
           "AWS": 41,
@@ -2318,23 +3408,54 @@
           "Kubernetes": 24,
           "Java": 24,
           "MySQL": 21,
+          "TypeScript": 19,
           "Kotlin": 17,
           "Spring": 16,
+          "LLM": 15,
           "Redis": 14,
           "CI/CD": 14,
+          "Node.js": 14,
           "PostgreSQL": 11,
           "Linux": 10,
+          "Django": 10,
           "Kafka": 9,
+          "NestJS": 8,
+          "GitHub Actions": 8,
+          "Go": 8,
+          "JavaScript": 8,
           "Spring Boot": 7,
+          "FastAPI": 7,
           "C++": 7,
+          "Terraform": 7,
           "Jenkins": 6,
           "JPA": 6,
+          "Express": 5,
           "Elasticsearch": 5,
           "MSA": 5,
+          "Flask": 5,
+          "Claude": 4,
+          "RAG": 4,
+          "Datadog": 4,
+          "MongoDB": 4,
+          "gRPC": 4,
           "Oracle": 4,
+          "Rust": 4,
           "Hibernate": 4,
+          "OpenAI": 3,
+          "Cursor": 3,
+          "Prometheus": 3,
+          "PHP": 3,
+          "Grafana": 3,
+          "RabbitMQ": 3,
+          "프롬프트": 2,
+          "LangChain": 2,
+          "Ansible": 2,
+          "Gemini": 1,
+          "Copilot": 1,
           "MyBatis": 1,
-          "Gradle": 1
+          "Gradle": 1,
+          "DynamoDB": 1,
+          "MariaDB": 1
         },
         "3년": {
           "AWS": 106,
@@ -2345,22 +3466,58 @@
           "Kubernetes": 55,
           "Spring": 54,
           "MySQL": 47,
+          "TypeScript": 43,
           "Kotlin": 40,
           "Redis": 40,
+          "Node.js": 39,
           "PostgreSQL": 34,
           "CI/CD": 33,
           "Linux": 31,
           "Kafka": 29,
+          "LLM": 28,
+          "FastAPI": 26,
+          "Django": 26,
           "Spring Boot": 24,
+          "NestJS": 19,
+          "JavaScript": 18,
           "Elasticsearch": 18,
+          "MongoDB": 18,
           "C++": 17,
+          "Go": 17,
+          "Flask": 14,
           "JPA": 14,
           "MSA": 14,
+          "GitHub Actions": 14,
+          "Claude": 11,
+          "RAG": 11,
+          "RabbitMQ": 10,
+          "Terraform": 10,
           "Jenkins": 9,
+          "Express": 8,
+          "Cursor": 8,
+          "Rust": 8,
+          "gRPC": 7,
+          "Datadog": 7,
+          "Prometheus": 7,
+          "프롬프트": 6,
+          "MariaDB": 6,
+          "PHP": 6,
+          "Grafana": 6,
+          "Gemini": 5,
+          "OpenAI": 5,
+          "LangChain": 5,
           "Oracle": 5,
+          "Copilot": 4,
           "Hibernate": 4,
           "MyBatis": 3,
-          "Gradle": 2
+          "Ansible": 3,
+          "Nginx": 3,
+          "C#": 2,
+          "Gradle": 2,
+          "Sentry": 2,
+          "DynamoDB": 2,
+          "ChatGPT": 1,
+          ".NET": 1
         },
         "제한없음": {
           "Java": 59,
@@ -2369,24 +3526,59 @@
           "Python": 39,
           "Docker": 38,
           "Kubernetes": 32,
+          "TypeScript": 31,
           "Git": 30,
           "Redis": 25,
           "Linux": 24,
           "Kafka": 24,
+          "LLM": 24,
           "MySQL": 23,
+          "JavaScript": 21,
           "CI/CD": 21,
+          "Node.js": 21,
           "Kotlin": 19,
           "MSA": 18,
+          "MongoDB": 18,
           "PostgreSQL": 17,
           "JPA": 17,
           "Elasticsearch": 13,
+          "Grafana": 12,
+          "Prometheus": 12,
           "C++": 12,
           "Spring Boot": 12,
+          "Go": 11,
+          "RAG": 11,
+          "FastAPI": 10,
+          "NestJS": 10,
+          "Claude": 9,
+          "RabbitMQ": 7,
           "Hibernate": 7,
           "Oracle": 7,
+          "LangChain": 7,
+          "Terraform": 6,
+          "MariaDB": 6,
+          "Datadog": 5,
+          "C#": 5,
           "Jenkins": 5,
+          "DynamoDB": 5,
+          "GitHub Actions": 4,
+          "Nginx": 4,
+          "프롬프트": 4,
+          "Cursor": 4,
+          ".NET": 4,
+          "Django": 4,
+          "gRPC": 4,
+          "PHP": 4,
           "MyBatis": 3,
-          "Gradle": 3
+          "Gradle": 3,
+          "OpenAI": 3,
+          "Ansible": 3,
+          "Flask": 3,
+          "Express": 3,
+          "Sentry": 2,
+          "Gemini": 2,
+          "Copilot": 2,
+          "Rust": 2
         },
         "1년": {
           "AWS": 23,
@@ -2394,23 +3586,52 @@
           "Docker": 17,
           "Java": 16,
           "Git": 16,
+          "TypeScript": 14,
           "Kubernetes": 13,
           "MySQL": 13,
           "Kotlin": 12,
+          "Node.js": 11,
+          "Django": 9,
           "CI/CD": 8,
+          "Go": 8,
           "Spring": 7,
           "Redis": 7,
           "Kafka": 7,
+          "LLM": 7,
           "Linux": 7,
+          "JavaScript": 6,
+          "Terraform": 5,
+          "Datadog": 4,
           "Jenkins": 4,
           "C++": 4,
           "Oracle": 4,
           "PostgreSQL": 4,
           "MSA": 4,
+          "Flask": 4,
+          "FastAPI": 3,
+          "MongoDB": 3,
           "Elasticsearch": 3,
+          "GitHub Actions": 3,
+          "Rust": 3,
+          "Express": 3,
+          "gRPC": 3,
+          "NestJS": 3,
+          "RAG": 2,
+          "Claude": 2,
+          "Cursor": 2,
+          "Prometheus": 2,
+          "PHP": 2,
+          "Grafana": 2,
+          "Ansible": 2,
           "JPA": 2,
           "Hibernate": 2,
-          "Spring Boot": 1
+          "RabbitMQ": 2,
+          "C#": 2,
+          "LangChain": 1,
+          "Gemini": 1,
+          "OpenAI": 1,
+          "Spring Boot": 1,
+          "DynamoDB": 1
         },
         "categoryStats": {
           "전체": {
@@ -2419,38 +3640,57 @@
                 "Java": 213,
                 "Python": 163,
                 "Kotlin": 107,
+                "TypeScript": 102,
+                "Node.js": 86,
                 "Linux": 72,
-                "C++": 35
+                "JavaScript": 57,
+                "Go": 38,
+                "C++": 35,
+                "C#": 15,
+                "PHP": 13,
+                "Rust": 12
               },
-              "total": 590
+              "total": 913
             },
             "주무기": {
               "skills": {
                 "Spring": 171,
                 "Spring Boot": 75,
                 "JPA": 55,
+                "FastAPI": 47,
+                "NestJS": 42,
+                "Django": 42,
                 "Hibernate": 22,
+                "Flask": 21,
+                "Express": 14,
+                ".NET": 11,
                 "MyBatis": 10
               },
-              "total": 333
+              "total": 510
             },
             "보조장비": {
               "skills": {
                 "MySQL": 111,
                 "Redis": 97,
                 "PostgreSQL": 75,
+                "MongoDB": 57,
                 "Elasticsearch": 40,
-                "Oracle": 18
+                "Oracle": 18,
+                "MariaDB": 15,
+                "DynamoDB": 10
               },
-              "total": 341
+              "total": 423
             },
             "전투도구": {
               "skills": {
                 "Git": 132,
+                "RabbitMQ": 21,
                 "Jenkins": 20,
-                "Gradle": 10
+                "gRPC": 14,
+                "Gradle": 10,
+                "Nginx": 9
               },
-              "total": 162
+              "total": 206
             },
             "고급장비": {
               "skills": {
@@ -2459,9 +3699,31 @@
                 "Kubernetes": 122,
                 "Kafka": 86,
                 "CI/CD": 82,
-                "MSA": 61
+                "MSA": 61,
+                "GitHub Actions": 28,
+                "Terraform": 23,
+                "Grafana": 23,
+                "Prometheus": 23,
+                "Datadog": 23,
+                "Ansible": 8,
+                "Sentry": 7
               },
-              "total": 761
+              "total": 896
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 64,
+                "Claude": 29,
+                "RAG": 24,
+                "Cursor": 17,
+                "LangChain": 14,
+                "프롬프트": 12,
+                "Gemini": 11,
+                "OpenAI": 10,
+                "Copilot": 9,
+                "ChatGPT": 4
+              },
+              "total": 194
             }
           },
           "4년": {
@@ -2469,39 +3731,58 @@
               "skills": {
                 "Python": 86,
                 "Java": 73,
+                "TypeScript": 45,
                 "Kotlin": 43,
+                "Node.js": 39,
                 "Linux": 32,
-                "C++": 17
+                "JavaScript": 19,
+                "C++": 17,
+                "Go": 15,
+                "Rust": 8,
+                "PHP": 6,
+                "C#": 2
               },
-              "total": 251
+              "total": 385
             },
             "주무기": {
               "skills": {
                 "Spring": 62,
+                "Django": 26,
                 "Spring Boot": 25,
+                "FastAPI": 25,
+                "NestJS": 20,
                 "JPA": 15,
+                "Flask": 13,
+                "Express": 9,
                 "Hibernate": 5,
+                ".NET": 2,
                 "MyBatis": 1
               },
-              "total": 108
+              "total": 203
             },
             "보조장비": {
               "skills": {
                 "MySQL": 47,
                 "Redis": 40,
                 "PostgreSQL": 34,
+                "MongoDB": 21,
                 "Elasticsearch": 19,
-                "Oracle": 7
+                "Oracle": 7,
+                "MariaDB": 7,
+                "DynamoDB": 3
               },
-              "total": 147
+              "total": 178
             },
             "전투도구": {
               "skills": {
                 "Git": 60,
+                "RabbitMQ": 9,
                 "Jenkins": 8,
+                "gRPC": 7,
+                "Nginx": 3,
                 "Gradle": 2
               },
-              "total": 70
+              "total": 89
             },
             "고급장비": {
               "skills": {
@@ -2510,9 +3791,31 @@
                 "Kubernetes": 60,
                 "CI/CD": 32,
                 "Kafka": 31,
-                "MSA": 12
+                "GitHub Actions": 14,
+                "MSA": 12,
+                "Terraform": 10,
+                "Prometheus": 7,
+                "Datadog": 7,
+                "Grafana": 6,
+                "Ansible": 3,
+                "Sentry": 2
               },
-              "total": 306
+              "total": 355
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 29,
+                "RAG": 11,
+                "Claude": 10,
+                "Cursor": 7,
+                "프롬프트": 7,
+                "LangChain": 6,
+                "OpenAI": 5,
+                "Gemini": 4,
+                "Copilot": 4,
+                "ChatGPT": 1
+              },
+              "total": 84
             }
           },
           "5년": {
@@ -2521,38 +3824,57 @@
                 "Python": 112,
                 "Java": 107,
                 "Kotlin": 67,
+                "TypeScript": 58,
+                "Node.js": 56,
                 "Linux": 43,
-                "C++": 20
+                "JavaScript": 28,
+                "Go": 20,
+                "C++": 20,
+                "Rust": 10,
+                "PHP": 8,
+                "C#": 6
               },
-              "total": 349
+              "total": 535
             },
             "주무기": {
               "skills": {
                 "Spring": 95,
                 "Spring Boot": 45,
+                "FastAPI": 35,
+                "Django": 34,
+                "NestJS": 30,
                 "JPA": 26,
+                "Flask": 16,
                 "Hibernate": 10,
+                "Express": 9,
+                ".NET": 5,
                 "MyBatis": 4
               },
-              "total": 180
+              "total": 309
             },
             "보조장비": {
               "skills": {
                 "MySQL": 69,
                 "Redis": 57,
                 "PostgreSQL": 46,
+                "MongoDB": 32,
                 "Elasticsearch": 23,
-                "Oracle": 8
+                "MariaDB": 9,
+                "Oracle": 8,
+                "DynamoDB": 4
               },
-              "total": 203
+              "total": 248
             },
             "전투도구": {
               "skills": {
                 "Git": 84,
                 "Jenkins": 12,
-                "Gradle": 6
+                "RabbitMQ": 12,
+                "gRPC": 10,
+                "Gradle": 6,
+                "Nginx": 4
               },
-              "total": 102
+              "total": 128
             },
             "고급장비": {
               "skills": {
@@ -2561,9 +3883,31 @@
                 "Kubernetes": 81,
                 "CI/CD": 49,
                 "Kafka": 46,
-                "MSA": 28
+                "MSA": 28,
+                "GitHub Actions": 19,
+                "Terraform": 16,
+                "Datadog": 13,
+                "Grafana": 10,
+                "Prometheus": 9,
+                "Ansible": 5,
+                "Sentry": 3
               },
-              "total": 460
+              "total": 535
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 35,
+                "Claude": 17,
+                "RAG": 13,
+                "Cursor": 10,
+                "OpenAI": 7,
+                "Gemini": 6,
+                "프롬프트": 6,
+                "Copilot": 5,
+                "LangChain": 5,
+                "ChatGPT": 2
+              },
+              "total": 106
             }
           },
           "6년": {
@@ -2572,38 +3916,57 @@
                 "Java": 112,
                 "Python": 112,
                 "Kotlin": 69,
+                "TypeScript": 59,
+                "Node.js": 57,
                 "Linux": 42,
-                "C++": 20
+                "JavaScript": 27,
+                "Go": 20,
+                "C++": 20,
+                "Rust": 10,
+                "PHP": 8,
+                "C#": 6
               },
-              "total": 355
+              "total": 542
             },
             "주무기": {
               "skills": {
                 "Spring": 100,
                 "Spring Boot": 46,
+                "FastAPI": 35,
+                "Django": 34,
+                "NestJS": 30,
                 "JPA": 27,
+                "Flask": 16,
                 "Hibernate": 9,
+                "Express": 9,
+                ".NET": 6,
                 "MyBatis": 4
               },
-              "total": 186
+              "total": 316
             },
             "보조장비": {
               "skills": {
                 "MySQL": 69,
                 "Redis": 59,
                 "PostgreSQL": 45,
+                "MongoDB": 31,
                 "Elasticsearch": 23,
-                "Oracle": 7
+                "MariaDB": 9,
+                "Oracle": 7,
+                "DynamoDB": 4
               },
-              "total": 203
+              "total": 247
             },
             "전투도구": {
               "skills": {
                 "Git": 82,
+                "RabbitMQ": 13,
                 "Jenkins": 12,
-                "Gradle": 6
+                "gRPC": 10,
+                "Gradle": 6,
+                "Nginx": 4
               },
-              "total": 100
+              "total": 127
             },
             "고급장비": {
               "skills": {
@@ -2612,9 +3975,31 @@
                 "Kubernetes": 82,
                 "CI/CD": 51,
                 "Kafka": 49,
-                "MSA": 30
+                "MSA": 30,
+                "GitHub Actions": 19,
+                "Terraform": 17,
+                "Datadog": 15,
+                "Grafana": 10,
+                "Prometheus": 9,
+                "Ansible": 5,
+                "Sentry": 3
               },
-              "total": 472
+              "total": 550
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 35,
+                "Claude": 16,
+                "RAG": 13,
+                "Cursor": 9,
+                "OpenAI": 7,
+                "Gemini": 6,
+                "프롬프트": 6,
+                "Copilot": 5,
+                "LangChain": 5,
+                "ChatGPT": 2
+              },
+              "total": 104
             }
           },
           "7년": {
@@ -2623,38 +4008,57 @@
                 "Java": 128,
                 "Python": 116,
                 "Kotlin": 78,
+                "TypeScript": 63,
+                "Node.js": 57,
                 "Linux": 44,
-                "C++": 22
+                "JavaScript": 29,
+                "Go": 22,
+                "C++": 22,
+                "Rust": 10,
+                "PHP": 8,
+                "C#": 8
               },
-              "total": 388
+              "total": 585
             },
             "주무기": {
               "skills": {
                 "Spring": 116,
                 "Spring Boot": 56,
+                "FastAPI": 35,
                 "JPA": 34,
+                "Django": 34,
+                "NestJS": 30,
+                "Flask": 16,
                 "Hibernate": 14,
+                "Express": 10,
+                ".NET": 7,
                 "MyBatis": 5
               },
-              "total": 225
+              "total": 357
             },
             "보조장비": {
               "skills": {
                 "MySQL": 78,
                 "Redis": 64,
                 "PostgreSQL": 48,
+                "MongoDB": 34,
                 "Elasticsearch": 26,
-                "Oracle": 9
+                "Oracle": 9,
+                "MariaDB": 9,
+                "DynamoDB": 5
               },
-              "total": 225
+              "total": 273
             },
             "전투도구": {
               "skills": {
                 "Git": 90,
                 "Jenkins": 13,
-                "Gradle": 7
+                "RabbitMQ": 13,
+                "gRPC": 10,
+                "Gradle": 7,
+                "Nginx": 4
               },
-              "total": 110
+              "total": 137
             },
             "고급장비": {
               "skills": {
@@ -2663,9 +4067,31 @@
                 "Kubernetes": 87,
                 "Kafka": 57,
                 "CI/CD": 53,
-                "MSA": 35
+                "MSA": 35,
+                "GitHub Actions": 20,
+                "Terraform": 17,
+                "Datadog": 17,
+                "Grafana": 11,
+                "Prometheus": 11,
+                "Ansible": 5,
+                "Sentry": 4
               },
-              "total": 514
+              "total": 599
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 38,
+                "Claude": 17,
+                "RAG": 13,
+                "Cursor": 10,
+                "Gemini": 7,
+                "OpenAI": 7,
+                "Copilot": 7,
+                "프롬프트": 7,
+                "LangChain": 6,
+                "ChatGPT": 3
+              },
+              "total": 115
             }
           },
           "8년": {
@@ -2674,38 +4100,57 @@
                 "Java": 126,
                 "Python": 114,
                 "Kotlin": 77,
+                "TypeScript": 65,
+                "Node.js": 57,
                 "Linux": 44,
-                "C++": 22
+                "JavaScript": 30,
+                "C++": 22,
+                "Go": 21,
+                "Rust": 10,
+                "PHP": 8,
+                "C#": 8
               },
-              "total": 383
+              "total": 582
             },
             "주무기": {
               "skills": {
                 "Spring": 115,
                 "Spring Boot": 56,
+                "FastAPI": 35,
                 "JPA": 34,
+                "Django": 34,
+                "NestJS": 29,
+                "Flask": 16,
                 "Hibernate": 14,
+                "Express": 10,
+                ".NET": 7,
                 "MyBatis": 5
               },
-              "total": 224
+              "total": 355
             },
             "보조장비": {
               "skills": {
                 "MySQL": 78,
                 "Redis": 64,
                 "PostgreSQL": 48,
+                "MongoDB": 34,
                 "Elasticsearch": 26,
-                "Oracle": 9
+                "Oracle": 9,
+                "MariaDB": 9,
+                "DynamoDB": 5
               },
-              "total": 225
+              "total": 273
             },
             "전투도구": {
               "skills": {
                 "Git": 88,
                 "Jenkins": 13,
-                "Gradle": 7
+                "RabbitMQ": 13,
+                "gRPC": 10,
+                "Gradle": 7,
+                "Nginx": 4
               },
-              "total": 108
+              "total": 135
             },
             "고급장비": {
               "skills": {
@@ -2714,9 +4159,31 @@
                 "Kubernetes": 85,
                 "Kafka": 56,
                 "CI/CD": 54,
-                "MSA": 38
+                "MSA": 38,
+                "GitHub Actions": 21,
+                "Terraform": 17,
+                "Datadog": 17,
+                "Grafana": 11,
+                "Prometheus": 11,
+                "Ansible": 5,
+                "Sentry": 4
               },
-              "total": 514
+              "total": 600
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 38,
+                "Claude": 17,
+                "RAG": 13,
+                "Cursor": 10,
+                "Gemini": 7,
+                "OpenAI": 7,
+                "Copilot": 7,
+                "LangChain": 6,
+                "프롬프트": 6,
+                "ChatGPT": 3
+              },
+              "total": 114
             }
           },
           "9년": {
@@ -2725,38 +4192,57 @@
                 "Java": 126,
                 "Python": 114,
                 "Kotlin": 76,
+                "TypeScript": 65,
+                "Node.js": 57,
                 "Linux": 44,
-                "C++": 22
+                "JavaScript": 30,
+                "C++": 22,
+                "Go": 21,
+                "Rust": 10,
+                "PHP": 8,
+                "C#": 8
               },
-              "total": 382
+              "total": 581
             },
             "주무기": {
               "skills": {
                 "Spring": 115,
                 "Spring Boot": 56,
+                "FastAPI": 35,
+                "Django": 34,
                 "JPA": 33,
+                "NestJS": 29,
+                "Flask": 16,
                 "Hibernate": 13,
+                "Express": 10,
+                ".NET": 7,
                 "MyBatis": 5
               },
-              "total": 222
+              "total": 353
             },
             "보조장비": {
               "skills": {
                 "MySQL": 78,
                 "Redis": 64,
                 "PostgreSQL": 48,
+                "MongoDB": 34,
                 "Elasticsearch": 26,
-                "Oracle": 9
+                "Oracle": 9,
+                "MariaDB": 9,
+                "DynamoDB": 5
               },
-              "total": 225
+              "total": 273
             },
             "전투도구": {
               "skills": {
                 "Git": 88,
                 "Jenkins": 13,
-                "Gradle": 7
+                "RabbitMQ": 13,
+                "gRPC": 10,
+                "Gradle": 7,
+                "Nginx": 4
               },
-              "total": 108
+              "total": 135
             },
             "고급장비": {
               "skills": {
@@ -2765,9 +4251,31 @@
                 "Kubernetes": 85,
                 "Kafka": 56,
                 "CI/CD": 54,
-                "MSA": 38
+                "MSA": 38,
+                "GitHub Actions": 21,
+                "Datadog": 17,
+                "Terraform": 16,
+                "Grafana": 11,
+                "Prometheus": 11,
+                "Ansible": 5,
+                "Sentry": 4
               },
-              "total": 513
+              "total": 598
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 38,
+                "Claude": 17,
+                "RAG": 13,
+                "Cursor": 10,
+                "Gemini": 7,
+                "OpenAI": 7,
+                "Copilot": 7,
+                "LangChain": 6,
+                "프롬프트": 6,
+                "ChatGPT": 3
+              },
+              "total": 114
             }
           },
           "10년": {
@@ -2776,38 +4284,57 @@
                 "Java": 132,
                 "Python": 115,
                 "Kotlin": 78,
+                "TypeScript": 66,
+                "Node.js": 59,
                 "Linux": 44,
-                "C++": 22
+                "JavaScript": 31,
+                "Go": 22,
+                "C++": 22,
+                "Rust": 10,
+                "PHP": 8,
+                "C#": 8
               },
-              "total": 391
+              "total": 595
             },
             "주무기": {
               "skills": {
                 "Spring": 121,
                 "Spring Boot": 58,
+                "Django": 35,
+                "FastAPI": 35,
                 "JPA": 33,
+                "NestJS": 29,
+                "Flask": 17,
                 "Hibernate": 13,
+                "Express": 11,
+                ".NET": 7,
                 "MyBatis": 5
               },
-              "total": 230
+              "total": 364
             },
             "보조장비": {
               "skills": {
                 "MySQL": 81,
                 "Redis": 66,
                 "PostgreSQL": 51,
+                "MongoDB": 36,
                 "Elasticsearch": 26,
-                "Oracle": 9
+                "Oracle": 9,
+                "MariaDB": 9,
+                "DynamoDB": 5
               },
-              "total": 233
+              "total": 283
             },
             "전투도구": {
               "skills": {
                 "Git": 90,
                 "Jenkins": 14,
-                "Gradle": 7
+                "RabbitMQ": 13,
+                "gRPC": 10,
+                "Gradle": 7,
+                "Nginx": 4
               },
-              "total": 111
+              "total": 138
             },
             "고급장비": {
               "skills": {
@@ -2816,9 +4343,31 @@
                 "Kubernetes": 88,
                 "CI/CD": 57,
                 "Kafka": 57,
-                "MSA": 39
+                "MSA": 39,
+                "GitHub Actions": 23,
+                "Datadog": 18,
+                "Terraform": 16,
+                "Grafana": 11,
+                "Prometheus": 11,
+                "Sentry": 5,
+                "Ansible": 5
               },
-              "total": 529
+              "total": 618
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 38,
+                "Claude": 18,
+                "RAG": 13,
+                "Cursor": 11,
+                "Gemini": 8,
+                "OpenAI": 7,
+                "Copilot": 7,
+                "LangChain": 6,
+                "프롬프트": 6,
+                "ChatGPT": 4
+              },
+              "total": 118
             }
           },
           "2년": {
@@ -2826,21 +4375,32 @@
               "skills": {
                 "Python": 31,
                 "Java": 24,
+                "TypeScript": 19,
                 "Kotlin": 17,
+                "Node.js": 14,
                 "Linux": 10,
-                "C++": 7
+                "JavaScript": 8,
+                "Go": 8,
+                "C++": 7,
+                "Rust": 4,
+                "PHP": 3
               },
-              "total": 89
+              "total": 145
             },
             "주무기": {
               "skills": {
                 "Spring": 16,
+                "Django": 10,
+                "NestJS": 8,
                 "Spring Boot": 7,
+                "FastAPI": 7,
                 "JPA": 6,
+                "Express": 5,
+                "Flask": 5,
                 "Hibernate": 4,
                 "MyBatis": 1
               },
-              "total": 34
+              "total": 69
             },
             "보조장비": {
               "skills": {
@@ -2848,17 +4408,22 @@
                 "Redis": 14,
                 "PostgreSQL": 11,
                 "Elasticsearch": 5,
-                "Oracle": 4
+                "Oracle": 4,
+                "MongoDB": 4,
+                "MariaDB": 1,
+                "DynamoDB": 1
               },
-              "total": 55
+              "total": 61
             },
             "전투도구": {
               "skills": {
                 "Git": 25,
                 "Jenkins": 6,
+                "gRPC": 4,
+                "RabbitMQ": 3,
                 "Gradle": 1
               },
-              "total": 32
+              "total": 39
             },
             "고급장비": {
               "skills": {
@@ -2867,9 +4432,29 @@
                 "Kubernetes": 24,
                 "CI/CD": 14,
                 "Kafka": 9,
-                "MSA": 5
+                "GitHub Actions": 8,
+                "Terraform": 7,
+                "MSA": 5,
+                "Datadog": 4,
+                "Grafana": 3,
+                "Prometheus": 3,
+                "Ansible": 2
               },
-              "total": 118
+              "total": 145
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 15,
+                "Claude": 4,
+                "RAG": 4,
+                "OpenAI": 3,
+                "Cursor": 3,
+                "LangChain": 2,
+                "프롬프트": 2,
+                "Gemini": 1,
+                "Copilot": 1
+              },
+              "total": 35
             }
           },
           "3년": {
@@ -2877,39 +4462,58 @@
               "skills": {
                 "Python": 84,
                 "Java": 68,
+                "TypeScript": 43,
                 "Kotlin": 40,
+                "Node.js": 39,
                 "Linux": 31,
-                "C++": 17
+                "JavaScript": 18,
+                "Go": 17,
+                "C++": 17,
+                "Rust": 8,
+                "PHP": 6,
+                "C#": 2
               },
-              "total": 240
+              "total": 373
             },
             "주무기": {
               "skills": {
                 "Spring": 54,
+                "Django": 26,
+                "FastAPI": 26,
                 "Spring Boot": 24,
+                "NestJS": 19,
                 "JPA": 14,
+                "Flask": 14,
+                "Express": 8,
                 "Hibernate": 4,
-                "MyBatis": 3
+                "MyBatis": 3,
+                ".NET": 1
               },
-              "total": 99
+              "total": 193
             },
             "보조장비": {
               "skills": {
                 "MySQL": 47,
                 "Redis": 40,
                 "PostgreSQL": 34,
+                "MongoDB": 18,
                 "Elasticsearch": 18,
-                "Oracle": 5
+                "MariaDB": 6,
+                "Oracle": 5,
+                "DynamoDB": 2
               },
-              "total": 144
+              "total": 170
             },
             "전투도구": {
               "skills": {
                 "Git": 61,
+                "RabbitMQ": 10,
                 "Jenkins": 9,
+                "gRPC": 7,
+                "Nginx": 3,
                 "Gradle": 2
               },
-              "total": 72
+              "total": 92
             },
             "고급장비": {
               "skills": {
@@ -2918,9 +4522,31 @@
                 "Kubernetes": 55,
                 "CI/CD": 33,
                 "Kafka": 29,
-                "MSA": 14
+                "MSA": 14,
+                "GitHub Actions": 14,
+                "Terraform": 10,
+                "Prometheus": 7,
+                "Datadog": 7,
+                "Grafana": 6,
+                "Ansible": 3,
+                "Sentry": 2
               },
-              "total": 301
+              "total": 350
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 28,
+                "Claude": 11,
+                "RAG": 11,
+                "Cursor": 8,
+                "프롬프트": 6,
+                "Gemini": 5,
+                "OpenAI": 5,
+                "LangChain": 5,
+                "Copilot": 4,
+                "ChatGPT": 1
+              },
+              "total": 84
             }
           },
           "제한없음": {
@@ -2928,39 +4554,58 @@
               "skills": {
                 "Java": 59,
                 "Python": 39,
+                "TypeScript": 31,
                 "Linux": 24,
+                "JavaScript": 21,
+                "Node.js": 21,
                 "Kotlin": 19,
-                "C++": 12
+                "C++": 12,
+                "Go": 11,
+                "C#": 5,
+                "PHP": 4,
+                "Rust": 2
               },
-              "total": 153
+              "total": 248
             },
             "주무기": {
               "skills": {
                 "Spring": 40,
                 "JPA": 17,
                 "Spring Boot": 12,
+                "NestJS": 10,
+                "FastAPI": 10,
                 "Hibernate": 7,
-                "MyBatis": 3
+                "Django": 4,
+                ".NET": 4,
+                "MyBatis": 3,
+                "Express": 3,
+                "Flask": 3
               },
-              "total": 79
+              "total": 113
             },
             "보조장비": {
               "skills": {
                 "Redis": 25,
                 "MySQL": 23,
+                "MongoDB": 18,
                 "PostgreSQL": 17,
                 "Elasticsearch": 13,
-                "Oracle": 7
+                "Oracle": 7,
+                "MariaDB": 6,
+                "DynamoDB": 5
               },
-              "total": 85
+              "total": 114
             },
             "전투도구": {
               "skills": {
                 "Git": 30,
+                "RabbitMQ": 7,
                 "Jenkins": 5,
+                "gRPC": 4,
+                "Nginx": 4,
                 "Gradle": 3
               },
-              "total": 38
+              "total": 53
             },
             "고급장비": {
               "skills": {
@@ -2969,9 +4614,30 @@
                 "Kubernetes": 32,
                 "Kafka": 24,
                 "CI/CD": 21,
-                "MSA": 18
+                "MSA": 18,
+                "Grafana": 12,
+                "Prometheus": 12,
+                "Terraform": 6,
+                "Datadog": 5,
+                "GitHub Actions": 4,
+                "Ansible": 3,
+                "Sentry": 2
               },
-              "total": 188
+              "total": 232
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 24,
+                "RAG": 11,
+                "Claude": 9,
+                "LangChain": 7,
+                "Cursor": 4,
+                "프롬프트": 4,
+                "OpenAI": 3,
+                "Gemini": 2,
+                "Copilot": 2
+              },
+              "total": 66
             }
           },
           "1년": {
@@ -2979,20 +4645,32 @@
               "skills": {
                 "Python": 22,
                 "Java": 16,
+                "TypeScript": 14,
                 "Kotlin": 12,
+                "Node.js": 11,
+                "Go": 8,
                 "Linux": 7,
-                "C++": 4
+                "JavaScript": 6,
+                "C++": 4,
+                "Rust": 3,
+                "PHP": 2,
+                "C#": 2
               },
-              "total": 61
+              "total": 107
             },
             "주무기": {
               "skills": {
+                "Django": 9,
                 "Spring": 7,
+                "Flask": 4,
+                "NestJS": 3,
+                "Express": 3,
+                "FastAPI": 3,
                 "JPA": 2,
                 "Hibernate": 2,
                 "Spring Boot": 1
               },
-              "total": 12
+              "total": 34
             },
             "보조장비": {
               "skills": {
@@ -3000,16 +4678,20 @@
                 "Redis": 7,
                 "PostgreSQL": 4,
                 "Oracle": 4,
-                "Elasticsearch": 3
+                "MongoDB": 3,
+                "Elasticsearch": 3,
+                "DynamoDB": 1
               },
-              "total": 31
+              "total": 35
             },
             "전투도구": {
               "skills": {
                 "Git": 16,
-                "Jenkins": 4
+                "Jenkins": 4,
+                "gRPC": 3,
+                "RabbitMQ": 2
               },
-              "total": 20
+              "total": 25
             },
             "고급장비": {
               "skills": {
@@ -3018,9 +4700,27 @@
                 "Kubernetes": 13,
                 "CI/CD": 8,
                 "Kafka": 7,
-                "MSA": 4
+                "Terraform": 5,
+                "MSA": 4,
+                "Datadog": 4,
+                "GitHub Actions": 3,
+                "Grafana": 2,
+                "Prometheus": 2,
+                "Ansible": 2
               },
-              "total": 72
+              "total": 90
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 7,
+                "Claude": 2,
+                "Cursor": 2,
+                "RAG": 2,
+                "Gemini": 1,
+                "OpenAI": 1,
+                "LangChain": 1
+              },
+              "total": 16
             }
           }
         },
@@ -3041,17 +4741,17 @@
         "passiveSkills": [
           "OOP / SOLID 원칙",
           "자료구조 & 알고리즘",
-          "Advanced Java (Generics, Streams)",
-          "Security (Spring Security)",
+          "Security (인증/인가)",
           "API 설계 (REST/GraphQL)",
-          "Testing (JUnit, Mockito)"
+          "Testing (JUnit, Mockito, pytest)"
         ],
         "roadmapMapping": {
-          "기본장착": "Java 기초 · OOP · Data Structures",
-          "주무기": "Spring Boot · ORM (JPA/Hibernate)",
-          "보조장비": "Databases",
-          "전투도구": "Build Tools · Version Control",
-          "고급장비": "Microservices · DevOps · Deployment"
+          "기본장착": "프로그래밍 언어 · OOP · Data Structures",
+          "주무기": "Spring Boot · Django · NestJS · ORM",
+          "보조장비": "Databases · 캐시 · 검색엔진",
+          "전투도구": "Build Tools · Version Control · API · 메시징",
+          "고급장비": "Microservices · DevOps · Deployment · 모니터링",
+          "AI활용": "AI Engineer · AI Agents — LLM 서빙, RAG 파이프라인 등 AI 인프라 요구가 빠르게 증가하고 있습니다"
         }
       },
       "pm": {
@@ -3063,14 +4763,23 @@
           "애자일": 37,
           "Notion": 35,
           "Amplitude": 34,
+          "LLM": 29,
           "GA": 26,
           "KPI": 24,
           "Slack": 19,
+          "로드맵": 18,
           "Mixpanel": 13,
+          "프롬프트": 11,
           "스크럼": 10,
+          "Tableau": 10,
+          "Claude": 10,
+          "ChatGPT": 9,
           "OKR": 6,
           "A/B Test": 5,
-          "Google Analytics": 3
+          "백로그": 4,
+          "Google Analytics": 3,
+          "Gemini": 2,
+          "OpenAI": 1
         },
         "3년": {
           "Figma": 23,
@@ -3081,11 +4790,19 @@
           "GA": 13,
           "애자일": 12,
           "SQL": 11,
+          "LLM": 10,
           "Slack": 7,
           "스크럼": 5,
+          "ChatGPT": 5,
+          "프롬프트": 4,
           "A/B Test": 4,
+          "Claude": 4,
           "Mixpanel": 3,
           "KPI": 3,
+          "백로그": 2,
+          "Tableau": 1,
+          "로드맵": 1,
+          "Gemini": 1,
           "Google Analytics": 1
         },
         "4년": {
@@ -3097,11 +4814,19 @@
           "SQL": 14,
           "Confluence": 13,
           "애자일": 13,
+          "LLM": 11,
           "Slack": 7,
           "Mixpanel": 6,
           "스크럼": 5,
+          "Claude": 5,
+          "ChatGPT": 5,
           "KPI": 5,
+          "프롬프트": 4,
           "A/B Test": 4,
+          "Tableau": 2,
+          "백로그": 2,
+          "로드맵": 1,
+          "Gemini": 1,
           "OKR": 1,
           "Google Analytics": 1
         },
@@ -3114,12 +4839,21 @@
           "애자일": 24,
           "Notion": 22,
           "GA": 21,
+          "LLM": 20,
           "Slack": 11,
           "KPI": 10,
           "Mixpanel": 10,
+          "로드맵": 8,
           "스크럼": 7,
+          "Claude": 7,
+          "프롬프트": 6,
+          "Tableau": 6,
           "A/B Test": 4,
+          "ChatGPT": 4,
+          "백로그": 4,
           "OKR": 2,
+          "Gemini": 1,
+          "OpenAI": 1,
           "Google Analytics": 1
         },
         "6년": {
@@ -3130,13 +4864,22 @@
           "Confluence": 26,
           "애자일": 24,
           "Notion": 23,
+          "LLM": 21,
           "GA": 21,
           "Slack": 12,
           "KPI": 10,
           "Mixpanel": 10,
+          "로드맵": 8,
           "스크럼": 7,
+          "프롬프트": 6,
+          "Tableau": 6,
+          "Claude": 6,
           "A/B Test": 4,
+          "백로그": 4,
+          "ChatGPT": 3,
           "OKR": 2,
+          "Gemini": 1,
+          "OpenAI": 1,
           "Google Analytics": 1
         },
         "7년": {
@@ -3147,13 +4890,22 @@
           "Confluence": 30,
           "Notion": 26,
           "애자일": 24,
+          "LLM": 23,
           "GA": 22,
           "KPI": 16,
           "Slack": 14,
+          "로드맵": 11,
           "Mixpanel": 10,
+          "Claude": 9,
           "스크럼": 7,
+          "프롬프트": 7,
+          "Tableau": 6,
           "A/B Test": 5,
+          "ChatGPT": 5,
+          "백로그": 4,
           "OKR": 3,
+          "Gemini": 2,
+          "OpenAI": 1,
           "Google Analytics": 1
         },
         "8년": {
@@ -3163,14 +4915,23 @@
           "Confluence": 31,
           "Amplitude": 31,
           "Notion": 26,
+          "LLM": 23,
           "애자일": 23,
           "GA": 22,
           "KPI": 16,
           "Slack": 14,
           "Mixpanel": 10,
+          "로드맵": 10,
+          "Claude": 8,
           "스크럼": 7,
+          "프롬프트": 7,
+          "Tableau": 6,
+          "ChatGPT": 5,
           "A/B Test": 4,
+          "백로그": 4,
           "OKR": 3,
+          "Gemini": 2,
+          "OpenAI": 1,
           "Google Analytics": 1
         },
         "9년": {
@@ -3181,13 +4942,22 @@
           "Amplitude": 31,
           "Notion": 26,
           "GA": 24,
+          "LLM": 23,
           "애자일": 23,
           "KPI": 16,
           "Slack": 13,
           "Mixpanel": 10,
+          "로드맵": 10,
+          "Claude": 8,
           "스크럼": 7,
+          "프롬프트": 7,
+          "Tableau": 7,
+          "ChatGPT": 5,
           "A/B Test": 4,
+          "백로그": 4,
           "OKR": 3,
+          "Gemini": 2,
+          "OpenAI": 1,
           "Google Analytics": 1
         },
         "10년": {
@@ -3197,14 +4967,23 @@
           "Confluence": 31,
           "Amplitude": 31,
           "Notion": 27,
+          "LLM": 25,
           "GA": 24,
           "애자일": 23,
           "KPI": 17,
           "Slack": 13,
+          "로드맵": 11,
           "Mixpanel": 10,
+          "프롬프트": 8,
+          "Tableau": 8,
+          "Claude": 8,
           "스크럼": 7,
+          "ChatGPT": 7,
           "A/B Test": 4,
+          "백로그": 4,
           "OKR": 3,
+          "Gemini": 2,
+          "OpenAI": 1,
           "Google Analytics": 1
         },
         "제한없음": {
@@ -3214,12 +4993,16 @@
           "Jira": 9,
           "Notion": 7,
           "KPI": 6,
+          "로드맵": 6,
           "Confluence": 5,
+          "LLM": 4,
           "Slack": 4,
           "Amplitude": 3,
           "Mixpanel": 3,
           "스크럼": 3,
           "OKR": 3,
+          "프롬프트": 3,
+          "Tableau": 2,
           "GA": 2,
           "Google Analytics": 2
         },
@@ -3231,7 +5014,12 @@
           "애자일": 2,
           "SQL": 1,
           "GA": 1,
+          "Tableau": 1,
+          "LLM": 1,
           "Slack": 1,
+          "프롬프트": 1,
+          "ChatGPT": 1,
+          "Claude": 1,
           "Notion": 1
         },
         "1년": {
@@ -3239,7 +5027,12 @@
           "GA": 2,
           "Amplitude": 2,
           "Jira": 2,
+          "Tableau": 1,
+          "LLM": 1,
+          "프롬프트": 1,
           "Figma": 1,
+          "ChatGPT": 1,
+          "Claude": 1,
           "Confluence": 1,
           "Slack": 1,
           "애자일": 1
@@ -3250,10 +5043,12 @@
               "skills": {
                 "애자일": 37,
                 "KPI": 24,
+                "로드맵": 18,
                 "스크럼": 10,
-                "OKR": 6
+                "OKR": 6,
+                "백로그": 4
               },
-              "total": 77
+              "total": 99
             },
             "주무기": {
               "skills": {
@@ -3270,16 +5065,28 @@
                 "Amplitude": 34,
                 "GA": 26,
                 "Mixpanel": 13,
+                "Tableau": 10,
                 "A/B Test": 5,
                 "Google Analytics": 3
               },
-              "total": 140
+              "total": 150
             },
             "전투도구": {
               "skills": {
                 "Figma": 60
               },
               "total": 60
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 29,
+                "프롬프트": 11,
+                "Claude": 10,
+                "ChatGPT": 9,
+                "Gemini": 2,
+                "OpenAI": 1
+              },
+              "total": 62
             }
           },
           "3년": {
@@ -3287,9 +5094,11 @@
               "skills": {
                 "애자일": 12,
                 "스크럼": 5,
-                "KPI": 3
+                "KPI": 3,
+                "백로그": 2,
+                "로드맵": 1
               },
-              "total": 20
+              "total": 23
             },
             "주무기": {
               "skills": {
@@ -3307,15 +5116,26 @@
                 "SQL": 11,
                 "A/B Test": 4,
                 "Mixpanel": 3,
-                "Google Analytics": 1
+                "Google Analytics": 1,
+                "Tableau": 1
               },
-              "total": 47
+              "total": 48
             },
             "전투도구": {
               "skills": {
                 "Figma": 23
               },
               "total": 23
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 10,
+                "ChatGPT": 5,
+                "Claude": 4,
+                "프롬프트": 4,
+                "Gemini": 1
+              },
+              "total": 24
             }
           },
           "4년": {
@@ -3324,9 +5144,11 @@
                 "애자일": 13,
                 "스크럼": 5,
                 "KPI": 5,
-                "OKR": 1
+                "백로그": 2,
+                "OKR": 1,
+                "로드맵": 1
               },
-              "total": 24
+              "total": 27
             },
             "주무기": {
               "skills": {
@@ -3344,13 +5166,24 @@
                 "SQL": 14,
                 "Mixpanel": 6,
                 "A/B Test": 4,
+                "Tableau": 2,
                 "Google Analytics": 1
               },
-              "total": 57
+              "total": 59
             },
             "전투도구": {
               "skills": {
                 "Figma": 26
+              },
+              "total": 26
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 11,
+                "ChatGPT": 5,
+                "Claude": 5,
+                "프롬프트": 4,
+                "Gemini": 1
               },
               "total": 26
             }
@@ -3360,10 +5193,12 @@
               "skills": {
                 "애자일": 24,
                 "KPI": 10,
+                "로드맵": 8,
                 "스크럼": 7,
+                "백로그": 4,
                 "OKR": 2
               },
-              "total": 43
+              "total": 55
             },
             "주무기": {
               "skills": {
@@ -3380,16 +5215,28 @@
                 "Amplitude": 26,
                 "GA": 21,
                 "Mixpanel": 10,
+                "Tableau": 6,
                 "A/B Test": 4,
                 "Google Analytics": 1
               },
-              "total": 103
+              "total": 109
             },
             "전투도구": {
               "skills": {
                 "Figma": 38
               },
               "total": 38
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 20,
+                "Claude": 7,
+                "프롬프트": 6,
+                "ChatGPT": 4,
+                "Gemini": 1,
+                "OpenAI": 1
+              },
+              "total": 39
             }
           },
           "6년": {
@@ -3397,10 +5244,12 @@
               "skills": {
                 "애자일": 24,
                 "KPI": 10,
+                "로드맵": 8,
                 "스크럼": 7,
+                "백로그": 4,
                 "OKR": 2
               },
-              "total": 43
+              "total": 55
             },
             "주무기": {
               "skills": {
@@ -3417,16 +5266,28 @@
                 "Amplitude": 28,
                 "GA": 21,
                 "Mixpanel": 10,
+                "Tableau": 6,
                 "A/B Test": 4,
                 "Google Analytics": 1
               },
-              "total": 107
+              "total": 113
             },
             "전투도구": {
               "skills": {
                 "Figma": 37
               },
               "total": 37
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 21,
+                "Claude": 6,
+                "프롬프트": 6,
+                "ChatGPT": 3,
+                "Gemini": 1,
+                "OpenAI": 1
+              },
+              "total": 38
             }
           },
           "7년": {
@@ -3434,10 +5295,12 @@
               "skills": {
                 "애자일": 24,
                 "KPI": 16,
+                "로드맵": 11,
                 "스크럼": 7,
+                "백로그": 4,
                 "OKR": 3
               },
-              "total": 50
+              "total": 65
             },
             "주무기": {
               "skills": {
@@ -3454,16 +5317,28 @@
                 "Amplitude": 31,
                 "GA": 22,
                 "Mixpanel": 10,
+                "Tableau": 6,
                 "A/B Test": 5,
                 "Google Analytics": 1
               },
-              "total": 114
+              "total": 120
             },
             "전투도구": {
               "skills": {
                 "Figma": 43
               },
               "total": 43
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 23,
+                "Claude": 9,
+                "프롬프트": 7,
+                "ChatGPT": 5,
+                "Gemini": 2,
+                "OpenAI": 1
+              },
+              "total": 47
             }
           },
           "8년": {
@@ -3471,10 +5346,12 @@
               "skills": {
                 "애자일": 23,
                 "KPI": 16,
+                "로드맵": 10,
                 "스크럼": 7,
+                "백로그": 4,
                 "OKR": 3
               },
-              "total": 49
+              "total": 63
             },
             "주무기": {
               "skills": {
@@ -3491,16 +5368,28 @@
                 "Amplitude": 31,
                 "GA": 22,
                 "Mixpanel": 10,
+                "Tableau": 6,
                 "A/B Test": 4,
                 "Google Analytics": 1
               },
-              "total": 113
+              "total": 119
             },
             "전투도구": {
               "skills": {
                 "Figma": 43
               },
               "total": 43
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 23,
+                "Claude": 8,
+                "프롬프트": 7,
+                "ChatGPT": 5,
+                "Gemini": 2,
+                "OpenAI": 1
+              },
+              "total": 46
             }
           },
           "9년": {
@@ -3508,10 +5397,12 @@
               "skills": {
                 "애자일": 23,
                 "KPI": 16,
+                "로드맵": 10,
                 "스크럼": 7,
+                "백로그": 4,
                 "OKR": 3
               },
-              "total": 49
+              "total": 63
             },
             "주무기": {
               "skills": {
@@ -3528,16 +5419,28 @@
                 "Amplitude": 31,
                 "GA": 24,
                 "Mixpanel": 10,
+                "Tableau": 7,
                 "A/B Test": 4,
                 "Google Analytics": 1
               },
-              "total": 116
+              "total": 123
             },
             "전투도구": {
               "skills": {
                 "Figma": 43
               },
               "total": 43
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 23,
+                "Claude": 8,
+                "프롬프트": 7,
+                "ChatGPT": 5,
+                "Gemini": 2,
+                "OpenAI": 1
+              },
+              "total": 46
             }
           },
           "10년": {
@@ -3545,10 +5448,12 @@
               "skills": {
                 "애자일": 23,
                 "KPI": 17,
+                "로드맵": 11,
                 "스크럼": 7,
+                "백로그": 4,
                 "OKR": 3
               },
-              "total": 50
+              "total": 65
             },
             "주무기": {
               "skills": {
@@ -3565,16 +5470,28 @@
                 "Amplitude": 31,
                 "GA": 24,
                 "Mixpanel": 10,
+                "Tableau": 8,
                 "A/B Test": 4,
                 "Google Analytics": 1
               },
-              "total": 117
+              "total": 125
             },
             "전투도구": {
               "skills": {
                 "Figma": 44
               },
               "total": 44
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 25,
+                "Claude": 8,
+                "프롬프트": 8,
+                "ChatGPT": 7,
+                "Gemini": 2,
+                "OpenAI": 1
+              },
+              "total": 51
             }
           },
           "제한없음": {
@@ -3582,10 +5499,11 @@
               "skills": {
                 "애자일": 12,
                 "KPI": 6,
+                "로드맵": 6,
                 "스크럼": 3,
                 "OKR": 3
               },
-              "total": 24
+              "total": 30
             },
             "주무기": {
               "skills": {
@@ -3602,15 +5520,23 @@
                 "Amplitude": 3,
                 "Mixpanel": 3,
                 "GA": 2,
-                "Google Analytics": 2
+                "Google Analytics": 2,
+                "Tableau": 2
               },
-              "total": 22
+              "total": 24
             },
             "전투도구": {
               "skills": {
                 "Figma": 14
               },
               "total": 14
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 4,
+                "프롬프트": 3
+              },
+              "total": 7
             }
           },
           "2년": {
@@ -3633,13 +5559,23 @@
               "skills": {
                 "Amplitude": 2,
                 "SQL": 1,
-                "GA": 1
+                "GA": 1,
+                "Tableau": 1
               },
-              "total": 4
+              "total": 5
             },
             "전투도구": {
               "skills": {
                 "Figma": 4
+              },
+              "total": 4
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 1,
+                "ChatGPT": 1,
+                "Claude": 1,
+                "프롬프트": 1
               },
               "total": 4
             }
@@ -3663,15 +5599,25 @@
               "skills": {
                 "SQL": 2,
                 "GA": 2,
-                "Amplitude": 2
+                "Amplitude": 2,
+                "Tableau": 1
               },
-              "total": 6
+              "total": 7
             },
             "전투도구": {
               "skills": {
                 "Figma": 1
               },
               "total": 1
+            },
+            "AI활용": {
+              "skills": {
+                "LLM": 1,
+                "ChatGPT": 1,
+                "Claude": 1,
+                "프롬프트": 1
+              },
+              "total": 4
             }
           }
         },
@@ -3700,7 +5646,8 @@
           "기본장착": "프로젝트 관리 기초",
           "주무기": "협업 도구",
           "보조장비": "데이터 기반 의사결정",
-          "전투도구": "UX/UI 협업"
+          "전투도구": "UX/UI 협업",
+          "AI활용": "AI Engineer · AI Agents — AI 서비스 기획과 프롬프트 설계가 PM의 새로운 역량으로 요구되고 있습니다"
         }
       }
     }
