@@ -2,24 +2,26 @@
   "name": "RBYE",
   "version": "0.0.1",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "stage": "yarn build; yarn start",
+    "dev": "bash scripts/run-next.sh dev",
+    "build": "bash scripts/run-next.sh build",
+    "start": "bash scripts/run-next.sh start",
+    "dev:all": "RBYE_AUTO_KILL=1 RBYE_API_WATCH=0 RBYE_AUTOSCAN=0 RBYE_API_PORT=5003 RBYE_FRONTEND_PORT=5004 bash scripts/dev-local.sh",
+    "stage": "pnpm build && pnpm start",
     "type-check": "tsc"
   },
+  "packageManager": "pnpm@10.5.2",
   "dependencies": {
-    "date-fns": "2.11.0",
+    "date-fns": "2.30.0",
     "isomorphic-unfetch": "3.0.0",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-highlight-words": "0.16.0",
+    "react-highlight-words": "0.20.0",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
-    "@types/react": "18.3.28",
+    "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
