@@ -2,21 +2,29 @@ import * as React from "react";
 import Head from "next/head";
 import Footer from "./Footer";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useStore } from "../store";
 
 type Props = {
   title?: string;
   children: React.ReactNode;
+  pageType?: "job" | "stats" | "skillset";
+  currentPage?: string;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
   title = "기본 타이틀",
+  pageType = "job",
+  currentPage = "",
 }) => {
-  const currentPage = useStore((state) => state.currentPage);
-  const router = useRouter();
-  const isStatsPage = router.pathname === "/stats";
+  const isStatsPage = pageType === "stats";
+  const isSkillsetPage = pageType === "skillset";
+  const isSpecialPage = pageType === "stats" || pageType === "skillset";
+
+  const getPageTitle = () => {
+    if (isStatsPage) return "기술 키워드 통계";
+    if (isSkillsetPage) return "스킬 로드맵";
+    return "연차별 요구사항";
+  };
 
   return (
     <div>
@@ -31,14 +39,18 @@ const Layout: React.FunctionComponent<Props> = ({
       </Head>
       <div className="flex justify-center mb-2">
         <Link href={`/t/frontend`}>
-          <a className={!isStatsPage ? "bg-gray-400 px-2" : "px-2"}>공고 보기</a>
+          <a className={!isSpecialPage ? "bg-gray-400 px-2" : "px-2"}>공고 보기</a>
         </Link>
         <span className="mx-2"> | </span>
         <Link href={`/stats`}>
           <a className={isStatsPage ? "bg-gray-400 px-2" : "px-2"}>기술 통계</a>
         </Link>
+        <span className="mx-2"> | </span>
+        <Link href={`/skillset`}>
+          <a className={isSkillsetPage ? "bg-gray-400 px-2" : "px-2"}>스킬 세트</a>
+        </Link>
       </div>
-      {!isStatsPage && (
+      {!isSpecialPage && (
         <div className="flex justify-center">
           <h1 className="text-center">
             <Link href={`/t/frontend`}>
@@ -73,7 +85,7 @@ const Layout: React.FunctionComponent<Props> = ({
         </div>
       )}
       <h1 className="text-center mb-4">
-        {isStatsPage ? "기술 키워드 통계" : "연차별 요구사항"}
+        {getPageTitle()}
       </h1>
       {children}
       <Footer />

@@ -61,7 +61,7 @@ const StatsPage = ({ stats, updated }: Props) => {
   const totalCount = sortedSkills.reduce((sum, [, count]) => sum + count, 0);
 
   return (
-    <Layout title="기술 키워드 통계 - RBYE.VERCEL.APP">
+    <Layout title="기술 키워드 통계 - RBYE.VERCEL.APP" pageType="stats">
       <div className="block m-auto lg:max-w-3xl px-4">
         {/* 카테고리 탭 */}
         <div className="flex justify-center gap-1 mb-6">
