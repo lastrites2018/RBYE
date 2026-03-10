@@ -51,37 +51,31 @@ const Layout: React.FunctionComponent<Props> = ({
         </Link>
       </div>
       {!isSpecialPage && (
-        <div className="flex justify-center">
-          <h1 className="text-center">
-            <Link href={`/t/frontend`}>
-              <a className={currentPage === "frontend" ? "bg-gray-400" : ""}>
-                프론트엔드
-              </a>
-            </Link>
-          </h1>
-          <span className="mx-2"> | </span>
-          <h1 className="text-center">
-            <Link href={`/t/nodejs`}>
-              <a className={currentPage === "nodejs" ? "bg-gray-400" : ""}>
-                nodejs
-              </a>
-            </Link>
-          </h1>
-          <span className="mx-2"> | </span>
-          <h1 className="text-center">
-            <Link href={`/t/server`}>
-              <a className={currentPage === "server" ? "bg-gray-400" : ""}>
-                {" "}
-                백엔드
-              </a>
-            </Link>
-          </h1>
-          <span className="mx-2"> | </span>
-          <h1 className="text-center">
-            <Link href={`/t/pm`}>
-              <a className={currentPage === "pm" ? "bg-gray-400" : ""}>PM</a>
-            </Link>
-          </h1>
+        <div className="flex justify-center gap-1 mb-2">
+          <Link href={`/t/frontend`}>
+            <a className={currentPage === "frontend"
+              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
+              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
+            }>프론트엔드</a>
+          </Link>
+          <Link href={`/t/nodejs`}>
+            <a className={currentPage === "nodejs"
+              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
+              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
+            }>Node.js</a>
+          </Link>
+          <Link href={`/t/server`}>
+            <a className={currentPage === "server"
+              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
+              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
+            }>백엔드</a>
+          </Link>
+          <Link href={`/t/pm`}>
+            <a className={currentPage === "pm"
+              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
+              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
+            }>PM</a>
+          </Link>
         </div>
       )}
       <h1 className="text-center mb-4">
