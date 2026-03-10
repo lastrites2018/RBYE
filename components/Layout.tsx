@@ -2,7 +2,8 @@ import * as React from "react";
 import Head from "next/head";
 import Footer from "./Footer";
 import Link from "next/link";
-import { useRootData } from "../hooks";
+import { useRouter } from "next/router";
+import { useStore } from "../store";
 
 type Props = {
   title?: string;
@@ -12,7 +13,9 @@ const Layout: React.FunctionComponent<Props> = ({
   children,
   title = "기본 타이틀",
 }) => {
-  const currentPage = useRootData((store) => store.currentPage.get());
+  const currentPage = useStore((state) => state.currentPage);
+  const router = useRouter();
+  const isStatsPage = router.pathname === "/stats";
 
   return (
     <div>
@@ -25,39 +28,52 @@ const Layout: React.FunctionComponent<Props> = ({
           content="RBYE : 웹개발자에게 연차별로 요구되는 능력을 빠르게 보여줍니다."
         />
       </Head>
-      <div className="flex justify-center">
-        <h1 className="text-center">
-          <Link href={`/t/frontend`}>
-            <a className={currentPage === "frontend" ? "bg-gray-400" : ""}>
-              프론트엔드
-            </a>
-          </Link>
-        </h1>
+      <div className="flex justify-center mb-2">
+        <Link href={`/t/frontend`}>
+          <a className={!isStatsPage ? "bg-gray-400 px-2" : "px-2"}>공고 보기</a>
+        </Link>
         <span className="mx-2"> | </span>
-        <h1 className="text-center">
-          <Link href={`/t/nodejs`}>
-            <a className={currentPage === "nodejs" ? "bg-gray-400" : ""}>
-              nodejs
-            </a>
-          </Link>
-        </h1>
-        <span className="mx-2"> | </span>
-        <h1 className="text-center">
-          <Link href={`/t/server`}>
-            <a className={currentPage === "server" ? "bg-gray-400" : ""}>
-              {" "}
-              백엔드
-            </a>
-          </Link>
-        </h1>
-        <span className="mx-2"> | </span>
-        <h1 className="text-center">
-          <Link href={`/t/pm`}>
-            <a className={currentPage === "pm" ? "bg-gray-400" : ""}>PM</a>
-          </Link>
-        </h1>
+        <Link href={`/stats`}>
+          <a className={isStatsPage ? "bg-gray-400 px-2" : "px-2"}>기술 통계</a>
+        </Link>
       </div>
-      <h1 className="text-center mb-4">연차별 요구사항</h1>
+      {!isStatsPage && (
+        <div className="flex justify-center">
+          <h1 className="text-center">
+            <Link href={`/t/frontend`}>
+              <a className={currentPage === "frontend" ? "bg-gray-400" : ""}>
+                프론트엔드
+              </a>
+            </Link>
+          </h1>
+          <span className="mx-2"> | </span>
+          <h1 className="text-center">
+            <Link href={`/t/nodejs`}>
+              <a className={currentPage === "nodejs" ? "bg-gray-400" : ""}>
+                nodejs
+              </a>
+            </Link>
+          </h1>
+          <span className="mx-2"> | </span>
+          <h1 className="text-center">
+            <Link href={`/t/server`}>
+              <a className={currentPage === "server" ? "bg-gray-400" : ""}>
+                {" "}
+                백엔드
+              </a>
+            </Link>
+          </h1>
+          <span className="mx-2"> | </span>
+          <h1 className="text-center">
+            <Link href={`/t/pm`}>
+              <a className={currentPage === "pm" ? "bg-gray-400" : ""}>PM</a>
+            </Link>
+          </h1>
+        </div>
+      )}
+      <h1 className="text-center mb-4">
+        {isStatsPage ? "기술 키워드 통계" : "연차별 요구사항"}
+      </h1>
       {children}
       <Footer />
     </div>

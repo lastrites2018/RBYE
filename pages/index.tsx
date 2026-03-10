@@ -1,6 +1,7 @@
 import * as React from "react";
 import fetch from "isomorphic-unfetch";
-import { useRootData } from "../hooks";
+import { GetServerSideProps } from "next";
+import { useStore } from "../store";
 import { apiUrl } from "../utils/apiLocation";
 
 import Post from "./t/[type]";
@@ -13,8 +14,7 @@ interface Props {
 
 const IndexPage = ({ data, updated, totalCount }: Props) => {
   let defaultQueryObject = { type: "frontend" };
-  const store = useRootData((store) => store);
-  const { setCurrentPage } = store;
+  const setCurrentPage = useStore((state) => state.setCurrentPage);
   setCurrentPage("frontend");
 
   return (
@@ -29,7 +29,7 @@ const IndexPage = ({ data, updated, totalCount }: Props) => {
   );
 };
 
-IndexPage.getInitialProps = async function () {
+export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const res = await fetch(`${apiUrl}/frontend?_page=1&_limit=30`);
     const res2 = await fetch(`${apiUrl}/updated`);
@@ -38,13 +38,13 @@ IndexPage.getInitialProps = async function () {
     const totalCount = Number(res.headers.get("X-Total-Count"));
 
     return {
-      data,
-      updated,
-      totalCount,
+      props: { data, updated, totalCount },
     };
   } catch (e) {
     console.error("API 요청 실패:", e);
-    return { data: [], updated: [{}], totalCount: 0 };
+    return {
+      props: { data: [], updated: [{}], totalCount: 0 },
+    };
   }
 };
 

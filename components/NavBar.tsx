@@ -1,16 +1,13 @@
 import * as React from "react";
-import { useRootData } from "../hooks";
+import { useStore } from "../store";
 
 const NavBar: React.FunctionComponent = () => {
   const [word, setWord] = React.useState("");
 
-  const store = useRootData(store => store);
-  const searchKeyword = useRootData(store => store.searchKeyword.get());
-  const setSearchKeyword = searchKeyword =>
-    store.setSearchKeyword(searchKeyword);
-  const setYear = year => store.setYear(year);
-  const setCurrentCategory = (currentCategory: string) =>
-    store.setCurrentCategory(currentCategory);
+  const searchKeyword = useStore((state) => state.searchKeyword);
+  const setSearchKeyword = useStore((state) => state.setSearchKeyword);
+  const setYear = useStore((state) => state.setYear);
+  const setCurrentCategory = useStore((state) => state.setCurrentCategory);
 
   React.useEffect(() => {
     if (!searchKeyword) setWord("");

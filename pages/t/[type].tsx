@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import fetch from "isomorphic-unfetch";
+import { GetServerSideProps } from "next";
 import parse from "date-fns/parse";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import koLocale from "date-fns/locale/ko";
@@ -7,7 +8,7 @@ import koLocale from "date-fns/locale/ko";
 import JobList from "../../components/JobList";
 import Layout from "../../components/Layout";
 import NavBar from "../../components/NavBar";
-import { useRootData } from "../../hooks";
+import { useStore } from "../../store";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
 import { apiUrl } from "../../utils/apiLocation";
@@ -34,17 +35,13 @@ export default function Post(props: Props) {
   const totalPage = React.useRef(1);
   const rootRef = React.useRef(null);
 
-  const store = useRootData((store) => store);
-  const year = useRootData((store) => store.year.get());
-  const searchKeyword = useRootData((store) => store.searchKeyword.get());
-  const currentCategory = useRootData((store) => store.currentCategory.get());
-  const currentPageName = useRootData((store) => store.currentPage.get());
-
-  const setYear = (year) => store.setYear(year);
-  const setSearchKeyword = (searchKeyword) =>
-    store.setSearchKeyword(searchKeyword);
-  const setCurrentCategory = (currentCategory) =>
-    store.setCurrentCategory(currentCategory);
+  const year = useStore((state) => state.year);
+  const searchKeyword = useStore((state) => state.searchKeyword);
+  const currentCategory = useStore((state) => state.currentCategory);
+  const setYear = useStore((state) => state.setYear);
+  const setSearchKeyword = useStore((state) => state.setSearchKeyword);
+  const setCurrentCategory = useStore((state) => state.setCurrentCategory);
+  const setCurrentPage = useStore((state) => state.setCurrentPage);
 
   const lastChildBefore = () =>
     document.querySelector(".job-wrapper:last-child");
@@ -55,41 +52,56 @@ export default function Post(props: Props) {
   }, []);
 
   const loadMoreData = React.useCallback(async () => {
-    setLoading(true);
-    currentPage.current++;
-    const res = await fetch(
-      `${apiUrl}/${props.query?.type}?_page=${currentPage.current}&_limit=30`
-    );
-    const newData = await res.json();
-    await setData([...data, ...newData]);
-    setLoading(false);
+    try {
+      setLoading(true);
+      currentPage.current++;
+      const res = await fetch(
+        `${apiUrl}/${props.query?.type}?_page=${currentPage.current}&_limit=30`
+      );
+      const newData = await res.json();
+      setData([...data, ...newData]);
+    } catch (e) {
+      console.error("추가 데이터 로드 실패:", e);
+      currentPage.current--;
+    } finally {
+      setLoading(false);
+    }
   }, [data]);
 
   const loadCompanyData = React.useCallback(async () => {
-    setLoading(true);
-    const res = await fetch(`${apiUrl}/company`);
-    const newData = await res.json();
-    await setCompanyData(newData);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const res = await fetch(`${apiUrl}/company`);
+      const newData = await res.json();
+      setCompanyData(newData);
+    } catch (e) {
+      console.error("회사 데이터 로드 실패:", e);
+    } finally {
+      setLoading(false);
+    }
   }, [isMoreInfo]);
 
   const getData = React.useCallback(
     async (
       requestLink = `${apiUrl}/${props.query?.type}?contentObj.requirement_like=${year}년`
     ) => {
-      setLoading(true);
-      const res = await fetch(requestLink);
-      let newData = await res.json();
-      if (currentCategory === "제한없음") {
-        newData = newData.filter(
-          (item) =>
-            item.contentObj.requirement &&
-            !item.contentObj.requirement.includes("년")
-        );
+      try {
+        setLoading(true);
+        const res = await fetch(requestLink);
+        let newData = await res.json();
+        if (currentCategory === "제한없음") {
+          newData = newData.filter(
+            (item) =>
+              item.contentObj.requirement &&
+              !item.contentObj.requirement.includes("년")
+          );
+        }
+        setData(newData);
+      } catch (e) {
+        console.error("데이터 로드 실패:", e);
+      } finally {
+        setLoading(false);
       }
-
-      setData(newData);
-      setLoading(false);
     },
     [data, year, currentCategory]
   );
@@ -122,7 +134,7 @@ export default function Post(props: Props) {
 
   useEffect(() => {
     if (props.query?.type) {
-      store.setCurrentPage(props.query?.type);
+      setCurrentPage(props.query?.type);
       setCurrentCategory("전체");
       setSearchKeyword("");
     }
@@ -167,12 +179,12 @@ export default function Post(props: Props) {
     for (let i = 1; i < 11; i += 1) {
       i !== 9 &&
         temp.push(
-          <span
+          <button
             key={i}
             className={
               year === i
-                ? "m-1 text-gray-500 text-lg"
-                : "m-1 hover:text-gray-500"
+                ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
+                : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
             }
             onClick={() => {
               setYear(i);
@@ -180,9 +192,8 @@ export default function Post(props: Props) {
               setSearchKeyword("");
             }}
           >
-            [{i}
-            년]
-          </span>
+            [{i}년]
+          </button>
         );
     }
     return temp;
@@ -230,11 +241,11 @@ export default function Post(props: Props) {
           <div className="flex flex-wrap cursor-pointer">
             {displayYear()}
 
-            <span
+            <button
               className={
                 currentCategory === "제한없음"
-                  ? "m-1 text-gray-500 text-lg"
-                  : "m-1 hover:text-gray-500"
+                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
+                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
               }
               onClick={() => {
                 setCurrentCategory("제한없음");
@@ -243,12 +254,12 @@ export default function Post(props: Props) {
               }}
             >
               [제한없음]
-            </span>
-            <span
+            </button>
+            <button
               className={
                 currentCategory === "신입"
-                  ? "m-1 text-gray-500 text-lg"
-                  : "m-1 hover:text-gray-500"
+                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
+                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
               }
               onClick={() => {
                 setCurrentCategory("신입");
@@ -257,12 +268,12 @@ export default function Post(props: Props) {
               }}
             >
               [신입]
-            </span>
-            <span
+            </button>
+            <button
               className={
                 currentCategory === "주니어"
-                  ? "m-1 text-gray-500 text-lg"
-                  : "m-1 hover:text-gray-500"
+                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
+                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
               }
               onClick={() => {
                 setCurrentCategory("주니어");
@@ -271,12 +282,12 @@ export default function Post(props: Props) {
               }}
             >
               [주니어]
-            </span>
-            <span
+            </button>
+            <button
               className={
                 currentCategory === "senior"
-                  ? "m-1 text-gray-500 text-lg"
-                  : "m-1 hover:text-gray-500"
+                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
+                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
               }
               onClick={() => {
                 setCurrentCategory("senior");
@@ -285,26 +296,12 @@ export default function Post(props: Props) {
               }}
             >
               [senior]
-            </span>
-            {/* <span
-              className={
-                currentCategory === "시니어"
-                  ? "m-1 text-gray-500 text-lg"
-                  : "m-1 hover:text-gray-500"
-              }
-              onClick={() => {
-                setCurrentCategory("시니어");
-                setYear(0);
-                setSearchKeyword("시니어");
-              }}
-            >
-              [시니어]
-            </span> */}
-            <span
+            </button>
+            <button
               className={
                 currentCategory === "전체"
-                  ? "m-1 text-gray-500 text-lg"
-                  : "m-1 hover:text-gray-500"
+                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
+                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
               }
               onClick={() => {
                 setYear(0);
@@ -313,11 +310,10 @@ export default function Post(props: Props) {
               }}
             >
               [전체]
-            </span>
+            </button>
           </div>
           <span className="text-gray-500 text-sm">
             데이터 업데이트{" "}
-            {/* 데이터 수 {totalDataCount} 데이터 업데이트{" "} */}
             {props.updated[0]?.[props.query.type] &&
               formatDistanceToNow(
                 parse(
@@ -354,7 +350,7 @@ export default function Post(props: Props) {
   );
 }
 
-Post.getInitialProps = async function ({ query }) {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     const res = await fetch(`${apiUrl}/${query.type}?_page=1&_limit=30`);
     const res2 = await fetch(`${apiUrl}/updated`);
@@ -364,13 +360,12 @@ Post.getInitialProps = async function ({ query }) {
     const totalCount = Number(res.headers.get("X-Total-Count"));
 
     return {
-      data,
-      updated,
-      query,
-      totalCount,
+      props: { data, updated, query, totalCount },
     };
   } catch (e) {
     console.error("API 요청 실패:", e);
-    return { data: [], updated: [{}], query, totalCount: 0 };
+    return {
+      props: { data: [], updated: [{}], query, totalCount: 0 },
+    };
   }
 };

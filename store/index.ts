@@ -1,26 +1,23 @@
-import { observable } from "mobx";
+import create from "zustand";
 
-export const createStore = () => {
-  const store = {
-    year: observable.box(0),
-    setYear(year: number) {
-      store.year.set(year);
-    },
-    currentPage: observable.box(""),
-    setCurrentPage(currentPage: string) {
-      store.currentPage.set(currentPage);
-    },
-    searchKeyword: observable.box(""),
-    setSearchKeyword(searchKeyword: string) {
-      store.searchKeyword.set(searchKeyword);
-    },
-    currentCategory: observable.box("전체"),
-    setCurrentCategory(currentCategory: string) {
-      store.currentCategory.set(currentCategory);
-    }
-  };
+interface StoreState {
+  year: number;
+  currentPage: string;
+  searchKeyword: string;
+  currentCategory: string;
+  setYear: (year: number) => void;
+  setCurrentPage: (currentPage: string) => void;
+  setSearchKeyword: (searchKeyword: string) => void;
+  setCurrentCategory: (currentCategory: string) => void;
+}
 
-  return store;
-};
-
-export type TStore = ReturnType<typeof createStore>;
+export const useStore = create<StoreState>((set) => ({
+  year: 0,
+  currentPage: "",
+  searchKeyword: "",
+  currentCategory: "전체",
+  setYear: (year) => set({ year }),
+  setCurrentPage: (currentPage) => set({ currentPage }),
+  setSearchKeyword: (searchKeyword) => set({ searchKeyword }),
+  setCurrentCategory: (currentCategory) => set({ currentCategory }),
+}));
