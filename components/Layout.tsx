@@ -7,6 +7,7 @@ import { useStore } from "../store";
 
 type Props = {
   title?: string;
+  children: React.ReactNode;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
