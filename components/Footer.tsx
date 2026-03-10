@@ -20,7 +20,11 @@ const Footer = () => {
       </div>
       <div className="break-word-and-keep-all">
         이 사이트는{" "}
-        <a href="/www.wanted.co.kr/" target="_blank">
+        <a
+          href="https://www.wanted.co.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Wanted
         </a>
         의 데이터에 기반하며, 비영리적인 목적으로 사용합니다.

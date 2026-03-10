@@ -70,6 +70,7 @@ const Jobs = ({
             <a
               href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
               target="_blank"
+              rel="noopener noreferrer"
               className="underline text-gray-800 mr-3"
             >
               나이스평가
@@ -80,15 +81,17 @@ const Jobs = ({
               companyInfoObject?.companyName || companyName
             )}`}
             target="_blank"
+            rel="noopener noreferrer"
             className="underline text-gray-800 inline-block mr-3"
           >
             잡플래닛
           </a>
           <a
-            href={`http://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURI(
+            href={`https://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURI(
               companyInfoObject?.companyName || companyName
             )}`}
             target="_blank"
+            rel="noopener noreferrer"
             className="underline text-gray-800 inline-block"
           >
             사람인
@@ -121,7 +124,8 @@ const Jobs = ({
         <a
           className="text-blue-600 hover:text-blue-400"
           href={link}
-          target="blank"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <HighLight content={link} searchText={searchKeyword} />
         </a>
