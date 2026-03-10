@@ -55,7 +55,7 @@ const StatsPage = ({ stats, updated }: Props) => {
 
   const sortedSkills = Object.entries(yearData)
     .sort(([, a], [, b]) => b - a)
-    .slice(0, 15);
+    .slice(0, 20);
 
   const maxCount = sortedSkills.length > 0 ? sortedSkills[0][1] : 0;
   const totalCount = sortedSkills.reduce((sum, [, count]) => sum + count, 0);
@@ -110,7 +110,7 @@ const StatsPage = ({ stats, updated }: Props) => {
             <div className="flex justify-between items-end mb-6">
               <h2 className="text-lg font-semibold text-gray-700">
                 {CATEGORIES.find((c) => c.key === selectedCategory)?.label}{" "}
-                <span className="text-teal-700">{selectedYear}</span> TOP 15
+                <span className="text-teal-700">{selectedYear}</span> TOP 20
               </h2>
               <span className="text-xs text-gray-500">
                 총 {totalCount}건 언급
