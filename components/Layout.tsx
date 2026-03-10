@@ -37,6 +37,61 @@ const Layout: React.FunctionComponent<Props> = ({
     resolvedCanonicalPath.startsWith("/") ? resolvedCanonicalPath : `/${resolvedCanonicalPath}`
   }`;
   const pageTitle = title.includes("RBYE") ? title : `${title} | RBYE.VERCEL.APP`;
+  const websiteUrl = "https://rbye.vercel.app";
+  const siteName = "RBYE";
+
+  const breadcrumbItems = [
+    { name: "홈", path: "/" },
+    ...(isStatsPage
+      ? [{ name: "기술 통계", path: "/stats" }]
+      : isSkillsetPage
+      ? [{ name: "스킬 세트", path: "/skillset" }]
+      : currentPage
+      ? [
+          { name: "공고 보기", path: "/t" },
+          {
+            name: `${currentPage} 연차별 요구사항`,
+            path: `/t/${currentPage}`,
+          },
+        ]
+      : [{ name: "공고 보기", path: "/t/frontend" }]),
+  ];
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${websiteUrl}/#website`,
+        name: siteName,
+        url: websiteUrl,
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${websiteUrl}/t/{search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: pageTitle,
+        description,
+        isPartOf: { "@id": `${websiteUrl}/#website` },
+        inLanguage: "ko-KR",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: breadcrumbItems.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          item: `${websiteUrl}${item.path}`,
+        })),
+      },
+    ],
+  };
 
   const getPageTitle = () => {
     if (isStatsPage) return "기술 키워드 통계";
@@ -63,6 +118,10 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content="https://rbye.vercel.app/github.png" />
         <link rel="canonical" href={canonicalUrl} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </Head>
       <div className="flex justify-center mb-2">
         <Link href={`/t/frontend`}>
