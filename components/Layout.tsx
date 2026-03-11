@@ -124,7 +124,7 @@ const Layout: React.FunctionComponent<Props> = ({
         />
       </Head>
       <nav className="bg-white border-b border-gray-200 mb-4">
-        <div className="max-w-prose mx-auto px-4 flex items-center justify-between h-11">
+        <div className="max-w-[640px] mx-auto px-4 flex items-center justify-between h-11">
           <Link href="/">
             <a className="text-sm font-bold text-teal-700 tracking-tight">RBYE</a>
           </Link>
@@ -148,7 +148,7 @@ const Layout: React.FunctionComponent<Props> = ({
         </div>
       </nav>
       {!isSpecialPage && (
-        <div className="flex justify-center gap-1 mb-4 max-w-prose mx-auto px-4">
+        <div className="flex justify-center gap-1 mb-4 max-w-[640px] mx-auto px-4">
           <Link href={`/t/frontend`}>
             <a className={currentPage === "frontend"
               ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"

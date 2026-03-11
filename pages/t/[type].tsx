@@ -251,7 +251,7 @@ export default function Post(props: Props) {
         setYear={setYear}
         setCurrentCategory={setCurrentCategory}
       />
-      <div className="block m-auto max-w-prose px-4">
+      <div className="block m-auto max-w-[640px] px-4">
         <div className="flex flex-wrap justify-center gap-1.5 mb-2">
           {displayYear()}
           <button
