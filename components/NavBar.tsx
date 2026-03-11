@@ -26,19 +26,19 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
   };
 
   return (
-    <nav className="flex justify-around mt-2">
-      <div>
+    <nav className="flex justify-center mt-2 px-4">
+      <div className="flex w-full max-w-md">
         <input
           type="text"
           value={word}
           placeholder="전체 텍스트 검색"
-          className="border border-solid border-blue-700 h-10 rounded-lg p-2 w-56"
+          className="border border-solid border-gray-300 h-10 rounded-lg p-2 flex-1 min-w-0 focus:border-teal-500 focus:outline-none"
           onChange={e => setWord(e.target.value)}
           onKeyPress={e => e.key === "Enter" && startSearch(word)}
         />
         <button
           type="submit"
-          className="ml-2 bg-blue-600 text-white font-bold py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-dark hover:border-blue rounded"
+          className="ml-2 bg-teal-700 hover:bg-teal-600 text-white text-sm py-2 px-4 rounded transition-colors flex-shrink-0"
           value="search"
           onClick={() => startSearch(word)}
         >

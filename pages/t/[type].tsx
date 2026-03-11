@@ -246,7 +246,7 @@ export default function Post(props: Props) {
       canonicalPath={canonicalPath}
     >
       <div
-        className="text-center flex justify-around mx-20"
+        className="text-center flex justify-around mx-4 sm:mx-20"
         onClick={handleSetIsMoreInfo}
       >
         <div className="px-6 text-green-600 border-solid rounded-sm border-teal-700 border cursor-pointer">
@@ -266,7 +266,7 @@ export default function Post(props: Props) {
       />
       <div className="block m-auto lg:max-w-6xl">
         <div className="flex flex-wrap justify-between items-start">
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1.5">
             {displayYear()}
             <button
               className={
