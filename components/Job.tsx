@@ -95,7 +95,7 @@ const Jobs = ({
     <div className={`p-3 sm:p-5 shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all transition-all ${
       pendingHide ? "border-2 border-dashed border-red-300 opacity-50" : ""
     }`}>
-      {/* 오른쪽: 즐겨찾기, ON/OFF, 인덱스, 숨기기 */}
+      {/* 오른쪽 상단: 즐겨찾기, ON/OFF, 인덱스 */}
       <div className="absolute flex gap-1 items-center select-none text-xs" style={{ right: "1rem", top: "-0.5rem" }}>
         {onToggleBookmark && !pendingHide && (
           <span
@@ -120,8 +120,11 @@ const Jobs = ({
         <span className="bg-gray-300 px-2 rounded-full text-gray-600">
           {index + 1}/{totalDataCount}
         </span>
-        {onHideCompany && (
-          pendingHide ? (
+      </div>
+      {/* 우측 모서리 꼭짓점: 숨기기 */}
+      {onHideCompany && (
+        <div className="absolute select-none text-xs" style={{ right: "-0.4rem", top: "-0.5rem" }}>
+          {pendingHide ? (
             <span
               className="bg-red-100 px-2 rounded-full text-red-500 cursor-pointer hover:bg-red-200 transition-colors"
               onClick={cancelHide}
@@ -136,9 +139,9 @@ const Jobs = ({
             >
               ✕
             </span>
-          )
-        )}
-      </div>
+          )}
+        </div>
+      )}
       <h2 className="text-gray-700">
         <HighLight content={companyName} searchText={searchKeyword} />
       </h2>
