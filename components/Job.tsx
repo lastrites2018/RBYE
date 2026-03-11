@@ -39,9 +39,9 @@ const Jobs = ({
     companyData?.length > 0 ? companyData[0][companyName] : null;
 
   return (
-    <div className="p-5 shadow rounded bg-white mt-3 sm:p-3 sm:m-3 job-wrapper relative">
+    <div className="p-3 sm:p-5 mx-3 sm:mx-0 shadow rounded bg-white mt-3 job-wrapper relative">
       <div
-        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-700 cursor-pointer"
+        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-700 cursor-pointer text-xs"
         style={{
           right: (totalDataCount || 0) > 1000 ? "5.4rem" : "5.2rem",
           top: "-0.5rem",
@@ -51,28 +51,26 @@ const Jobs = ({
         {isMoreInfo ? "ON" : "OFF"}
       </div>
       <div
-        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-600"
+        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-600 text-xs"
         style={{ right: "1rem", top: "-0.5rem" }}
       >
         {index + 1}/{totalDataCount}
       </div>
-      <h2 className="text-gray-700">
-        {" "}
+      <h2 className="text-gray-700 text-base sm:text-lg">
         <HighLight content={companyName} searchText={searchKeyword} />
       </h2>
-      <p className="text-gray-800">
-        {" "}
+      <p className="text-gray-800 text-sm sm:text-base">
         <HighLight content={subject} searchText={searchKeyword} />
       </p>
       {isMoreInfo ? (
-        <div className="border-solid border-2 border-gray-500 rounded">
-          <span className="text-gray-500">외부 링크 : </span>
+        <div className="border-solid border-2 border-gray-500 rounded p-2 mt-2">
+          <span className="text-gray-500 text-sm">외부 링크 : </span>
           {companyInfoObject?.kisCode && (
             <a
               href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline text-gray-800 mr-3"
+              className="underline text-gray-800 text-sm mr-3"
             >
               나이스평가
             </a>
@@ -83,7 +81,7 @@ const Jobs = ({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-gray-800 inline-block mr-3"
+            className="underline text-gray-800 text-sm inline-block mr-3"
           >
             잡플래닛
           </a>
@@ -93,7 +91,7 @@ const Jobs = ({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-gray-800 inline-block"
+            className="underline text-gray-800 text-sm inline-block"
           >
             사람인
           </a>
@@ -101,41 +99,41 @@ const Jobs = ({
       ) : (
         <></>
       )}
-      <div className="text-gray-600 sm:m-2 md:m-4 whitespace-pre-wrap">
+      <div className="text-gray-600 text-sm mt-2 mx-0 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight content={requirement} searchText={searchKeyword} />
       </div>
-      <h6 className="sm:m-2 md:m-4">우대사항</h6>
-      <p className="text-gray-500 mb-2 sm:m-2 md:m-4">
+      <h6 className="mt-3 mx-0 sm:mx-2 md:mx-4 text-sm font-semibold">우대사항</h6>
+      <p className="text-gray-500 text-sm mb-2 mx-0 sm:mx-2 md:mx-4">
         <HighLight
           content={contentObj?.preferentialTreatment}
           searchText={searchKeyword}
         />
       </p>
-      <h6 className="sm:m-2 md:m-4">주요업무</h6>
-      <p className="text-gray-600 mb-2 sm:m-2 md:m-4">
+      <h6 className="mt-3 mx-0 sm:mx-2 md:mx-4 text-sm font-semibold">주요업무</h6>
+      <p className="text-gray-600 text-sm mb-2 mx-0 sm:mx-2 md:mx-4">
         <HighLight content={contentObj?.mainTask} searchText={searchKeyword} />
       </p>
-      <div className="text-right">
+      <div className="mt-3 pt-2 border-t border-gray-100 flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-xs sm:text-sm">
         {workingArea && (
-          <p className="ml-2 text-gray-500 text-sm">
+          <span className="text-gray-500">
             근무지{" "}
             <HighLight content={workingArea} searchText={searchKeyword} />
-          </p>
+          </span>
         )}
-        <a
-          className="text-blue-600 hover:text-blue-400"
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <HighLight content={link} searchText={searchKeyword} />
-        </a>
         {closingDate && (
-          <span className="ml-2 text-gray-500">
+          <span className="text-gray-500">
             마감일{" "}
             <HighLight content={closingDate} searchText={searchKeyword} />
           </span>
         )}
+        <a
+          className="text-teal-600 hover:text-teal-400"
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          원문 보기
+        </a>
       </div>
     </div>
   );
