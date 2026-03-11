@@ -292,13 +292,57 @@ const PassiveSkills: React.FC<{ skills: string[] }> = ({ skills }) => {
 
 // --- 메인 ---
 
+// URL 공유용 인코딩/디코딩
+function encodeSkillsToParam(skills: Set<string>): string {
+  return Array.from(skills).sort().join(",");
+}
+
+function decodeSkillsFromParam(param: string): Set<string> {
+  if (!param) return new Set();
+  return new Set(param.split(",").map((s) => decodeURIComponent(s.trim())).filter(Boolean));
+}
+
 const SkillsetPage = ({ stats }: Props) => {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = React.useState("frontend");
+  const [selectedCategory, setSelectedCategory] = React.useState(
+    () => (typeof router.query.cat === "string" && CATEGORIES.some((c) => c.key === router.query.cat) ? router.query.cat : "frontend")
+  );
   const [selectedYear, setSelectedYear] = React.useState("전체");
-  const [checkMode, setCheckMode] = React.useState(false);
+  const [checkMode, setCheckMode] = React.useState(() => typeof router.query.skills === "string");
   const [checkedSkills, setCheckedSkills] = React.useState<Set<string>>(new Set());
+  const [sharedMode, setSharedMode] = React.useState(false);
   const [collapsedPhases, setCollapsedPhases] = React.useState<Set<string>>(new Set());
+  const [shareToast, setShareToast] = React.useState(false);
+
+  // URL 쿼리에서 공유된 스킬 복원
+  React.useEffect(() => {
+    const { cat, skills: skillsParam } = router.query;
+    if (typeof skillsParam === "string" && skillsParam) {
+      const shared = decodeSkillsFromParam(skillsParam);
+      if (shared.size > 0) {
+        setSharedMode(true);
+        setCheckMode(true);
+        setCheckedSkills(shared);
+        if (typeof cat === "string" && CATEGORIES.some((c) => c.key === cat)) {
+          setSelectedCategory(cat);
+        }
+      }
+    }
+  }, []);
+
+  const handleShare = () => {
+    const params = new URLSearchParams();
+    params.set("cat", selectedCategory);
+    params.set("skills", encodeSkillsToParam(checkedSkills));
+    const url = `${window.location.origin}/skillset?${params.toString()}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setShareToast(true);
+      setTimeout(() => setShareToast(false), 2000);
+    }).catch(() => {
+      // fallback: prompt
+      window.prompt("공유 URL을 복사하세요:", url);
+    });
+  };
 
   // 접힘 상태 localStorage 복원
   React.useEffect(() => {
@@ -341,15 +385,15 @@ const SkillsetPage = ({ stats }: Props) => {
   }, [selectedCategory, categoryData]);
 
   React.useEffect(() => {
+    // 공유 URL에서 왔으면 localStorage 복원 건너뛰기
+    if (sharedMode) return;
     try {
       const saved = localStorage.getItem(`rbye-skills-${selectedCategory}`);
       if (saved) {
         const parsed: string[] = JSON.parse(saved);
         if (!Array.isArray(parsed)) throw new Error("invalid format");
-        // 삭제/변경된 기술은 제외하고 유효한 것만 복원
         const filtered = parsed.filter((s) => validSkills.has(s));
         setCheckedSkills(new Set(filtered));
-        // 유효하지 않은 항목이 있었으면 정리된 상태로 다시 저장
         if (filtered.length !== parsed.length) {
           localStorage.setItem(`rbye-skills-${selectedCategory}`, JSON.stringify(filtered));
         }
@@ -360,7 +404,7 @@ const SkillsetPage = ({ stats }: Props) => {
       setCheckedSkills(new Set());
       try { localStorage.removeItem(`rbye-skills-${selectedCategory}`); } catch {}
     }
-  }, [selectedCategory, validSkills]);
+  }, [selectedCategory, validSkills, sharedMode]);
   const yearCategoryData = categoryStats?.[selectedYear] || {};
   const passiveSkills = (categoryData.passiveSkills as string[]) || [];
   const roadmapMapping = (categoryData.roadmapMapping as { [slot: string]: string }) || {};
@@ -474,7 +518,16 @@ const SkillsetPage = ({ stats }: Props) => {
               나의 스킬
             </button>
           </div>
-          <div className="text-right">
+          <div className="flex items-center gap-2 text-right">
+            {checkMode && checkedCount > 0 && (
+              <button
+                onClick={handleShare}
+                className="px-2.5 py-1 rounded text-xs bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                title="나의 스킬셋 URL 복사"
+              >
+                공유
+              </button>
+            )}
             {checkMode ? (
               <span className="text-sm text-teal-700 font-semibold">
                 {checkedCount}/{allVisibleSkills.length} ({coveragePercent}%)
@@ -538,6 +591,13 @@ const SkillsetPage = ({ stats }: Props) => {
             })}
           </div>
         </div>
+
+        {/* 공유 토스트 */}
+        {shareToast && (
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded-lg shadow-lg z-50 animate-pulse">
+            공유 URL이 복사되었습니다
+          </div>
+        )}
 
         {/* 산출 기준 안내 */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-5 mb-4 text-sm text-gray-600 leading-relaxed">

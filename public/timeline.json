@@ -1,0 +1,347 @@
+[
+  {
+    "date": "2026-03-11",
+    "categories": {
+      "frontend": {
+        "totalJobs": 379,
+        "topKeywords": [
+          {
+            "keyword": "React",
+            "count": 257
+          },
+          {
+            "keyword": "TypeScript",
+            "count": 192
+          },
+          {
+            "keyword": "JavaScript",
+            "count": 119
+          },
+          {
+            "keyword": "CSS",
+            "count": 103
+          },
+          {
+            "keyword": "Git",
+            "count": 103
+          },
+          {
+            "keyword": "Next.js",
+            "count": 101
+          },
+          {
+            "keyword": "HTML",
+            "count": 73
+          },
+          {
+            "keyword": "CI/CD",
+            "count": 68
+          },
+          {
+            "keyword": "Vue",
+            "count": 63
+          },
+          {
+            "keyword": "Node.js",
+            "count": 54
+          },
+          {
+            "keyword": "Zustand",
+            "count": 46
+          },
+          {
+            "keyword": "REST API",
+            "count": 44
+          },
+          {
+            "keyword": "Redux",
+            "count": 37
+          },
+          {
+            "keyword": "LLM",
+            "count": 33
+          },
+          {
+            "keyword": "Docker",
+            "count": 29
+          },
+          {
+            "keyword": "Figma",
+            "count": 27
+          },
+          {
+            "keyword": "Tailwind",
+            "count": 27
+          },
+          {
+            "keyword": "Webpack",
+            "count": 25
+          },
+          {
+            "keyword": "Jest",
+            "count": 24
+          },
+          {
+            "keyword": "Cursor",
+            "count": 24
+          }
+        ]
+      },
+      "nodejs": {
+        "totalJobs": 87,
+        "topKeywords": [
+          {
+            "keyword": "Node.js",
+            "count": 54
+          },
+          {
+            "keyword": "AWS",
+            "count": 52
+          },
+          {
+            "keyword": "TypeScript",
+            "count": 46
+          },
+          {
+            "keyword": "Git",
+            "count": 28
+          },
+          {
+            "keyword": "MySQL",
+            "count": 27
+          },
+          {
+            "keyword": "Redis",
+            "count": 22
+          },
+          {
+            "keyword": "Docker",
+            "count": 21
+          },
+          {
+            "keyword": "Python",
+            "count": 20
+          },
+          {
+            "keyword": "NestJS",
+            "count": 18
+          },
+          {
+            "keyword": "JavaScript",
+            "count": 17
+          },
+          {
+            "keyword": "PostgreSQL",
+            "count": 15
+          },
+          {
+            "keyword": "CI/CD",
+            "count": 14
+          },
+          {
+            "keyword": "MongoDB",
+            "count": 13
+          },
+          {
+            "keyword": "Kafka",
+            "count": 13
+          },
+          {
+            "keyword": "REST API",
+            "count": 12
+          },
+          {
+            "keyword": "Kubernetes",
+            "count": 11
+          },
+          {
+            "keyword": "LLM",
+            "count": 10
+          },
+          {
+            "keyword": "GraphQL",
+            "count": 10
+          },
+          {
+            "keyword": "Claude",
+            "count": 8
+          },
+          {
+            "keyword": "TypeORM",
+            "count": 8
+          }
+        ]
+      },
+      "server": {
+        "totalJobs": 548,
+        "topKeywords": [
+          {
+            "keyword": "AWS",
+            "count": 261
+          },
+          {
+            "keyword": "Java",
+            "count": 208
+          },
+          {
+            "keyword": "Spring",
+            "count": 167
+          },
+          {
+            "keyword": "Python",
+            "count": 162
+          },
+          {
+            "keyword": "Docker",
+            "count": 143
+          },
+          {
+            "keyword": "Git",
+            "count": 132
+          },
+          {
+            "keyword": "Kubernetes",
+            "count": 121
+          },
+          {
+            "keyword": "MySQL",
+            "count": 110
+          },
+          {
+            "keyword": "Kotlin",
+            "count": 107
+          },
+          {
+            "keyword": "TypeScript",
+            "count": 101
+          },
+          {
+            "keyword": "Redis",
+            "count": 95
+          },
+          {
+            "keyword": "Node.js",
+            "count": 85
+          },
+          {
+            "keyword": "Kafka",
+            "count": 85
+          },
+          {
+            "keyword": "CI/CD",
+            "count": 82
+          },
+          {
+            "keyword": "Spring Boot",
+            "count": 73
+          },
+          {
+            "keyword": "PostgreSQL",
+            "count": 72
+          },
+          {
+            "keyword": "Linux",
+            "count": 71
+          },
+          {
+            "keyword": "LLM",
+            "count": 65
+          },
+          {
+            "keyword": "MSA",
+            "count": 60
+          },
+          {
+            "keyword": "JPA",
+            "count": 55
+          }
+        ]
+      },
+      "pm": {
+        "totalJobs": 510,
+        "topKeywords": [
+          {
+            "keyword": "Jira",
+            "count": 61
+          },
+          {
+            "keyword": "SQL",
+            "count": 59
+          },
+          {
+            "keyword": "Figma",
+            "count": 59
+          },
+          {
+            "keyword": "Confluence",
+            "count": 38
+          },
+          {
+            "keyword": "애자일",
+            "count": 36
+          },
+          {
+            "keyword": "Notion",
+            "count": 34
+          },
+          {
+            "keyword": "Amplitude",
+            "count": 34
+          },
+          {
+            "keyword": "LLM",
+            "count": 30
+          },
+          {
+            "keyword": "GA",
+            "count": 26
+          },
+          {
+            "keyword": "KPI",
+            "count": 23
+          },
+          {
+            "keyword": "Slack",
+            "count": 19
+          },
+          {
+            "keyword": "로드맵",
+            "count": 17
+          },
+          {
+            "keyword": "Mixpanel",
+            "count": 13
+          },
+          {
+            "keyword": "프롬프트",
+            "count": 12
+          },
+          {
+            "keyword": "Claude",
+            "count": 11
+          },
+          {
+            "keyword": "스크럼",
+            "count": 10
+          },
+          {
+            "keyword": "Tableau",
+            "count": 10
+          },
+          {
+            "keyword": "ChatGPT",
+            "count": 9
+          },
+          {
+            "keyword": "OKR",
+            "count": 6
+          },
+          {
+            "keyword": "A/B Test",
+            "count": 5
+          }
+        ]
+      }
+    }
+  }
+]
