@@ -68,7 +68,7 @@ const Jobs = ({
     companyData?.length > 0 ? companyData[0][companyName] : null;
 
   return (
-    <div className="p-3 sm:p-5 mx-3 sm:mx-0 shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all">
+    <div className="p-3 sm:p-5 mx-3 sm:mx-auto shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all max-w-prose">
       <div
         className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-700 cursor-pointer text-xs"
         style={{
@@ -128,18 +128,18 @@ const Jobs = ({
       ) : (
         <></>
       )}
-      <div className="text-gray-600 mt-2 sm:mx-2 md:mx-4 whitespace-pre-wrap max-w-prose">
+      <div className="text-gray-600 mt-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight content={requirement} searchText={searchKeyword} />
       </div>
       <h6 className="mt-3 sm:mx-2 md:mx-4 font-semibold">우대사항</h6>
-      <div className="text-gray-500 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap max-w-prose">
+      <div className="text-gray-500 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight
           content={preferentialTreatment}
           searchText={searchKeyword}
         />
       </div>
       <h6 className="mt-3 sm:mx-2 md:mx-4 font-semibold">주요업무</h6>
-      <div className="text-gray-600 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap max-w-prose">
+      <div className="text-gray-600 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight content={mainTask} searchText={searchKeyword} />
       </div>
       <div className="mt-3 pt-2 border-t border-gray-100 flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-xs sm:text-sm">
