@@ -15,6 +15,7 @@ PORT_SCAN_RANGE="${RBYE_PORT_SCAN_RANGE:-20}"
 AUTO_KILL="${RBYE_AUTO_KILL:-1}"
 AUTO_SCAN="${RBYE_AUTOSCAN:-0}"
 API_WATCH="${RBYE_API_WATCH:-0}"
+FORCE_POLLING="${RBYE_FORCE_POLLING:-0}"
 
 if [ ! -d "$API_DIR" ]; then
   echo "RBYE-API 폴더를 찾을 수 없습니다: $API_DIR"
@@ -128,6 +129,19 @@ fi
 API_BASE_URL="http://localhost:${API_PORT}"
 
 FRONTEND_BIN=(bash "$ROOT_DIR/scripts/run-next.sh")
+FRONTEND_ENV=(
+  "RBYE_API_URL=$API_BASE_URL"
+  "NEXT_PUBLIC_API_URL=$API_BASE_URL"
+)
+
+if [ "$FORCE_POLLING" = "1" ]; then
+  FRONTEND_ENV+=(
+    "CHOKIDAR_USEPOLLING=1"
+    "CHOKIDAR_INTERVAL=1000"
+    "WATCHPACK_POLLING=true"
+    "WATCHPACK_POLLING_INTERVAL=1000"
+  )
+fi
 
 cleanup() {
   if [ -n "${API_PID:-}" ] && kill -0 "$API_PID" 2>/dev/null; then
@@ -154,18 +168,17 @@ API_PID=$!
 (
   cd "$ROOT_DIR" || exit 1
   export PWD="$ROOT_DIR"
-  CHOKIDAR_USEPOLLING=1 \
-  CHOKIDAR_INTERVAL=1000 \
-  WATCHPACK_POLLING=true \
-  WATCHPACK_POLLING_INTERVAL=1000 \
-  RBYE_API_URL="$API_BASE_URL" \
-  NEXT_PUBLIC_API_URL="$API_BASE_URL" \
-  "${FRONTEND_BIN[@]}" dev -p "$FRONTEND_PORT" -H "$FRONTEND_HOST"
+  env "${FRONTEND_ENV[@]}" "${FRONTEND_BIN[@]}" dev -p "$FRONTEND_PORT" -H "$FRONTEND_HOST"
 ) &
 FRONTEND_PID=$!
 
 echo "RBYE API 시작 (PID=$API_PID): http://localhost:$API_PORT"
 echo "RBYE Front 시작 (PID=$FRONTEND_PID): http://localhost:$FRONTEND_PORT"
+if [ "$FORCE_POLLING" = "1" ]; then
+  echo "프론트 파일 감시 모드: polling"
+else
+  echo "프론트 파일 감시 모드: native watch"
+fi
 
 while true; do
   if ! kill -0 "$API_PID" 2>/dev/null; then
