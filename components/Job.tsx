@@ -95,28 +95,7 @@ const Jobs = ({
     <div className={`p-3 sm:p-5 shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all transition-all ${
       pendingHide ? "border-2 border-dashed border-red-300 opacity-50" : ""
     }`}>
-      {/* 왼쪽: 숨기기 */}
-      {onHideCompany && (
-        <div className="absolute select-none text-xs" style={{ left: "1rem", top: "-0.5rem" }}>
-          {pendingHide ? (
-            <span
-              className="bg-red-100 px-2 rounded-full text-red-500 cursor-pointer hover:bg-red-200 transition-colors"
-              onClick={cancelHide}
-            >
-              취소
-            </span>
-          ) : (
-            <span
-              className="bg-gray-300 px-1.5 rounded-full text-gray-500 cursor-pointer hover:bg-red-200 hover:text-red-600 transition-colors"
-              onClick={startHide}
-              title={`${companyName} 숨기기`}
-            >
-              ✕
-            </span>
-          )}
-        </div>
-      )}
-      {/* 오른쪽: 즐겨찾기, ON/OFF, 인덱스 */}
+      {/* 오른쪽: 즐겨찾기, ON/OFF, 인덱스, 숨기기 */}
       <div className="absolute flex gap-1 items-center select-none text-xs" style={{ right: "1rem", top: "-0.5rem" }}>
         {onToggleBookmark && !pendingHide && (
           <span
@@ -141,6 +120,24 @@ const Jobs = ({
         <span className="bg-gray-300 px-2 rounded-full text-gray-600">
           {index + 1}/{totalDataCount}
         </span>
+        {onHideCompany && (
+          pendingHide ? (
+            <span
+              className="bg-red-100 px-2 rounded-full text-red-500 cursor-pointer hover:bg-red-200 transition-colors"
+              onClick={cancelHide}
+            >
+              취소
+            </span>
+          ) : (
+            <span
+              className="bg-gray-300 px-1.5 rounded-full text-gray-500 cursor-pointer hover:bg-red-200 hover:text-red-600 transition-colors"
+              onClick={startHide}
+              title={`${companyName} 숨기기`}
+            >
+              ✕
+            </span>
+          )
+        )}
       </div>
       <h2 className="text-gray-700">
         <HighLight content={companyName} searchText={searchKeyword} />
