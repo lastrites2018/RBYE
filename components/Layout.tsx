@@ -123,24 +123,32 @@ const Layout: React.FunctionComponent<Props> = ({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </Head>
-      <div className="flex justify-center mb-2">
-        <Link href={`/t/frontend`}>
-          <a className={!isSpecialPage ? "bg-gray-400 px-2" : "px-2"}>공고 보기</a>
-        </Link>
-        <span className="mx-2"> | </span>
-        <Link href={`/stats`}>
-          <a className={isStatsPage ? "bg-gray-400 px-2" : "px-2"}>기술 통계</a>
-        </Link>
-        <span className="mx-2"> | </span>
-        <Link href={`/skillset`}>
-          <a className={isSkillsetPage ? "bg-gray-400 px-2" : "px-2"}>스킬 세트</a>
-        </Link>
-      </div>
-      <h1 className="text-center mb-4">
-        {getPageTitle()}
-      </h1>
+      <nav className="bg-white border-b border-gray-200 mb-4">
+        <div className="max-w-prose mx-auto px-4 flex items-center justify-between h-11">
+          <Link href="/">
+            <a className="text-sm font-bold text-teal-700 tracking-tight">RBYE</a>
+          </Link>
+          <div className="flex gap-1">
+            <Link href={`/t/frontend`}>
+              <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
+                !isSpecialPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
+              }`}>공고</a>
+            </Link>
+            <Link href={`/stats`}>
+              <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
+                isStatsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
+              }`}>통계</a>
+            </Link>
+            <Link href={`/skillset`}>
+              <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
+                isSkillsetPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
+              }`}>스킬셋</a>
+            </Link>
+          </div>
+        </div>
+      </nav>
       {!isSpecialPage && (
-        <div className="flex justify-center gap-1 mb-4">
+        <div className="flex justify-center gap-1 mb-4 max-w-prose mx-auto px-4">
           <Link href={`/t/frontend`}>
             <a className={currentPage === "frontend"
               ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"

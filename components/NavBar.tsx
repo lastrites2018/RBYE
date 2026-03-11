@@ -26,8 +26,8 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
   };
 
   return (
-    <nav className="flex justify-center mt-2 px-4">
-      <div className="flex w-full max-w-md">
+    <nav className="flex justify-center mt-2 px-4 mb-3">
+      <div className="flex w-full max-w-prose">
         <input
           type="text"
           value={word}

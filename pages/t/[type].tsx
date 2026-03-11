@@ -245,118 +245,100 @@ export default function Post(props: Props) {
       currentPage={currentPageName}
       canonicalPath={canonicalPath}
     >
-      <div
-        className="text-center flex justify-around mx-4 sm:mx-20"
-        onClick={handleSetIsMoreInfo}
-      >
-        <div className="px-6 text-green-600 border-solid rounded-sm border-teal-700 border cursor-pointer">
-          회사 정보 더 보기{" "}
-          {isMoreInfo ? (
-            <span className="text-teal-400 inline">ON</span>
-          ) : (
-            <span className="text-gray-400 inline">OFF</span>
-          )}
-        </div>
-      </div>
       <NavBar
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         setYear={setYear}
         setCurrentCategory={setCurrentCategory}
       />
-      <div className="block m-auto lg:max-w-6xl">
-        <div className="flex flex-wrap justify-between items-start">
-          <div className="flex flex-wrap gap-1.5">
-            {displayYear()}
-            <button
-              className={
-                currentCategory === "제한없음"
-                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
+      <div className="block m-auto max-w-prose px-4">
+        <div className="flex flex-wrap justify-center gap-1.5 mb-2">
+          {displayYear()}
+          <button
+            className={
+              currentCategory === "제한없음"
+                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
+            }
+            onClick={() => {
+              setCurrentCategory("제한없음");
+              setYear(0);
+              setSearchKeyword("");
+            }}
+          >
+            제한없음
+          </button>
+          <button
+            className={
+              currentCategory === "신입"
+                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
+            }
+            onClick={() => {
+              setCurrentCategory("신입");
+              setYear(0);
+              setSearchKeyword("신입");
+            }}
+          >
+            신입
+          </button>
+          <button
+            className={
+              currentCategory === "주니어"
+                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
+            }
+            onClick={() => {
+              setCurrentCategory("주니어");
+              setYear(0);
+              setSearchKeyword("주니어");
+            }}
+          >
+            주니어
+          </button>
+          <button
+            className={
+              currentCategory === "senior"
+                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
+            }
+            onClick={() => {
+              setCurrentCategory("senior");
+              setYear(0);
+              setSearchKeyword("시니어");
+            }}
+          >
+            시니어
+          </button>
+          <button
+            className={
+              currentCategory === "전체"
+                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
+            }
+            onClick={() => {
+              setYear(0);
+              setCurrentCategory("전체");
+              setSearchKeyword("");
+            }}
+          >
+            전체
+          </button>
+        </div>
+        <div className="text-center text-gray-400 text-xs mb-3">
+          데이터 업데이트{" "}
+          {props.updated[0]?.[props.query.type] &&
+            formatDistanceToNow(
+              parse(
+                props.updated && props.updated[0][props.query.type],
+                "yyyy-M-dd HH:mm:ss",
+                new Date()
+              ),
+              {
+                locale: koLocale,
               }
-              onClick={() => {
-                setCurrentCategory("제한없음");
-                setYear(0);
-                setSearchKeyword("");
-              }}
-            >
-              제한없음
-            </button>
-            <button
-              className={
-                currentCategory === "신입"
-                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-              }
-              onClick={() => {
-                setCurrentCategory("신입");
-                setYear(0);
-                setSearchKeyword("신입");
-              }}
-            >
-              신입
-            </button>
-            <button
-              className={
-                currentCategory === "주니어"
-                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-              }
-              onClick={() => {
-                setCurrentCategory("주니어");
-                setYear(0);
-                setSearchKeyword("주니어");
-              }}
-            >
-              주니어
-            </button>
-            <button
-              className={
-                currentCategory === "senior"
-                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-              }
-              onClick={() => {
-                setCurrentCategory("senior");
-                setYear(0);
-                setSearchKeyword("시니어");
-              }}
-            >
-              시니어
-            </button>
-            <button
-              className={
-                currentCategory === "전체"
-                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-              }
-              onClick={() => {
-                setYear(0);
-                setCurrentCategory("전체");
-                setSearchKeyword("");
-              }}
-            >
-              전체
-            </button>
-          </div>
-          <span className="text-gray-500 text-sm">
-            데이터 업데이트{" "}
-            {props.updated[0]?.[props.query.type] &&
-              formatDistanceToNow(
-                parse(
-                  props.updated && props.updated[0][props.query.type],
-                  "yyyy-M-dd HH:mm:ss",
-                  new Date()
-                ),
-                {
-                  locale: koLocale,
-                }
-              )}{" "}
-            전
-            <span className="text-gray-500 text-xs">
-              ({props.updated && props.updated[0][props.query.type]})
-            </span>
-          </span>
+            )}{" "}
+          전
         </div>
         {loading && <div className="spinner"></div>}
         <JobList

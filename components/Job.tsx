@@ -68,7 +68,7 @@ const Jobs = ({
     companyData?.length > 0 ? companyData[0][companyName] : null;
 
   return (
-    <div className="p-3 sm:p-5 mx-3 sm:mx-auto shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all max-w-prose">
+    <div className="p-3 sm:p-5 shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all">
       <div
         className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-700 cursor-pointer text-xs"
         style={{
