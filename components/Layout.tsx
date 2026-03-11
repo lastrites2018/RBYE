@@ -156,10 +156,13 @@ const Layout: React.FunctionComponent<Props> = ({
             </Link>
             {hasAnyPreferences && (
               <Link href="/settings">
-                <a className={`ml-1 px-1.5 py-1 rounded transition-colors text-base leading-none ${
+                <a className={`ml-1 p-1.5 rounded transition-colors ${
                   isSettingsPage ? "text-teal-700 bg-gray-100" : "text-gray-400 hover:text-teal-700 hover:bg-gray-100"
                 }`} title="설정">
-                  ⚙
+                  <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="10" cy="10" r="3" />
+                    <path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M3.4 3.4l1.4 1.4M15.2 15.2l1.4 1.4M3.4 16.6l1.4-1.4M15.2 4.8l1.4-1.4" />
+                  </svg>
                 </a>
               </Link>
             )}

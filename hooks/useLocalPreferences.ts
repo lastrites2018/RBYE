@@ -15,9 +15,12 @@ function readJSON<T>(key: string, fallback: T): T {
   }
 }
 
+const PREFS_CHANGED_EVENT = "rbye_prefs_changed";
+
 function writeJSON<T>(key: string, value: T) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
+    window.dispatchEvent(new Event(PREFS_CHANGED_EVENT));
   } catch {}
 }
 
@@ -30,6 +33,13 @@ export default function useLocalPreferences() {
     setHiddenCompanies(readJSON<string[]>(HIDDEN_KEY, []));
     setBookmarks(readJSON<BookmarkEntry[]>(BOOKMARKS_KEY, []));
     setMounted(true);
+
+    const sync = () => {
+      setHiddenCompanies(readJSON<string[]>(HIDDEN_KEY, []));
+      setBookmarks(readJSON<BookmarkEntry[]>(BOOKMARKS_KEY, []));
+    };
+    window.addEventListener(PREFS_CHANGED_EVENT, sync);
+    return () => window.removeEventListener(PREFS_CHANGED_EVENT, sync);
   }, []);
 
   const hideCompany = useCallback((companyName: string) => {
