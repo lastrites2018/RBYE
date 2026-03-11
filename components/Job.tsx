@@ -168,7 +168,7 @@ const Jobs = ({
             </a>
           )}
           <a
-            href={`https://www.jobplanet.co.kr/search?query=${encodeURI(
+            href={`https://www.jobplanet.co.kr/search?query=${encodeURIComponent(
               companyInfoObject?.companyName || companyName
             )}`}
             target="_blank"
@@ -178,7 +178,7 @@ const Jobs = ({
             잡플래닛
           </a>
           <a
-            href={`https://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURI(
+            href={`https://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURIComponent(
               companyInfoObject?.companyName || companyName
             )}`}
             target="_blank"

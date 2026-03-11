@@ -30,7 +30,9 @@ export default function Post(props: Props) {
   const { hideCompany, isCompanyHidden, toggleBookmark, isBookmarked, setLastType } = useLocalPreferences();
   const [data, setData] = React.useState(props.data || []);
   const [isFirstLoading, setIsFirstLoading] = React.useState(true);
-  const [loading, setLoading] = React.useState(false);
+  const [loadingData, setLoadingData] = React.useState(false);
+  const [loadingCompany, setLoadingCompany] = React.useState(false);
+  const loading = loadingData || loadingCompany;
   const [isMoreInfo, setIsMoreInfo] = React.useState(false);
   const [companyData, setCompanyData] = React.useState([]);
   const [year, setYear] = React.useState(0);
@@ -48,37 +50,36 @@ export default function Post(props: Props) {
     document.querySelector(".job-wrapper:last-child");
 
   useEffect(() => {
-    const maxPage = (props.totalCount && props.totalCount / 30) || 1;
-    if (props.totalCount) totalPage.current = Number(maxPage.toFixed(0));
+    if (props.totalCount) totalPage.current = Math.ceil(props.totalCount / 30);
   }, [props.totalCount]);
 
   const loadMoreData = React.useCallback(async () => {
     try {
-      setLoading(true);
+      setLoadingData(true);
       currentPage.current++;
       const res = await fetch(
         `${apiUrl}/${props.query?.type}?_page=${currentPage.current}&_limit=30`
       );
       const newData = await res.json();
-      setData([...data, ...newData]);
+      setData((prev) => [...prev, ...newData]);
     } catch (e) {
       console.error("추가 데이터 로드 실패:", e);
       currentPage.current--;
     } finally {
-      setLoading(false);
+      setLoadingData(false);
     }
-  }, [data]);
+  }, [props.query?.type]);
 
   const loadCompanyData = React.useCallback(async () => {
     try {
-      setLoading(true);
+      setLoadingCompany(true);
       const res = await fetch(`${apiUrl}/company`);
       const newData = await res.json();
       setCompanyData(newData);
     } catch (e) {
       console.error("회사 데이터 로드 실패:", e);
     } finally {
-      setLoading(false);
+      setLoadingCompany(false);
     }
   }, [isMoreInfo]);
 
@@ -87,7 +88,7 @@ export default function Post(props: Props) {
       requestLink = `${apiUrl}/${props.query?.type}?contentObj.requirement_like=${year}년`
     ) => {
       try {
-        setLoading(true);
+        setLoadingData(true);
         const res = await fetch(requestLink);
         let newData = await res.json();
         if (currentCategory === "제한없음") {
@@ -101,7 +102,7 @@ export default function Post(props: Props) {
       } catch (e) {
         console.error("데이터 로드 실패:", e);
       } finally {
-        setLoading(false);
+        setLoadingData(false);
       }
     },
     [data, year, currentCategory]
@@ -241,7 +242,7 @@ export default function Post(props: Props) {
       : visibleData.length;
   const canonicalPath = `/t/${props.query?.type || "frontend"}`;
 
-  const handleSetIsMoreInfo = () => setIsMoreInfo(!isMoreInfo);
+  const handleSetIsMoreInfo = React.useCallback(() => setIsMoreInfo((prev) => !prev), []);
 
   return (
     <Layout

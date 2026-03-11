@@ -18,6 +18,7 @@ export default function SettingsPage() {
   }, []);
 
   const startRemoveBookmark = useCallback((b: BookmarkEntry) => {
+    if (removeTimer.current) clearTimeout(removeTimer.current);
     setPendingRemove(b.link);
     removeTimer.current = setTimeout(() => {
       toggleBookmark({ link: b.link, companyName: b.companyName, subject: b.subject });
