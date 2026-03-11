@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import useLocalPreferences from "../hooks/useLocalPreferences";
+
+const PENDING_DELAY = 1500;
 
 export default function SettingsPage() {
   const { hiddenCompanies, bookmarks, unhideCompany, toggleBookmark, mounted } =
     useLocalPreferences();
   const [expandedLink, setExpandedLink] = useState<string | null>(null);
+  const [pendingRemove, setPendingRemove] = useState<string | null>(null);
+  const removeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startRemoveBookmark = useCallback((b: BookmarkEntry) => {
+    setPendingRemove(b.link);
+    removeTimer.current = setTimeout(() => {
+      toggleBookmark({ link: b.link, companyName: b.companyName, subject: b.subject });
+      setPendingRemove(null);
+    }, PENDING_DELAY);
+  }, [toggleBookmark]);
+
+  const cancelRemoveBookmark = useCallback(() => {
+    if (removeTimer.current) clearTimeout(removeTimer.current);
+    removeTimer.current = null;
+    setPendingRemove(null);
+  }, []);
 
   return (
     <Layout title="설정 | RBYE" canonicalPath="/settings">
@@ -61,7 +79,11 @@ export default function SettingsPage() {
                     return (
                       <li
                         key={b.link}
-                        className="bg-white border border-gray-200 rounded overflow-hidden"
+                        className={`bg-white border rounded overflow-hidden transition-all ${
+                          pendingRemove === b.link
+                            ? "border-dashed border-red-300 opacity-50"
+                            : "border-gray-200"
+                        }`}
                       >
                         <div
                           className="flex items-center justify-between gap-2 p-3 cursor-pointer"
@@ -102,20 +124,28 @@ export default function SettingsPage() {
                               <p className="text-xs text-gray-400">본문 데이터가 없는 이전 즐겨찾기입니다.</p>
                             )}
                             <div className="flex items-center justify-end mt-2">
-                              <button
-                                className="text-amber-500 hover:text-gray-400 transition-colors text-sm"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  toggleBookmark({
-                                    link: b.link,
-                                    companyName: b.companyName,
-                                    subject: b.subject,
-                                  });
-                                }}
-                                title="즐겨찾기 해제"
-                              >
-                                ★
-                              </button>
+                              {pendingRemove === b.link ? (
+                                <span
+                                  className="bg-red-100 px-2 rounded-full text-red-500 cursor-pointer hover:bg-red-200 transition-colors text-xs"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    cancelRemoveBookmark();
+                                  }}
+                                >
+                                  취소
+                                </span>
+                              ) : (
+                                <button
+                                  className="text-amber-500 hover:text-gray-400 transition-colors text-sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    startRemoveBookmark(b);
+                                  }}
+                                  title="즐겨찾기 해제"
+                                >
+                                  ★
+                                </button>
+                              )}
                             </div>
                           </div>
                         )}
