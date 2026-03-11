@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-light py-3 text-center">
+    <footer className="py-4 text-center text-xs text-gray-400">
       <div>RBYE [Requirements By Years of Experience]</div>
       <div>
         Made by lastrites2018
@@ -10,20 +10,21 @@ const Footer = () => {
           rel="noopener noreferrer"
         >
           <img
-            className="ml-2 inline-block"
+            className="ml-1 inline-block"
             src="/github.png"
             alt="github"
-            width="20"
-            height="20"
+            width="14"
+            height="14"
           />
         </a>
       </div>
-      <div className="break-word-and-keep-all">
+      <div className="break-word-and-keep-all mt-1">
         이 사이트는{" "}
         <a
           href="https://www.wanted.co.kr/"
           target="_blank"
           rel="noopener noreferrer"
+          className="underline"
         >
           Wanted
         </a>

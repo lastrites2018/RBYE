@@ -191,9 +191,9 @@ export default function Post(props: Props) {
           <button
             key={i}
             className={
-              year === i
-                ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
-                : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
+              year === i && currentCategory === "햇수"
+                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
             }
             onClick={() => {
               setYear(i);
@@ -201,7 +201,7 @@ export default function Post(props: Props) {
               setSearchKeyword("");
             }}
           >
-            [{i}년]
+            {i}년
           </button>
         );
     }
@@ -265,15 +265,14 @@ export default function Post(props: Props) {
         setCurrentCategory={setCurrentCategory}
       />
       <div className="block m-auto lg:max-w-6xl">
-        <div className="flex flex-wrap justify-between">
-          <div className="flex flex-wrap cursor-pointer">
+        <div className="flex flex-wrap justify-between items-start">
+          <div className="flex flex-wrap gap-1">
             {displayYear()}
-
             <button
               className={
                 currentCategory === "제한없음"
-                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
-                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
+                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
               }
               onClick={() => {
                 setCurrentCategory("제한없음");
@@ -281,13 +280,13 @@ export default function Post(props: Props) {
                 setSearchKeyword("");
               }}
             >
-              [제한없음]
+              제한없음
             </button>
             <button
               className={
                 currentCategory === "신입"
-                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
-                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
+                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
               }
               onClick={() => {
                 setCurrentCategory("신입");
@@ -295,13 +294,13 @@ export default function Post(props: Props) {
                 setSearchKeyword("신입");
               }}
             >
-              [신입]
+              신입
             </button>
             <button
               className={
                 currentCategory === "주니어"
-                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
-                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
+                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
               }
               onClick={() => {
                 setCurrentCategory("주니어");
@@ -309,27 +308,27 @@ export default function Post(props: Props) {
                 setSearchKeyword("주니어");
               }}
             >
-              [주니어]
+              주니어
             </button>
             <button
               className={
                 currentCategory === "senior"
-                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
-                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
+                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
               }
               onClick={() => {
                 setCurrentCategory("senior");
                 setYear(0);
-                setSearchKeyword("senior");
+                setSearchKeyword("시니어");
               }}
             >
-              [senior]
+              시니어
             </button>
             <button
               className={
                 currentCategory === "전체"
-                  ? "m-1 text-gray-500 text-lg bg-transparent border-none cursor-pointer p-0"
-                  : "m-1 hover:text-gray-500 bg-transparent border-none cursor-pointer p-0"
+                  ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
+                  : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
               }
               onClick={() => {
                 setYear(0);
@@ -337,7 +336,7 @@ export default function Post(props: Props) {
                 setSearchKeyword("");
               }}
             >
-              [전체]
+              전체
             </button>
           </div>
           <span className="text-gray-500 text-sm">

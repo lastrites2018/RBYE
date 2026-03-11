@@ -136,8 +136,11 @@ const Layout: React.FunctionComponent<Props> = ({
           <a className={isSkillsetPage ? "bg-gray-400 px-2" : "px-2"}>스킬 세트</a>
         </Link>
       </div>
+      <h1 className="text-center mb-4">
+        {getPageTitle()}
+      </h1>
       {!isSpecialPage && (
-        <div className="flex justify-center gap-1 mb-2">
+        <div className="flex justify-center gap-1 mb-4">
           <Link href={`/t/frontend`}>
             <a className={currentPage === "frontend"
               ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
@@ -164,9 +167,6 @@ const Layout: React.FunctionComponent<Props> = ({
           </Link>
         </div>
       )}
-      <h1 className="text-center mb-4">
-        {getPageTitle()}
-      </h1>
       {children}
       <Footer />
     </div>
