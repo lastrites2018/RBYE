@@ -75,6 +75,12 @@ const Jobs = ({
   const [pendingHide, setPendingHide] = useState(false);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  React.useEffect(() => {
+    return () => {
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    };
+  }, []);
+
   const startHide = useCallback(() => {
     setPendingHide(true);
     hideTimer.current = setTimeout(() => {

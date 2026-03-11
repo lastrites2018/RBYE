@@ -87,7 +87,7 @@ export default function useLocalPreferences() {
 
   const setLastType = useCallback((type: string) => {
     if (VALID_TYPES.includes(type)) {
-      writeJSON(LAST_TYPE_KEY, type);
+      try { localStorage.setItem(LAST_TYPE_KEY, JSON.stringify(type)); } catch {}
     }
   }, []);
 

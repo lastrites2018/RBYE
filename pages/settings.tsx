@@ -1,5 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
-import Head from "next/head";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import Layout from "../components/Layout";
 import useLocalPreferences from "../hooks/useLocalPreferences";
 
@@ -11,6 +10,12 @@ export default function SettingsPage() {
   const [expandedLink, setExpandedLink] = useState<string | null>(null);
   const [pendingRemove, setPendingRemove] = useState<string | null>(null);
   const removeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (removeTimer.current) clearTimeout(removeTimer.current);
+    };
+  }, []);
 
   const startRemoveBookmark = useCallback((b: BookmarkEntry) => {
     setPendingRemove(b.link);
@@ -27,10 +32,7 @@ export default function SettingsPage() {
   }, []);
 
   return (
-    <Layout title="설정 | RBYE" canonicalPath="/settings">
-      <Head>
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
+    <Layout title="설정 | RBYE" canonicalPath="/settings" noIndex>
 
       <div className="max-w-[640px] mx-auto px-4 pb-12">
         <h1 className="text-lg font-bold text-gray-800 mb-6">설정</h1>

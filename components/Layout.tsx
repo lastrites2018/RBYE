@@ -11,6 +11,7 @@ type Props = {
   pageType?: "job" | "stats" | "skillset";
   currentPage?: string;
   canonicalPath?: string;
+  noIndex?: boolean;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -19,10 +20,13 @@ const Layout: React.FunctionComponent<Props> = ({
   pageType = "job",
   currentPage = "",
   canonicalPath,
+  noIndex,
 }) => {
   const { hasAnyPreferences, getLastType } = useLocalPreferences();
-  const lastType = typeof window !== "undefined" ? getLastType() : "frontend";
-  const jobLink = `/t/${lastType}`;
+  const [jobLink, setJobLink] = React.useState("/t/frontend");
+  React.useEffect(() => {
+    setJobLink(`/t/${getLastType()}`);
+  }, []);
   const isStatsPage = pageType === "stats";
   const isSkillsetPage = pageType === "skillset";
   const isSpecialPage = pageType === "stats" || pageType === "skillset";
@@ -111,7 +115,7 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content={description} />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={description} />
