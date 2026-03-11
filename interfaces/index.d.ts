@@ -19,4 +19,5 @@ interface BookmarkEntry {
   link: string;
   companyName: string;
   subject: string;
+  contentObj?: ContentObj;
 }

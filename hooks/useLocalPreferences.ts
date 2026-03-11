@@ -55,12 +55,12 @@ export default function useLocalPreferences() {
   );
 
   const toggleBookmark = useCallback(
-    (job: { link: string; companyName: string; subject: string }) => {
+    (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => {
       setBookmarks((prev) => {
         const exists = prev.some((b) => b.link === job.link);
         const next = exists
           ? prev.filter((b) => b.link !== job.link)
-          : [...prev, { link: job.link, companyName: job.companyName, subject: job.subject }];
+          : [...prev, { link: job.link, companyName: job.companyName, subject: job.subject, contentObj: job.contentObj }];
         writeJSON(BOOKMARKS_KEY, next);
         return next;
       });

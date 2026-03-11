@@ -38,3 +38,7 @@ yarn-error.log*
 #config
 config.json
 .now
+
+# local docs
+/docs
+.pnpm-store

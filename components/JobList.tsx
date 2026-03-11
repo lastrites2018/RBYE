@@ -9,7 +9,7 @@ interface IJobList {
   isMoreInfo: boolean;
   handleSetIsMoreInfo: () => void;
   onHideCompany?: (companyName: string) => void;
-  onToggleBookmark?: (job: { link: string; companyName: string; subject: string }) => void;
+  onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: (link: string) => boolean;
 }
 

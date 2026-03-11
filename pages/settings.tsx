@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import useLocalPreferences from "../hooks/useLocalPreferences";
@@ -6,6 +6,7 @@ import useLocalPreferences from "../hooks/useLocalPreferences";
 export default function SettingsPage() {
   const { hiddenCompanies, bookmarks, unhideCompany, toggleBookmark, mounted } =
     useLocalPreferences();
+  const [expandedLink, setExpandedLink] = useState<string | null>(null);
 
   return (
     <Layout title="설정 | RBYE" canonicalPath="/settings">
@@ -54,38 +55,73 @@ export default function SettingsPage() {
               {bookmarks.length === 0 ? (
                 <p className="text-xs text-gray-400">즐겨찾기한 공고가 없습니다.</p>
               ) : (
-                <ul className="space-y-2">
-                  {bookmarks.map((b) => (
-                    <li
-                      key={b.link}
-                      className="flex items-start justify-between gap-2 bg-white border border-gray-200 rounded p-3"
-                    >
-                      <div className="min-w-0">
-                        <p className="text-xs text-gray-500 truncate">{b.companyName}</p>
-                        <a
-                          href={b.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-teal-700 hover:underline line-clamp-2"
-                        >
-                          {b.subject}
-                        </a>
-                      </div>
-                      <button
-                        className="flex-shrink-0 text-amber-500 hover:text-gray-400 transition-colors text-sm"
-                        onClick={() =>
-                          toggleBookmark({
-                            link: b.link,
-                            companyName: b.companyName,
-                            subject: b.subject,
-                          })
-                        }
-                        title="즐겨찾기 해제"
+                <ul className="space-y-1">
+                  {bookmarks.map((b) => {
+                    const isOpen = expandedLink === b.link;
+                    return (
+                      <li
+                        key={b.link}
+                        className="bg-white border border-gray-200 rounded overflow-hidden"
                       >
-                        ★
-                      </button>
-                    </li>
-                  ))}
+                        <div
+                          className="flex items-center justify-between gap-2 p-3 cursor-pointer"
+                          onClick={() => setExpandedLink(isOpen ? null : b.link)}
+                        >
+                          <span className="text-sm text-gray-700 line-clamp-1 min-w-0">
+                            {b.subject}
+                          </span>
+                          <span className="flex-shrink-0 text-gray-400 text-xs">
+                            {isOpen ? "▲" : "▼"}
+                          </span>
+                        </div>
+                        {isOpen && (
+                          <div className="px-3 pb-3 pt-0 border-t border-gray-100">
+                            <p className="text-xs text-gray-500 mt-2 mb-2">{b.companyName}</p>
+                            {b.contentObj ? (
+                              <div className="text-xs text-gray-600 space-y-2 whitespace-pre-wrap">
+                                {b.contentObj.requirement && (
+                                  <div>
+                                    <p className="font-semibold text-gray-700 mb-0.5">자격요건</p>
+                                    <p>{b.contentObj.requirement}</p>
+                                  </div>
+                                )}
+                                {b.contentObj.preferentialTreatment && (
+                                  <div>
+                                    <p className="font-semibold text-gray-700 mb-0.5">우대사항</p>
+                                    <p>{b.contentObj.preferentialTreatment}</p>
+                                  </div>
+                                )}
+                                {b.contentObj.mainTask && (
+                                  <div>
+                                    <p className="font-semibold text-gray-700 mb-0.5">주요업무</p>
+                                    <p>{b.contentObj.mainTask}</p>
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <p className="text-xs text-gray-400">본문 데이터가 없는 이전 즐겨찾기입니다.</p>
+                            )}
+                            <div className="flex items-center justify-end mt-2">
+                              <button
+                                className="text-amber-500 hover:text-gray-400 transition-colors text-sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleBookmark({
+                                    link: b.link,
+                                    companyName: b.companyName,
+                                    subject: b.subject,
+                                  });
+                                }}
+                                title="즐겨찾기 해제"
+                              >
+                                ★
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </section>

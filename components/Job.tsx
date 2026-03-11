@@ -9,7 +9,7 @@ interface IJob extends Job {
   isMoreInfo: boolean;
   handleSetIsMoreInfo: () => void;
   onHideCompany?: (companyName: string) => void;
-  onToggleBookmark?: (job: { link: string; companyName: string; subject: string }) => void;
+  onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
 }
 
@@ -125,7 +125,7 @@ const Jobs = ({
                 ? "bg-amber-200 text-amber-600"
                 : "bg-gray-300 text-gray-500 hover:bg-amber-100 hover:text-amber-500"
             }`}
-            onClick={() => onToggleBookmark({ link, companyName, subject })}
+            onClick={() => onToggleBookmark({ link, companyName, subject, contentObj })}
             title="즐겨찾기"
           >
             {isBookmarked ? "★" : "☆"}
