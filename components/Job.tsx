@@ -1,3 +1,4 @@
+import React from "react";
 import HighLight from "./HighLight";
 
 interface IJob extends Job {

@@ -1,0 +1,63 @@
+RBYE 작업 세션 요약 (2026-03-11)
+================================
+
+■ 핵심 의사결정
+
+1. RPG 장비창 → 세로형 학습 단계 UI로 전환
+   - RPG가 재밌지만 실용성 없음 → "게임하려고 온 게 아니다"
+   - 기초→프레임워크→생태계→도구→인프라→AI 6단계 구조 채택
+   - 다크 테마 폐기, 사이트 전체 라이트 톤(흰 배경 + teal 강조)에 맞춤
+
+2. 연차 분석 알고리즘 개선
+   - "3년 이상" → 3~10년 전체 전파 (기존: 3년에만 카운트)
+   - "주니어" → 1~3년, "시니어" → 5~10년 자동 분류
+   - 9년/10년은 8년과 사실상 동일 → 추가 안 함 (UX 대비 가치 없음)
+
+3. AI 활용 단계 신설
+   - roadmap.sh에 AI Engineer 로드맵 별도 존재하지만, 각 직군 내 6단계로 통합 표시
+   - "AI" 단독 키워드 제외 (525건이지만 과다 매칭, 범용적)
+   - 실제 공고 빈도: LLM(150), Claude(88), Cursor(57), RAG(50) 등
+
+4. 백엔드 기술 사전 대폭 확장
+   - "백엔드=Java" 전제 깨짐: TypeScript(145), Node.js(111), FastAPI(77), Django(57) 모두 주류
+   - 모니터링/IaC도 유의미: Grafana(33), Terraform(31), Prometheus(30)
+   - 프론트에도 Node.js(53), 웹 접근성(21), SEO(18) 등 누락 키워드 다수 발견
+
+5. roadmap.sh 저작권
+   - MIT 라이선스, 코드/이미지 복사 없이 학습 순서(일반 아이디어)만 참고
+   - 업계 공통 상식이므로 저작권 이슈 없음
+   - 설명 박스에 하이퍼링크 크레딧으로 충분
+
+6. Next.js 보안
+   - 12.3.4→12.3.5 (critical 1건 해결)
+   - 14+로의 마이그레이션은 App Router/Link API 변경으로 대규모 작업 → 보류
+   - postcss override로 moderate 1건 추가 해결
+
+
+■ 주요 통찰
+
+- 채용공고에서 AI 키워드 폭발적 증가 (전체 1,530건 중 AI 525건 = 34%)
+- 한국어 키워드(머신러닝, 생성형, 프롬프트)가 영어보다 훨씬 빈번
+- PM 공고에 "로드맵" 157건인데 tech-dictionary에 없었음 → 데이터 누락 주의
+- 연차 8년/9년/10년 기술 요구 거의 동일 → 시니어 레벨에서 기술 스택은 포화 상태
+- 9년 vs 8년 차이 0건(frontend/nodejs), 10년 vs 9년도 6~13건 수준
+
+
+■ 미완료 / 후속 작업
+
+- [ ] RBYE-API에서 tech-dictionary.json + analyze.js 커밋 & 푸시 (샌드박스 제한)
+- [ ] pnpm run home으로 프로덕션 배포 (analyze.js 재실행 + vercel deploy)
+- [ ] Next.js 14+ 마이그레이션 (보안 취약점 9건 해결 위해 언젠가 필요)
+
+
+■ 커밋 이력 (이번 세션)
+
+4e3fffd fix: 보안 취약점 패치 (next 12.3.5, postcss 8.4.31+)
+a6c8056 data: 기술 사전 확장에 따른 stats.json 재생성
+f455625 feat: 스킬 로드맵 페이지 대폭 개선
+a9cbb74 feat: 기술 통계 키워드 순위를 TOP 15에서 TOP 20으로 확장
+3355b2e feat: 하위 카테고리 메뉴 스타일 통일
+dad433e chore: migrate to pnpm and update build tooling
+d3f38f7 feat: add skillset navigation and update layout for multi-page support
+b2fb682 refactor: remove MobX store, use local state and props
+5ee6ff4 feat(seo): add skillset page to sitemap and add roadmap.sh credit link
