@@ -14,3 +14,9 @@ interface Job {
   link: string;
   searchKeyword?: string;
 }
+
+interface BookmarkEntry {
+  link: string;
+  companyName: string;
+  subject: string;
+}

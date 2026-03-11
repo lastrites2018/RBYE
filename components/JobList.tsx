@@ -8,6 +8,9 @@ interface IJobList {
   companyData?: any;
   isMoreInfo: boolean;
   handleSetIsMoreInfo: () => void;
+  onHideCompany?: (companyName: string) => void;
+  onToggleBookmark?: (job: { link: string; companyName: string; subject: string }) => void;
+  isBookmarked?: (link: string) => boolean;
 }
 
 export default React.memo(function JobList({
@@ -17,6 +20,9 @@ export default React.memo(function JobList({
   companyData,
   isMoreInfo,
   handleSetIsMoreInfo,
+  onHideCompany,
+  onToggleBookmark,
+  isBookmarked,
 }: IJobList) {
   return (
     <div className="break-word-and-keep-all">
@@ -31,6 +37,9 @@ export default React.memo(function JobList({
             companyData={companyData}
             isMoreInfo={isMoreInfo}
             handleSetIsMoreInfo={handleSetIsMoreInfo}
+            onHideCompany={onHideCompany}
+            onToggleBookmark={onToggleBookmark}
+            isBookmarked={isBookmarked?.(job.link)}
           />
         );
       })}

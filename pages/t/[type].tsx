@@ -10,6 +10,7 @@ import JobList from "../../components/JobList";
 import Layout from "../../components/Layout";
 import NavBar from "../../components/NavBar";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import useLocalPreferences from "../../hooks/useLocalPreferences";
 
 import { apiUrl } from "../../utils/apiLocation";
 
@@ -26,6 +27,7 @@ interface Props {
 
 export default function Post(props: Props) {
   const router = useRouter();
+  const { hideCompany, isCompanyHidden, toggleBookmark, isBookmarked, setLastType } = useLocalPreferences();
   const [data, setData] = React.useState(props.data || []);
   const [isFirstLoading, setIsFirstLoading] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
@@ -138,6 +140,8 @@ export default function Post(props: Props) {
       setSearchKeyword("");
       setYear(0);
       currentPage.current = 1;
+      setLastType(props.query.type);
+      document.cookie = `rbye_last_type=${props.query.type};path=/;max-age=31536000`;
     }
   }, [props.query?.type]);
 
@@ -230,10 +234,11 @@ export default function Post(props: Props) {
     );
   }
 
+  const visibleData = data.filter((job) => !isCompanyHidden(job.companyName));
   const totalDataCount =
     !searchKeyword && currentCategory === "전체"
       ? props.totalCount
-      : data.length;
+      : visibleData.length;
   const canonicalPath = `/t/${props.query?.type || "frontend"}`;
 
   const handleSetIsMoreInfo = () => setIsMoreInfo(!isMoreInfo);
@@ -342,12 +347,15 @@ export default function Post(props: Props) {
         </div>
         {loading && <div className="spinner"></div>}
         <JobList
-          data={data}
+          data={visibleData}
           searchKeyword={searchKeyword}
           totalDataCount={totalDataCount}
           companyData={companyData}
           isMoreInfo={isMoreInfo}
           handleSetIsMoreInfo={handleSetIsMoreInfo}
+          onHideCompany={hideCompany}
+          onToggleBookmark={toggleBookmark}
+          isBookmarked={isBookmarked}
         />
         {searchKeyword && data.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">

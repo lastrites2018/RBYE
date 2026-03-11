@@ -3,6 +3,7 @@ import Head from "next/head";
 import Footer from "./Footer";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useLocalPreferences from "../hooks/useLocalPreferences";
 
 type Props = {
   title?: string;
@@ -19,10 +20,14 @@ const Layout: React.FunctionComponent<Props> = ({
   currentPage = "",
   canonicalPath,
 }) => {
+  const { hasAnyPreferences, getLastType } = useLocalPreferences();
+  const lastType = typeof window !== "undefined" ? getLastType() : "frontend";
+  const jobLink = `/t/${lastType}`;
   const isStatsPage = pageType === "stats";
   const isSkillsetPage = pageType === "skillset";
   const isSpecialPage = pageType === "stats" || pageType === "skillset";
   const router = useRouter();
+  const isSettingsPage = router.pathname === "/settings";
 
   const description =
     pageType === "stats"
@@ -54,7 +59,7 @@ const Layout: React.FunctionComponent<Props> = ({
             path: `/t/${currentPage}`,
           },
         ]
-      : [{ name: "공고 보기", path: "/t/frontend" }]),
+      : [{ name: "공고 보기", path: jobLink }]),
   ];
 
   const structuredData = {
@@ -125,13 +130,18 @@ const Layout: React.FunctionComponent<Props> = ({
       </Head>
       <nav className="bg-white border-b border-gray-200 mb-4">
         <div className="max-w-[640px] mx-auto px-4 flex items-center justify-between h-11">
-          <Link href="/">
-            <a className="text-sm font-bold text-teal-700 tracking-tight">RBYE</a>
-          </Link>
-          <div className="flex gap-1">
-            <Link href={`/t/frontend`}>
+          <div className="flex items-center gap-2">
+            <Link href="/">
+              <a className="text-sm font-bold text-teal-700 tracking-tight">RBYE</a>
+            </Link>
+            {!isSettingsPage && (
+              <span className="text-xs text-gray-400">{getPageTitle()}</span>
+            )}
+          </div>
+          <div className="flex gap-1 items-center">
+            <Link href={jobLink}>
               <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
-                !isSpecialPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
+                !isSpecialPage && !isSettingsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
               }`}>공고</a>
             </Link>
             <Link href={`/stats`}>
@@ -144,10 +154,19 @@ const Layout: React.FunctionComponent<Props> = ({
                 isSkillsetPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
               }`}>스킬셋</a>
             </Link>
+            {hasAnyPreferences && (
+              <Link href="/settings">
+                <a className={`ml-1 px-1.5 py-1 rounded transition-colors text-base leading-none ${
+                  isSettingsPage ? "text-teal-700 bg-gray-100" : "text-gray-400 hover:text-teal-700 hover:bg-gray-100"
+                }`} title="설정">
+                  ⚙
+                </a>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
-      {!isSpecialPage && (
+      {!isSpecialPage && !isSettingsPage && (
         <div className="flex justify-center gap-1 mb-4 max-w-[640px] mx-auto px-4">
           <Link href={`/t/frontend`}>
             <a className={currentPage === "frontend"

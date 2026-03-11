@@ -11,6 +11,8 @@ interface Props {
   totalCount: number;
 }
 
+const VALID_TYPES = ["frontend", "nodejs", "server", "pm"];
+
 const IndexPage = ({ data, updated, totalCount }: Props) => {
   const defaultQueryObject = { type: "frontend" };
 
@@ -26,7 +28,17 @@ const IndexPage = ({ data, updated, totalCount }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const cookies = req.headers.cookie || "";
+  const match = cookies.match(/rbye_last_type=(\w+)/);
+  const lastType = match?.[1];
+
+  if (lastType && VALID_TYPES.includes(lastType) && lastType !== "frontend") {
+    return {
+      redirect: { destination: `/t/${lastType}`, permanent: false },
+    };
+  }
+
   try {
     const res = await fetch(`${apiUrl}/frontend?_page=1&_limit=30`);
     const res2 = await fetch(`${apiUrl}/updated`);

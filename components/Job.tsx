@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useCallback } from "react";
 import HighLight from "./HighLight";
 
 interface IJob extends Job {
@@ -8,6 +8,9 @@ interface IJob extends Job {
   companyData?: any;
   isMoreInfo: boolean;
   handleSetIsMoreInfo: () => void;
+  onHideCompany?: (companyName: string) => void;
+  onToggleBookmark?: (job: { link: string; companyName: string; subject: string }) => void;
+  isBookmarked?: boolean;
 }
 
 /** 줄머리 불릿 문자 패턴 */
@@ -46,6 +49,8 @@ function normalizeJobText(text: string | undefined): string {
     .trim();
 }
 
+const PENDING_DELAY = 1500;
+
 const Jobs = ({
   subject,
   companyName,
@@ -59,31 +64,83 @@ const Jobs = ({
   companyData,
   isMoreInfo,
   handleSetIsMoreInfo,
+  onHideCompany,
+  onToggleBookmark,
+  isBookmarked,
 }: IJob) => {
   const requirement = normalizeJobText(contentObj?.requirement);
   const preferentialTreatment = normalizeJobText(contentObj?.preferentialTreatment);
   const mainTask = normalizeJobText(contentObj?.mainTask);
 
+  const [pendingHide, setPendingHide] = useState(false);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startHide = useCallback(() => {
+    setPendingHide(true);
+    hideTimer.current = setTimeout(() => {
+      onHideCompany?.(companyName);
+    }, PENDING_DELAY);
+  }, [onHideCompany, companyName]);
+
+  const cancelHide = useCallback(() => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = null;
+    setPendingHide(false);
+  }, []);
+
   const companyInfoObject =
     companyData?.length > 0 ? companyData[0][companyName] : null;
 
   return (
-    <div className="p-3 sm:p-5 shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all">
-      <div
-        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-700 cursor-pointer text-xs"
-        style={{
-          right: (totalDataCount || 0) > 1000 ? "5.4rem" : "5.2rem",
-          top: "-0.5rem",
-        }}
-        onClick={handleSetIsMoreInfo}
-      >
-        {isMoreInfo ? "ON" : "OFF"}
-      </div>
-      <div
-        className="absolute bg-gray-300 px-2 select-none rounded-full text-gray-600 text-xs"
-        style={{ right: "1rem", top: "-0.5rem" }}
-      >
-        {index + 1}/{totalDataCount}
+    <div className={`p-3 sm:p-5 shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all transition-all ${
+      pendingHide ? "border-2 border-dashed border-red-300 opacity-50" : ""
+    }`}>
+      {/* 왼쪽: 숨기기 */}
+      {onHideCompany && (
+        <div className="absolute select-none text-xs" style={{ left: "1rem", top: "-0.5rem" }}>
+          {pendingHide ? (
+            <span
+              className="bg-red-100 px-2 rounded-full text-red-500 cursor-pointer hover:bg-red-200 transition-colors"
+              onClick={cancelHide}
+            >
+              취소
+            </span>
+          ) : (
+            <span
+              className="bg-gray-300 px-1.5 rounded-full text-gray-500 cursor-pointer hover:bg-red-200 hover:text-red-600 transition-colors"
+              onClick={startHide}
+              title={`${companyName} 숨기기`}
+            >
+              ✕
+            </span>
+          )}
+        </div>
+      )}
+      {/* 오른쪽: 즐겨찾기, ON/OFF, 인덱스 */}
+      <div className="absolute flex gap-1 items-center select-none text-xs" style={{ right: "1rem", top: "-0.5rem" }}>
+        {onToggleBookmark && !pendingHide && (
+          <span
+            className={`px-1.5 rounded-full cursor-pointer transition-colors ${
+              isBookmarked
+                ? "bg-amber-200 text-amber-600"
+                : "bg-gray-300 text-gray-500 hover:bg-amber-100 hover:text-amber-500"
+            }`}
+            onClick={() => onToggleBookmark({ link, companyName, subject })}
+            title="즐겨찾기"
+          >
+            {isBookmarked ? "★" : "☆"}
+          </span>
+        )}
+        <span
+          className="bg-gray-300 rounded-full text-gray-700 cursor-pointer text-center"
+          style={{ width: "2.2rem" }}
+          onClick={handleSetIsMoreInfo}
+        >
+          {isMoreInfo ? "ON" : "OFF"}
+        </span>
+        <span className="bg-gray-300 px-2 rounded-full text-gray-600">
+          {index + 1}/{totalDataCount}
+        </span>
       </div>
       <h2 className="text-gray-700">
         <HighLight content={companyName} searchText={searchKeyword} />
