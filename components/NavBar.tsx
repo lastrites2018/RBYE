@@ -34,7 +34,7 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
           placeholder="전체 텍스트 검색"
           className="border border-solid border-gray-300 h-10 rounded-lg p-2 flex-1 min-w-0 focus:border-teal-500 focus:outline-none"
           onChange={e => setWord(e.target.value)}
-          onKeyDown={e => e.key === "Enter" && startSearch(word)}
+          onKeyDown={e => e.key === "Enter" && !e.nativeEvent.isComposing && startSearch(word)}
         />
         <button
           type="submit"

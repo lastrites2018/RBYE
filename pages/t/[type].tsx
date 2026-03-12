@@ -48,7 +48,7 @@ export default function Post(props: Props) {
 
   const lastChildBefore = React.useCallback(
     () => document.querySelector(".job-wrapper:last-child"),
-    []
+    [data.length]
   );
 
   const scrollStateRef = React.useRef({ currentCategory, loading, searchKeyword });
