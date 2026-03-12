@@ -46,8 +46,13 @@ export default function Post(props: Props) {
   const totalPage = React.useRef(1);
   const rootRef = React.useRef(null);
 
-  const lastChildBefore = () =>
-    document.querySelector(".job-wrapper:last-child");
+  const lastChildBefore = React.useCallback(
+    () => document.querySelector(".job-wrapper:last-child"),
+    []
+  );
+
+  const scrollStateRef = React.useRef({ currentCategory, loading, searchKeyword });
+  scrollStateRef.current = { currentCategory, loading, searchKeyword };
 
   useEffect(() => {
     if (props.totalCount) totalPage.current = Math.ceil(props.totalCount / 30);
@@ -81,7 +86,7 @@ export default function Post(props: Props) {
     } finally {
       setLoadingCompany(false);
     }
-  }, [isMoreInfo]);
+  }, []);
 
   const getData = React.useCallback(
     async (
@@ -105,29 +110,35 @@ export default function Post(props: Props) {
         setLoadingData(false);
       }
     },
-    [data, year, currentCategory]
+    [year, currentCategory, props.query?.type]
   );
 
-  useIntersectionObserver({
-    root: rootRef.current,
-    target: lastChildBefore,
-    onIntersect: (entries, observer) => {
-      const intersectionObserverEntry = entries.pop();
-      const isIntersecting = intersectionObserverEntry.isIntersecting;
+  const handleIntersect = React.useCallback(
+    (entries, observer) => {
+      const entry = entries.pop();
+      if (!entry) return;
+      const { currentCategory: cat, loading: ld, searchKeyword: kw } = scrollStateRef.current;
 
-      if (currentCategory !== "전체") {
-        observer.unobserve(intersectionObserverEntry.target);
+      if (cat !== "전체") {
+        observer.unobserve(entry.target);
       }
       if (
-        currentCategory === "전체" &&
-        isIntersecting &&
-        !loading &&
-        !searchKeyword &&
+        cat === "전체" &&
+        entry.isIntersecting &&
+        !ld &&
+        !kw &&
         currentPage.current < totalPage.current
       ) {
         loadMoreData();
       }
     },
+    [loadMoreData]
+  );
+
+  useIntersectionObserver({
+    root: rootRef.current,
+    target: lastChildBefore,
+    onIntersect: handleIntersect,
   });
 
   useEffect(() => {
@@ -154,6 +165,7 @@ export default function Post(props: Props) {
     currentCategory !== "햇수" &&
       currentCategory !== "제한없음" &&
       !isFirstLoading &&
+      searchKeyword &&
       getData(`${apiUrl}/${props.query?.type}?q=${searchKeyword}`);
   }, [searchKeyword]);
 

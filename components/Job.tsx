@@ -82,6 +82,7 @@ const Jobs = ({
   }, []);
 
   const startHide = useCallback(() => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
     setPendingHide(true);
     hideTimer.current = setTimeout(() => {
       onHideCompany?.(companyName);
