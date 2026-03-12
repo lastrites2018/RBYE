@@ -4,6 +4,7 @@ import { VALID_TYPES } from "../utils/constants";
 const HIDDEN_KEY = "rbye_hidden_companies";
 const BOOKMARKS_KEY = "rbye_bookmarks";
 const LAST_TYPE_KEY = "rbye_last_type";
+const MAX_BOOKMARKS = 200;
 
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -68,6 +69,7 @@ export default function useLocalPreferences() {
     (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => {
       setBookmarks((prev) => {
         const exists = prev.some((b) => b.link === job.link);
+        if (!exists && prev.length >= MAX_BOOKMARKS) return prev;
         const next = exists
           ? prev.filter((b) => b.link !== job.link)
           : [...prev, { link: job.link, companyName: job.companyName, subject: job.subject, contentObj: job.contentObj }];

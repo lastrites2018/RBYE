@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Layout from "../components/Layout";
 import useLocalPreferences from "../hooks/useLocalPreferences";
+import normalizeJobText from "../utils/normalizeJobText";
 
 const PENDING_DELAY = 1500;
 
@@ -107,19 +108,19 @@ export default function SettingsPage() {
                                 {b.contentObj.requirement && (
                                   <div>
                                     <p className="font-semibold text-gray-700 mb-0.5">자격요건</p>
-                                    <p>{b.contentObj.requirement}</p>
+                                    <p>{normalizeJobText(b.contentObj.requirement)}</p>
                                   </div>
                                 )}
                                 {b.contentObj.preferentialTreatment && (
                                   <div>
                                     <p className="font-semibold text-gray-700 mb-0.5">우대사항</p>
-                                    <p>{b.contentObj.preferentialTreatment}</p>
+                                    <p>{normalizeJobText(b.contentObj.preferentialTreatment)}</p>
                                   </div>
                                 )}
                                 {b.contentObj.mainTask && (
                                   <div>
                                     <p className="font-semibold text-gray-700 mb-0.5">주요업무</p>
-                                    <p>{b.contentObj.mainTask}</p>
+                                    <p>{normalizeJobText(b.contentObj.mainTask)}</p>
                                   </div>
                                 )}
                               </div>
