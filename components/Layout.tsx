@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useLocalPreferences from "../hooks/useLocalPreferences";
+import { VALID_TYPES } from "../utils/constants";
 
 type Props = {
   title?: string;
@@ -48,6 +49,8 @@ const Layout: React.FunctionComponent<Props> = ({
   const pageTitle = title.includes("RBYE") ? title : `${title} | RBYE.VERCEL.APP`;
   const websiteUrl = "https://rbye.vercel.app";
   const siteName = "RBYE";
+  const currentSearchType = VALID_TYPES.includes(currentPage) ? currentPage : "frontend";
+  const socialImage = `${websiteUrl}/og-image.svg`;
 
   const breadcrumbItems = [
     { name: "홈", path: "/" },
@@ -76,7 +79,7 @@ const Layout: React.FunctionComponent<Props> = ({
         url: websiteUrl,
         potentialAction: {
           "@type": "SearchAction",
-          target: `${websiteUrl}/t/frontend?q={search_term_string}`,
+          target: `${websiteUrl}/t/${currentSearchType}?q={search_term_string}`,
           "query-input": "required name=search_term_string",
         },
       },
@@ -121,12 +124,12 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content="RBYE" />
-        <meta property="og:image" content="https://rbye.vercel.app/github.png" />
+        <meta property="og:image" content={socialImage} />
         <meta property="og:image:alt" content={`${pageTitle} - RBYE`} />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content="https://rbye.vercel.app/github.png" />
+        <meta name="twitter:image" content={socialImage} />
         <meta name="twitter:image:alt" content={`${pageTitle} - RBYE`} />
         <link rel="canonical" href={canonicalUrl} />
         <script

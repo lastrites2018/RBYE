@@ -1,0 +1,21 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#164e63" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="36" y="36" width="1128" height="558" rx="18" fill="#ffffff10" stroke="#ffffff28" />
+  <g fill="#e5fffa">
+    <text x="600" y="250" text-anchor="middle" font-size="96" font-weight="700" font-family="Arial, Helvetica, sans-serif">
+      RBYE
+    </text>
+    <text x="600" y="340" text-anchor="middle" font-size="40" font-weight="500" font-family="Arial, Helvetica, sans-serif">
+      채용 공고의 연차별 요구 스킬맵
+    </text>
+    <text x="600" y="410" text-anchor="middle" font-size="36" fill="#d1fae5" font-family="Arial, Helvetica, sans-serif">
+      기술 통계 &amp; 스킬셋 분석
+    </text>
+  </g>
+</svg>

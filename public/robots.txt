@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /_next/
 Disallow: /api/
+Disallow: /settings
 
 Sitemap: https://rbye.vercel.app/sitemap.xml
