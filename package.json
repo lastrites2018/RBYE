@@ -8,7 +8,8 @@
     "start": "bash scripts/run-next.sh start",
     "dev:all": "RBYE_AUTO_KILL=1 RBYE_API_WATCH=0 RBYE_AUTOSCAN=0 RBYE_API_PORT=5003 RBYE_FRONTEND_PORT=5004 bash scripts/dev-local.sh",
     "stage": "pnpm build && pnpm start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "test": "bun test"
   },
   "packageManager": "pnpm@10.5.2",
   "dependencies": {

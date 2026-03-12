@@ -370,7 +370,7 @@ export default function Post(props: Props) {
           onToggleBookmark={toggleBookmark}
           isBookmarked={isBookmarked}
         />
-        {searchKeyword && data.length === 0 && !loading && (
+        {searchKeyword && visibleData.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">
             {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
           </div>
@@ -382,8 +382,10 @@ export default function Post(props: Props) {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
-    const res = await fetch(`${apiUrl}/${query.type}?_page=1&_limit=30`);
-    const res2 = await fetch(`${apiUrl}/updated`);
+    const [res, res2] = await Promise.all([
+      fetch(`${apiUrl}/${query.type}?_page=1&_limit=30`),
+      fetch(`${apiUrl}/updated`),
+    ]);
     const data: Job[] = await res.json();
     const updated: object[] = await res2.json();
 

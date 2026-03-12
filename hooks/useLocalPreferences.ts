@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
+import { VALID_TYPES } from "../utils/constants";
 
 const HIDDEN_KEY = "rbye_hidden_companies";
 const BOOKMARKS_KEY = "rbye_bookmarks";
 const LAST_TYPE_KEY = "rbye_last_type";
-const VALID_TYPES = ["frontend", "nodejs", "server", "pm"];
 
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;

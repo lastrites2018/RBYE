@@ -4,14 +4,13 @@ import { GetServerSideProps } from "next";
 import { apiUrl } from "../utils/apiLocation";
 
 import Post from "./t/[type]";
+import { VALID_TYPES } from "../utils/constants";
 
 interface Props {
   data: Job[];
   updated: object[];
   totalCount: number;
 }
-
-const VALID_TYPES = ["frontend", "nodejs", "server", "pm"];
 
 const IndexPage = ({ data, updated, totalCount }: Props) => {
   const defaultQueryObject = { type: "frontend" };
@@ -40,8 +39,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   try {
-    const res = await fetch(`${apiUrl}/frontend?_page=1&_limit=30`);
-    const res2 = await fetch(`${apiUrl}/updated`);
+    const [res, res2] = await Promise.all([
+      fetch(`${apiUrl}/frontend?_page=1&_limit=30`),
+      fetch(`${apiUrl}/updated`),
+    ]);
     const data: Job[] = await res.json();
     const updated: object[] = await res2.json();
     const totalCount = Number(res.headers.get("X-Total-Count"));
