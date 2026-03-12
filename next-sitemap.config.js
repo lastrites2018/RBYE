@@ -2,24 +2,28 @@
 const fs = require("fs");
 const path = require("path");
 
-const lastModifiedFromStats = () => {
-  try {
-    const filePath = path.join(__dirname, "public", "stats.json");
-    const stat = fs.statSync(filePath);
-    return stat.mtime.toISOString();
-  } catch {
+const getLatestContentModifiedAt = () => {
+  const targets = ["stats.json", "timeline.json"];
+  const mtimes = targets
+    .map((fileName) => path.join(__dirname, "public", fileName))
+    .filter((filePath) => fs.existsSync(filePath))
+    .map((filePath) => fs.statSync(filePath).mtimeMs);
+
+  if (mtimes.length === 0) {
     return new Date().toISOString();
   }
+
+  return new Date(Math.max(...mtimes)).toISOString();
 };
 
-const lastmod = lastModifiedFromStats();
+const lastmod = getLatestContentModifiedAt();
 
 module.exports = {
   siteUrl: "https://rbye.vercel.app",
   sourceDir: ".next",
   outDir: "./public",
   generateRobotsTxt: false,
-  exclude: ["/_next/*", "/api/*"],
+  exclude: ["/_next/*", "/api/*", "/settings"],
   changefreq: "weekly",
   priority: 0.8,
   autoLastmod: false,

@@ -76,7 +76,7 @@ const Layout: React.FunctionComponent<Props> = ({
         url: websiteUrl,
         potentialAction: {
           "@type": "SearchAction",
-          target: `${websiteUrl}/t/{search_term_string}`,
+          target: `${websiteUrl}/t/frontend?q={search_term_string}`,
           "query-input": "required name=search_term_string",
         },
       },
@@ -111,7 +111,7 @@ const Layout: React.FunctionComponent<Props> = ({
   return (
     <div>
       <Head>
-        <title>{title}</title>
+        <title>{pageTitle}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content={description} />
@@ -122,10 +122,12 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content="RBYE" />
         <meta property="og:image" content="https://rbye.vercel.app/github.png" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:image:alt" content={`${pageTitle} - RBYE`} />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content="https://rbye.vercel.app/github.png" />
+        <meta name="twitter:image:alt" content={`${pageTitle} - RBYE`} />
         <link rel="canonical" href={canonicalUrl} />
         <script
           type="application/ld+json"

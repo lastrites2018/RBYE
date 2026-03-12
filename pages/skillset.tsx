@@ -4,8 +4,12 @@ import path from "path";
 import fetch from "isomorphic-unfetch";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import parse from "date-fns/parse";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import koLocale from "date-fns/locale/ko";
 import Layout from "../components/Layout";
 import { apiUrl } from "../utils/apiLocation";
+import { CATEGORY_LABELS } from "../utils/constants";
 
 // --- 타입 ---
 
@@ -30,6 +34,7 @@ interface StatsData {
 
 interface Props {
   stats: StatsData;
+  updated: object[];
 }
 
 // --- 상수 ---
@@ -302,11 +307,28 @@ function decodeSkillsFromParam(param: string): Set<string> {
   return new Set(param.split(",").map((s) => decodeURIComponent(s.trim())).filter(Boolean));
 }
 
-const SkillsetPage = ({ stats }: Props) => {
+const SkillsetPage = ({ stats, updated }: Props) => {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = React.useState(
+  const [selectedCategory, setSelectedCategoryRaw] = React.useState(
     () => (typeof router.query.cat === "string" && CATEGORIES.some((c) => c.key === router.query.cat) ? router.query.cat : "frontend")
   );
+
+  // 크로스페이지 카테고리 공유: mount 시 복원 (URL 파라미터 없을 때만)
+  React.useEffect(() => {
+    if (router.query.cat) return; // URL에 명시된 경우 우선
+    try {
+      const saved = JSON.parse(localStorage.getItem("rbye_last_type") || '""');
+      if (saved && CATEGORIES.some((c) => c.key === saved)) {
+        setSelectedCategoryRaw(saved);
+      }
+    } catch {}
+  }, []);
+
+  const setSelectedCategory = (key: string) => {
+    setSelectedCategoryRaw(key);
+    try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
+    document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
+  };
   const [selectedYear, setSelectedYear] = React.useState("전체");
   const [checkMode, setCheckMode] = React.useState(() => typeof router.query.skills === "string");
   const [checkedSkills, setCheckedSkills] = React.useState<Set<string>>(new Set());
@@ -599,6 +621,15 @@ const SkillsetPage = ({ stats }: Props) => {
           </div>
         )}
 
+        {/* 데이터 업데이트 시점 */}
+        {updated?.[0]?.[selectedCategory] && (
+          <p className="text-center text-gray-400 text-xs mt-6 mb-4">
+            데이터 업데이트{" "}
+            {(() => { try { return formatDistanceToNow(parse(updated[0][selectedCategory], "yyyy-M-dd HH:mm:ss", new Date()), { locale: koLocale }); } catch { return ""; } })()}{" "}
+            전
+          </p>
+        )}
+
         {/* 산출 기준 안내 */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-5 mb-4 text-sm text-gray-600 leading-relaxed">
           <h3 className="font-semibold text-gray-700 mb-3">이 데이터는 어떻게 만들어졌나요?</h3>
@@ -638,6 +669,12 @@ const SkillsetPage = ({ stats }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  let updated: object[] = [{}];
+  try {
+    const res2 = await fetch(`${apiUrl}/updated`);
+    updated = await res2.json();
+  } catch {}
+
   // 1) API
   try {
     const res = await fetch(`${apiUrl}/stats`);
@@ -645,7 +682,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const stats = Array.isArray(statsArray) && statsArray.length > 0 ? statsArray[0] : statsArray;
     if (stats.frontend?.categoryStats?.["전체"]?.["기본장착"] &&
         stats.frontend?.categoryStats?.["전체"]?.["AI활용"]) {
-      return { props: { stats } };
+      return { props: { stats, updated } };
     }
   } catch {}
 
@@ -660,13 +697,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
         const raw = JSON.parse(fs.readFileSync(localPath, "utf-8"));
         const stats = Array.isArray(raw.stats) && raw.stats.length > 0 ? raw.stats[0] : raw;
         if (stats.frontend?.categoryStats?.["전체"]?.["기본장착"]) {
-          return { props: { stats } };
+          return { props: { stats, updated } };
         }
       }
     }
   } catch {}
 
-  return { props: { stats: {} } };
+  return { props: { stats: {}, updated } };
 };
 
 export default SkillsetPage;

@@ -6,6 +6,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import koLocale from "date-fns/locale/ko";
 import Layout from "../components/Layout";
 import { apiUrl } from "../utils/apiLocation";
+import { CATEGORY_LABELS } from "../utils/constants";
 
 interface StatsData {
   [category: string]: {
@@ -267,6 +268,23 @@ const CooccurrenceBadges: React.FC<{
 
 const StatsPage = ({ stats, updated, timeline }: Props) => {
   const [selectedCategory, setSelectedCategory] = React.useState("frontend");
+
+  // 크로스페이지 카테고리 공유: mount 시 복원
+  React.useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("rbye_last_type") || '""');
+      if (saved && CATEGORIES.some((c) => c.key === saved)) {
+        setSelectedCategory(saved);
+      }
+    } catch {}
+  }, []);
+
+  const updateCategory = (key: string) => {
+    setSelectedCategory(key);
+    setSelectedYear("전체");
+    try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
+    document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
+  };
   const [selectedYear, setSelectedYear] = React.useState("전체");
   const [viewMode, setViewMode] = React.useState<"ranking" | "compare" | "trend">("ranking");
   const [expandedSkill, setExpandedSkill] = React.useState<string | null>(null);
@@ -299,10 +317,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
                   ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
                   : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
               }
-              onClick={() => {
-                setSelectedCategory(cat.key);
-                setSelectedYear("전체");
-              }}
+              onClick={() => updateCategory(cat.key)}
             >
               {cat.label}
             </button>

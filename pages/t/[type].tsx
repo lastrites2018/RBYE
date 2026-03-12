@@ -13,7 +13,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import useLocalPreferences from "../../hooks/useLocalPreferences";
 
 import { apiUrl } from "../../utils/apiLocation";
-import { VALID_TYPES } from "../../utils/constants";
+import { VALID_TYPES, CATEGORY_LABELS } from "../../utils/constants";
 
 interface QueryType {
   type: string;
@@ -261,7 +261,7 @@ export default function Post(props: Props) {
 
   return (
     <Layout
-      title={`${props.query?.type} 연차별 요구사항 - RBYE.VERCEL.APP`}
+      title={`${CATEGORY_LABELS[props.query?.type] || props.query?.type} 연차별 요구사항 - RBYE.VERCEL.APP`}
       pageType="job"
       currentPage={currentPageName}
       canonicalPath={canonicalPath}
@@ -273,22 +273,26 @@ export default function Post(props: Props) {
         setCurrentCategory={setCurrentCategory}
       />
       <div className="block m-auto max-w-[640px] px-4">
-        <div className="flex flex-wrap justify-center gap-1.5 mb-2">
-          {displayYear()}
+        <div className={`flex flex-wrap justify-center gap-1.5 mb-2 transition-opacity ${
+          searchKeyword ? "opacity-40 pointer-events-none" : ""
+        }`}>
           <button
             className={
-              currentCategory === "제한없음"
+              currentCategory === "전체"
                 ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
                 : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
             }
             onClick={() => {
-              setCurrentCategory("제한없음");
               setYear(0);
+              setCurrentCategory("전체");
               setSearchKeyword("");
             }}
           >
-            제한없음
+            전체
           </button>
+          <span className="w-px h-5 bg-gray-300 self-center" />
+          {displayYear()}
+          <span className="w-px h-5 bg-gray-300 self-center" />
           <button
             className={
               currentCategory === "신입"
@@ -333,19 +337,35 @@ export default function Post(props: Props) {
           </button>
           <button
             className={
-              currentCategory === "전체"
+              currentCategory === "제한없음"
                 ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
                 : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
             }
             onClick={() => {
+              setCurrentCategory("제한없음");
               setYear(0);
-              setCurrentCategory("전체");
               setSearchKeyword("");
             }}
           >
-            전체
+            제한없음
           </button>
         </div>
+        {searchKeyword && (
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="text-xs text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">
+              &lsquo;{searchKeyword}&rsquo; 검색 중
+            </span>
+            <button
+              className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+              onClick={() => {
+                setSearchKeyword("");
+                setCurrentCategory("전체");
+              }}
+            >
+              초기화
+            </button>
+          </div>
+        )}
         <div className="text-center text-gray-400 text-xs mb-3">
           데이터 업데이트{" "}
           {props.updated[0]?.[props.query.type] &&
