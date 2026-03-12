@@ -16,7 +16,7 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
   const [word, setWord] = React.useState("");
 
   React.useEffect(() => {
-    if (!searchKeyword) setWord("");
+    setWord(searchKeyword);
   }, [searchKeyword]);
 
   const startSearch = (word: string) => {

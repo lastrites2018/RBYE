@@ -273,9 +273,7 @@ export default function Post(props: Props) {
         setCurrentCategory={setCurrentCategory}
       />
       <div className="block m-auto max-w-[640px] px-4">
-        <div className={`flex flex-wrap justify-center gap-1.5 mb-2 transition-opacity ${
-          searchKeyword ? "opacity-40 pointer-events-none" : ""
-        }`}>
+        <div className="flex flex-wrap justify-center gap-1.5 mb-2">
           <button
             className={
               currentCategory === "전체"
@@ -350,22 +348,6 @@ export default function Post(props: Props) {
             제한없음
           </button>
         </div>
-        {searchKeyword && (
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="text-xs text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">
-              &lsquo;{searchKeyword}&rsquo; 검색 중
-            </span>
-            <button
-              className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
-              onClick={() => {
-                setSearchKeyword("");
-                setCurrentCategory("전체");
-              }}
-            >
-              초기화
-            </button>
-          </div>
-        )}
         <div className="text-center text-gray-400 text-xs mb-3">
           데이터 업데이트{" "}
           {props.updated[0]?.[props.query.type] &&
