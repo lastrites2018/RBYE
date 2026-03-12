@@ -9,7 +9,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import koLocale from "date-fns/locale/ko";
 import Layout from "../components/Layout";
 import { apiUrl } from "../utils/apiLocation";
-import { CATEGORY_LABELS } from "../utils/constants";
+import { CATEGORY_LABELS, VALID_TYPES } from "../utils/constants";
 
 // --- 타입 ---
 
@@ -326,8 +326,10 @@ const SkillsetPage = ({ stats, updated }: Props) => {
 
   const setSelectedCategory = (key: string) => {
     setSelectedCategoryRaw(key);
-    try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
-    document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
+    if (VALID_TYPES.includes(key)) {
+      try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
+      document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
+    }
   };
   const [selectedYear, setSelectedYear] = React.useState("전체");
   const [checkMode, setCheckMode] = React.useState(() => typeof router.query.skills === "string");

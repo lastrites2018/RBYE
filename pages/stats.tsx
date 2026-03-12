@@ -6,7 +6,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import koLocale from "date-fns/locale/ko";
 import Layout from "../components/Layout";
 import { apiUrl } from "../utils/apiLocation";
-import { CATEGORY_LABELS } from "../utils/constants";
+import { CATEGORY_LABELS, VALID_TYPES } from "../utils/constants";
 
 interface StatsData {
   [category: string]: {
@@ -282,8 +282,10 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
   const updateCategory = (key: string) => {
     setSelectedCategory(key);
     setSelectedYear("전체");
-    try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
-    document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
+    if (VALID_TYPES.includes(key)) {
+      try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
+      document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
+    }
   };
   const [selectedYear, setSelectedYear] = React.useState("전체");
   const [viewMode, setViewMode] = React.useState<"ranking" | "compare" | "trend">("ranking");
