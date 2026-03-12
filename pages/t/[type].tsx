@@ -13,6 +13,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import useLocalPreferences from "../../hooks/useLocalPreferences";
 
 import { apiUrl } from "../../utils/apiLocation";
+import { VALID_TYPES } from "../../utils/constants";
 
 interface QueryType {
   type: string;
@@ -153,7 +154,9 @@ export default function Post(props: Props) {
       setYear(0);
       currentPage.current = 1;
       setLastType(props.query.type);
-      document.cookie = `rbye_last_type=${props.query.type};path=/;max-age=31536000`;
+      if (VALID_TYPES.includes(props.query.type)) {
+        document.cookie = `rbye_last_type=${props.query.type};path=/;max-age=31536000`;
+      }
     }
   }, [props.query?.type]);
 
@@ -166,7 +169,7 @@ export default function Post(props: Props) {
       currentCategory !== "제한없음" &&
       !isFirstLoading &&
       searchKeyword &&
-      getData(`${apiUrl}/${props.query?.type}?q=${searchKeyword}`);
+      getData(`${apiUrl}/${props.query?.type}?q=${encodeURIComponent(searchKeyword)}`);
   }, [searchKeyword]);
 
   useEffect(() => {
