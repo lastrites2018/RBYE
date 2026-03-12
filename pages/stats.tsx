@@ -450,9 +450,6 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const fs = require("fs");
-  const path = require("path");
-
   let stats = {};
   let updated: object[] = [{}];
   let timeline: TimelineEntry[] = [];
@@ -472,20 +469,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     console.error("Stats API 요청 실패:", e);
   }
 
-  // timeline.json 로드 (로컬 fallback 포함)
   try {
-    const candidates = [
-      path.resolve(process.cwd(), "public/timeline.json"),
-      path.resolve(process.cwd(), "../RBYE-API/json/timeline.json"),
-    ];
-    for (const p of candidates) {
-      if (fs.existsSync(p)) {
-        timeline = JSON.parse(fs.readFileSync(p, "utf-8"));
-        break;
-      }
-    }
+    const res3 = await fetch(`${apiUrl}/timeline`);
+    timeline = await res3.json();
   } catch (e) {
-    console.error("timeline.json 로드 실패:", e);
+    console.error("timeline API 요청 실패:", e);
   }
 
   return { props: { stats, updated, timeline } };
