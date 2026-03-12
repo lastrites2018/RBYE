@@ -157,17 +157,18 @@ const Jobs = ({
       ) : (
         <></>
       )}
-      <div className="text-gray-600 mt-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
+      <h6 className="mt-2 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium">자격요건</h6>
+      <div className="text-gray-600 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight content={requirement} searchText={searchKeyword} />
       </div>
-      <h6 className="mt-3 sm:mx-2 md:mx-4 font-semibold">우대사항</h6>
+      <h6 className="mt-3 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium">우대사항</h6>
       <div className="text-gray-500 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight
           content={preferentialTreatment}
           searchText={searchKeyword}
         />
       </div>
-      <h6 className="mt-3 sm:mx-2 md:mx-4 font-semibold">주요업무</h6>
+      <h6 className="mt-3 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium">주요업무</h6>
       <div className="text-gray-600 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight content={mainTask} searchText={searchKeyword} />
       </div>

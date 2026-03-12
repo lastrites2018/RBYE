@@ -563,11 +563,26 @@ const SkillsetPage = ({ stats, updated }: Props) => {
         </div>
 
         {/* 모드 안내 */}
-        <p className="text-sm text-gray-400 text-center mb-5">
+        <p className="text-sm text-gray-400 text-center mb-3">
           {checkMode
             ? "보유한 기술을 체크하세요. 시장 대비 커버리지와 학습 추천을 제공합니다."
             : "기술을 클릭하면 해당 기술을 요구하는 채용공고로 이동합니다."}
         </p>
+
+        {/* 범례 */}
+        {!checkMode && (
+          <div className="flex justify-center gap-4 flex-wrap mb-5">
+            {(Object.keys(DEMAND_COLORS) as DemandLevel[]).map((level) => {
+              const c = DEMAND_COLORS[level];
+              return (
+                <span key={level} className="flex items-center gap-1.5 text-xs text-gray-500">
+                  <span className={`inline-block w-6 h-2 ${c.bar} rounded-full`} />
+                  {c.label}
+                </span>
+              );
+            })}
+          </div>
+        )}
 
         {/* 추천 */}
         {checkMode && checkedCount > 0 && (
@@ -598,21 +613,6 @@ const SkillsetPage = ({ stats, updated }: Props) => {
 
         {/* 패시브 */}
         <PassiveSkills skills={passiveSkills} />
-
-        {/* 범례 */}
-        <div className="mt-6 mb-5">
-          <div className="flex justify-center gap-4 flex-wrap">
-            {(Object.keys(DEMAND_COLORS) as DemandLevel[]).map((level) => {
-              const c = DEMAND_COLORS[level];
-              return (
-                <span key={level} className="flex items-center gap-1.5 text-xs text-gray-500">
-                  <span className={`inline-block w-6 h-2 ${c.bar} rounded-full`} />
-                  {c.label}
-                </span>
-              );
-            })}
-          </div>
-        </div>
 
         {/* 공유 토스트 */}
         {shareToast && (

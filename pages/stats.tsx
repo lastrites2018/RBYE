@@ -325,7 +325,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
         </div>
 
         {/* 뷰 모드 토글 */}
-        <div className="flex justify-center gap-1 mb-6">
+        <div className="flex justify-center gap-1 mb-6 pt-4 border-t border-gray-100">
           <button
             className={`px-3 py-1.5 rounded text-xs transition-colors ${
               viewMode === "ranking" ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-200"
