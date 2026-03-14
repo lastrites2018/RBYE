@@ -143,17 +143,56 @@ const YearCompareView: React.FC<{
   );
 };
 
+/**
+ * 비교 기준 스냅샷 선택:
+ * - 3일 미만: 트렌드 표시 불가 (최소 3일 필요)
+ * - 3일 이상: 전체 기간 비교 (첫 스냅샷 vs 최신)
+ * - 7일 이상: 주 단위 비교 가능 (7일 전 근처 스냅샷)
+ * - 30일 이상: 월 단위 비교 가능 (30일 전 근처 스냅샷)
+ */
+function findSnapshotNearDaysAgo(timeline: TimelineEntry[], daysAgo: number): TimelineEntry | null {
+  const latest = timeline[timeline.length - 1];
+  const latestDate = new Date(latest.date).getTime();
+  const targetDate = latestDate - daysAgo * 86400000;
+
+  let best: TimelineEntry | null = null;
+  let bestDiff = Infinity;
+
+  for (const entry of timeline) {
+    if (entry === latest) continue;
+    const diff = Math.abs(new Date(entry.date).getTime() - targetDate);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      best = entry;
+    }
+  }
+  return best;
+}
+
+type TrendPeriod = "all" | "week" | "month";
+
 const TrendView: React.FC<{
   timeline: TimelineEntry[];
   selectedCategory: string;
 }> = ({ timeline, selectedCategory }) => {
-  if (timeline.length < 2) {
+  const daySpan = timeline.length >= 2
+    ? Math.round((new Date(timeline[timeline.length - 1].date).getTime() - new Date(timeline[0].date).getTime()) / 86400000)
+    : 0;
+
+  const availablePeriods: { key: TrendPeriod; label: string }[] = [];
+  if (daySpan >= 3) availablePeriods.push({ key: "all", label: "전체" });
+  if (daySpan >= 7) availablePeriods.push({ key: "week", label: "주간" });
+  if (daySpan >= 30) availablePeriods.push({ key: "month", label: "월간" });
+
+  const [period, setPeriod] = React.useState<TrendPeriod>("all");
+
+  if (timeline.length < 2 || daySpan < 3) {
     return (
       <div className="bg-white rounded-lg shadow-sm p-6 text-center">
         <div className="text-gray-400 text-4xl mb-3">~</div>
         <h3 className="text-lg font-semibold text-gray-600 mb-2">트렌드 데이터 수집 중</h3>
         <p className="text-sm text-gray-400 mb-4">
-          데이터가 2회 이상 업데이트되면 기술 수요 변화 트렌드를 볼 수 있습니다.
+          최소 3일 이상의 데이터가 필요합니다.
         </p>
         <div className="bg-gray-50 rounded-lg p-4 text-left">
           <p className="text-xs text-gray-500 mb-2">현재 수집된 스냅샷:</p>
@@ -167,15 +206,25 @@ const TrendView: React.FC<{
           ))}
         </div>
         <p className="text-xs text-gray-400 mt-4">
-          다음 데이터 업데이트 시 변화량(증감, 순위 변동)이 자동으로 표시됩니다.
+          {daySpan < 3
+            ? `현재 ${daySpan}일치 수집됨. ${3 - daySpan}일 후부터 트렌드를 확인할 수 있습니다.`
+            : "다음 데이터 업데이트 시 변화량이 자동으로 표시됩니다."}
         </p>
       </div>
     );
   }
 
-  // 2개 이상: 최신 vs 이전 비교
+  // 비교 기준 스냅샷 결정
   const latest = timeline[timeline.length - 1];
-  const previous = timeline[timeline.length - 2];
+  let previous: TimelineEntry;
+  if (period === "month") {
+    previous = findSnapshotNearDaysAgo(timeline, 30) || timeline[0];
+  } else if (period === "week") {
+    previous = findSnapshotNearDaysAgo(timeline, 7) || timeline[0];
+  } else {
+    previous = timeline[0]; // 전체: 첫 스냅샷 vs 최신
+  }
+
   const latestCat = latest.categories[selectedCategory];
   const prevCat = previous.categories[selectedCategory];
 
@@ -194,7 +243,24 @@ const TrendView: React.FC<{
           <h2 className="text-lg font-semibold text-gray-700">키워드 트렌드</h2>
           <p className="text-xs text-gray-400">{previous.date} → {latest.date}</p>
         </div>
-        <div className="text-right">
+        <div className="text-right flex flex-col items-end gap-1">
+          {availablePeriods.length > 1 && (
+            <div className="flex gap-1">
+              {availablePeriods.map((p) => (
+                <button
+                  key={p.key}
+                  className={
+                    period === p.key
+                      ? "px-2 py-0.5 rounded text-xs font-medium bg-gray-700 text-white"
+                      : "px-2 py-0.5 rounded text-xs text-gray-500 hover:bg-gray-200 transition-colors"
+                  }
+                  onClick={() => setPeriod(p.key)}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          )}
           <span className="text-sm text-gray-500">
             공고 수: {latestCat.totalJobs}개
             {jobsDiff !== 0 && (
