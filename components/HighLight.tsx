@@ -14,7 +14,7 @@ export default function HighLight({ searchText, content }: IHighlight) {
   return (
     <>
       <Highlighter
-        highlightStyle={{ backgroundColor: "pink", padding: 0 }}
+        highlightStyle={{ backgroundColor: "#ccfbf1", padding: 0 }}
         searchWords={[searchText && searchText]}
         autoEscape={true}
         textToHighlight={(content && content.toString()) || ""}
