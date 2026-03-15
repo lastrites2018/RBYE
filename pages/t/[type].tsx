@@ -363,7 +363,7 @@ export default function Post(props: Props) {
             )}{" "}
           전
         </div>
-        {loading && <div className="spinner"></div>}
+        {loadingCompany && <div className="spinner"></div>}
         <JobList
           data={visibleData}
           searchKeyword={searchKeyword}
@@ -375,6 +375,7 @@ export default function Post(props: Props) {
           onToggleBookmark={toggleBookmark}
           isBookmarked={isBookmarked}
         />
+        {loadingData && <div className="spinner"></div>}
         {searchKeyword && visibleData.length === 0 && !loading && (
           <div className="text-center text-teal-500 text-xl">
             {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
