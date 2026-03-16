@@ -2,16 +2,12 @@ import * as React from "react";
 
 interface NavBarProps {
   searchKeyword: string;
-  setSearchKeyword: (searchKeyword: string) => void;
-  setYear: (year: number) => void;
-  setCurrentCategory: (category: string) => void;
+  onSearch: (keyword: string) => void;
 }
 
 const NavBar: React.FunctionComponent<NavBarProps> = ({
   searchKeyword,
-  setSearchKeyword,
-  setYear,
-  setCurrentCategory,
+  onSearch,
 }) => {
   const [word, setWord] = React.useState("");
 
@@ -19,10 +15,8 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
     setWord(searchKeyword);
   }, [searchKeyword]);
 
-  const startSearch = (word: string) => {
-    setYear(0);
-    setSearchKeyword(word);
-    setCurrentCategory("전체");
+  const startSearch = (w: string) => {
+    onSearch(w);
   };
 
   return (

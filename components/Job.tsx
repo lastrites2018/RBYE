@@ -1,6 +1,7 @@
-import React, { useState, useRef, useCallback } from "react";
+import React from "react";
 import HighLight from "./HighLight";
 import normalizeJobText from "../utils/normalizeJobText";
+import usePendingAction from "../hooks/usePendingAction";
 
 interface IJob extends Job {
   searchKeyword: string;
@@ -13,8 +14,6 @@ interface IJob extends Job {
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
 }
-
-const PENDING_DELAY = 1500;
 
 const Jobs = ({
   subject,
@@ -37,28 +36,10 @@ const Jobs = ({
   const preferentialTreatment = normalizeJobText(contentObj?.preferentialTreatment);
   const mainTask = normalizeJobText(contentObj?.mainTask);
 
-  const [pendingHide, setPendingHide] = useState(false);
-  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  React.useEffect(() => {
-    return () => {
-      if (hideTimer.current) clearTimeout(hideTimer.current);
-    };
-  }, []);
-
-  const startHide = useCallback(() => {
-    if (hideTimer.current) clearTimeout(hideTimer.current);
-    setPendingHide(true);
-    hideTimer.current = setTimeout(() => {
-      onHideCompany?.(companyName);
-    }, PENDING_DELAY);
-  }, [onHideCompany, companyName]);
-
-  const cancelHide = useCallback(() => {
-    if (hideTimer.current) clearTimeout(hideTimer.current);
-    hideTimer.current = null;
-    setPendingHide(false);
-  }, []);
+  const hideAction = usePendingAction(
+    React.useCallback((name: string) => onHideCompany?.(name), [onHideCompany]),
+  );
+  const pendingHide = hideAction.pendingId === companyName;
 
   const companyInfoObject =
     companyData?.length > 0 ? companyData[0][companyName] : null;
@@ -99,14 +80,14 @@ const Jobs = ({
           {pendingHide ? (
             <span
               className="bg-red-100 px-2 rounded-full text-red-500 cursor-pointer hover:bg-red-200 transition-colors"
-              onClick={cancelHide}
+              onClick={hideAction.cancel}
             >
               취소
             </span>
           ) : (
             <span
               className="bg-gray-300 px-1.5 rounded-full text-gray-500 cursor-pointer hover:bg-red-200 hover:text-red-600 transition-colors"
-              onClick={startHide}
+              onClick={() => hideAction.start(companyName)}
               title={`${companyName} 숨기기`}
             >
               ✕

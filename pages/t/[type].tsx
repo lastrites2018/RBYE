@@ -11,10 +11,21 @@ import JobList from "../../components/JobList";
 import Layout from "../../components/Layout";
 import NavBar from "../../components/NavBar";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import useLocalPreferences from "../../hooks/useLocalPreferences";
+import useHiddenCompanies from "../../hooks/useHiddenCompanies";
+import useBookmarks from "../../hooks/useBookmarks";
+import useLastType from "../../hooks/useLastType";
 
 import { apiUrl } from "../../utils/apiLocation";
 import { VALID_TYPES, CATEGORY_LABELS } from "../../utils/constants";
+import {
+  FilterState,
+  buildFetchUrl,
+  deriveSearchKeyword,
+  filterNoLimitData,
+  isButtonActive,
+  buttonToFilter,
+  isInfiniteScrollEnabled,
+} from "../../utils/jobFilter";
 
 interface QueryType {
   type: string;
@@ -29,20 +40,21 @@ interface Props {
 
 export default function Post(props: Props) {
   const router = useRouter();
-  const { hideCompany, isCompanyHidden, toggleBookmark, isBookmarked, setLastType } = useLocalPreferences();
+  const { hideCompany, isCompanyHidden } = useHiddenCompanies();
+  const { toggleBookmark, isBookmarked } = useBookmarks();
+  const { setLastType } = useLastType();
   const [data, setData] = React.useState(props.data || []);
-  const [isFirstLoading, setIsFirstLoading] = React.useState(true);
+  const [filter, setFilter] = React.useState<FilterState>({ mode: "all" });
   const [loadingData, setLoadingData] = React.useState(false);
   const [loadingCompany, setLoadingCompany] = React.useState(false);
   const loading = loadingData || loadingCompany;
   const [isMoreInfo, setIsMoreInfo] = React.useState(false);
   const [companyData, setCompanyData] = React.useState([]);
-  const [year, setYear] = React.useState(0);
-  const [searchKeyword, setSearchKeyword] = React.useState("");
-  const [currentCategory, setCurrentCategory] = React.useState("전체");
   const [currentPageName, setCurrentPageName] = React.useState(
     props.query?.type || ""
   );
+
+  const searchKeyword = deriveSearchKeyword(filter);
 
   const currentPage = React.useRef(1);
   const totalPage = React.useRef(1);
@@ -53,13 +65,74 @@ export default function Post(props: Props) {
     [data.length]
   );
 
-  const scrollStateRef = React.useRef({ currentCategory, loading, searchKeyword });
-  scrollStateRef.current = { currentCategory, loading, searchKeyword };
+  const scrollStateRef = React.useRef({ filterMode: filter.mode, loading });
+  scrollStateRef.current = { filterMode: filter.mode, loading };
 
+  // --- 독립 관심사 1: 페이지네이션 ---
   useEffect(() => {
     if (props.totalCount) totalPage.current = Math.ceil(props.totalCount / 30);
   }, [props.totalCount]);
 
+  // --- 독립 관심사 2: 페이지 타입 변경 시 리셋 ---
+  useEffect(() => {
+    if (props.query?.type) {
+      setCurrentPageName(props.query.type);
+      setFilter({ mode: "all" });
+      setData(props.data || []);
+      currentPage.current = 1;
+      setLastType(props.query.type);
+      if (VALID_TYPES.includes(props.query.type)) {
+        document.cookie = `rbye_last_type=${props.query.type};path=/;max-age=31536000`;
+      }
+    }
+  }, [props.query?.type]);
+
+  // --- 독립 관심사 3: URL ?q= 파라미터 반영 ---
+  useEffect(() => {
+    const q = router.query.q;
+    if (typeof q === "string" && q) {
+      setFilter({ mode: "search", keyword: q, label: q });
+    }
+  }, [router.query.q]);
+
+  // --- 독립 관심사 4: 회사 데이터 지연 로드 ---
+  useEffect(() => {
+    isMoreInfo && companyData.length === 0 && loadCompanyData();
+  }, [isMoreInfo]);
+
+  // --- 핵심: 필터 → 데이터 fetch (단일 useEffect) ---
+  useEffect(() => {
+    const url = buildFetchUrl(filter, props.query?.type || "frontend", apiUrl);
+
+    if (url === null) {
+      // "all" 모드 또는 빈 검색어: SSR 데이터 사용
+      setData(props.data || []);
+      currentPage.current = 1;
+      return;
+    }
+
+    let cancelled = false;
+    (async () => {
+      try {
+        setLoadingData(true);
+        const res = await fetch(url);
+        if (cancelled) return;
+        let newData = await res.json();
+        if (filter.mode === "noLimit") {
+          newData = filterNoLimitData(newData);
+        }
+        setData(newData);
+      } catch (e) {
+        console.error("데이터 로드 실패:", e);
+      } finally {
+        if (!cancelled) setLoadingData(false);
+      }
+    })();
+
+    return () => { cancelled = true; };
+  }, [filter, props.query?.type]);
+
+  // --- 무한스크롤 ---
   const loadMoreData = React.useCallback(async () => {
     try {
       setLoadingData(true);
@@ -90,45 +163,19 @@ export default function Post(props: Props) {
     }
   }, []);
 
-  const getData = React.useCallback(
-    async (
-      requestLink = `${apiUrl}/${props.query?.type}?contentObj.requirement_like=${year}년`
-    ) => {
-      try {
-        setLoadingData(true);
-        const res = await fetch(requestLink);
-        let newData = await res.json();
-        if (currentCategory === "제한없음") {
-          newData = newData.filter(
-            (item) =>
-              item.contentObj.requirement &&
-              !item.contentObj.requirement.includes("년")
-          );
-        }
-        setData(newData);
-      } catch (e) {
-        console.error("데이터 로드 실패:", e);
-      } finally {
-        setLoadingData(false);
-      }
-    },
-    [year, currentCategory, props.query?.type]
-  );
-
   const handleIntersect = React.useCallback(
     (entries, observer) => {
       const entry = entries.pop();
       if (!entry) return;
-      const { currentCategory: cat, loading: ld, searchKeyword: kw } = scrollStateRef.current;
+      const { filterMode, loading: ld } = scrollStateRef.current;
 
-      if (cat !== "전체") {
+      if (filterMode !== "all") {
         observer.unobserve(entry.target);
       }
       if (
-        cat === "전체" &&
+        filterMode === "all" &&
         entry.isIntersecting &&
         !ld &&
-        !kw &&
         currentPage.current < totalPage.current
       ) {
         loadMoreData();
@@ -143,92 +190,7 @@ export default function Post(props: Props) {
     onIntersect: handleIntersect,
   });
 
-  useEffect(() => {
-    setData(props.data);
-  }, [props.data]);
-
-  useEffect(() => {
-    if (props.query?.type) {
-      setCurrentPageName(props.query.type);
-      setCurrentCategory("전체");
-      setSearchKeyword("");
-      setYear(0);
-      currentPage.current = 1;
-      setLastType(props.query.type);
-      if (VALID_TYPES.includes(props.query.type)) {
-        document.cookie = `rbye_last_type=${props.query.type};path=/;max-age=31536000`;
-      }
-    }
-  }, [props.query?.type]);
-
-  useEffect(() => {
-    isMoreInfo && companyData.length === 0 && loadCompanyData();
-  }, [isMoreInfo]);
-
-  useEffect(() => {
-    currentCategory !== "햇수" &&
-      currentCategory !== "제한없음" &&
-      !isFirstLoading &&
-      searchKeyword &&
-      getData(`${apiUrl}/${props.query?.type}?q=${encodeURIComponent(searchKeyword)}`);
-  }, [searchKeyword]);
-
-  useEffect(() => {
-    if (currentCategory === "전체") {
-      return setData(props.data);
-    }
-
-    if (currentCategory === "제한없음") {
-      getData(`${apiUrl}/${props.query?.type}`);
-      return;
-    }
-
-    if (
-      year > 0 &&
-      currentCategory !== "신입" &&
-      currentCategory !== "제한없음"
-    ) {
-      getData();
-    }
-  }, [year, currentCategory]);
-
-  // URL q 파라미터 → searchKeyword 반영
-  useEffect(() => {
-    const q = router.query.q;
-    if (typeof q === "string" && q) {
-      setSearchKeyword(q);
-    }
-  }, [router.query.q]);
-
-  useEffect(() => {
-    setIsFirstLoading(false);
-  }, []);
-
-  const displayYear = () => {
-    let temp: JSX.Element[] = [];
-    for (let i = 1; i < 11; i += 1) {
-      i !== 9 &&
-        temp.push(
-          <button
-            key={i}
-            className={
-              year === i && currentCategory === "햇수"
-                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-            }
-            onClick={() => {
-              setYear(i);
-              setCurrentCategory("햇수");
-              setSearchKeyword("");
-            }}
-          >
-            {i}년
-          </button>
-        );
-    }
-    return temp;
-  };
-
+  // --- 에러 페이지 ---
   if (
     !Array.isArray(props.data) ||
     props.data.length === 0 ||
@@ -251,14 +213,45 @@ export default function Post(props: Props) {
     );
   }
 
+  // --- 파생 값 ---
   const visibleData = data.filter((job) => !isCompanyHidden(job.companyName));
   const totalDataCount =
-    !searchKeyword && currentCategory === "전체"
+    filter.mode === "all"
       ? props.totalCount
       : visibleData.length;
   const canonicalPath = `/t/${props.query?.type || "frontend"}`;
-
   const handleSetIsMoreInfo = React.useCallback(() => setIsMoreInfo((prev) => !prev), []);
+
+  // --- 버튼 스타일 헬퍼 ---
+  const activeClass = "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white";
+  const inactiveClass = "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors";
+
+  // --- NavBar 핸들러 ---
+  const handleSearch = React.useCallback((word: string) => {
+    if (word) {
+      setFilter({ mode: "search", keyword: word, label: word });
+    } else {
+      setFilter({ mode: "all" });
+    }
+  }, []);
+
+  // --- 연차 버튼 ---
+  const yearButtons = React.useMemo(() => {
+    const temp: JSX.Element[] = [];
+    for (let i = 1; i < 11; i += 1) {
+      if (i === 9) continue;
+      temp.push(
+        <button
+          key={i}
+          className={isButtonActive(filter, "햇수", i) ? activeClass : inactiveClass}
+          onClick={() => setFilter(buttonToFilter("햇수", i))}
+        >
+          {i}년
+        </button>
+      );
+    }
+    return temp;
+  }, [filter]);
 
   return (
     <Layout
@@ -269,82 +262,40 @@ export default function Post(props: Props) {
     >
       <NavBar
         searchKeyword={searchKeyword}
-        setSearchKeyword={setSearchKeyword}
-        setYear={setYear}
-        setCurrentCategory={setCurrentCategory}
+        onSearch={handleSearch}
       />
       <div className="block m-auto max-w-[640px] px-4">
         <div className="flex flex-wrap justify-center gap-1.5 mb-2">
           <button
-            className={
-              currentCategory === "전체"
-                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-            }
-            onClick={() => {
-              setYear(0);
-              setCurrentCategory("전체");
-              setSearchKeyword("");
-            }}
+            className={isButtonActive(filter, "전체") ? activeClass : inactiveClass}
+            onClick={() => setFilter(buttonToFilter("전체"))}
           >
             전체
           </button>
           <span className="w-px h-5 bg-gray-300 self-center" />
-          {displayYear()}
+          {yearButtons}
           <span className="w-px h-5 bg-gray-300 self-center" />
           <button
-            className={
-              currentCategory === "신입"
-                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-            }
-            onClick={() => {
-              setCurrentCategory("신입");
-              setYear(0);
-              setSearchKeyword("신입");
-            }}
+            className={isButtonActive(filter, "신입") ? activeClass : inactiveClass}
+            onClick={() => setFilter(buttonToFilter("신입"))}
           >
             신입
           </button>
           <button
-            className={
-              currentCategory === "주니어"
-                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-            }
-            onClick={() => {
-              setCurrentCategory("주니어");
-              setYear(0);
-              setSearchKeyword("주니어");
-            }}
+            className={isButtonActive(filter, "주니어") ? activeClass : inactiveClass}
+            onClick={() => setFilter(buttonToFilter("주니어"))}
           >
             주니어
           </button>
           <button
-            className={
-              currentCategory === "senior"
-                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-            }
-            onClick={() => {
-              setCurrentCategory("senior");
-              setYear(0);
-              setSearchKeyword("시니어");
-            }}
+            className={isButtonActive(filter, "senior") ? activeClass : inactiveClass}
+            onClick={() => setFilter(buttonToFilter("senior"))}
           >
             시니어
           </button>
           <button
-            className={
-              currentCategory === "제한없음"
-                ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
-                : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
-            }
-            onClick={() => {
-              setCurrentCategory("제한없음");
-              setYear(0);
-              setSearchKeyword("");
-            }}
+            className={isButtonActive(filter, "제한없음") ? activeClass : inactiveClass}
+            onClick={() => setFilter(buttonToFilter("제한없음"))}
           >
             제한없음
           </button>

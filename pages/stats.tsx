@@ -7,6 +7,13 @@ import koLocale from "date-fns/locale/ko";
 import Layout from "../components/Layout";
 import { apiUrl } from "../utils/apiLocation";
 import { CATEGORY_LABELS, VALID_TYPES } from "../utils/constants";
+import {
+  StatsViewState,
+  switchViewMode,
+  getActiveMode,
+  setRankingYear,
+  deriveSelectedYear,
+} from "../utils/statsView";
 
 interface StatsData {
   [category: string]: {
@@ -347,15 +354,17 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
 
   const updateCategory = (key: string) => {
     setSelectedCategory(key);
-    setSelectedYear("전체");
+    setView((prev) => setRankingYear(prev, "전체"));
     if (VALID_TYPES.includes(key)) {
       try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
       document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
     }
   };
-  const [selectedYear, setSelectedYear] = React.useState("전체");
-  const [viewMode, setViewMode] = React.useState<"ranking" | "compare" | "trend">("ranking");
+  const [view, setView] = React.useState<StatsViewState>({ mode: "ranking", year: "전체" });
   const [expandedSkill, setExpandedSkill] = React.useState<string | null>(null);
+
+  const viewMode = getActiveMode(view);
+  const selectedYear = deriveSelectedYear(view) || "전체";
 
   const categoryData = stats[selectedCategory] || {};
   const yearData = categoryData[selectedYear] || {};
@@ -398,7 +407,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
             className={`px-3 py-1.5 rounded text-xs transition-colors ${
               viewMode === "ranking" ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-200"
             }`}
-            onClick={() => setViewMode("ranking")}
+            onClick={() => setView(switchViewMode("ranking"))}
           >
             키워드 순위
           </button>
@@ -406,7 +415,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
             className={`px-3 py-1.5 rounded text-xs transition-colors ${
               viewMode === "compare" ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-200"
             }`}
-            onClick={() => setViewMode("compare")}
+            onClick={() => setView(switchViewMode("compare"))}
           >
             연차별 비교
           </button>
@@ -414,7 +423,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
             className={`px-3 py-1.5 rounded text-xs transition-colors ${
               viewMode === "trend" ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-200"
             }`}
-            onClick={() => setViewMode("trend")}
+            onClick={() => setView(switchViewMode("trend"))}
           >
             트렌드
           </button>
@@ -436,7 +445,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
                       ? "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white"
                       : "px-3 py-1 rounded text-xs text-gray-600 hover:bg-gray-300 transition-colors"
                   }
-                  onClick={() => setSelectedYear(year)}
+                  onClick={() => setView(setRankingYear(view, year))}
                 >
                   {year}
                 </button>

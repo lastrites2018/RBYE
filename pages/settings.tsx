@@ -1,37 +1,23 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import useLocalPreferences from "../hooks/useLocalPreferences";
+import usePendingAction from "../hooks/usePendingAction";
 import normalizeJobText from "../utils/normalizeJobText";
-
-const PENDING_DELAY = 1500;
 
 export default function SettingsPage() {
   const { hiddenCompanies, bookmarks, unhideCompany, toggleBookmark, mounted } =
     useLocalPreferences();
   const [expandedLink, setExpandedLink] = useState<string | null>(null);
-  const [pendingRemove, setPendingRemove] = useState<string | null>(null);
-  const removeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (removeTimer.current) clearTimeout(removeTimer.current);
-    };
-  }, []);
-
-  const startRemoveBookmark = useCallback((b: BookmarkEntry) => {
-    if (removeTimer.current) clearTimeout(removeTimer.current);
-    setPendingRemove(b.link);
-    removeTimer.current = setTimeout(() => {
-      toggleBookmark({ link: b.link, companyName: b.companyName, subject: b.subject });
-      setPendingRemove(null);
-    }, PENDING_DELAY);
-  }, [toggleBookmark]);
-
-  const cancelRemoveBookmark = useCallback(() => {
-    if (removeTimer.current) clearTimeout(removeTimer.current);
-    removeTimer.current = null;
-    setPendingRemove(null);
-  }, []);
+  const removeAction = usePendingAction(
+    React.useCallback(
+      (link: string) => {
+        const b = bookmarks.find((bm) => bm.link === link);
+        if (b) toggleBookmark({ link: b.link, companyName: b.companyName, subject: b.subject });
+      },
+      [bookmarks, toggleBookmark]
+    ),
+  );
 
   return (
     <Layout title="설정 | RBYE" canonicalPath="/settings" noIndex>
@@ -84,7 +70,7 @@ export default function SettingsPage() {
                       <li
                         key={b.link}
                         className={`bg-white border rounded overflow-hidden transition-all ${
-                          pendingRemove === b.link
+                          removeAction.pendingId === b.link
                             ? "border-dashed border-red-300 opacity-50"
                             : "border-gray-200"
                         }`}
@@ -128,12 +114,12 @@ export default function SettingsPage() {
                               <p className="text-xs text-gray-400">본문 데이터가 없는 이전 즐겨찾기입니다.</p>
                             )}
                             <div className="flex items-center justify-end mt-2">
-                              {pendingRemove === b.link ? (
+                              {removeAction.pendingId === b.link ? (
                                 <span
                                   className="bg-red-100 px-2 rounded-full text-red-500 cursor-pointer hover:bg-red-200 transition-colors text-xs"
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    cancelRemoveBookmark();
+                                    removeAction.cancel();
                                   }}
                                 >
                                   취소
@@ -143,7 +129,7 @@ export default function SettingsPage() {
                                   className="text-amber-500 hover:text-gray-400 transition-colors text-sm"
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    startRemoveBookmark(b);
+                                    removeAction.start(b.link);
                                   }}
                                   title="즐겨찾기 해제"
                                 >
