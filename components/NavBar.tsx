@@ -34,7 +34,7 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
           {word && (
             <button
               type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-lg leading-none"
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-600 text-lg"
               onClick={() => { setWord(""); startSearch(""); }}
             >
               &times;
