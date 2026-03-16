@@ -42,6 +42,9 @@ const Jobs = ({
   const [prefOpen, setPrefOpen] = React.useState(!collapsePreferential);
   const [taskOpen, setTaskOpen] = React.useState(!collapseMainTask);
 
+  React.useEffect(() => { setPrefOpen(!collapsePreferential); }, [collapsePreferential]);
+  React.useEffect(() => { setTaskOpen(!collapseMainTask); }, [collapseMainTask]);
+
   const fmt = (t: string | undefined) => {
     const normalized = normalizeJobText(t);
     return expandBullets ? expandBulletsText(normalized) : normalized;
