@@ -23,6 +23,7 @@ module.exports = {
   sourceDir: ".next",
   outDir: "./public",
   generateRobotsTxt: false,
+  generateIndexSitemap: false,
   exclude: ["/_next/*", "/api/*", "/settings"],
   changefreq: "weekly",
   priority: 0.8,

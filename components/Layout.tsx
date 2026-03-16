@@ -51,6 +51,8 @@ const Layout: React.FunctionComponent<Props> = ({
   const siteName = "RBYE";
   const currentSearchType = VALID_TYPES.includes(currentPage) ? currentPage : "frontend";
   const socialImage = `${websiteUrl}/og-image.svg`;
+  const searchTargetPath = isStatsPage || isSkillsetPage ? `/${pageType}` : `/t/${currentSearchType}`;
+  const searchActionTarget = `${websiteUrl}${searchTargetPath}?q={search_term_string}`;
 
   const breadcrumbItems = [
     { name: "홈", path: "/" },
@@ -79,7 +81,7 @@ const Layout: React.FunctionComponent<Props> = ({
         url: websiteUrl,
         potentialAction: {
           "@type": "SearchAction",
-          target: `${websiteUrl}/t/${currentSearchType}?q={search_term_string}`,
+          target: searchActionTarget,
           "query-input": "required name=search_term_string",
         },
       },
@@ -124,6 +126,7 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content="RBYE" />
+        <meta property="og:locale" content="ko_KR" />
         <meta property="og:image" content={socialImage} />
         <meta property="og:image:alt" content={`${pageTitle} - RBYE`} />
         <meta name="twitter:card" content="summary_large_image" />
