@@ -148,9 +148,9 @@ export default function SettingsPage() {
               )}
             </section>
 
-            {/* 표시 옵션 */}
+            {/* 가독성 옵션 */}
             <section className="mb-8">
-              <h2 className="text-sm font-semibold text-gray-700 mb-2">표시 옵션</h2>
+              <h2 className="text-sm font-semibold text-gray-700 mb-2">가독성 옵션</h2>
               <label className="flex items-center justify-between gap-3 py-2">
                 <div>
                   <span className="text-sm text-gray-700">불릿 항목 줄바꿈</span>
