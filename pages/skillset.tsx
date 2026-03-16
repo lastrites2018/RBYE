@@ -20,7 +20,8 @@ import {
   decodeSharedSkills,
   encodeSkillsParam,
   togglePhaseCollapse,
-  filterValidSkills,
+  parseCollapsedPhases,
+  parseAndValidateSkills,
 } from "../utils/skillsetMode";
 
 // --- 타입 ---
@@ -334,6 +335,11 @@ const SkillsetPage = ({ stats, updated }: Props) => {
     }
   };
   const [selectedYear, setSelectedYear] = React.useState("전체");
+
+  const updateCategory = (key: string) => {
+    setSelectedCategory(key);
+    setSelectedYear("전체");
+  };
   const [skillsetMode, setSkillsetMode] = React.useState<SkillsetMode>(
     () => resolveInitialMode(router.query as { skills?: string })
   );
@@ -375,17 +381,8 @@ const SkillsetPage = ({ stats, updated }: Props) => {
 
   // 접힘 상태 localStorage 복원
   React.useEffect(() => {
-    try {
-      const saved = localStorage.getItem(`rbye-collapsed-${selectedCategory}`);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setCollapsedPhases(Array.isArray(parsed) ? new Set(parsed) : new Set());
-      } else {
-        setCollapsedPhases(new Set());
-      }
-    } catch {
-      setCollapsedPhases(new Set());
-    }
+    const raw = localStorage.getItem(`rbye-collapsed-${selectedCategory}`);
+    setCollapsedPhases(parseCollapsedPhases(raw));
   }, [selectedCategory]);
 
   const handleToggleCollapse = (phaseKey: string) => {
@@ -413,22 +410,15 @@ const SkillsetPage = ({ stats, updated }: Props) => {
 
   React.useEffect(() => {
     if (!shouldRestoreFromLocal(skillsetModeRef.current)) return;
-    try {
-      const saved = localStorage.getItem(`rbye-skills-${selectedCategory}`);
-      if (saved) {
-        const parsed: string[] = JSON.parse(saved);
-        if (!Array.isArray(parsed)) throw new Error("invalid format");
-        const filtered = filterValidSkills(parsed, validSkills);
-        setCheckedSkills(new Set(filtered));
-        if (filtered.length !== parsed.length) {
-          localStorage.setItem(`rbye-skills-${selectedCategory}`, JSON.stringify(filtered));
-        }
-      } else {
-        setCheckedSkills(new Set());
-      }
-    } catch {
-      setCheckedSkills(new Set());
-      try { localStorage.removeItem(`rbye-skills-${selectedCategory}`); } catch {}
+    const raw = localStorage.getItem(`rbye-skills-${selectedCategory}`);
+    const { skills, needsCleanup } = parseAndValidateSkills(raw, validSkills);
+    setCheckedSkills(new Set(skills));
+    if (needsCleanup) {
+      try {
+        skills.length > 0
+          ? localStorage.setItem(`rbye-skills-${selectedCategory}`, JSON.stringify(skills))
+          : localStorage.removeItem(`rbye-skills-${selectedCategory}`);
+      } catch {}
     }
   }, [selectedCategory, validSkills]);
   const yearCategoryData = categoryStats?.[selectedYear] || {};
@@ -500,7 +490,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
                   ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
                   : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
               }
-              onClick={() => { setSelectedCategory(cat.key); setSelectedYear("전체"); }}
+              onClick={() => updateCategory(cat.key)}
             >
               {cat.label}
             </button>

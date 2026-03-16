@@ -111,3 +111,36 @@ export function filterValidSkills(
 ): string[] {
   return saved.filter((s) => validSkills.has(s));
 }
+
+/**
+ * localStorage에서 접힘 상태를 파싱한다.
+ * useEffect 안에 있던 파싱 로직을 순수 함수로 추출.
+ */
+export function parseCollapsedPhases(raw: string | null): Set<string> {
+  if (!raw) return new Set();
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? new Set(parsed) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+/**
+ * localStorage에서 체크된 스킬을 파싱 + 유효성 검증한다.
+ * 반환: { skills: 유효 스킬 배열, needsCleanup: 무효 스킬이 제거됐는지 }
+ */
+export function parseAndValidateSkills(
+  raw: string | null,
+  validSkills: Set<string>
+): { skills: string[]; needsCleanup: boolean } {
+  if (!raw) return { skills: [], needsCleanup: false };
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return { skills: [], needsCleanup: true };
+    const filtered = filterValidSkills(parsed, validSkills);
+    return { skills: filtered, needsCleanup: filtered.length !== parsed.length };
+  } catch {
+    return { skills: [], needsCleanup: true };
+  }
+}
