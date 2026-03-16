@@ -554,7 +554,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   try {
     const res3 = await fetch(`${apiUrl}/timeline`);
-    timeline = await res3.json();
+    const timelineData = await res3.json();
+    if (Array.isArray(timelineData)) timeline = timelineData;
   } catch (e) {
     console.error("timeline API 요청 실패:", e);
   }
