@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import useLocalPreferences from "../hooks/useLocalPreferences";
 import usePendingAction from "../hooks/usePendingAction";
+import useExpandBullets from "../hooks/useExpandBullets";
 import normalizeJobText from "../utils/normalizeJobText";
 
 export default function SettingsPage() {
   const { hiddenCompanies, bookmarks, unhideCompany, toggleBookmark, mounted } =
     useLocalPreferences();
   const [expandedLink, setExpandedLink] = useState<string | null>(null);
+  const { expandBullets, toggleExpandBullets } = useExpandBullets();
 
   const removeAction = usePendingAction(
     React.useCallback(
@@ -144,6 +146,30 @@ export default function SettingsPage() {
                   })}
                 </ul>
               )}
+            </section>
+
+            {/* 표시 옵션 */}
+            <section className="mb-8">
+              <h2 className="text-sm font-semibold text-gray-700 mb-2">표시 옵션</h2>
+              <label className="flex items-center justify-between gap-3 py-2">
+                <div>
+                  <span className="text-sm text-gray-700">불릿 항목 줄바꿈</span>
+                  <p className="text-xs text-gray-400">공고 본문의 불릿(-)마다 줄을 나눠서 표시합니다</p>
+                </div>
+                <button
+                  type="button"
+                  className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${
+                    expandBullets ? "bg-teal-600" : "bg-gray-300"
+                  }`}
+                  onClick={toggleExpandBullets}
+                >
+                  <span
+                    className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
+                      expandBullets ? "translate-x-5" : ""
+                    }`}
+                  />
+                </button>
+              </label>
             </section>
 
             {/* 안내 */}

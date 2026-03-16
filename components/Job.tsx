@@ -1,6 +1,7 @@
 import React from "react";
 import HighLight from "./HighLight";
 import normalizeJobText from "../utils/normalizeJobText";
+import expandBulletsText from "../utils/expandBullets";
 import usePendingAction from "../hooks/usePendingAction";
 
 interface IJob extends Job {
@@ -13,6 +14,7 @@ interface IJob extends Job {
   onHideCompany?: (companyName: string) => void;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
+  expandBullets?: boolean;
 }
 
 const Jobs = ({
@@ -31,10 +33,15 @@ const Jobs = ({
   onHideCompany,
   onToggleBookmark,
   isBookmarked,
+  expandBullets,
 }: IJob) => {
-  const requirement = normalizeJobText(contentObj?.requirement);
-  const preferentialTreatment = normalizeJobText(contentObj?.preferentialTreatment);
-  const mainTask = normalizeJobText(contentObj?.mainTask);
+  const fmt = (t: string | undefined) => {
+    const normalized = normalizeJobText(t);
+    return expandBullets ? expandBulletsText(normalized) : normalized;
+  };
+  const requirement = fmt(contentObj?.requirement);
+  const preferentialTreatment = fmt(contentObj?.preferentialTreatment);
+  const mainTask = fmt(contentObj?.mainTask);
 
   const hideAction = usePendingAction(
     React.useCallback((name: string) => onHideCompany?.(name), [onHideCompany]),
