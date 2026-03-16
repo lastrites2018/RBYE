@@ -5,18 +5,14 @@
  * useBookmarks: 즐겨찾기
  * useLastType: 마지막 카테고리
  */
-import { useState, useEffect } from "react";
 import useHiddenCompanies from "./useHiddenCompanies";
 import useBookmarks from "./useBookmarks";
 import useLastType from "./useLastType";
 
 export default function useLocalPreferences() {
-  const { hiddenCompanies, hideCompany, unhideCompany, isCompanyHidden } = useHiddenCompanies();
+  const { hiddenCompanies, hideCompany, unhideCompany, isCompanyHidden, mounted } = useHiddenCompanies();
   const { bookmarks, toggleBookmark, isBookmarked } = useBookmarks();
   const { setLastType, getLastType } = useLastType();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
 
   const hasAnyPreferences = mounted && (hiddenCompanies.length > 0 || bookmarks.length > 0);
 

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-import useLocalPreferences from "../hooks/useLocalPreferences";
+import useHiddenCompanies from "../hooks/useHiddenCompanies";
+import useBookmarks from "../hooks/useBookmarks";
 import usePendingAction from "../hooks/usePendingAction";
 import useExpandBullets from "../hooks/useExpandBullets";
 import normalizeJobText from "../utils/normalizeJobText";
 
 export default function SettingsPage() {
-  const { hiddenCompanies, bookmarks, unhideCompany, toggleBookmark, mounted } =
-    useLocalPreferences();
+  const { hiddenCompanies, unhideCompany, mounted } = useHiddenCompanies();
+  const { bookmarks, toggleBookmark } = useBookmarks();
   const [expandedLink, setExpandedLink] = useState<string | null>(null);
   const { expandBullets, toggleExpandBullets } = useExpandBullets();
 

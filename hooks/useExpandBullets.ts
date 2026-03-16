@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { readJSON, writeJSON } from "../utils/storage";
 
 const KEY = "rbye_expand_bullets";
 const CHANGED = "rbye_expand_bullets_changed";
@@ -7,17 +8,9 @@ export default function useExpandBullets() {
   const [expandBullets, setExpandBullets] = useState(false);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) setExpandBullets(JSON.parse(raw) === true);
-    } catch {}
+    setExpandBullets(readJSON<boolean>(KEY, false));
 
-    const sync = () => {
-      try {
-        const raw = localStorage.getItem(KEY);
-        setExpandBullets(raw ? JSON.parse(raw) === true : false);
-      } catch {}
-    };
+    const sync = () => setExpandBullets(readJSON<boolean>(KEY, false));
     window.addEventListener(CHANGED, sync);
     return () => window.removeEventListener(CHANGED, sync);
   }, []);
@@ -25,10 +18,7 @@ export default function useExpandBullets() {
   const toggle = useCallback(() => {
     setExpandBullets((prev) => {
       const next = !prev;
-      try {
-        localStorage.setItem(KEY, JSON.stringify(next));
-        window.dispatchEvent(new Event(CHANGED));
-      } catch {}
+      writeJSON(KEY, next, CHANGED);
       return next;
     });
   }, []);

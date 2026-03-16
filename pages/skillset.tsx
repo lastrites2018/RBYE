@@ -337,6 +337,8 @@ const SkillsetPage = ({ stats, updated }: Props) => {
   const [skillsetMode, setSkillsetMode] = React.useState<SkillsetMode>(
     () => resolveInitialMode(router.query as { skills?: string })
   );
+  const skillsetModeRef = React.useRef(skillsetMode);
+  skillsetModeRef.current = skillsetMode;
   const [checkedSkills, setCheckedSkills] = React.useState<Set<string>>(new Set());
   const [collapsedPhases, setCollapsedPhases] = React.useState<Set<string>>(new Set());
   const [shareToast, setShareToast] = React.useState(false);
@@ -410,7 +412,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
   }, [selectedCategory, categoryData]);
 
   React.useEffect(() => {
-    if (!shouldRestoreFromLocal(skillsetMode)) return;
+    if (!shouldRestoreFromLocal(skillsetModeRef.current)) return;
     try {
       const saved = localStorage.getItem(`rbye-skills-${selectedCategory}`);
       if (saved) {
@@ -428,7 +430,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
       setCheckedSkills(new Set());
       try { localStorage.removeItem(`rbye-skills-${selectedCategory}`); } catch {}
     }
-  }, [selectedCategory, validSkills, skillsetMode]);
+  }, [selectedCategory, validSkills]);
   const yearCategoryData = categoryStats?.[selectedYear] || {};
   const passiveSkills = (categoryData.passiveSkills as string[]) || [];
   const roadmapMapping = (categoryData.roadmapMapping as { [slot: string]: string }) || {};

@@ -1,41 +1,27 @@
 import { useState, useEffect, useCallback } from "react";
+import { readJSON, writeJSON } from "../utils/storage";
 
-const HIDDEN_KEY = "rbye_hidden_companies";
-const HIDDEN_CHANGED = "rbye_hidden_changed";
-
-function readJSON<T>(key: string, fallback: T): T {
-  if (typeof window === "undefined") return fallback;
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-function writeJSON<T>(key: string, value: T, event: string) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    window.dispatchEvent(new Event(event));
-  } catch {}
-}
+const KEY = "rbye_hidden_companies";
+const CHANGED = "rbye_hidden_changed";
 
 export default function useHiddenCompanies() {
   const [hiddenCompanies, setHiddenCompanies] = useState<string[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setHiddenCompanies(readJSON<string[]>(HIDDEN_KEY, []));
+    setHiddenCompanies(readJSON<string[]>(KEY, []));
+    setMounted(true);
 
-    const sync = () => setHiddenCompanies(readJSON<string[]>(HIDDEN_KEY, []));
-    window.addEventListener(HIDDEN_CHANGED, sync);
-    return () => window.removeEventListener(HIDDEN_CHANGED, sync);
+    const sync = () => setHiddenCompanies(readJSON<string[]>(KEY, []));
+    window.addEventListener(CHANGED, sync);
+    return () => window.removeEventListener(CHANGED, sync);
   }, []);
 
   const hideCompany = useCallback((companyName: string) => {
     setHiddenCompanies((prev) => {
       if (prev.includes(companyName)) return prev;
       const next = [...prev, companyName];
-      writeJSON(HIDDEN_KEY, next, HIDDEN_CHANGED);
+      writeJSON(KEY, next, CHANGED);
       return next;
     });
   }, []);
@@ -43,7 +29,7 @@ export default function useHiddenCompanies() {
   const unhideCompany = useCallback((companyName: string) => {
     setHiddenCompanies((prev) => {
       const next = prev.filter((c) => c !== companyName);
-      writeJSON(HIDDEN_KEY, next, HIDDEN_CHANGED);
+      writeJSON(KEY, next, CHANGED);
       return next;
     });
   }, []);
@@ -53,5 +39,5 @@ export default function useHiddenCompanies() {
     [hiddenCompanies]
   );
 
-  return { hiddenCompanies, hideCompany, unhideCompany, isCompanyHidden };
+  return { hiddenCompanies, hideCompany, unhideCompany, isCompanyHidden, mounted };
 }
