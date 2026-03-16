@@ -29,7 +29,7 @@ export default function SettingsPage() {
         <h1 className="text-lg font-bold text-gray-800 mb-6">설정</h1>
 
         {!mounted ? null : (
-          <>
+          <div className="bg-white rounded-lg shadow-sm p-5">
             {/* 숨긴 회사 */}
             <section className="mb-8">
               <h2 className="text-sm font-semibold text-gray-700 mb-2">
@@ -177,7 +177,7 @@ export default function SettingsPage() {
             <p className="text-xs text-gray-400 text-center">
               모든 설정은 브라우저 로컬 스토리지에 저장됩니다. 브라우저 데이터를 삭제하면 초기화됩니다.
             </p>
-          </>
+          </div>
         )}
       </div>
     </Layout>
