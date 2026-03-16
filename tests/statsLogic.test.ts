@@ -125,3 +125,180 @@ describe("순위 변동 계산", () => {
     expect(calcRankDiff(3, 3)).toBe(0);
   });
 });
+
+// --- timeline 관련 로직 ---
+
+interface TimelineEntry {
+  date: string;
+  categories: {
+    [cat: string]: {
+      totalJobs: number;
+      topKeywords: { keyword: string; count: number }[];
+    };
+  };
+}
+
+/**
+ * stats.tsx getServerSideProps의 timeline 응답 방어 로직
+ */
+function safeParseTimeline(data: unknown): TimelineEntry[] {
+  return Array.isArray(data) ? data : [];
+}
+
+/**
+ * stats.tsx TrendView의 daySpan 계산 로직
+ */
+function calcDaySpan(timeline: TimelineEntry[]): number {
+  if (timeline.length < 2) return 0;
+  return Math.round(
+    (new Date(timeline[timeline.length - 1].date).getTime() -
+      new Date(timeline[0].date).getTime()) /
+      86400000
+  );
+}
+
+/**
+ * stats.tsx TrendView의 비교 기간 탭 활성화 로직
+ */
+function getAvailablePeriods(daySpan: number): string[] {
+  const periods: string[] = [];
+  if (daySpan >= 3) periods.push("all");
+  if (daySpan >= 7) periods.push("week");
+  if (daySpan >= 30) periods.push("month");
+  return periods;
+}
+
+/**
+ * stats.tsx findSnapshotNearDaysAgo 로직
+ */
+function findSnapshotNearDaysAgo(timeline: TimelineEntry[], daysAgo: number): TimelineEntry | null {
+  const latest = timeline[timeline.length - 1];
+  const latestDate = new Date(latest.date).getTime();
+  const targetDate = latestDate - daysAgo * 86400000;
+
+  let best: TimelineEntry | null = null;
+  let bestDiff = Infinity;
+
+  for (const entry of timeline) {
+    if (entry === latest) continue;
+    const diff = Math.abs(new Date(entry.date).getTime() - targetDate);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      best = entry;
+    }
+  }
+  return best;
+}
+
+describe("timeline 응답 방어", () => {
+  test("배열이면 그대로 반환한다", () => {
+    const data = [{ date: "2026-03-11", categories: {} }];
+    expect(safeParseTimeline(data)).toBe(data);
+  });
+
+  test("빈 배열이면 빈 배열을 반환한다", () => {
+    expect(safeParseTimeline([])).toEqual([]);
+  });
+
+  test("객체이면 빈 배열을 반환한다 (json-server 404 응답)", () => {
+    expect(safeParseTimeline({})).toEqual([]);
+  });
+
+  test("null이면 빈 배열을 반환한다", () => {
+    expect(safeParseTimeline(null)).toEqual([]);
+  });
+
+  test("undefined이면 빈 배열을 반환한다", () => {
+    expect(safeParseTimeline(undefined)).toEqual([]);
+  });
+
+  test("문자열이면 빈 배열을 반환한다", () => {
+    expect(safeParseTimeline("not found")).toEqual([]);
+  });
+});
+
+describe("daySpan 계산", () => {
+  test("스냅샷이 1개면 0을 반환한다", () => {
+    expect(calcDaySpan([{ date: "2026-03-11", categories: {} }])).toBe(0);
+  });
+
+  test("빈 배열이면 0을 반환한다", () => {
+    expect(calcDaySpan([])).toBe(0);
+  });
+
+  test("3일 차이를 정확히 계산한다", () => {
+    const timeline = [
+      { date: "2026-03-11", categories: {} },
+      { date: "2026-03-14", categories: {} },
+    ];
+    expect(calcDaySpan(timeline)).toBe(3);
+  });
+
+  test("같은 날짜면 0을 반환한다", () => {
+    const timeline = [
+      { date: "2026-03-11", categories: {} },
+      { date: "2026-03-11", categories: {} },
+    ];
+    expect(calcDaySpan(timeline)).toBe(0);
+  });
+
+  test("30일 이상 차이를 계산한다", () => {
+    const timeline = [
+      { date: "2026-02-01", categories: {} },
+      { date: "2026-03-15", categories: {} },
+    ];
+    expect(calcDaySpan(timeline)).toBe(42);
+  });
+});
+
+describe("비교 기간 탭 활성화", () => {
+  test("2일이면 탭 없음", () => {
+    expect(getAvailablePeriods(2)).toEqual([]);
+  });
+
+  test("3일이면 전체만 활성화", () => {
+    expect(getAvailablePeriods(3)).toEqual(["all"]);
+  });
+
+  test("7일이면 전체+주간 활성화", () => {
+    expect(getAvailablePeriods(7)).toEqual(["all", "week"]);
+  });
+
+  test("30일이면 전체+주간+월간 활성화", () => {
+    expect(getAvailablePeriods(30)).toEqual(["all", "week", "month"]);
+  });
+});
+
+describe("가장 가까운 스냅샷 탐색", () => {
+  const timeline: TimelineEntry[] = [
+    { date: "2026-03-01", categories: {} },
+    { date: "2026-03-05", categories: {} },
+    { date: "2026-03-08", categories: {} },
+    { date: "2026-03-10", categories: {} },
+    { date: "2026-03-15", categories: {} },
+  ];
+
+  test("7일 전 근처 스냅샷을 찾는다 (3/15 기준 → 3/08)", () => {
+    const result = findSnapshotNearDaysAgo(timeline, 7);
+    expect(result?.date).toBe("2026-03-08");
+  });
+
+  test("30일 전 근처 스냅샷을 찾는다 (가장 오래된 것)", () => {
+    const result = findSnapshotNearDaysAgo(timeline, 30);
+    expect(result?.date).toBe("2026-03-01");
+  });
+
+  test("최신 스냅샷 자체는 제외한다", () => {
+    const result = findSnapshotNearDaysAgo(timeline, 0);
+    expect(result?.date).not.toBe("2026-03-15");
+  });
+
+  test("스냅샷이 2개뿐이면 나머지 1개를 반환한다", () => {
+    const short: TimelineEntry[] = [
+      { date: "2026-03-01", categories: {} },
+      { date: "2026-03-15", categories: {} },
+    ];
+    const result = findSnapshotNearDaysAgo(short, 7);
+    expect(result?.date).toBe("2026-03-01");
+  });
+});
