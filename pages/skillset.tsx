@@ -10,6 +10,18 @@ import koLocale from "date-fns/locale/ko";
 import Layout from "../components/Layout";
 import { apiUrl } from "../utils/apiLocation";
 import { CATEGORY_LABELS, VALID_TYPES } from "../utils/constants";
+import {
+  SkillsetMode,
+  resolveInitialMode,
+  isCheckMode,
+  isSharedMode,
+  shouldRestoreFromLocal,
+  toggleMode,
+  decodeSharedSkills,
+  encodeSkillsParam,
+  togglePhaseCollapse,
+  filterValidSkills,
+} from "../utils/skillsetMode";
 
 // --- 타입 ---
 
@@ -297,16 +309,6 @@ const PassiveSkills: React.FC<{ skills: string[] }> = ({ skills }) => {
 
 // --- 메인 ---
 
-// URL 공유용 인코딩/디코딩
-function encodeSkillsToParam(skills: Set<string>): string {
-  return Array.from(skills).sort().join(",");
-}
-
-function decodeSkillsFromParam(param: string): Set<string> {
-  if (!param) return new Set();
-  return new Set(param.split(",").map((s) => decodeURIComponent(s.trim())).filter(Boolean));
-}
-
 const SkillsetPage = ({ stats, updated }: Props) => {
   const router = useRouter();
   const [selectedCategory, setSelectedCategoryRaw] = React.useState(
@@ -332,20 +334,22 @@ const SkillsetPage = ({ stats, updated }: Props) => {
     }
   };
   const [selectedYear, setSelectedYear] = React.useState("전체");
-  const [checkMode, setCheckMode] = React.useState(() => typeof router.query.skills === "string");
+  const [skillsetMode, setSkillsetMode] = React.useState<SkillsetMode>(
+    () => resolveInitialMode(router.query as { skills?: string })
+  );
   const [checkedSkills, setCheckedSkills] = React.useState<Set<string>>(new Set());
-  const [sharedMode, setSharedMode] = React.useState(false);
   const [collapsedPhases, setCollapsedPhases] = React.useState<Set<string>>(new Set());
   const [shareToast, setShareToast] = React.useState(false);
+
+  const checkMode = isCheckMode(skillsetMode);
 
   // URL 쿼리에서 공유된 스킬 복원
   React.useEffect(() => {
     const { cat, skills: skillsParam } = router.query;
     if (typeof skillsParam === "string" && skillsParam) {
-      const shared = decodeSkillsFromParam(skillsParam);
+      const shared = decodeSharedSkills(skillsParam);
       if (shared.size > 0) {
-        setSharedMode(true);
-        setCheckMode(true);
+        setSkillsetMode({ mode: "check", source: "shared" });
         setCheckedSkills(shared);
         if (typeof cat === "string" && CATEGORIES.some((c) => c.key === cat)) {
           setSelectedCategory(cat);
@@ -357,13 +361,12 @@ const SkillsetPage = ({ stats, updated }: Props) => {
   const handleShare = () => {
     const params = new URLSearchParams();
     params.set("cat", selectedCategory);
-    params.set("skills", encodeSkillsToParam(checkedSkills));
+    params.set("skills", encodeSkillsParam(checkedSkills));
     const url = `${window.location.origin}/skillset?${params.toString()}`;
     navigator.clipboard.writeText(url).then(() => {
       setShareToast(true);
       setTimeout(() => setShareToast(false), 2000);
     }).catch(() => {
-      // fallback: prompt
       window.prompt("공유 URL을 복사하세요:", url);
     });
   };
@@ -383,11 +386,9 @@ const SkillsetPage = ({ stats, updated }: Props) => {
     }
   }, [selectedCategory]);
 
-  const toggleCollapse = (phaseKey: string) => {
+  const handleToggleCollapse = (phaseKey: string) => {
     setCollapsedPhases((prev) => {
-      const next = new Set(prev);
-      if (next.has(phaseKey)) next.delete(phaseKey);
-      else next.add(phaseKey);
+      const next = togglePhaseCollapse(prev, phaseKey);
       try { localStorage.setItem(`rbye-collapsed-${selectedCategory}`, JSON.stringify([...next])); } catch {}
       return next;
     });
@@ -409,14 +410,13 @@ const SkillsetPage = ({ stats, updated }: Props) => {
   }, [selectedCategory, categoryData]);
 
   React.useEffect(() => {
-    // 공유 URL에서 왔으면 localStorage 복원 건너뛰기
-    if (sharedMode) return;
+    if (!shouldRestoreFromLocal(skillsetMode)) return;
     try {
       const saved = localStorage.getItem(`rbye-skills-${selectedCategory}`);
       if (saved) {
         const parsed: string[] = JSON.parse(saved);
         if (!Array.isArray(parsed)) throw new Error("invalid format");
-        const filtered = parsed.filter((s) => validSkills.has(s));
+        const filtered = filterValidSkills(parsed, validSkills);
         setCheckedSkills(new Set(filtered));
         if (filtered.length !== parsed.length) {
           localStorage.setItem(`rbye-skills-${selectedCategory}`, JSON.stringify(filtered));
@@ -428,7 +428,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
       setCheckedSkills(new Set());
       try { localStorage.removeItem(`rbye-skills-${selectedCategory}`); } catch {}
     }
-  }, [selectedCategory, validSkills, sharedMode]);
+  }, [selectedCategory, validSkills, skillsetMode]);
   const yearCategoryData = categoryStats?.[selectedYear] || {};
   const passiveSkills = (categoryData.passiveSkills as string[]) || [];
   const roadmapMapping = (categoryData.roadmapMapping as { [slot: string]: string }) || {};
@@ -529,7 +529,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
               className={`px-3 py-1.5 rounded text-xs transition-colors ${
                 !checkMode ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-200"
               }`}
-              onClick={() => setCheckMode(false)}
+              onClick={() => setSkillsetMode({ mode: "explore" })}
             >
               탐색
             </button>
@@ -537,7 +537,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
               className={`px-3 py-1.5 rounded text-xs transition-colors ${
                 checkMode ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-200"
               }`}
-              onClick={() => setCheckMode(true)}
+              onClick={() => setSkillsetMode({ mode: "check", source: "local" })}
             >
               나의 스킬
             </button>
@@ -607,7 +607,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
                 checkedSkills={checkedSkills}
                 checkMode={checkMode}
                 collapsed={checkMode && collapsedPhases.has(phaseInfo.key)}
-                onToggleCollapse={() => toggleCollapse(phaseInfo.key)}
+                onToggleCollapse={() => handleToggleCollapse(phaseInfo.key)}
                 onToggleSkill={toggleSkill}
                 onClickSkill={handleClickSkill}
               />
