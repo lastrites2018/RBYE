@@ -564,13 +564,6 @@ const SkillsetPage = ({ stats, updated }: Props) => {
           </div>
         </div>
 
-        {/* 모드 안내 */}
-        <p className="text-sm text-gray-400 text-center mb-3">
-          {checkMode
-            ? "보유한 기술을 체크하세요. 시장 대비 커버리지와 학습 추천을 제공합니다."
-            : "기술을 클릭하면 해당 기술을 요구하는 채용공고로 이동합니다."}
-        </p>
-
         {/* 범례 */}
         {!checkMode && (
           <div className="flex justify-center gap-4 flex-wrap mb-5">

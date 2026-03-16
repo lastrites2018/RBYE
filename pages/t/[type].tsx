@@ -6,6 +6,7 @@ import parse from "date-fns/parse";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import koLocale from "date-fns/locale/ko";
 
+import Link from "next/link";
 import JobList from "../../components/JobList";
 import Layout from "../../components/Layout";
 import NavBar from "../../components/NavBar";
@@ -381,6 +382,13 @@ export default function Post(props: Props) {
             {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
           </div>
         )}
+        <div className="text-center mt-6 mb-2">
+          <Link href={`/skillset?cat=${props.query?.type || "frontend"}`}>
+            <a className="text-sm text-gray-400 hover:text-teal-600 transition-colors">
+              {CATEGORY_LABELS[props.query?.type] || props.query?.type} 스킬 로드맵 보기 →
+            </a>
+          </Link>
+        </div>
       </div>
     </Layout>
   );
