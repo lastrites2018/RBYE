@@ -15,6 +15,8 @@ interface IJob extends Job {
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
   expandBullets?: boolean;
+  collapsePreferential?: boolean;
+  collapseMainTask?: boolean;
 }
 
 const Jobs = ({
@@ -34,7 +36,12 @@ const Jobs = ({
   onToggleBookmark,
   isBookmarked,
   expandBullets,
+  collapsePreferential,
+  collapseMainTask,
 }: IJob) => {
+  const [prefOpen, setPrefOpen] = React.useState(!collapsePreferential);
+  const [taskOpen, setTaskOpen] = React.useState(!collapseMainTask);
+
   const fmt = (t: string | undefined) => {
     const normalized = normalizeJobText(t);
     return expandBullets ? expandBulletsText(normalized) : normalized;
@@ -149,17 +156,31 @@ const Jobs = ({
       <div className="text-gray-600 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight content={requirement} searchText={searchKeyword} />
       </div>
-      <h6 className="mt-3 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium">우대사항</h6>
-      <div className="text-gray-500 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
-        <HighLight
-          content={preferentialTreatment}
-          searchText={searchKeyword}
-        />
-      </div>
-      <h6 className="mt-3 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium">주요업무</h6>
-      <div className="text-gray-600 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
-        <HighLight content={mainTask} searchText={searchKeyword} />
-      </div>
+      <h6
+        className={`mt-3 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium ${collapsePreferential ? "cursor-pointer select-none" : ""}`}
+        onClick={collapsePreferential ? () => setPrefOpen((p) => !p) : undefined}
+      >
+        우대사항{collapsePreferential && <span className="ml-1 text-xs">{prefOpen ? "▲" : "▼"}</span>}
+      </h6>
+      {prefOpen && (
+        <div className="text-gray-500 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
+          <HighLight
+            content={preferentialTreatment}
+            searchText={searchKeyword}
+          />
+        </div>
+      )}
+      <h6
+        className={`mt-3 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium ${collapseMainTask ? "cursor-pointer select-none" : ""}`}
+        onClick={collapseMainTask ? () => setTaskOpen((p) => !p) : undefined}
+      >
+        주요업무{collapseMainTask && <span className="ml-1 text-xs">{taskOpen ? "▲" : "▼"}</span>}
+      </h6>
+      {taskOpen && (
+        <div className="text-gray-600 mb-2 sm:mx-2 md:mx-4 whitespace-pre-wrap">
+          <HighLight content={mainTask} searchText={searchKeyword} />
+        </div>
+      )}
       <div className="mt-3 pt-2 border-t border-gray-100 flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-xs sm:text-sm">
         {workingArea && (
           <span className="text-gray-500">

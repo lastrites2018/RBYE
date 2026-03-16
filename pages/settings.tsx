@@ -4,6 +4,7 @@ import useHiddenCompanies from "../hooks/useHiddenCompanies";
 import useBookmarks from "../hooks/useBookmarks";
 import usePendingAction from "../hooks/usePendingAction";
 import useExpandBullets from "../hooks/useExpandBullets";
+import useCollapseSections from "../hooks/useCollapseSections";
 import normalizeJobText from "../utils/normalizeJobText";
 
 export default function SettingsPage() {
@@ -11,6 +12,7 @@ export default function SettingsPage() {
   const { bookmarks, toggleBookmark } = useBookmarks();
   const [expandedLink, setExpandedLink] = useState<string | null>(null);
   const { expandBullets, toggleExpandBullets } = useExpandBullets();
+  const { collapsePreferential, collapseMainTask, toggleCollapsePreferential, toggleCollapseMainTask } = useCollapseSections();
 
   const removeAction = usePendingAction(
     React.useCallback(
@@ -167,6 +169,44 @@ export default function SettingsPage() {
                   <span
                     className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
                       expandBullets ? "translate-x-5" : ""
+                    }`}
+                  />
+                </button>
+              </label>
+              <label className="flex items-center justify-between gap-3 py-2">
+                <div>
+                  <span className="text-sm text-gray-700">우대사항 기본 접기</span>
+                  <p className="text-xs text-gray-400">우대사항을 접어서 카드를 짧게 표시합니다</p>
+                </div>
+                <button
+                  type="button"
+                  className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${
+                    collapsePreferential ? "bg-teal-600" : "bg-gray-300"
+                  }`}
+                  onClick={toggleCollapsePreferential}
+                >
+                  <span
+                    className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
+                      collapsePreferential ? "translate-x-5" : ""
+                    }`}
+                  />
+                </button>
+              </label>
+              <label className="flex items-center justify-between gap-3 py-2">
+                <div>
+                  <span className="text-sm text-gray-700">주요업무 기본 접기</span>
+                  <p className="text-xs text-gray-400">주요업무를 접어서 카드를 짧게 표시합니다</p>
+                </div>
+                <button
+                  type="button"
+                  className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${
+                    collapseMainTask ? "bg-teal-600" : "bg-gray-300"
+                  }`}
+                  onClick={toggleCollapseMainTask}
+                >
+                  <span
+                    className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
+                      collapseMainTask ? "translate-x-5" : ""
                     }`}
                   />
                 </button>
