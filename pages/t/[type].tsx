@@ -8,6 +8,7 @@ import koLocale from "date-fns/locale/ko";
 
 import Link from "next/link";
 import JobList from "../../components/JobList";
+import BookmarkView from "../../components/BookmarkView";
 import Layout from "../../components/Layout";
 import NavBar from "../../components/NavBar";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
@@ -27,7 +28,6 @@ import {
   buttonToFilter,
   isInfiniteScrollEnabled,
   isBookmarksMode,
-  bookmarksToJobs,
 } from "../../utils/jobFilter";
 
 interface QueryType {
@@ -107,13 +107,9 @@ export default function Post(props: Props) {
 
   // --- 핵심: 필터 → 데이터 fetch (단일 useEffect) ---
   useEffect(() => {
-    // bookmarks 모드: localStorage에서 직접 로드
+    // bookmarks 모드: BookmarkView가 자체 렌더링. 여기서는 빈 즐겨찾기만 감시.
     if (isBookmarksMode(filter)) {
-      if (bookmarks.length === 0) {
-        setFilter({ mode: "all" });
-        return;
-      }
-      setData(bookmarksToJobs(bookmarks));
+      if (bookmarks.length === 0) setFilter({ mode: "all" });
       return;
     }
 
@@ -280,91 +276,93 @@ export default function Post(props: Props) {
         isBookmarksMode(filter) ? buttonToFilter("전체") : buttonToFilter("bookmarks")
       )}
     >
-      {!isBookmarksMode(filter) && (
-        <NavBar
-          searchKeyword={searchKeyword}
-          onSearch={handleSearch}
-        />
+      {isBookmarksMode(filter) ? (
+        <BookmarkView />
+      ) : (
+        <>
+          <NavBar
+            searchKeyword={searchKeyword}
+            onSearch={handleSearch}
+          />
+          <div className="block m-auto max-w-[640px] px-4">
+            <div className="flex flex-wrap justify-center gap-1.5 mb-2">
+              <button
+                className={isButtonActive(filter, "전체") ? activeClass : inactiveClass}
+                onClick={() => setFilter(buttonToFilter("전체"))}
+              >
+                전체
+              </button>
+              <span className="w-px h-5 bg-gray-300 self-center" />
+              {yearButtons}
+              <span className="w-px h-5 bg-gray-300 self-center" />
+              <button
+                className={isButtonActive(filter, "신입") ? activeClass : inactiveClass}
+                onClick={() => setFilter(buttonToFilter("신입"))}
+              >
+                신입
+              </button>
+              <button
+                className={isButtonActive(filter, "주니어") ? activeClass : inactiveClass}
+                onClick={() => setFilter(buttonToFilter("주니어"))}
+              >
+                주니어
+              </button>
+              <button
+                className={isButtonActive(filter, "senior") ? activeClass : inactiveClass}
+                onClick={() => setFilter(buttonToFilter("senior"))}
+              >
+                시니어
+              </button>
+              <button
+                className={isButtonActive(filter, "제한없음") ? activeClass : inactiveClass}
+                onClick={() => setFilter(buttonToFilter("제한없음"))}
+              >
+                제한없음
+              </button>
+            </div>
+            <div className="text-center text-gray-400 text-xs mb-3">
+              데이터 업데이트{" "}
+              {props.updated[0]?.[props.query.type] &&
+                formatDistanceToNow(
+                  parse(
+                    props.updated && props.updated[0][props.query.type],
+                    "yyyy-M-dd HH:mm:ss",
+                    new Date()
+                  ),
+                  {
+                    locale: koLocale,
+                  }
+                )}{" "}
+              전
+            </div>
+            {loadingCompany && <div className="spinner"></div>}
+            <JobList
+              data={visibleData}
+              searchKeyword={searchKeyword}
+              totalDataCount={totalDataCount}
+              companyData={companyData}
+              isMoreInfo={isMoreInfo}
+              handleSetIsMoreInfo={handleSetIsMoreInfo}
+              onHideCompany={hideCompany}
+              onToggleBookmark={toggleBookmark}
+              isBookmarked={isBookmarked}
+            />
+            {loadingData && <div className="spinner"></div>}
+            {searchKeyword && visibleData.length === 0 && !loading && (
+              <div className="text-center text-teal-500 text-xl">
+                {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
+              </div>
+            )}
+            <div className="text-center mt-6 mb-2">
+              <Link href={`/skillset?cat=${props.query?.type || "frontend"}`}>
+                <a className="text-sm text-gray-400 hover:text-teal-600 transition-colors">
+                  {CATEGORY_LABELS[props.query?.type] || props.query?.type} 스킬 로드맵 보기 →
+                </a>
+              </Link>
+            </div>
+          </div>
+        </>
       )}
-      <div className="block m-auto max-w-[640px] px-4">
-        {!isBookmarksMode(filter) && <div className="flex flex-wrap justify-center gap-1.5 mb-2">
-          <button
-            className={isButtonActive(filter, "전체") ? activeClass : inactiveClass}
-            onClick={() => setFilter(buttonToFilter("전체"))}
-          >
-            전체
-          </button>
-          <span className="w-px h-5 bg-gray-300 self-center" />
-          {yearButtons}
-          <span className="w-px h-5 bg-gray-300 self-center" />
-          <button
-            className={isButtonActive(filter, "신입") ? activeClass : inactiveClass}
-            onClick={() => setFilter(buttonToFilter("신입"))}
-          >
-            신입
-          </button>
-          <button
-            className={isButtonActive(filter, "주니어") ? activeClass : inactiveClass}
-            onClick={() => setFilter(buttonToFilter("주니어"))}
-          >
-            주니어
-          </button>
-          <button
-            className={isButtonActive(filter, "senior") ? activeClass : inactiveClass}
-            onClick={() => setFilter(buttonToFilter("senior"))}
-          >
-            시니어
-          </button>
-          <button
-            className={isButtonActive(filter, "제한없음") ? activeClass : inactiveClass}
-            onClick={() => setFilter(buttonToFilter("제한없음"))}
-          >
-            제한없음
-          </button>
-        </div>}
-        {!isBookmarksMode(filter) && <div className="text-center text-gray-400 text-xs mb-3">
-          데이터 업데이트{" "}
-          {props.updated[0]?.[props.query.type] &&
-            formatDistanceToNow(
-              parse(
-                props.updated && props.updated[0][props.query.type],
-                "yyyy-M-dd HH:mm:ss",
-                new Date()
-              ),
-              {
-                locale: koLocale,
-              }
-            )}{" "}
-          전
-        </div>}
-        {loadingCompany && <div className="spinner"></div>}
-        <JobList
-          data={visibleData}
-          searchKeyword={searchKeyword}
-          totalDataCount={totalDataCount}
-          companyData={companyData}
-          isMoreInfo={isMoreInfo}
-          handleSetIsMoreInfo={handleSetIsMoreInfo}
-          onHideCompany={isBookmarksMode(filter) ? undefined : hideCompany}
-          onToggleBookmark={toggleBookmark}
-          isBookmarked={isBookmarked}
-        />
-        {loadingData && <div className="spinner"></div>}
-        {searchKeyword && visibleData.length === 0 && !loading && (
-          <div className="text-center text-teal-500 text-xl">
-            {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
-          </div>
-        )}
-        {!isBookmarksMode(filter) && (
-          <div className="text-center mt-6 mb-2">
-            <Link href={`/skillset?cat=${props.query?.type || "frontend"}`}>
-              <a className="text-sm text-gray-400 hover:text-teal-600 transition-colors">
-                {CATEGORY_LABELS[props.query?.type] || props.query?.type} 스킬 로드맵 보기 →
-              </a>
-            </Link>
-          </div>
-        )}
-      </div>
     </Layout>
   );
 }
