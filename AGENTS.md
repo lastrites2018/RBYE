@@ -18,6 +18,12 @@
 -   타당성 체크 항목: 이 변경이 사용자에게 가치가 있는가, 기존 동작을 깨뜨리지 않는가, 더 단순한 방법은 없는가.
 -   사용자가 동의한 후에 구현을 시작한다.
 
+### Date/Time
+
+-   이 프로젝트는 한국 서비스다. 날짜/시간 생성 시 **KST 기준**을 사용한다.
+-   `new Date().toISOString()`은 UTC 기준이므로 날짜가 어긋난다. 사용 금지.
+-   KST 날짜가 필요하면 `new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10)` 또는 date-fns의 로컬 포맷을 사용한다.
+
 ### Testing Principles
 
 -   테스트 작성 원칙은 `docs/testing-principles.txt`를 참고한다.
