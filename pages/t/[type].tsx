@@ -109,6 +109,10 @@ export default function Post(props: Props) {
   useEffect(() => {
     // bookmarks 모드: localStorage에서 직접 로드
     if (isBookmarksMode(filter)) {
+      if (bookmarks.length === 0) {
+        setFilter({ mode: "all" });
+        return;
+      }
       setData(bookmarksToJobs(bookmarks));
       return;
     }
@@ -341,7 +345,7 @@ export default function Post(props: Props) {
           companyData={companyData}
           isMoreInfo={isMoreInfo}
           handleSetIsMoreInfo={handleSetIsMoreInfo}
-          onHideCompany={hideCompany}
+          onHideCompany={isBookmarksMode(filter) ? undefined : hideCompany}
           onToggleBookmark={toggleBookmark}
           isBookmarked={isBookmarked}
         />
@@ -351,13 +355,15 @@ export default function Post(props: Props) {
             {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
           </div>
         )}
-        <div className="text-center mt-6 mb-2">
-          <Link href={`/skillset?cat=${props.query?.type || "frontend"}`}>
-            <a className="text-sm text-gray-400 hover:text-teal-600 transition-colors">
-              {CATEGORY_LABELS[props.query?.type] || props.query?.type} 스킬 로드맵 보기 →
-            </a>
-          </Link>
-        </div>
+        {!isBookmarksMode(filter) && (
+          <div className="text-center mt-6 mb-2">
+            <Link href={`/skillset?cat=${props.query?.type || "frontend"}`}>
+              <a className="text-sm text-gray-400 hover:text-teal-600 transition-colors">
+                {CATEGORY_LABELS[props.query?.type] || props.query?.type} 스킬 로드맵 보기 →
+              </a>
+            </Link>
+          </div>
+        )}
       </div>
     </Layout>
   );
