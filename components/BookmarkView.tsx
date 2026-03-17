@@ -16,12 +16,12 @@ interface Props {
  * 회사 정보 더 보기 없음 (isMoreInfo 미전달).
  */
 export default function BookmarkView({ onEmpty }: Props) {
-  const { bookmarks, toggleBookmark, isBookmarked } = useBookmarks();
+  const { bookmarks, toggleBookmark, isBookmarked, mounted } = useBookmarks();
   const data = React.useMemo(() => bookmarksToJobs(bookmarks), [bookmarks]);
 
   React.useEffect(() => {
-    if (bookmarks.length === 0 && onEmpty) onEmpty();
-  }, [bookmarks.length, onEmpty]);
+    if (mounted && bookmarks.length === 0 && onEmpty) onEmpty();
+  }, [mounted, bookmarks.length, onEmpty]);
 
   return (
     <div className="block m-auto max-w-[640px] px-4">

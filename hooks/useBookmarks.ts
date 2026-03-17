@@ -7,9 +7,11 @@ const MAX_BOOKMARKS = 200;
 
 export default function useBookmarks() {
   const [bookmarks, setBookmarks] = useState<BookmarkEntry[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setBookmarks(readJSON<BookmarkEntry[]>(KEY, []));
+    setMounted(true);
 
     const sync = () => setBookmarks(readJSON<BookmarkEntry[]>(KEY, []));
     window.addEventListener(CHANGED, sync);
@@ -36,5 +38,5 @@ export default function useBookmarks() {
     [bookmarks]
   );
 
-  return { bookmarks, toggleBookmark, isBookmarked };
+  return { bookmarks, toggleBookmark, isBookmarked, mounted };
 }
