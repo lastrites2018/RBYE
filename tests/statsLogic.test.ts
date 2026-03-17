@@ -159,10 +159,12 @@ function calcDaySpan(timeline: TimelineEntry[]): number {
 
 /**
  * stats.tsx TrendView의 비교 기간 탭 활성화 로직
+ * - "전체"는 스냅샷 개수 기준 (3개 이상)
+ * - "주간"/"월간"은 날짜 차이 기준 (7일/30일 이상)
  */
-function getAvailablePeriods(daySpan: number): string[] {
+function getAvailablePeriods(snapshotCount: number, daySpan: number): string[] {
   const periods: string[] = [];
-  if (daySpan >= 3) periods.push("all");
+  if (snapshotCount >= 3) periods.push("all");
   if (daySpan >= 7) periods.push("week");
   if (daySpan >= 30) periods.push("month");
   return periods;
@@ -252,20 +254,24 @@ describe("daySpan 계산", () => {
 });
 
 describe("비교 기간 탭 활성화", () => {
-  test("2일이면 탭 없음", () => {
-    expect(getAvailablePeriods(2)).toEqual([]);
+  test("스냅샷 2개면 탭 없음", () => {
+    expect(getAvailablePeriods(2, 2)).toEqual([]);
   });
 
-  test("3일이면 전체만 활성화", () => {
-    expect(getAvailablePeriods(3)).toEqual(["all"]);
+  test("스냅샷 3개 + daySpan 2이면 전체만 활성화", () => {
+    expect(getAvailablePeriods(3, 2)).toEqual(["all"]);
   });
 
-  test("7일이면 전체+주간 활성화", () => {
-    expect(getAvailablePeriods(7)).toEqual(["all", "week"]);
+  test("스냅샷 3개 + daySpan 7이면 전체+주간 활성화", () => {
+    expect(getAvailablePeriods(3, 7)).toEqual(["all", "week"]);
   });
 
-  test("30일이면 전체+주간+월간 활성화", () => {
-    expect(getAvailablePeriods(30)).toEqual(["all", "week", "month"]);
+  test("스냅샷 10개 + daySpan 30이면 전체+주간+월간 활성화", () => {
+    expect(getAvailablePeriods(10, 30)).toEqual(["all", "week", "month"]);
+  });
+
+  test("스냅샷 1개면 daySpan 무관하게 탭 없음", () => {
+    expect(getAvailablePeriods(1, 0)).toEqual([]);
   });
 });
 

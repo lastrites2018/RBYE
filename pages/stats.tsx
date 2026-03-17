@@ -187,19 +187,19 @@ const TrendView: React.FC<{
     : 0;
 
   const availablePeriods: { key: TrendPeriod; label: string }[] = [];
-  if (daySpan >= 3) availablePeriods.push({ key: "all", label: "전체" });
+  if (timeline.length >= 3) availablePeriods.push({ key: "all", label: "전체" });
   if (daySpan >= 7) availablePeriods.push({ key: "week", label: "주간" });
   if (daySpan >= 30) availablePeriods.push({ key: "month", label: "월간" });
 
   const [period, setPeriod] = React.useState<TrendPeriod>("all");
 
-  if (timeline.length < 2 || daySpan < 3) {
+  if (timeline.length < 3) {
     return (
       <div className="bg-white rounded-lg shadow-sm p-6 text-center">
         <div className="text-gray-400 text-4xl mb-3">~</div>
         <h3 className="text-lg font-semibold text-gray-600 mb-2">트렌드 데이터 수집 중</h3>
         <p className="text-sm text-gray-400 mb-4">
-          최소 3일 이상의 데이터가 필요합니다.
+          최소 3회 이상의 데이터 수집이 필요합니다.
         </p>
         <div className="bg-gray-50 rounded-lg p-4 text-left">
           <p className="text-xs text-gray-500 mb-2">현재 수집된 스냅샷:</p>
@@ -213,9 +213,7 @@ const TrendView: React.FC<{
           ))}
         </div>
         <p className="text-xs text-gray-400 mt-4">
-          {daySpan < 3
-            ? `현재 ${daySpan}일치 수집됨. ${3 - daySpan}일 후부터 트렌드를 확인할 수 있습니다.`
-            : "다음 데이터 업데이트 시 변화량이 자동으로 표시됩니다."}
+          현재 {timeline.length}회 수집됨. {3 - timeline.length}회 후부터 트렌드를 확인할 수 있습니다.
         </p>
       </div>
     );
