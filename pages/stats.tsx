@@ -447,7 +447,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
         ) : (
           <>
             {/* 연차 선택 */}
-            <div className="flex flex-wrap justify-center gap-1 mb-8">
+            <div className="flex flex-wrap justify-center gap-1 mb-6">
               {YEARS.map((year) => (
                 <button
                   key={year}
