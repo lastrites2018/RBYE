@@ -26,6 +26,8 @@ import {
   isButtonActive,
   buttonToFilter,
   isInfiniteScrollEnabled,
+  isBookmarksMode,
+  bookmarksToJobs,
 } from "../../utils/jobFilter";
 
 interface QueryType {
@@ -42,7 +44,7 @@ interface Props {
 export default function Post(props: Props) {
   const router = useRouter();
   const { hideCompany, isCompanyHidden } = useHiddenCompanies();
-  const { toggleBookmark, isBookmarked } = useBookmarks();
+  const { bookmarks, toggleBookmark, isBookmarked } = useBookmarks();
   const hydrate = useReadabilityStore((s) => s.hydrate);
   React.useEffect(() => { hydrate(); }, []);
   const { setLastType } = useLastType();
@@ -105,6 +107,12 @@ export default function Post(props: Props) {
 
   // --- 핵심: 필터 → 데이터 fetch (단일 useEffect) ---
   useEffect(() => {
+    // bookmarks 모드: localStorage에서 직접 로드
+    if (isBookmarksMode(filter)) {
+      setData(bookmarksToJobs(bookmarks));
+      return;
+    }
+
     const url = buildFetchUrl(filter, props.query?.type || "frontend", apiUrl);
 
     if (url === null) {
@@ -133,7 +141,7 @@ export default function Post(props: Props) {
     })();
 
     return () => { cancelled = true; };
-  }, [filter, props.query?.type]);
+  }, [filter, props.query?.type, bookmarks]);
 
   // --- 무한스크롤 ---
   const loadMoreData = React.useCallback(async () => {
@@ -302,6 +310,20 @@ export default function Post(props: Props) {
           >
             제한없음
           </button>
+          {bookmarks.length > 0 && (
+            <>
+              <span className="w-px h-5 bg-gray-300 self-center" />
+              <button
+                className={isButtonActive(filter, "bookmarks")
+                  ? "px-3 py-1 rounded text-xs font-medium bg-amber-500 text-white"
+                  : "px-3 py-1 rounded text-xs text-amber-500 hover:bg-amber-50 transition-colors"
+                }
+                onClick={() => setFilter(buttonToFilter("bookmarks"))}
+              >
+                ★ {bookmarks.length}
+              </button>
+            </>
+          )}
         </div>
         <div className="text-center text-gray-400 text-xs mb-3">
           데이터 업데이트{" "}

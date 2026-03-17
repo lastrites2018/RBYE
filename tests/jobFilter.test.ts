@@ -8,6 +8,8 @@ import {
   isButtonActive,
   buttonToFilter,
   isInfiniteScrollEnabled,
+  isBookmarksMode,
+  bookmarksToJobs,
 } from "../utils/jobFilter";
 
 const API = "https://api.example.com";
@@ -311,5 +313,81 @@ describe("기존 버튼 동작과의 일치", () => {
     expect(deriveSearchKeyword(filter)).toBe("");
     expect(buildFetchUrl(filter, "frontend", API)).toBeNull();
     expect(isInfiniteScrollEnabled(filter)).toBe(true);
+  });
+});
+
+// --- bookmarks 모드 ---
+
+describe("bookmarks 모드", () => {
+  test("buildFetchUrl은 null을 반환한다 (localStorage에서 로드)", () => {
+    expect(buildFetchUrl({ mode: "bookmarks" }, "frontend", API)).toBeNull();
+  });
+
+  test("deriveSearchKeyword는 빈 문자열이다", () => {
+    expect(deriveSearchKeyword({ mode: "bookmarks" })).toBe("");
+  });
+
+  test("isInfiniteScrollEnabled는 false다", () => {
+    expect(isInfiniteScrollEnabled({ mode: "bookmarks" })).toBe(false);
+  });
+
+  test("isButtonActive는 bookmarks 버튼에만 true", () => {
+    const filter: FilterState = { mode: "bookmarks" };
+    expect(isButtonActive(filter, "bookmarks")).toBe(true);
+    expect(isButtonActive(filter, "전체")).toBe(false);
+  });
+
+  test("buttonToFilter는 bookmarks 모드를 반환한다", () => {
+    expect(buttonToFilter("bookmarks")).toEqual({ mode: "bookmarks" });
+  });
+
+  test("isBookmarksMode 판별", () => {
+    expect(isBookmarksMode({ mode: "bookmarks" })).toBe(true);
+    expect(isBookmarksMode({ mode: "all" })).toBe(false);
+  });
+});
+
+// --- bookmarksToJobs ---
+
+describe("bookmarksToJobs", () => {
+  test("BookmarkEntry를 Job으로 변환한다", () => {
+    const bookmarks: BookmarkEntry[] = [
+      {
+        link: "https://example.com/1",
+        companyName: "카카오",
+        subject: "FE 개발자",
+        contentObj: { requirement: "React 3년", preferentialTreatment: "TS", mainTask: "웹 개발" },
+      },
+    ];
+    const jobs = bookmarksToJobs(bookmarks);
+    expect(jobs).toHaveLength(1);
+    expect(jobs[0].companyName).toBe("카카오");
+    expect(jobs[0].subject).toBe("FE 개발자");
+    expect(jobs[0].contentObj.requirement).toBe("React 3년");
+    expect(jobs[0].link).toBe("https://example.com/1");
+    expect(jobs[0].closingDate).toBe("");
+    expect(jobs[0].workingArea).toBe("");
+  });
+
+  test("contentObj가 없는 즐겨찾기도 변환된다", () => {
+    const bookmarks: BookmarkEntry[] = [
+      { link: "https://example.com/2", companyName: "네이버", subject: "BE" },
+    ];
+    const jobs = bookmarksToJobs(bookmarks);
+    expect(jobs[0].contentObj.requirement).toBe("");
+  });
+
+  test("빈 배열이면 빈 배열", () => {
+    expect(bookmarksToJobs([])).toEqual([]);
+  });
+
+  test("no는 인덱스 순서로 채워진다", () => {
+    const bookmarks: BookmarkEntry[] = [
+      { link: "a", companyName: "A", subject: "A" },
+      { link: "b", companyName: "B", subject: "B" },
+    ];
+    const jobs = bookmarksToJobs(bookmarks);
+    expect(jobs[0].no).toBe(0);
+    expect(jobs[1].no).toBe(1);
   });
 });

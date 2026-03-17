@@ -11,7 +11,8 @@ export type FilterState =
   | { mode: "all" }
   | { mode: "year"; year: number }
   | { mode: "noLimit" }
-  | { mode: "search"; keyword: string; label: string };
+  | { mode: "search"; keyword: string; label: string }
+  | { mode: "bookmarks" };
 
 /**
  * 필터 상태로부터 fetch URL을 결정한다.
@@ -32,6 +33,8 @@ export function buildFetchUrl(
     case "search":
       if (!filter.keyword) return null;
       return `${apiUrl}/${type}?q=${encodeURIComponent(filter.keyword)}`;
+    case "bookmarks":
+      return null; // localStorage에서 직접 로드
   }
 }
 
@@ -69,6 +72,8 @@ export function isButtonActive(
       return filter.mode === "year" && filter.year === (buttonYear || 0);
     case "제한없음":
       return filter.mode === "noLimit";
+    case "bookmarks":
+      return filter.mode === "bookmarks";
     default:
       // 신입, 주니어, senior 등 검색 라벨 매칭
       return filter.mode === "search" && filter.label === buttonId;
@@ -86,6 +91,8 @@ export function buttonToFilter(buttonId: string, year?: number): FilterState {
       return { mode: "year", year: year || 1 };
     case "제한없음":
       return { mode: "noLimit" };
+    case "bookmarks":
+      return { mode: "bookmarks" };
     case "신입":
       return { mode: "search", keyword: "신입", label: "신입" };
     case "주니어":
@@ -103,4 +110,27 @@ export function buttonToFilter(buttonId: string, year?: number): FilterState {
  */
 export function isInfiniteScrollEnabled(filter: FilterState): boolean {
   return filter.mode === "all";
+}
+
+/**
+ * 즐겨찾기 모드인지 판별.
+ */
+export function isBookmarksMode(filter: FilterState): boolean {
+  return filter.mode === "bookmarks";
+}
+
+/**
+ * BookmarkEntry 배열을 Job 배열로 변환한다.
+ * 누락된 필드는 빈 값으로 채운다.
+ */
+export function bookmarksToJobs(bookmarks: BookmarkEntry[]): Job[] {
+  return bookmarks.map((b, i) => ({
+    no: i,
+    companyName: b.companyName,
+    subject: b.subject,
+    link: b.link,
+    contentObj: b.contentObj || { requirement: "", preferentialTreatment: "", mainTask: "" },
+    closingDate: "",
+    workingArea: "",
+  }));
 }
