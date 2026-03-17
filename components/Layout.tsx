@@ -15,6 +15,9 @@ type Props = {
   currentPage?: string;
   canonicalPath?: string;
   noIndex?: boolean;
+  bookmarkCount?: number;
+  isBookmarkActive?: boolean;
+  onClickBookmark?: () => void;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -24,6 +27,9 @@ const Layout: React.FunctionComponent<Props> = ({
   currentPage = "",
   canonicalPath,
   noIndex,
+  bookmarkCount,
+  isBookmarkActive,
+  onClickBookmark,
 }) => {
   const { hiddenCompanies, mounted } = useHiddenCompanies();
   const { bookmarks } = useBookmarks();
@@ -189,29 +195,40 @@ const Layout: React.FunctionComponent<Props> = ({
       {!isSpecialPage && !isSettingsPage && (
         <div className="flex justify-center gap-1 mb-4 max-w-[640px] mx-auto px-4">
           <Link href={`/t/frontend`}>
-            <a className={currentPage === "frontend"
+            <a className={currentPage === "frontend" && !isBookmarkActive
               ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
               : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
             }>프론트엔드</a>
           </Link>
           <Link href={`/t/nodejs`}>
-            <a className={currentPage === "nodejs"
+            <a className={currentPage === "nodejs" && !isBookmarkActive
               ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
               : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
             }>Node.js</a>
           </Link>
           <Link href={`/t/server`}>
-            <a className={currentPage === "server"
+            <a className={currentPage === "server" && !isBookmarkActive
               ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
               : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
             }>백엔드</a>
           </Link>
           <Link href={`/t/pm`}>
-            <a className={currentPage === "pm"
+            <a className={currentPage === "pm" && !isBookmarkActive
               ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
               : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
             }>PM</a>
           </Link>
+          {onClickBookmark && (bookmarkCount || 0) > 0 && (
+            <button
+              className={isBookmarkActive
+                ? "px-4 py-2 rounded-full text-sm font-semibold bg-amber-500 text-white shadow-sm"
+                : "px-4 py-2 rounded-full text-sm text-amber-500 hover:bg-amber-50 transition-colors"
+              }
+              onClick={onClickBookmark}
+            >
+              ★ {bookmarkCount}
+            </button>
+          )}
         </div>
       )}
       {children}

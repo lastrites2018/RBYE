@@ -270,13 +270,20 @@ export default function Post(props: Props) {
       pageType="job"
       currentPage={currentPageName}
       canonicalPath={canonicalPath}
+      bookmarkCount={bookmarks.length}
+      isBookmarkActive={isBookmarksMode(filter)}
+      onClickBookmark={() => setFilter(
+        isBookmarksMode(filter) ? buttonToFilter("전체") : buttonToFilter("bookmarks")
+      )}
     >
-      <NavBar
-        searchKeyword={searchKeyword}
-        onSearch={handleSearch}
-      />
+      {!isBookmarksMode(filter) && (
+        <NavBar
+          searchKeyword={searchKeyword}
+          onSearch={handleSearch}
+        />
+      )}
       <div className="block m-auto max-w-[640px] px-4">
-        <div className="flex flex-wrap justify-center gap-1.5 mb-2">
+        {!isBookmarksMode(filter) && <div className="flex flex-wrap justify-center gap-1.5 mb-2">
           <button
             className={isButtonActive(filter, "전체") ? activeClass : inactiveClass}
             onClick={() => setFilter(buttonToFilter("전체"))}
@@ -310,22 +317,8 @@ export default function Post(props: Props) {
           >
             제한없음
           </button>
-          {bookmarks.length > 0 && (
-            <>
-              <span className="w-px h-5 bg-gray-300 self-center" />
-              <button
-                className={isButtonActive(filter, "bookmarks")
-                  ? "px-3 py-1 rounded text-xs font-medium bg-amber-500 text-white"
-                  : "px-3 py-1 rounded text-xs text-amber-500 hover:bg-amber-50 transition-colors"
-                }
-                onClick={() => setFilter(buttonToFilter("bookmarks"))}
-              >
-                ★ {bookmarks.length}
-              </button>
-            </>
-          )}
-        </div>
-        <div className="text-center text-gray-400 text-xs mb-3">
+        </div>}
+        {!isBookmarksMode(filter) && <div className="text-center text-gray-400 text-xs mb-3">
           데이터 업데이트{" "}
           {props.updated[0]?.[props.query.type] &&
             formatDistanceToNow(
@@ -339,7 +332,7 @@ export default function Post(props: Props) {
               }
             )}{" "}
           전
-        </div>
+        </div>}
         {loadingCompany && <div className="spinner"></div>}
         <JobList
           data={visibleData}
