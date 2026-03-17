@@ -3,7 +3,9 @@ import Head from "next/head";
 import Footer from "./Footer";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useLocalPreferences from "../hooks/useLocalPreferences";
+import useHiddenCompanies from "../hooks/useHiddenCompanies";
+import useBookmarks from "../hooks/useBookmarks";
+import useLastType from "../hooks/useLastType";
 import { VALID_TYPES } from "../utils/constants";
 
 type Props = {
@@ -23,7 +25,10 @@ const Layout: React.FunctionComponent<Props> = ({
   canonicalPath,
   noIndex,
 }) => {
-  const { hasAnyPreferences, getLastType } = useLocalPreferences();
+  const { hiddenCompanies, mounted } = useHiddenCompanies();
+  const { bookmarks } = useBookmarks();
+  const { getLastType } = useLastType();
+  const hasAnyPreferences = mounted && (hiddenCompanies.length > 0 || bookmarks.length > 0);
   const [jobLink, setJobLink] = React.useState("/t/frontend");
   React.useEffect(() => {
     setJobLink(`/t/${getLastType()}`);
