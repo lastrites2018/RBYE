@@ -1,13 +1,11 @@
 import React from "react";
 import Layout from "../components/Layout";
 import useHiddenCompanies from "../hooks/useHiddenCompanies";
-import useBookmarks from "../hooks/useBookmarks";
 import useReadabilityStore from "../stores/useReadabilityStore";
 import ToggleRow from "../components/ToggleRow";
 
 export default function SettingsPage() {
   const { hiddenCompanies, unhideCompany, mounted } = useHiddenCompanies();
-  const { bookmarks } = useBookmarks();
   const {
     expandBullets, toggleExpandBullets,
     collapsePreferential, toggleCollapsePreferential,
@@ -52,15 +50,6 @@ export default function SettingsPage() {
                 </div>
               )}
             </section>
-
-            {/* 즐겨찾기 안내 */}
-            {bookmarks.length > 0 && (
-              <section className="mb-8">
-                <p className="text-xs text-gray-400">
-                  즐겨찾기 {bookmarks.length}개는 공고 페이지의 ★ 필터에서 확인할 수 있습니다.
-                </p>
-              </section>
-            )}
 
             {/* 가독성 옵션 */}
             <section className="mb-8">

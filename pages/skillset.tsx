@@ -514,6 +514,14 @@ const SkillsetPage = ({ stats, updated }: Props) => {
           ))}
         </div>
 
+        {updated?.[0]?.[selectedCategory] && (
+          <div className="text-center text-gray-400 text-xs mb-3">
+            데이터 업데이트{" "}
+            {(() => { try { return formatDistanceToNow(parse(updated[0][selectedCategory], "yyyy-M-dd HH:mm:ss", new Date()), { locale: koLocale }); } catch { return ""; } })()}{" "}
+            전
+          </div>
+        )}
+
         {/* 모드 토글 + 요약 */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex gap-1">
@@ -615,15 +623,6 @@ const SkillsetPage = ({ stats, updated }: Props) => {
           <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded-lg shadow-lg z-50 animate-pulse">
             공유 URL이 복사되었습니다
           </div>
-        )}
-
-        {/* 데이터 업데이트 시점 */}
-        {updated?.[0]?.[selectedCategory] && (
-          <p className="text-center text-gray-400 text-xs mt-6 mb-4">
-            데이터 업데이트{" "}
-            {(() => { try { return formatDistanceToNow(parse(updated[0][selectedCategory], "yyyy-M-dd HH:mm:ss", new Date()), { locale: koLocale }); } catch { return ""; } })()}{" "}
-            전
-          </p>
         )}
 
         {/* 산출 기준 안내 */}

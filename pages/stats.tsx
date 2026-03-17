@@ -429,6 +429,17 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
           </button>
         </div>
 
+        {updated?.[0]?.[selectedCategory] && (
+          <div className="text-center text-gray-400 text-xs mb-3">
+            데이터 업데이트{" "}
+            {formatDistanceToNow(
+              parse(updated[0][selectedCategory], "yyyy-M-dd HH:mm:ss", new Date()),
+              { locale: koLocale }
+            )}{" "}
+            전
+          </div>
+        )}
+
         {viewMode === "trend" ? (
           <TrendView timeline={timeline} selectedCategory={selectedCategory} />
         ) : viewMode === "compare" ? (
@@ -521,20 +532,6 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
         )}
         <p className="text-center text-gray-600 text-sm mt-8 mb-4">
           본 통계는 현재 사이트에 등록된 공고 데이터를 기준으로 생성되었습니다.
-          {updated?.[0]?.[selectedCategory] && (
-            <span className="block text-gray-600 text-xs mt-1">
-              데이터 업데이트{" "}
-              {formatDistanceToNow(
-                parse(
-                  updated[0][selectedCategory],
-                  "yyyy-M-dd HH:mm:ss",
-                  new Date()
-                ),
-                { locale: koLocale }
-              )}{" "}
-              전 ({updated[0][selectedCategory]})
-            </span>
-          )}
         </p>
       </div>
     </Layout>
