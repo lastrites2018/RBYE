@@ -6,8 +6,8 @@ interface IJobList {
   searchKeyword: string;
   totalDataCount: number | undefined;
   companyData?: any;
-  isMoreInfo: boolean;
-  handleSetIsMoreInfo: () => void;
+  isMoreInfo?: boolean;
+  handleSetIsMoreInfo?: () => void;
   onHideCompany?: (companyName: string) => void;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: (link: string) => boolean;

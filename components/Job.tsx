@@ -10,8 +10,8 @@ interface IJob extends Job {
   index: number;
   totalDataCount: number | undefined;
   companyData?: any;
-  isMoreInfo: boolean;
-  handleSetIsMoreInfo: () => void;
+  isMoreInfo?: boolean;
+  handleSetIsMoreInfo?: () => void;
   onHideCompany?: (companyName: string) => void;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
@@ -76,13 +76,15 @@ const Jobs = ({
             {isBookmarked ? "★" : "☆"}
           </span>
         )}
-        <span
-          className="bg-gray-300 rounded-full text-gray-700 cursor-pointer text-center"
-          style={{ width: "2.2rem" }}
-          onClick={handleSetIsMoreInfo}
-        >
-          {isMoreInfo ? "ON" : "OFF"}
-        </span>
+        {handleSetIsMoreInfo && (
+          <span
+            className="bg-gray-300 rounded-full text-gray-700 cursor-pointer text-center"
+            style={{ width: "2.2rem" }}
+            onClick={handleSetIsMoreInfo}
+          >
+            {isMoreInfo ? "ON" : "OFF"}
+          </span>
+        )}
         <span className="bg-gray-300 px-2 rounded-full text-gray-600">
           {index + 1}/{totalDataCount}
         </span>

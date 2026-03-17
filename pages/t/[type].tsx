@@ -107,11 +107,8 @@ export default function Post(props: Props) {
 
   // --- 핵심: 필터 → 데이터 fetch (단일 useEffect) ---
   useEffect(() => {
-    // bookmarks 모드: BookmarkView가 자체 렌더링. 여기서는 빈 즐겨찾기만 감시.
-    if (isBookmarksMode(filter)) {
-      if (bookmarks.length === 0) setFilter({ mode: "all" });
-      return;
-    }
+    // bookmarks 모드: BookmarkView가 자체 렌더링. fetch 불필요.
+    if (isBookmarksMode(filter)) return;
 
     const url = buildFetchUrl(filter, props.query?.type || "frontend", apiUrl);
 
@@ -141,7 +138,7 @@ export default function Post(props: Props) {
     })();
 
     return () => { cancelled = true; };
-  }, [filter, props.query?.type, bookmarks]);
+  }, [filter, props.query?.type]);
 
   // --- 무한스크롤 ---
   const loadMoreData = React.useCallback(async () => {
@@ -277,7 +274,7 @@ export default function Post(props: Props) {
       )}
     >
       {isBookmarksMode(filter) ? (
-        <BookmarkView />
+        <BookmarkView onEmpty={() => setFilter({ mode: "all" })} />
       ) : (
         <>
           <NavBar
