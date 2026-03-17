@@ -11,9 +11,6 @@ interface IJobList {
   onHideCompany?: (companyName: string) => void;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: (link: string) => boolean;
-  expandBullets?: boolean;
-  collapsePreferential?: boolean;
-  collapseMainTask?: boolean;
 }
 
 export default React.memo(function JobList({
@@ -26,9 +23,6 @@ export default React.memo(function JobList({
   onHideCompany,
   onToggleBookmark,
   isBookmarked,
-  expandBullets,
-  collapsePreferential,
-  collapseMainTask,
 }: IJobList) {
   return (
     <div className="break-word-and-keep-all">
@@ -46,9 +40,6 @@ export default React.memo(function JobList({
             onHideCompany={onHideCompany}
             onToggleBookmark={onToggleBookmark}
             isBookmarked={isBookmarked?.(job.link)}
-            expandBullets={expandBullets}
-            collapsePreferential={collapsePreferential}
-            collapseMainTask={collapseMainTask}
           />
         );
       })}

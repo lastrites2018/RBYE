@@ -3,6 +3,7 @@ import HighLight from "./HighLight";
 import normalizeJobText from "../utils/normalizeJobText";
 import expandBulletsText from "../utils/expandBullets";
 import usePendingAction from "../hooks/usePendingAction";
+import useReadabilityStore from "../stores/useReadabilityStore";
 
 interface IJob extends Job {
   searchKeyword: string;
@@ -14,9 +15,6 @@ interface IJob extends Job {
   onHideCompany?: (companyName: string) => void;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
-  expandBullets?: boolean;
-  collapsePreferential?: boolean;
-  collapseMainTask?: boolean;
 }
 
 const Jobs = ({
@@ -35,10 +33,8 @@ const Jobs = ({
   onHideCompany,
   onToggleBookmark,
   isBookmarked,
-  expandBullets,
-  collapsePreferential,
-  collapseMainTask,
 }: IJob) => {
+  const { expandBullets, collapsePreferential, collapseMainTask } = useReadabilityStore();
   const [prefOpen, setPrefOpen] = React.useState(!collapsePreferential);
   const [taskOpen, setTaskOpen] = React.useState(!collapseMainTask);
 
@@ -210,4 +206,4 @@ const Jobs = ({
   );
 };
 
-export default Jobs;
+export default React.memo(Jobs);

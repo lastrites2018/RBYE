@@ -3,16 +3,22 @@ import Layout from "../components/Layout";
 import useHiddenCompanies from "../hooks/useHiddenCompanies";
 import useBookmarks from "../hooks/useBookmarks";
 import usePendingAction from "../hooks/usePendingAction";
-import useExpandBullets from "../hooks/useExpandBullets";
-import useCollapseSections from "../hooks/useCollapseSections";
+import useReadabilityStore from "../stores/useReadabilityStore";
+import ToggleRow from "../components/ToggleRow";
 import normalizeJobText from "../utils/normalizeJobText";
 
 export default function SettingsPage() {
   const { hiddenCompanies, unhideCompany, mounted } = useHiddenCompanies();
   const { bookmarks, toggleBookmark } = useBookmarks();
   const [expandedLink, setExpandedLink] = useState<string | null>(null);
-  const { expandBullets, toggleExpandBullets } = useExpandBullets();
-  const { collapsePreferential, collapseMainTask, toggleCollapsePreferential, toggleCollapseMainTask } = useCollapseSections();
+  const {
+    expandBullets, toggleExpandBullets,
+    collapsePreferential, toggleCollapsePreferential,
+    collapseMainTask, toggleCollapseMainTask,
+    hydrate,
+  } = useReadabilityStore();
+
+  React.useEffect(() => { hydrate(); }, []);
 
   const removeAction = usePendingAction(
     React.useCallback(
@@ -85,7 +91,8 @@ export default function SettingsPage() {
                           onClick={() => setExpandedLink(isOpen ? null : b.link)}
                         >
                           <span className="text-sm text-gray-700 line-clamp-1 min-w-0">
-                            {b.subject}
+                            <span className="font-medium">{b.companyName}</span>
+                            <span className="text-gray-400 ml-1.5">{b.subject}</span>
                           </span>
                           <span className="flex-shrink-0 text-gray-400 text-xs">
                             {isOpen ? "▲" : "▼"}
@@ -154,63 +161,24 @@ export default function SettingsPage() {
             {/* 가독성 옵션 */}
             <section className="mb-8">
               <h2 className="text-sm font-semibold text-gray-700 mb-2">가독성 옵션</h2>
-              <label className="flex items-center justify-between gap-3 py-2">
-                <div>
-                  <span className="text-sm text-gray-700">불릿 항목 줄바꿈</span>
-                  <p className="text-xs text-gray-400">공고 본문의 불릿(-)마다 줄을 나눠서 표시합니다</p>
-                </div>
-                <button
-                  type="button"
-                  className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${
-                    expandBullets ? "bg-teal-600" : "bg-gray-300"
-                  }`}
-                  onClick={toggleExpandBullets}
-                >
-                  <span
-                    className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
-                      expandBullets ? "translate-x-5" : ""
-                    }`}
-                  />
-                </button>
-              </label>
-              <label className="flex items-center justify-between gap-3 py-2">
-                <div>
-                  <span className="text-sm text-gray-700">우대사항 기본 접기</span>
-                  <p className="text-xs text-gray-400">우대사항을 접어서 카드를 짧게 표시합니다</p>
-                </div>
-                <button
-                  type="button"
-                  className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${
-                    collapsePreferential ? "bg-teal-600" : "bg-gray-300"
-                  }`}
-                  onClick={toggleCollapsePreferential}
-                >
-                  <span
-                    className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
-                      collapsePreferential ? "translate-x-5" : ""
-                    }`}
-                  />
-                </button>
-              </label>
-              <label className="flex items-center justify-between gap-3 py-2">
-                <div>
-                  <span className="text-sm text-gray-700">주요업무 기본 접기</span>
-                  <p className="text-xs text-gray-400">주요업무를 접어서 카드를 짧게 표시합니다</p>
-                </div>
-                <button
-                  type="button"
-                  className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${
-                    collapseMainTask ? "bg-teal-600" : "bg-gray-300"
-                  }`}
-                  onClick={toggleCollapseMainTask}
-                >
-                  <span
-                    className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
-                      collapseMainTask ? "translate-x-5" : ""
-                    }`}
-                  />
-                </button>
-              </label>
+              <ToggleRow
+                label="불릿 항목 줄바꿈"
+                description="공고 본문의 불릿(-)마다 줄을 나눠서 표시합니다"
+                checked={expandBullets}
+                onToggle={toggleExpandBullets}
+              />
+              <ToggleRow
+                label="우대사항 기본 접기"
+                description="우대사항을 접어서 카드를 짧게 표시합니다"
+                checked={collapsePreferential}
+                onToggle={toggleCollapsePreferential}
+              />
+              <ToggleRow
+                label="주요업무 기본 접기"
+                description="주요업무를 접어서 카드를 짧게 표시합니다"
+                checked={collapseMainTask}
+                onToggle={toggleCollapseMainTask}
+              />
             </section>
 
             {/* 안내 */}

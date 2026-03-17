@@ -14,8 +14,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import useHiddenCompanies from "../../hooks/useHiddenCompanies";
 import useBookmarks from "../../hooks/useBookmarks";
 import useLastType from "../../hooks/useLastType";
-import useExpandBullets from "../../hooks/useExpandBullets";
-import useCollapseSections from "../../hooks/useCollapseSections";
+import useReadabilityStore from "../../stores/useReadabilityStore";
 
 import { apiUrl } from "../../utils/apiLocation";
 import { VALID_TYPES, CATEGORY_LABELS } from "../../utils/constants";
@@ -44,8 +43,8 @@ export default function Post(props: Props) {
   const router = useRouter();
   const { hideCompany, isCompanyHidden } = useHiddenCompanies();
   const { toggleBookmark, isBookmarked } = useBookmarks();
-  const { expandBullets } = useExpandBullets();
-  const { collapsePreferential, collapseMainTask } = useCollapseSections();
+  const hydrate = useReadabilityStore((s) => s.hydrate);
+  React.useEffect(() => { hydrate(); }, []);
   const { setLastType } = useLastType();
   const [data, setData] = React.useState(props.data || []);
   const [filter, setFilter] = React.useState<FilterState>({ mode: "all" });
@@ -330,9 +329,6 @@ export default function Post(props: Props) {
           onHideCompany={hideCompany}
           onToggleBookmark={toggleBookmark}
           isBookmarked={isBookmarked}
-          expandBullets={expandBullets}
-          collapsePreferential={collapsePreferential}
-          collapseMainTask={collapseMainTask}
         />
         {loadingData && <div className="spinner"></div>}
         {searchKeyword && visibleData.length === 0 && !loading && (
