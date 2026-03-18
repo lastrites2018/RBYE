@@ -38,7 +38,7 @@ const Jobs = ({
   React.useEffect(() => { setPrefOpen(!collapsePreferential); }, [collapsePreferential]);
   React.useEffect(() => { setTaskOpen(!collapseMainTask); }, [collapseMainTask]);
 
-  const yearTag = extractYearTag(contentObj?.requirement);
+  const yearTag = extractYearTag(subject, contentObj?.requirement);
 
   const fmt = (t: string | undefined) => {
     const normalized = normalizeJobText(t);
