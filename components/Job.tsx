@@ -109,7 +109,7 @@ const Jobs = ({
       )}
       <h2 className="text-gray-700">
         {yearTag && (
-          <span className="inline-block text-xs text-gray-400 border border-gray-200 rounded px-1.5 py-0.5 mr-1.5 align-middle">
+          <span className="inline-block text-xs text-gray-400 bg-gray-100 rounded px-2 py-0.5 mr-1.5 align-middle">
             {yearTag}
           </span>
         )}
