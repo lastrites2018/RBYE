@@ -423,7 +423,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const res = await fetch(`${apiUrl}/stats`);
     const statsArray = await res.json();
     const stats = Array.isArray(statsArray) && statsArray.length > 0 ? statsArray[0] : statsArray;
-    if (stats.frontend?.categoryStats?.["전체"]?.["기본장착"] &&
+    if (stats.frontend?.categoryStats?.["전체"]?.["기초"] &&
         stats.frontend?.categoryStats?.["전체"]?.["AI활용"]) {
       return { props: { stats, updated } };
     }
@@ -439,7 +439,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       if (fs.existsSync(localPath)) {
         const raw = JSON.parse(fs.readFileSync(localPath, "utf-8"));
         const stats = Array.isArray(raw.stats) && raw.stats.length > 0 ? raw.stats[0] : raw;
-        if (stats.frontend?.categoryStats?.["전체"]?.["기본장착"]) {
+        if (stats.frontend?.categoryStats?.["전체"]?.["기초"]) {
           return { props: { stats, updated } };
         }
       }

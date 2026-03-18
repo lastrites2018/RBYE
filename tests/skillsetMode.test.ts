@@ -159,27 +159,27 @@ describe("encodeSkillsParam", () => {
 
 describe("togglePhaseCollapse", () => {
   test("접혀있지 않은 phase를 접는다", () => {
-    const result = togglePhaseCollapse(new Set(), "기본장착");
-    expect(result.has("기본장착")).toBe(true);
+    const result = togglePhaseCollapse(new Set(), "기초");
+    expect(result.has("기초")).toBe(true);
   });
 
   test("접혀있는 phase를 펼친다", () => {
-    const result = togglePhaseCollapse(new Set(["기본장착"]), "기본장착");
-    expect(result.has("기본장착")).toBe(false);
+    const result = togglePhaseCollapse(new Set(["기초"]), "기초");
+    expect(result.has("기초")).toBe(false);
   });
 
   test("다른 phase에 영향을 주지 않는다", () => {
-    const collapsed = new Set(["기본장착", "주무기"]);
-    const result = togglePhaseCollapse(collapsed, "기본장착");
-    expect(result.has("기본장착")).toBe(false);
-    expect(result.has("주무기")).toBe(true);
+    const collapsed = new Set(["기초", "핵심"]);
+    const result = togglePhaseCollapse(collapsed, "기초");
+    expect(result.has("기초")).toBe(false);
+    expect(result.has("핵심")).toBe(true);
   });
 
   test("원본 Set을 변경하지 않는다 (불변)", () => {
-    const original = new Set(["기본장착"]);
-    const result = togglePhaseCollapse(original, "기본장착");
-    expect(original.has("기본장착")).toBe(true); // 원본 유지
-    expect(result.has("기본장착")).toBe(false);
+    const original = new Set(["기초"]);
+    const result = togglePhaseCollapse(original, "기초");
+    expect(original.has("기초")).toBe(true); // 원본 유지
+    expect(result.has("기초")).toBe(false);
   });
 });
 
@@ -248,9 +248,9 @@ describe("기존 동작과의 일치", () => {
 
 describe("parseCollapsedPhases", () => {
   test("정상 JSON 배열을 Set으로 변환", () => {
-    const result = parseCollapsedPhases(JSON.stringify(["기본장착", "주무기"]));
+    const result = parseCollapsedPhases(JSON.stringify(["기초", "핵심"]));
     expect(result.size).toBe(2);
-    expect(result.has("기본장착")).toBe(true);
+    expect(result.has("기초")).toBe(true);
   });
 
   test("null이면 빈 Set", () => {

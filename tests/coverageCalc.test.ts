@@ -71,13 +71,13 @@ describe("커버리지 퍼센트 계산", () => {
 // --- allVisibleSkills 구성 ---
 
 describe("전체 가시 스킬 목록 구성", () => {
-  const phases = [{ key: "기본장착" }, { key: "주무기" }, { key: "보조장비" }];
+  const phases = [{ key: "기초" }, { key: "핵심" }, { key: "확장" }];
 
   test("여러 phase의 스킬을 합치고 빈도순 정렬한다", () => {
     const yearData = {
-      "기본장착": { skills: { JavaScript: 50, HTML: 40 } },
-      "주무기": { skills: { React: 80 } },
-      "보조장비": { skills: { TypeScript: 60 } },
+      "기초": { skills: { JavaScript: 50, HTML: 40 } },
+      "핵심": { skills: { React: 80 } },
+      "확장": { skills: { TypeScript: 60 } },
     };
     const result = buildAllVisibleSkills(phases, yearData);
     expect(result[0].name).toBe("React");
@@ -87,8 +87,8 @@ describe("전체 가시 스킬 목록 구성", () => {
 
   test("빈 phase는 건너뛴다", () => {
     const yearData = {
-      "기본장착": { skills: { JavaScript: 50 } },
-      "주무기": {},
+      "기초": { skills: { JavaScript: 50 } },
+      "핵심": {},
     };
     const result = buildAllVisibleSkills(phases, yearData);
     expect(result).toHaveLength(1);
