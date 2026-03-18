@@ -4,6 +4,7 @@ import normalizeJobText from "../utils/normalizeJobText";
 import expandBulletsText from "../utils/expandBullets";
 import usePendingAction from "../hooks/usePendingAction";
 import useReadabilityStore from "../stores/useReadabilityStore";
+import extractYearTag from "../utils/extractYearTag";
 
 interface IJob extends Job {
   searchKeyword: string;
@@ -36,6 +37,8 @@ const Jobs = ({
 
   React.useEffect(() => { setPrefOpen(!collapsePreferential); }, [collapsePreferential]);
   React.useEffect(() => { setTaskOpen(!collapseMainTask); }, [collapseMainTask]);
+
+  const yearTag = extractYearTag(contentObj?.requirement);
 
   const fmt = (t: string | undefined) => {
     const normalized = normalizeJobText(t);
@@ -105,6 +108,11 @@ const Jobs = ({
         </div>
       )}
       <h2 className="text-gray-700">
+        {yearTag && (
+          <span className="inline-block text-xs text-gray-400 border border-gray-200 rounded px-1.5 py-0.5 mr-1.5 align-middle">
+            {yearTag}
+          </span>
+        )}
         <HighLight content={companyName} searchText={searchKeyword} />
       </h2>
       <p className="text-gray-800">
