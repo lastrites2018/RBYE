@@ -1,0 +1,113 @@
+========================================================
+2026-03-18 슬롯 리네이밍 + 키워드 승인 + tech/concept 구분 도입
+========================================================
+
+
+1. 슬롯 키 리네이밍: RPG 용어 → 중립 용어
+------------------------------------------------------------------------
+
+  변경 내용:
+    기본장착 → 기초
+    주무기   → 핵심
+    보조장비 → 확장
+    전투도구 → 도구
+    고급장비 → 인프라
+    AI활용   → 유지 (이미 중립적)
+
+  왜 바꿨는가:
+    초기에 스킬 로드맵을 RPG 장비창 UI로 기획했을 때 만든 이름이다.
+    RPG UI는 "실용성 제로, 게임하려고 온 게 아니다"는 판단으로 폐기되었고
+    세로형 학습 단계 UI로 전환했다. (decisions.md 참고)
+
+    그런데 내부 키 이름만 RPG 용어 그대로 남아 있었다.
+    코드를 읽는 사람이 "주무기가 뭐지?"라고 생각해야 하는 상황.
+    표시 이름(title)은 이미 "기초", "프레임워크" 등으로 중립적이었으나
+    key와 title이 불일치하면 유지보수 혼란을 일으킨다.
+
+    변경 비용: tech-dictionary.json + PHASE_CONFIG + 테스트 파일.
+    analyze.js와 discover-keywords.js는 동적으로 키를 읽으므로 변경 불필요.
+
+  영향 범위:
+    - RBYE-API: tech-dictionary.json, keyword-workflow.txt
+    - RBYE: components/skillset/types.ts, pages/skillset.tsx
+    - RBYE: tests/skillsetMode.test.ts, tests/coverageCalc.test.ts
+    - public/stats.json: analyze.js 재실행으로 자동 반영
+
+
+2. 키워드 32건 승인
+------------------------------------------------------------------------
+
+  왜 이 시점에:
+    discover-keywords.js가 축적 방식으로 전환된 후 첫 승인.
+    3일간 축적된 후보 213건 중 실제 기술 키워드로서 가치 있는 것만 선별.
+
+  선별 기준:
+    - 10건 이상 언급 (기존 기준 유지)
+    - 기존 사전의 중복 변형 제외 (React.js→React, HTML5→HTML 등)
+    - 일반 단어 제외 (Owner, Business, Language 등)
+    - 해당 카테고리 맥락에 맞는 것만 (Android를 frontend에 넣지 않음)
+
+  승인 목록:
+
+  [frontend] 7건
+    tech:    TanStack(확장), Turborepo(도구), Jotai(확장), Electron(핵심)
+    concept: SPA(핵심), SSR(핵심), E2E(인프라)
+
+  [nodejs] 4건
+    tech:    Lambda(인프라)
+    concept: RDBMS(확장), NoSQL(확장), ORM(확장)
+
+  [server] 15건
+    tech:    GCP(인프라), Azure(인프라), ECS(인프라), EKS(인프라),
+             ArgoCD(인프라), Airflow(인프라), SQS(도구), Golang(기초), ELK(인프라)
+    concept: RDBMS(확장), NoSQL(확장), ORM(핵심), IaC(인프라), DDD(핵심), MLOps(AI활용)
+
+  [pm] 6건
+    tech:    GA4(확장)
+    concept: PRD(기초), VOC(확장), Agile(기초), Scrum(기초), PMF(기초)
+
+  제외한 주요 후보와 이유:
+    - GitHub/Github(79+37건): Git이 이미 있음. 플랫폼이지 기술 스택이 아님
+    - REST/RESTful(67+49건): REST API가 이미 있음. 중복 변형
+    - React.js/Vue.js(28+26건): React/Vue가 이미 있음
+    - HTML5/CSS3/ES6: HTML/CSS/JavaScript가 이미 있음
+    - Actions(49건): 단독으로 모호. GitHub Actions가 이미 존재
+    - DevOps(32건): 직무/역할명이지 기술이 아님
+    - Android/Swift/Flutter(server): 카테고리 불일치
+    - Owner/Business/Language: 일반 단어
+
+
+3. tech/concept 구분 (keywordTypes) 도입
+------------------------------------------------------------------------
+
+  왜 구분하는가:
+    "React를 쓸 수 있다"와 "SPA를 이해하고 있다"는 다른 종류의 역량이다.
+    기술(tech)은 설치/도입/사용하는 구체적 도구·라이브러리·서비스.
+    개념(concept)은 이해하고 적용하는 패턴·방법론·아키텍처 용어.
+
+    이 둘을 같은 키워드로 취급하면 통계에서 "이걸 설치해서 써야 하나?"와
+    "이걸 알고 있어야 하나?"가 섞인다.
+
+  구현 방식:
+    tech-dictionary.json에 keywordTypes 필드 추가.
+    concept만 명시적으로 표기. 미표기 키워드는 모두 tech (기본값).
+
+    {
+      "keywordTypes": {
+        "SPA": "concept",
+        "SSR": "concept",
+        "E2E": "concept"
+      }
+    }
+
+    analyze.js가 keywordTypes를 stats.json에 패스스루.
+    프론트엔드에서 필요 시 구분 표시 가능 (현재는 동일 표시).
+
+  concept으로 분류한 키워드 (14건):
+    SPA, SSR, E2E, RDBMS, NoSQL, ORM, IaC, DDD, MLOps,
+    PRD, VOC, Agile, Scrum, PMF
+
+  향후 활용 가능성:
+    - 스킬셋 페이지에서 concept은 다른 색상이나 아이콘으로 표시
+    - "기술 보유" vs "개념 이해" 커버리지를 분리 집계
+    - 현재는 구분만 해두고 표시 차이는 없음 (데이터 선행, UI 후행)
