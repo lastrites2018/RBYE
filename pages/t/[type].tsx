@@ -53,7 +53,7 @@ export default function Post(props: Props) {
   const [loadingData, setLoadingData] = React.useState(false);
   const [loadingCompany, setLoadingCompany] = React.useState(false);
   const loading = loadingData || loadingCompany;
-  const [isMoreInfo, setIsMoreInfo] = React.useState(false);
+  const isMoreInfo = useReadabilityStore((s) => s.isMoreInfo);
   const [companyData, setCompanyData] = React.useState([]);
   const [currentPageName, setCurrentPageName] = React.useState(
     props.query?.type || ""
@@ -100,9 +100,9 @@ export default function Post(props: Props) {
     }
   }, [router.query.q]);
 
-  // --- 독립 관심사 4: 회사 데이터 지연 로드 ---
+  // 회사 데이터 지연 로드: isMoreInfo(store)가 true가 되면 API에서 가져옴 (외부 시스템 동기화)
   useEffect(() => {
-    isMoreInfo && companyData.length === 0 && loadCompanyData();
+    if (isMoreInfo && companyData.length === 0) loadCompanyData();
   }, [isMoreInfo]);
 
   // --- 핵심: 필터 → 데이터 fetch (단일 useEffect) ---
@@ -228,7 +228,6 @@ export default function Post(props: Props) {
       ? props.totalCount
       : visibleData.length;
   const canonicalPath = `/t/${props.query?.type || "frontend"}`;
-  const handleSetIsMoreInfo = React.useCallback(() => setIsMoreInfo((prev) => !prev), []);
 
   // --- 버튼 스타일 헬퍼 ---
   const activeClass = "px-3 py-1 rounded text-xs font-medium bg-gray-700 text-white";
@@ -338,8 +337,6 @@ export default function Post(props: Props) {
               searchKeyword={searchKeyword}
               totalDataCount={totalDataCount}
               companyData={companyData}
-              isMoreInfo={isMoreInfo}
-              handleSetIsMoreInfo={handleSetIsMoreInfo}
               onHideCompany={hideCompany}
               onToggleBookmark={toggleBookmark}
               isBookmarked={isBookmarked}

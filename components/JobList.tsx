@@ -6,8 +6,6 @@ interface IJobList {
   searchKeyword: string;
   totalDataCount: number | undefined;
   companyData?: any;
-  isMoreInfo?: boolean;
-  handleSetIsMoreInfo?: () => void;
   onHideCompany?: (companyName: string) => void;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: (link: string) => boolean;
@@ -18,8 +16,6 @@ export default React.memo(function JobList({
   searchKeyword,
   totalDataCount,
   companyData,
-  isMoreInfo,
-  handleSetIsMoreInfo,
   onHideCompany,
   onToggleBookmark,
   isBookmarked,
@@ -35,8 +31,6 @@ export default React.memo(function JobList({
             index={index}
             totalDataCount={totalDataCount}
             companyData={companyData}
-            isMoreInfo={isMoreInfo}
-            handleSetIsMoreInfo={handleSetIsMoreInfo}
             onHideCompany={onHideCompany}
             onToggleBookmark={onToggleBookmark}
             isBookmarked={isBookmarked?.(job.link)}

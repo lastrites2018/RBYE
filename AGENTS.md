@@ -24,6 +24,12 @@
 -   `new Date().toISOString()`은 UTC 기준이므로 날짜가 어긋난다. 사용 금지.
 -   KST 날짜가 필요하면 `new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10)` 또는 date-fns의 로컬 포맷을 사용한다.
 
+### Design Principles
+
+-   코드 설계 판단은 `docs/react-simple-made-easy-v5.md`의 원칙을 참조한다.
+-   핵심 기준: 엮임을 줄이는가 → 상태를 줄이는가 → React 없이 테스트 가능한가 → 일관적인가.
+-   `useEffect`는 외부 시스템 동기화에만 사용한다. 내부 상태 동기화에 effect가 필요하면 구조를 다시 본다.
+
 ### Testing Principles
 
 -   테스트 작성 원칙은 `docs/testing-principles.txt`를 참고한다.
