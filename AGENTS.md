@@ -24,11 +24,31 @@
 -   `new Date().toISOString()`은 UTC 기준이므로 날짜가 어긋난다. 사용 금지.
 -   KST 날짜가 필요하면 `new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10)` 또는 date-fns의 로컬 포맷을 사용한다.
 
-### Design Principles
+### Design Principles (Simple Made Easy)
 
--   코드 설계 판단은 `docs/react-simple-made-easy-v5.md`의 원칙을 참조한다.
--   핵심 기준: 엮임을 줄이는가 → 상태를 줄이는가 → React 없이 테스트 가능한가 → 일관적인가.
--   `useEffect`는 외부 시스템 동기화에만 사용한다. 내부 상태 동기화에 effect가 필요하면 구조를 다시 본다.
+코드를 작성하거나 리뷰할 때 아래 질문을 순서대로 확인한다.
+깊이 검토가 필요하면 `docs/react-simple-made-easy-v5.md` 전문을 참조한다.
+
+#### 엮임 체크리스트
+
+1. 이 컴포넌트가 변경되는 이유가 2가지 이상인가? → 분리를 검토한다.
+2. 이 `useEffect`가 동기화하는 외부 시스템을 한 문장으로 설명할 수 있는가? → 설명이 안 되면 effect 대신 이벤트 핸들러, 파생 계산, `key` 재생성을 검토한다.
+3. 같은 데이터가 2곳 이상에 가변 상태로 저장되어 있는가? → 단일 원천으로 정리한다.
+4. 이 테스트를 실행하려면 React를 렌더링해야 하는가? → 순수 함수로 추출한다.
+5. 이 값은 다른 값에서 계산 가능한가? → `useState`에 넣지 않고 함수로 파생한다.
+
+#### 상태 분류 기준
+
+-   계산 가능한 값 → 파생 (함수 또는 useMemo)
+-   서버 데이터 → 쿼리 캐시 또는 SSR props (별도 store에 복사 금지)
+-   URL로 복원 필요 → URL query parameter
+-   한 컴포넌트 안에서만 의미 → useState
+-   여러 컴포넌트 공유 → zustand store 또는 Context
+
+#### 접합부 주의
+
+-   React 생명주기와 외부 상태(localStorage, API)가 만나는 지점에서 버그가 발생한다.
+-   `useState` 초기값은 hydration 전이다. localStorage 값에 의존하는 판단은 `mounted` 플래그 이후에 수행한다.
 
 ### Testing Principles
 
