@@ -12,6 +12,7 @@ interface IJob extends Job {
   totalDataCount: number | undefined;
   companyData?: any;
   onHideCompany?: (companyName: string) => void;
+  showYearTag?: boolean;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
 }
@@ -30,6 +31,7 @@ const Jobs = ({
   onHideCompany,
   onToggleBookmark,
   isBookmarked,
+  showYearTag,
 }: IJob) => {
   const { expandBullets, collapsePreferential, collapseMainTask, isMoreInfo, toggleMoreInfo } = useReadabilityStore();
   const [prefOpen, setPrefOpen] = React.useState(!collapsePreferential);
@@ -108,7 +110,7 @@ const Jobs = ({
         </div>
       )}
       <h2 className="text-gray-700">
-        {yearTag && (
+        {yearTag && showYearTag && (
           <span className="inline-block text-xs text-gray-400 bg-gray-100 rounded px-2 py-0.5 mr-1.5 align-middle">
             {yearTag}
           </span>

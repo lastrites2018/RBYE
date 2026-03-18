@@ -340,6 +340,7 @@ export default function Post(props: Props) {
               onHideCompany={hideCompany}
               onToggleBookmark={toggleBookmark}
               isBookmarked={isBookmarked}
+              showYearTag={filter.mode === "all"}
             />
             {loadingData && <div className="spinner"></div>}
             {searchKeyword && visibleData.length === 0 && !loading && (
