@@ -20,7 +20,8 @@ const PhaseSection: React.FC<{
   onToggleCollapse: () => void;
   onToggleSkill: (skill: string) => void;
   onClickSkill: (skill: string) => void;
-}> = ({ info, roadmapArea, skills, totalJobs, demandMap, checkedSkills, checkMode, collapsed, onToggleCollapse, onToggleSkill, onClickSkill }) => {
+  newSkills?: Set<string>;
+}> = ({ info, roadmapArea, skills, totalJobs, demandMap, checkedSkills, checkMode, collapsed, onToggleCollapse, onToggleSkill, onClickSkill, newSkills }) => {
   const isEmpty = !skills || Object.keys(skills).length === 0;
   const sortedSkills = isEmpty ? [] : Object.entries(skills!).sort(([, a], [, b]) => b - a);
   const checkedCount = sortedSkills.filter(([s]) => checkedSkills.has(s)).length;
@@ -73,6 +74,7 @@ const PhaseSection: React.FC<{
                 checkMode={checkMode}
                 onToggle={() => onToggleSkill(skill)}
                 onClick={() => onClickSkill(skill)}
+                isNew={newSkills?.has(skill)}
               />
             ))}
           </div>

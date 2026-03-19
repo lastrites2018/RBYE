@@ -27,6 +27,7 @@ import {
   parseCollapsedPhases,
   parseAndValidateSkills,
 } from "../utils/skillsetMode";
+import findNewSkills, { getPrevYear } from "../utils/findNewSkills";
 
 // --- 타입 ---
 
@@ -170,6 +171,12 @@ const SkillsetPage = ({ stats, updated }: Props) => {
     }
   }, [selectedCategory, validSkills]);
   const yearCategoryData = categoryStats?.[selectedYear] || {};
+  const prevYear = getPrevYear(selectedYear);
+  const prevYearCategoryData = prevYear && categoryStats ? categoryStats[prevYear] || null : null;
+  const newSkills = React.useMemo(
+    () => findNewSkills(yearCategoryData, prevYearCategoryData),
+    [yearCategoryData, prevYearCategoryData]
+  );
   const passiveSkills = (categoryData.passiveSkills as string[]) || [];
   const roadmapMapping = (categoryData.roadmapMapping as { [slot: string]: string }) || {};
   const totalJobsMap = (categoryData.totalJobs as { [year: string]: number }) || {};
@@ -358,6 +365,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
                 onToggleCollapse={() => handleToggleCollapse(phaseInfo.key)}
                 onToggleSkill={toggleSkill}
                 onClickSkill={handleClickSkill}
+                newSkills={newSkills}
               />
             </React.Fragment>
           ))}

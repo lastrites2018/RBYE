@@ -10,7 +10,8 @@ const SkillBar: React.FC<{
   checkMode: boolean;
   onToggle: () => void;
   onClick: () => void;
-}> = ({ name, count, totalJobs, level, checked, checkMode, onToggle, onClick }) => {
+  isNew?: boolean;
+}> = ({ name, count, totalJobs, level, checked, checkMode, onToggle, onClick, isNew }) => {
   const colors = DEMAND_COLORS[level];
   const percent = totalJobs > 0 ? Math.round((count / totalJobs) * 100) : 0;
 
@@ -29,8 +30,9 @@ const SkillBar: React.FC<{
           className="w-3.5 h-3.5 accent-teal-600 flex-shrink-0 cursor-pointer"
         />
       )}
-      <span className={`text-sm w-24 md:w-32 truncate flex-shrink-0 ${checked ? "font-semibold text-teal-700" : "text-gray-700"}`}>
-        {name}
+      <span className={`text-sm w-24 md:w-32 flex-shrink-0 flex items-center gap-1 ${checked ? "font-semibold text-teal-700" : "text-gray-700"}`}>
+        <span className="truncate">{name}</span>
+        {isNew && <span className="text-xs bg-amber-100 text-amber-600 rounded px-1 font-bold flex-shrink-0">N</span>}
       </span>
       <div className="flex-1 h-4 bg-gray-100 rounded-full overflow-hidden min-w-0">
         <div
