@@ -49,7 +49,7 @@ export const PHASE_CONFIG: { [category: string]: PhaseInfo[] } = {
     { key: "AI활용", phase: 6, title: "AI 활용", subtitle: "LLM 서빙 · RAG 파이프라인 · AI 인프라" },
   ],
   pm: [
-    { key: "기초", phase: 1, title: "방법론", subtitle: "애자일 · 성과 지표" },
+    { key: "기초", phase: 1, title: "방법론", subtitle: "Agile · 성과 지표" },
     { key: "핵심", phase: 2, title: "협업", subtitle: "프로젝트 관리 도구" },
     { key: "확장", phase: 3, title: "데이터", subtitle: "분석과 실험" },
     { key: "도구", phase: 4, title: "디자인", subtitle: "UX/UI 협업" },
