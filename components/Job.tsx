@@ -78,11 +78,12 @@ const Jobs = ({
           </span>
         )}
         <span
-          className="bg-gray-300 rounded-full text-gray-700 cursor-pointer text-center"
-          style={{ width: "2.2rem" }}
+          className={`px-1.5 rounded-full cursor-pointer text-center transition-colors ${
+            isMoreInfo ? "bg-teal-600 text-white" : "bg-gray-300 text-gray-600 hover:bg-gray-400"
+          }`}
           onClick={toggleMoreInfo}
         >
-          {isMoreInfo ? "ON" : "OFF"}
+          회사정보
         </span>
         <span className="bg-gray-300 px-2 rounded-full text-gray-600">
           {index + 1}/{totalDataCount}
@@ -120,43 +121,6 @@ const Jobs = ({
       <p className="text-gray-800">
         <HighLight content={subject} searchText={searchKeyword} />
       </p>
-      {isMoreInfo ? (
-        <div className="border-solid border-2 border-gray-500 rounded p-2 mt-2">
-          <span className="text-gray-500 text-sm">외부 링크 : </span>
-          {companyInfoObject?.kisCode && (
-            <a
-              href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-gray-800 text-sm mr-3"
-            >
-              나이스평가
-            </a>
-          )}
-          <a
-            href={`https://www.jobplanet.co.kr/search?query=${encodeURIComponent(
-              companyInfoObject?.companyName || companyName
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-gray-800 text-sm inline-block mr-3"
-          >
-            잡플래닛
-          </a>
-          <a
-            href={`https://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURIComponent(
-              companyInfoObject?.companyName || companyName
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-gray-800 text-sm inline-block"
-          >
-            사람인
-          </a>
-        </div>
-      ) : (
-        <></>
-      )}
       <h6 className="mt-2 sm:mx-2 md:mx-4 text-sm text-gray-400 font-medium">자격요건</h6>
       <div className="text-gray-600 sm:mx-2 md:mx-4 whitespace-pre-wrap">
         <HighLight content={requirement} searchText={searchKeyword} />
@@ -186,27 +150,65 @@ const Jobs = ({
           <HighLight content={mainTask} searchText={searchKeyword} />
         </div>
       )}
-      <div className="mt-3 pt-2 border-t border-gray-100 flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-xs sm:text-sm">
-        {workingArea && (
-          <span className="text-gray-500">
-            근무지{" "}
-            <HighLight content={workingArea} searchText={searchKeyword} />
-          </span>
-        )}
-        {closingDate && (
-          <span className="text-gray-500">
-            마감일{" "}
-            <HighLight content={closingDate} searchText={searchKeyword} />
-          </span>
-        )}
-        <a
-          className="text-teal-600 hover:text-teal-400"
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          원문 보기
-        </a>
+      <div className="mt-3 pt-2 border-t border-gray-100 flex flex-wrap items-center justify-between gap-y-1 text-xs sm:text-sm">
+        <div className="flex flex-wrap items-center gap-x-2">
+          {isMoreInfo && (
+            <>
+              {companyInfoObject?.kisCode && (
+                <a
+                  href={`https://www.nicebizinfo.com/ep/EP0100M002GE.nice?kiscode=${companyInfoObject.kisCode}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  나이스평가
+                </a>
+              )}
+              <a
+                href={`https://www.jobplanet.co.kr/search?query=${encodeURIComponent(
+                  companyInfoObject?.companyName || companyName
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                잡플래닛
+              </a>
+              <a
+                href={`https://www.saramin.co.kr/zf_user/search/company?searchword=${encodeURIComponent(
+                  companyInfoObject?.companyName || companyName
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                사람인
+              </a>
+            </>
+          )}
+        </div>
+        <div className="flex flex-wrap items-center gap-x-3">
+          {workingArea && (
+            <span className="text-gray-500">
+              근무지{" "}
+              <HighLight content={workingArea} searchText={searchKeyword} />
+            </span>
+          )}
+          {closingDate && (
+            <span className="text-gray-500">
+              마감일{" "}
+              <HighLight content={closingDate} searchText={searchKeyword} />
+            </span>
+          )}
+          <a
+            className="text-teal-600 hover:text-teal-400"
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            원문 보기
+          </a>
+        </div>
       </div>
     </div>
   );
