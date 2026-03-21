@@ -62,7 +62,7 @@ const Jobs = ({
     <div className={`p-3 sm:p-5 shadow rounded bg-white mt-3 job-wrapper relative break-word-and-keep-all transition-all ${
       pendingHide ? "border-2 border-dashed border-red-300 opacity-50" : ""
     }`}>
-      {/* 오른쪽 상단: 즐겨찾기, ON/OFF, 인덱스 */}
+      {/* 오른쪽 상단: 즐겨찾기, 회사정보, 인덱스 */}
       <div className="absolute flex gap-1 items-center select-none text-xs" style={{ right: "1rem", top: "-0.5rem" }}>
         {onToggleBookmark && !pendingHide && (
           <span
