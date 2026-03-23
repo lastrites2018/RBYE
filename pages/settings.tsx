@@ -3,6 +3,9 @@ import Layout from "../components/Layout";
 import useHiddenCompanies from "../hooks/useHiddenCompanies";
 import useReadabilityStore from "../stores/useReadabilityStore";
 import ToggleRow from "../components/ToggleRow";
+import { getPageMeta } from "../utils/constants";
+
+const SETTINGS_PAGE_META = getPageMeta("settings");
 
 export default function SettingsPage() {
   const { hiddenCompanies, unhideCompany, mounted } = useHiddenCompanies();
@@ -16,10 +19,10 @@ export default function SettingsPage() {
   React.useEffect(() => { hydrate(); }, []);
 
   return (
-    <Layout title="설정 | RBYE" canonicalPath="/settings" noIndex>
+    <Layout title={SETTINGS_PAGE_META.pageTitle} pageType="settings" canonicalPath={SETTINGS_PAGE_META.route} noIndex>
 
       <div className="max-w-[640px] mx-auto px-4 pb-12">
-        <h1 className="text-lg font-bold text-gray-800 mb-6">설정</h1>
+        <h1 className="text-lg font-bold text-gray-800 mb-6">{SETTINGS_PAGE_META.heading}</h1>
 
         {!mounted ? null : (
           <div className="bg-white rounded-lg shadow-sm p-5">

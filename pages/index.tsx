@@ -13,7 +13,7 @@ interface Props {
 }
 
 const IndexPage = ({ data, updated, totalCount }: Props) => {
-  const defaultQueryObject = { type: "frontend" };
+  const defaultQueryObject = { type: VALID_TYPES[0] };
 
   return (
     <>
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const match = cookies.match(/rbye_last_type=(\w+)/);
   const lastType = match?.[1];
 
-  if (lastType && VALID_TYPES.includes(lastType) && lastType !== "frontend") {
+  if (lastType && VALID_TYPES.includes(lastType) && lastType !== VALID_TYPES[0]) {
     return {
       redirect: { destination: `/t/${lastType}`, permanent: false },
     };
@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   try {
     const [res, res2] = await Promise.all([
-      fetch(`${apiUrl}/frontend?_page=1&_limit=30`),
+      fetch(`${apiUrl}/${VALID_TYPES[0]}?_page=1&_limit=30`),
       fetch(`${apiUrl}/updated`),
     ]);
     const data: Job[] = await res.json();

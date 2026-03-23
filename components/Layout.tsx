@@ -6,12 +6,12 @@ import { useRouter } from "next/router";
 import useHiddenCompanies from "../hooks/useHiddenCompanies";
 import useBookmarks from "../hooks/useBookmarks";
 import useLastType from "../hooks/useLastType";
-import { VALID_TYPES } from "../utils/constants";
+import { CATEGORY_OPTIONS, PAGE_META, VALID_TYPES, getCategoryMeta, getPageMeta } from "../utils/constants";
 
 type Props = {
   title?: string;
   children: React.ReactNode;
-  pageType?: "job" | "stats" | "skillset";
+  pageType?: "job" | "stats" | "skillset" | "settings";
   currentPage?: string;
   canonicalPath?: string;
   noIndex?: boolean;
@@ -31,26 +31,27 @@ const Layout: React.FunctionComponent<Props> = ({
   isBookmarkActive,
   onClickBookmark,
 }) => {
+  const router = useRouter();
   const { hiddenCompanies, mounted } = useHiddenCompanies();
   const { bookmarks } = useBookmarks();
   const { getLastType } = useLastType();
   const hasAnyPreferences = mounted && (hiddenCompanies.length > 0 || bookmarks.length > 0);
-  const [jobLink, setJobLink] = React.useState("/t/frontend");
+  const [jobLink, setJobLink] = React.useState(getCategoryMeta(VALID_TYPES[0]).route);
+
   React.useEffect(() => {
-    setJobLink(`/t/${getLastType()}`);
+    setJobLink(getCategoryMeta(getLastType()).route);
   }, []);
+
   const isStatsPage = pageType === "stats";
   const isSkillsetPage = pageType === "skillset";
-  const isSpecialPage = pageType === "stats" || pageType === "skillset";
-  const router = useRouter();
-  const isSettingsPage = router.pathname === "/settings";
+  const isSettingsPage = pageType === "settings" || router.pathname === "/settings";
+  const isSpecialPage = isStatsPage || isSkillsetPage;
 
-  const description =
-    pageType === "stats"
-      ? "기술 키워드별 채용 요구사항 통계를 제공합니다."
-      : pageType === "skillset"
-      ? "연차별 스킬셋 로드맵으로 학습 우선순위를 정리합니다."
-      : "RBYE: 웹개발자에게 연차별로 요구되는 능력을 빠르게 보여줍니다.";
+  const currentSearchType = VALID_TYPES.includes(currentPage) ? currentPage : VALID_TYPES[0];
+  const currentCategoryMeta = getCategoryMeta(currentSearchType);
+  const pageMeta = getPageMeta(pageType || "job", currentSearchType);
+  const description = pageMeta.description;
+
   const resolvedCanonicalPath = (
     canonicalPath || (router.asPath ? router.asPath : "/")
   ).split("?")[0];
@@ -60,23 +61,23 @@ const Layout: React.FunctionComponent<Props> = ({
   const pageTitle = title.includes("RBYE") ? title : `${title} | RBYE.VERCEL.APP`;
   const websiteUrl = "https://rbye.vercel.app";
   const siteName = "RBYE";
-  const currentSearchType = VALID_TYPES.includes(currentPage) ? currentPage : "frontend";
   const socialImage = `${websiteUrl}/og-image.svg`;
-  const searchTargetPath = isStatsPage || isSkillsetPage ? `/${pageType}` : `/t/${currentSearchType}`;
-  const searchActionTarget = `${websiteUrl}${searchTargetPath}?q={search_term_string}`;
+  const searchActionTarget = `${websiteUrl}${pageMeta.searchTargetPath}?q={search_term_string}`;
 
   const breadcrumbItems = [
     { name: "홈", path: "/" },
     ...(isStatsPage
-      ? [{ name: "기술 통계", path: "/stats" }]
+      ? [{ name: pageMeta.breadcrumbLabel, path: PAGE_META.stats.route }]
       : isSkillsetPage
-      ? [{ name: "스킬 세트", path: "/skillset" }]
+      ? [{ name: pageMeta.breadcrumbLabel, path: PAGE_META.skillset.route }]
+      : isSettingsPage
+      ? [{ name: pageMeta.breadcrumbLabel, path: PAGE_META.settings.route }]
       : currentPage
       ? [
-          { name: "공고 보기", path: "/t" },
+          { name: "공고 보기", path: jobLink },
           {
-            name: `${currentPage} 연차별 요구사항`,
-            path: `/t/${currentPage}`,
+            name: currentCategoryMeta.breadcrumbLabel,
+            path: currentCategoryMeta.route,
           },
         ]
       : [{ name: "공고 보기", path: jobLink }]),
@@ -118,12 +119,6 @@ const Layout: React.FunctionComponent<Props> = ({
     ],
   };
 
-  const getPageTitle = () => {
-    if (isStatsPage) return "기술 키워드 통계";
-    if (isSkillsetPage) return "스킬 로드맵";
-    return "연차별 요구사항";
-  };
-
   return (
     <div>
       <Head>
@@ -158,7 +153,7 @@ const Layout: React.FunctionComponent<Props> = ({
               <a className="text-sm font-bold text-teal-700 tracking-tight">RBYE</a>
             </Link>
             {!isSettingsPage && (
-              <span className="text-xs text-gray-400">{getPageTitle()}</span>
+              <span className="text-xs text-gray-400">{pageMeta.sectionLabel}</span>
             )}
           </div>
           <div className="flex gap-1 items-center">
@@ -167,18 +162,18 @@ const Layout: React.FunctionComponent<Props> = ({
                 !isSpecialPage && !isSettingsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
               }`}>공고</a>
             </Link>
-            <Link href={`/stats`}>
+            <Link href={PAGE_META.stats.route}>
               <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
                 isStatsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
               }`}>통계</a>
             </Link>
-            <Link href={`/skillset`}>
+            <Link href={PAGE_META.skillset.route}>
               <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
                 isSkillsetPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
               }`}>스킬셋</a>
             </Link>
             {hasAnyPreferences && (
-              <Link href="/settings">
+              <Link href={PAGE_META.settings.route}>
                 <a className={`ml-1 p-1.5 rounded transition-colors ${
                   isSettingsPage ? "text-teal-700 bg-gray-100" : "text-gray-400 hover:text-teal-700 hover:bg-gray-100"
                 }`} title="설정">
@@ -194,30 +189,14 @@ const Layout: React.FunctionComponent<Props> = ({
       </nav>
       {!isSpecialPage && !isSettingsPage && (
         <div className="flex justify-center gap-1 mb-4 max-w-[640px] mx-auto px-4">
-          <Link href={`/t/frontend`}>
-            <a className={currentPage === "frontend" && !isBookmarkActive
-              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
-              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
-            }>프론트엔드</a>
-          </Link>
-          <Link href={`/t/nodejs`}>
-            <a className={currentPage === "nodejs" && !isBookmarkActive
-              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
-              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
-            }>Node.js</a>
-          </Link>
-          <Link href={`/t/server`}>
-            <a className={currentPage === "server" && !isBookmarkActive
-              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
-              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
-            }>백엔드</a>
-          </Link>
-          <Link href={`/t/pm`}>
-            <a className={currentPage === "pm" && !isBookmarkActive
-              ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
-              : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
-            }>PM</a>
-          </Link>
+          {CATEGORY_OPTIONS.map((category) => (
+            <Link href={category.route} key={category.key}>
+              <a className={currentPage === category.key && !isBookmarkActive
+                ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
+                : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
+              }>{category.label}</a>
+            </Link>
+          ))}
           {onClickBookmark && (bookmarkCount || 0) > 0 && (
             <button
               className={isBookmarkActive

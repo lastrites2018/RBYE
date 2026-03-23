@@ -8,7 +8,7 @@ import Layout from "../components/Layout";
 import YearCompareView from "../components/stats/YearCompareView";
 import TrendView from "../components/stats/TrendView";
 import { apiUrl } from "../utils/apiLocation";
-import { CATEGORY_LABELS, VALID_TYPES } from "../utils/constants";
+import { CATEGORY_OPTIONS, VALID_TYPES, getPageMeta } from "../utils/constants";
 import {
   StatsViewState,
   switchViewMode,
@@ -41,12 +41,8 @@ interface Props {
   timeline: TimelineEntry[];
 }
 
-const CATEGORIES = [
-  { key: "frontend", label: "프론트엔드" },
-  { key: "nodejs", label: "Node.js" },
-  { key: "server", label: "백엔드" },
-  { key: "pm", label: "PM" },
-];
+const STATS_PAGE_META = getPageMeta("stats");
+const DEFAULT_CATEGORY = CATEGORY_OPTIONS[0]?.key || VALID_TYPES[0];
 
 const YEARS = [
   "전체",
@@ -84,13 +80,13 @@ const CooccurrenceBadges: React.FC<{
 };
 
 const StatsPage = ({ stats, updated, timeline }: Props) => {
-  const [selectedCategory, setSelectedCategory] = React.useState("frontend");
+  const [selectedCategory, setSelectedCategory] = React.useState(DEFAULT_CATEGORY);
 
   // 크로스페이지 카테고리 공유: mount 시 복원
   React.useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("rbye_last_type") || '""');
-      if (saved && CATEGORIES.some((c) => c.key === saved)) {
+      if (saved && CATEGORY_OPTIONS.some((c) => c.key === saved)) {
         setSelectedCategory(saved);
       }
     } catch {}
@@ -123,14 +119,23 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
 
   return (
     <Layout
-      title="기술 키워드 통계 - RBYE.VERCEL.APP"
+      title={STATS_PAGE_META.pageTitle}
       pageType="stats"
-      canonicalPath="/stats"
+      canonicalPath={STATS_PAGE_META.route}
     >
       <div className="block m-auto lg:max-w-3xl px-4">
+        <div className="text-center mb-4">
+          <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
+            {STATS_PAGE_META.heading}
+          </h1>
+          <p className="mt-1 text-sm text-gray-500">
+            {STATS_PAGE_META.description}
+          </p>
+        </div>
+
         {/* 카테고리 탭 */}
         <div className="flex justify-center gap-1 mb-6">
-          {CATEGORIES.map((cat) => (
+          {CATEGORY_OPTIONS.map((cat) => (
             <button
               key={cat.key}
               className={
@@ -216,7 +221,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <div className="flex justify-between items-end mb-6">
                   <h2 className="text-lg font-semibold text-gray-700">
-                    {CATEGORIES.find((c) => c.key === selectedCategory)?.label}{" "}
+                    {CATEGORY_OPTIONS.find((c) => c.key === selectedCategory)?.label}{" "}
                     <span className="text-teal-700">{selectedYear}</span> TOP 20
                   </h2>
                   <span className="text-xs text-gray-500">

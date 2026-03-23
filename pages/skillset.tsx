@@ -13,7 +13,7 @@ import RecommendationPanel from "../components/skillset/RecommendationPanel";
 import PassiveSkills from "../components/skillset/PassiveSkills";
 import { CategorySkills, CategoryStats, DemandLevel, DEMAND_COLORS, PHASE_CONFIG, computeDemandLevels } from "../components/skillset/types";
 import { apiUrl } from "../utils/apiLocation";
-import { CATEGORY_LABELS, VALID_TYPES } from "../utils/constants";
+import { CATEGORY_OPTIONS, VALID_TYPES, getPageMeta } from "../utils/constants";
 import {
   SkillsetMode,
   resolveInitialMode,
@@ -48,21 +48,17 @@ interface Props {
 
 // --- 상수 ---
 
-const CATEGORIES = [
-  { key: "frontend", label: "프론트엔드" },
-  { key: "nodejs", label: "Node.js" },
-  { key: "server", label: "백엔드" },
-  { key: "pm", label: "PM" },
-];
-
 const YEARS = ["전체", "1년", "2년", "3년", "4년", "5년", "6년", "7년", "8년", "제한없음"];
+const SKILLSET_PAGE_META = getPageMeta("skillset");
+const DEFAULT_CATEGORY = CATEGORY_OPTIONS[0]?.key || VALID_TYPES[0];
 
 // --- 메인 ---
 
 const SkillsetPage = ({ stats, updated }: Props) => {
   const router = useRouter();
+  const hasSharedState = Boolean(router.query.cat || router.query.skills);
   const [selectedCategory, setSelectedCategoryRaw] = React.useState(
-    () => (typeof router.query.cat === "string" && CATEGORIES.some((c) => c.key === router.query.cat) ? router.query.cat : "frontend")
+    () => (typeof router.query.cat === "string" && CATEGORY_OPTIONS.some((c) => c.key === router.query.cat) ? router.query.cat : DEFAULT_CATEGORY)
   );
 
   // 크로스페이지 카테고리 공유: mount 시 복원 (URL 파라미터 없을 때만)
@@ -70,7 +66,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
     if (router.query.cat) return; // URL에 명시된 경우 우선
     try {
       const saved = JSON.parse(localStorage.getItem("rbye_last_type") || '""');
-      if (saved && CATEGORIES.some((c) => c.key === saved)) {
+      if (saved && CATEGORY_OPTIONS.some((c) => c.key === saved)) {
         setSelectedCategoryRaw(saved);
       }
     } catch {}
@@ -108,7 +104,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
       if (shared.size > 0) {
         setSkillsetMode({ mode: "check", source: "shared" });
         setCheckedSkills(shared);
-        if (typeof cat === "string" && CATEGORIES.some((c) => c.key === cat)) {
+        if (typeof cat === "string" && CATEGORY_OPTIONS.some((c) => c.key === cat)) {
           setSelectedCategory(cat);
         }
       }
@@ -119,7 +115,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
     const params = new URLSearchParams();
     params.set("cat", selectedCategory);
     params.set("skills", encodeSkillsParam(checkedSkills));
-    const url = `${window.location.origin}/skillset?${params.toString()}`;
+    const url = `${window.location.origin}${SKILLSET_PAGE_META.route}?${params.toString()}`;
     navigator.clipboard.writeText(url).then(() => {
       setShareToast(true);
       setTimeout(() => setShareToast(false), 2000);
@@ -222,7 +218,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
   };
 
   const handleClickSkill = (skill: string) => {
-    router.push(`/t/${selectedCategory}?q=${encodeURIComponent(skill)}`);
+    router.push(`${getPageMeta("job", selectedCategory).route}?q=${encodeURIComponent(skill)}`);
   };
 
   const checkedCount = allVisibleSkills.filter((s) => checkedSkills.has(s.name)).length;
@@ -230,14 +226,24 @@ const SkillsetPage = ({ stats, updated }: Props) => {
 
   return (
     <Layout
-      title="스킬 로드맵 - RBYE.VERCEL.APP"
+      title={SKILLSET_PAGE_META.pageTitle}
       pageType="skillset"
-      canonicalPath="/skillset"
+      canonicalPath={SKILLSET_PAGE_META.route}
+      noIndex={hasSharedState}
     >
       <div className="block m-auto lg:max-w-3xl px-4">
+        <div className="text-center mb-4">
+          <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
+            {SKILLSET_PAGE_META.heading}
+          </h1>
+          <p className="mt-1 text-sm text-gray-500">
+            {SKILLSET_PAGE_META.description}
+          </p>
+        </div>
+
         {/* 카테고리 */}
         <div className="flex justify-center gap-1 mb-6">
-          {CATEGORIES.map((cat) => (
+          {CATEGORY_OPTIONS.map((cat) => (
             <button
               key={cat.key}
               className={

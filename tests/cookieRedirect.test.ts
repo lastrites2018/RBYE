@@ -9,7 +9,7 @@ import { VALID_TYPES } from "../utils/constants";
 function getRedirectDestination(cookieHeader: string): string | null {
   const match = cookieHeader.match(/rbye_last_type=(\w+)/);
   const lastType = match?.[1];
-  if (lastType && VALID_TYPES.includes(lastType) && lastType !== "frontend") {
+  if (lastType && VALID_TYPES.includes(lastType) && lastType !== VALID_TYPES[0]) {
     return `/t/${lastType}`;
   }
   return null;
@@ -38,8 +38,8 @@ describe("쿠키 기반 리다이렉트 판단", () => {
 
   // --- 리다이렉트 하지 않는 케이스 ---
 
-  test("rbye_last_type=frontend 이면 리다이렉트하지 않는다 (기본값)", () => {
-    expect(getRedirectDestination("rbye_last_type=frontend")).toBeNull();
+  test(`${VALID_TYPES[0]} 이면 리다이렉트하지 않는다 (기본값)`, () => {
+    expect(getRedirectDestination(`rbye_last_type=${VALID_TYPES[0]}`)).toBeNull();
   });
 
   test("쿠키가 빈 문자열이면 리다이렉트하지 않는다", () => {

@@ -82,7 +82,8 @@ describe("나이스평가 링크 조건", () => {
   });
 
   test("companyInfoObject가 null이면 미표시", () => {
-    expect(Boolean(null?.kisCode)).toBe(false);
+    const obj = null as { kisCode?: string } | null;
+    expect(Boolean(obj?.kisCode)).toBe(false);
   });
 });
 

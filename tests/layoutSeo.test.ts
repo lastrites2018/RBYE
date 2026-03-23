@@ -60,7 +60,7 @@ function buildBreadcrumbItems(
       ? [{ name: "스킬 세트", path: "/skillset" }]
       : currentPage
       ? [
-          { name: "공고 보기", path: "/t" },
+          { name: "공고 보기", path: jobLink },
           { name: `${currentPage} 연차별 요구사항`, path: `/t/${currentPage}` },
         ]
       : [{ name: "공고 보기", path: jobLink }]),
@@ -167,11 +167,11 @@ describe("breadcrumb 생성", () => {
     expect(items[1]).toEqual({ name: "스킬 세트", path: "/skillset" });
   });
 
-  test("job 페이지 + currentPage가 있으면 3단계 breadcrumb", () => {
-    const items = buildBreadcrumbItems("job", "frontend", "/t/frontend");
+  test("job 페이지 + currentPage가 있으면 jobLink를 첫 breadcrumb로 사용한다", () => {
+    const items = buildBreadcrumbItems("job", "nodejs", "/t/frontend");
     expect(items).toHaveLength(3);
-    expect(items[1]).toEqual({ name: "공고 보기", path: "/t" });
-    expect(items[2]).toEqual({ name: "frontend 연차별 요구사항", path: "/t/frontend" });
+    expect(items[1]).toEqual({ name: "공고 보기", path: "/t/frontend" });
+    expect(items[2]).toEqual({ name: "nodejs 연차별 요구사항", path: "/t/nodejs" });
   });
 
   test("job 페이지 + currentPage가 없으면 jobLink로 fallback", () => {
