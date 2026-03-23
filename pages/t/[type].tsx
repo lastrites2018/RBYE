@@ -276,13 +276,9 @@ export default function Post(props: Props) {
       noIndex={hasSearchQuery}
     >
       <div className="block m-auto max-w-[640px] px-4">
-        <div className="text-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
-            {jobPageMeta.heading}
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            {jobPageMeta.description}
-          </p>
+        <div className="sr-only">
+          <h1>{jobPageMeta.heading}</h1>
+          <p>{jobPageMeta.description}</p>
         </div>
 
         {/* 카테고리 탭 */}

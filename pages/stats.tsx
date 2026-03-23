@@ -124,13 +124,9 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
       canonicalPath={STATS_PAGE_META.route}
     >
       <div className="block m-auto lg:max-w-3xl px-4">
-        <div className="text-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
-            {STATS_PAGE_META.heading}
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            {STATS_PAGE_META.description}
-          </p>
+        <div className="sr-only">
+          <h1>{STATS_PAGE_META.heading}</h1>
+          <p>{STATS_PAGE_META.description}</p>
         </div>
 
         {/* 카테고리 탭 */}
