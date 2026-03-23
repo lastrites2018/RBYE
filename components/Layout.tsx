@@ -15,9 +15,6 @@ type Props = {
   currentPage?: string;
   canonicalPath?: string;
   noIndex?: boolean;
-  bookmarkCount?: number;
-  isBookmarkActive?: boolean;
-  onClickBookmark?: () => void;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -27,9 +24,6 @@ const Layout: React.FunctionComponent<Props> = ({
   currentPage = "",
   canonicalPath,
   noIndex,
-  bookmarkCount,
-  isBookmarkActive,
-  onClickBookmark,
 }) => {
   const router = useRouter();
   const { hiddenCompanies, mounted } = useHiddenCompanies();
@@ -187,29 +181,6 @@ const Layout: React.FunctionComponent<Props> = ({
           </div>
         </div>
       </nav>
-      {!isSpecialPage && !isSettingsPage && (
-        <div className="flex justify-center gap-1 mb-4 max-w-[640px] mx-auto px-4">
-          {CATEGORY_OPTIONS.map((category) => (
-            <Link href={category.route} key={category.key}>
-              <a className={currentPage === category.key && !isBookmarkActive
-                ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
-                : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
-              }>{category.label}</a>
-            </Link>
-          ))}
-          {onClickBookmark && (bookmarkCount || 0) > 0 && (
-            <button
-              className={isBookmarkActive
-                ? "px-4 py-2 rounded-full text-sm font-semibold bg-amber-500 text-white shadow-sm"
-                : "px-4 py-2 rounded-full text-sm text-amber-500 hover:bg-amber-50 transition-colors"
-              }
-              onClick={onClickBookmark}
-            >
-              ★ {bookmarkCount}
-            </button>
-          )}
-        </div>
-      )}
       {children}
       <Footer />
     </div>

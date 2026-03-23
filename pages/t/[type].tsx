@@ -18,7 +18,7 @@ import useLastType from "../../hooks/useLastType";
 import useReadabilityStore from "../../stores/useReadabilityStore";
 
 import { apiUrl } from "../../utils/apiLocation";
-import { PAGE_META, VALID_TYPES, getPageMeta } from "../../utils/constants";
+import { CATEGORY_OPTIONS, PAGE_META, VALID_TYPES, getPageMeta } from "../../utils/constants";
 import {
   FilterState,
   buildFetchUrl,
@@ -274,11 +274,6 @@ export default function Post(props: Props) {
       currentPage={currentPageName}
       canonicalPath={canonicalPath}
       noIndex={hasSearchQuery}
-      bookmarkCount={bookmarks.length}
-      isBookmarkActive={isBookmarksMode(filter)}
-      onClickBookmark={() => setFilter(
-        isBookmarksMode(filter) ? buttonToFilter("전체") : buttonToFilter("bookmarks")
-      )}
     >
       <div className="block m-auto max-w-[640px] px-4">
         <div className="text-center mb-4">
@@ -288,6 +283,31 @@ export default function Post(props: Props) {
           <p className="mt-1 text-sm text-gray-500">
             {jobPageMeta.description}
           </p>
+        </div>
+
+        {/* 카테고리 탭 */}
+        <div className="flex justify-center gap-1 mb-4">
+          {CATEGORY_OPTIONS.map((cat) => (
+            <Link href={cat.route} key={cat.key}>
+              <a className={currentPageName === cat.key && !isBookmarksMode(filter)
+                ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
+                : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
+              }>{cat.label}</a>
+            </Link>
+          ))}
+          {bookmarks.length > 0 && (
+            <button
+              className={isBookmarksMode(filter)
+                ? "px-4 py-2 rounded-full text-sm font-semibold bg-amber-500 text-white shadow-sm"
+                : "px-4 py-2 rounded-full text-sm text-amber-500 hover:bg-amber-50 transition-colors"
+              }
+              onClick={() => setFilter(
+                isBookmarksMode(filter) ? buttonToFilter("전체") : buttonToFilter("bookmarks")
+              )}
+            >
+              ★ {bookmarks.length}
+            </button>
+          )}
         </div>
 
         {isBookmarksMode(filter) ? (
