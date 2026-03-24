@@ -20,4 +20,5 @@ interface BookmarkEntry {
   companyName: string;
   subject: string;
   contentObj?: ContentObj;
+  savedAt?: string;
 }

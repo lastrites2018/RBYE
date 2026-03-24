@@ -8,6 +8,7 @@
  * localStorage 자동 동기화 포함.
  */
 import { create } from "zustand";
+import { readJSON, writeJSON } from "../utils/storage";
 
 interface ReadabilityState {
   expandBullets: boolean;
@@ -28,21 +29,6 @@ const KEYS = {
   collapseMainTask: "rbye_collapse_maintask",
 } as const;
 
-function readBool(key: string): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    return JSON.parse(localStorage.getItem(key) || "false") === true;
-  } catch {
-    return false;
-  }
-}
-
-function writeBool(key: string, value: boolean) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch {}
-}
-
 const useReadabilityStore = create<ReadabilityState>((set) => ({
   expandBullets: false,
   collapsePreferential: false,
@@ -52,9 +38,9 @@ const useReadabilityStore = create<ReadabilityState>((set) => ({
 
   hydrate: () => {
     set({
-      expandBullets: readBool(KEYS.expandBullets),
-      collapsePreferential: readBool(KEYS.collapsePreferential),
-      collapseMainTask: readBool(KEYS.collapseMainTask),
+      expandBullets: readJSON(KEYS.expandBullets, false),
+      collapsePreferential: readJSON(KEYS.collapsePreferential, false),
+      collapseMainTask: readJSON(KEYS.collapseMainTask, false),
       mounted: true,
     });
   },
@@ -62,21 +48,21 @@ const useReadabilityStore = create<ReadabilityState>((set) => ({
   toggleExpandBullets: () =>
     set((s) => {
       const next = !s.expandBullets;
-      writeBool(KEYS.expandBullets, next);
+      writeJSON(KEYS.expandBullets, next);
       return { expandBullets: next };
     }),
 
   toggleCollapsePreferential: () =>
     set((s) => {
       const next = !s.collapsePreferential;
-      writeBool(KEYS.collapsePreferential, next);
+      writeJSON(KEYS.collapsePreferential, next);
       return { collapsePreferential: next };
     }),
 
   toggleCollapseMainTask: () =>
     set((s) => {
       const next = !s.collapseMainTask;
-      writeBool(KEYS.collapseMainTask, next);
+      writeJSON(KEYS.collapseMainTask, next);
       return { collapseMainTask: next };
     }),
 

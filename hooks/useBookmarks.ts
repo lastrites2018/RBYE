@@ -25,7 +25,7 @@ export default function useBookmarks() {
         if (!exists && prev.length >= MAX_BOOKMARKS) return prev;
         const next = exists
           ? prev.filter((b) => b.link !== job.link)
-          : [...prev, { link: job.link, companyName: job.companyName, subject: job.subject, contentObj: job.contentObj }];
+          : [...prev, { link: job.link, companyName: job.companyName, subject: job.subject, contentObj: job.contentObj, savedAt: new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10) }];
         writeJSON(KEY, next, CHANGED);
         return next;
       });

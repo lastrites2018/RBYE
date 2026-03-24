@@ -10,6 +10,7 @@ import RecommendationPanel from "../components/skillset/RecommendationPanel";
 import PassiveSkills from "../components/skillset/PassiveSkills";
 import { CategorySkills, CategoryStats, DemandLevel, DEMAND_COLORS, PHASE_CONFIG, computeDemandLevels } from "../components/skillset/types";
 import { apiUrl } from "../utils/apiLocation";
+import { readJSON, writeJSON } from "../utils/storage";
 import { CATEGORY_OPTIONS, VALID_TYPES, getPageMeta } from "../utils/constants";
 import {
   SkillsetMode,
@@ -21,8 +22,7 @@ import {
   decodeSharedSkills,
   encodeSkillsParam,
   togglePhaseCollapse,
-  parseCollapsedPhases,
-  parseAndValidateSkills,
+  filterValidSkills,
 } from "../utils/skillsetMode";
 import findNewSkills, { getPrevYear } from "../utils/findNewSkills";
 
@@ -62,7 +62,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
   React.useEffect(() => {
     if (router.query.cat) return; // URL에 명시된 경우 우선
     try {
-      const saved = JSON.parse(localStorage.getItem("rbye_last_type") || '""');
+      const saved = readJSON<string>("rbye_last_type", "");
       if (saved && CATEGORY_OPTIONS.some((c) => c.key === saved)) {
         setSelectedCategoryRaw(saved);
       }
@@ -72,7 +72,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
   const setSelectedCategory = (key: string) => {
     setSelectedCategoryRaw(key);
     if (VALID_TYPES.includes(key)) {
-      try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
+      writeJSON("rbye_last_type", key);
       document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
     }
   };
@@ -123,14 +123,14 @@ const SkillsetPage = ({ stats, updated }: Props) => {
 
   // 접힘 상태 localStorage 복원
   React.useEffect(() => {
-    const raw = localStorage.getItem(`rbye-collapsed-${selectedCategory}`);
-    setCollapsedPhases(parseCollapsedPhases(raw));
+    const saved = readJSON<string[]>(`rbye-collapsed-${selectedCategory}`, []);
+    setCollapsedPhases(Array.isArray(saved) ? new Set(saved) : new Set());
   }, [selectedCategory]);
 
   const handleToggleCollapse = (phaseKey: string) => {
     setCollapsedPhases((prev) => {
       const next = togglePhaseCollapse(prev, phaseKey);
-      try { localStorage.setItem(`rbye-collapsed-${selectedCategory}`, JSON.stringify([...next])); } catch {}
+      writeJSON(`rbye-collapsed-${selectedCategory}`, [...next]);
       return next;
     });
   };
@@ -152,15 +152,11 @@ const SkillsetPage = ({ stats, updated }: Props) => {
 
   React.useEffect(() => {
     if (!shouldRestoreFromLocal(skillsetModeRef.current)) return;
-    const raw = localStorage.getItem(`rbye-skills-${selectedCategory}`);
-    const { skills, needsCleanup } = parseAndValidateSkills(raw, validSkills);
-    setCheckedSkills(new Set(skills));
-    if (needsCleanup) {
-      try {
-        skills.length > 0
-          ? localStorage.setItem(`rbye-skills-${selectedCategory}`, JSON.stringify(skills))
-          : localStorage.removeItem(`rbye-skills-${selectedCategory}`);
-      } catch {}
+    const saved = readJSON<string[]>(`rbye-skills-${selectedCategory}`, []);
+    const filtered = Array.isArray(saved) ? filterValidSkills(saved, validSkills) : [];
+    setCheckedSkills(new Set(filtered));
+    if (filtered.length !== saved.length) {
+      writeJSON(`rbye-skills-${selectedCategory}`, filtered);
     }
   }, [selectedCategory, validSkills]);
   const yearCategoryData = categoryStats?.[selectedYear] || {};
@@ -209,7 +205,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
       const next = new Set(prev);
       if (next.has(skill)) next.delete(skill);
       else next.add(skill);
-      try { localStorage.setItem(`rbye-skills-${selectedCategory}`, JSON.stringify([...next])); } catch {}
+      writeJSON(`rbye-skills-${selectedCategory}`, [...next]);
       return next;
     });
   };

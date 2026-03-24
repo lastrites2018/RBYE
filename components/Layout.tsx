@@ -7,6 +7,7 @@ import useHiddenCompanies from "../hooks/useHiddenCompanies";
 import useBookmarks from "../hooks/useBookmarks";
 import useLastType from "../hooks/useLastType";
 import { CATEGORY_OPTIONS, PAGE_META, VALID_TYPES, getCategoryMeta, getPageMeta } from "../utils/constants";
+import useReadabilityStore from "../stores/useReadabilityStore";
 
 type Props = {
   title?: string;
@@ -32,7 +33,9 @@ const Layout: React.FunctionComponent<Props> = ({
   const hasAnyPreferences = mounted && (hiddenCompanies.length > 0 || bookmarks.length > 0);
   const [jobLink, setJobLink] = React.useState(getCategoryMeta(VALID_TYPES[0]).route);
 
+  const hydrate = useReadabilityStore((s) => s.hydrate);
   React.useEffect(() => {
+    hydrate();
     setJobLink(getCategoryMeta(getLastType()).route);
   }, []);
 

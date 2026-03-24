@@ -7,6 +7,7 @@ import Layout from "../components/Layout";
 import YearCompareView from "../components/stats/YearCompareView";
 import TrendView from "../components/stats/TrendView";
 import { apiUrl } from "../utils/apiLocation";
+import { readJSON, writeJSON } from "../utils/storage";
 import { CATEGORY_OPTIONS, VALID_TYPES, getPageMeta } from "../utils/constants";
 import {
   StatsViewState,
@@ -84,7 +85,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
   // 크로스페이지 카테고리 공유: mount 시 복원
   React.useEffect(() => {
     try {
-      const saved = JSON.parse(localStorage.getItem("rbye_last_type") || '""');
+      const saved = readJSON<string>("rbye_last_type", "");
       if (saved && CATEGORY_OPTIONS.some((c) => c.key === saved)) {
         setSelectedCategory(saved);
       }
@@ -95,7 +96,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
     setSelectedCategory(key);
     setView((prev) => setRankingYear(prev, "전체"));
     if (VALID_TYPES.includes(key)) {
-      try { localStorage.setItem("rbye_last_type", JSON.stringify(key)); } catch {}
+      writeJSON("rbye_last_type", key);
       document.cookie = `rbye_last_type=${key};path=/;max-age=31536000`;
     }
   };

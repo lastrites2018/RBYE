@@ -13,10 +13,7 @@ export default function SettingsPage() {
     expandBullets, toggleExpandBullets,
     collapsePreferential, toggleCollapsePreferential,
     collapseMainTask, toggleCollapseMainTask,
-    hydrate,
   } = useReadabilityStore();
-
-  React.useEffect(() => { hydrate(); }, []);
 
   return (
     <Layout title={SETTINGS_PAGE_META.pageTitle} pageType="settings" canonicalPath={SETTINGS_PAGE_META.route} noIndex>

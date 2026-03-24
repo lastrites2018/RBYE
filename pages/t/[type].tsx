@@ -49,8 +49,6 @@ export default function Post(props: Props) {
   const jobPageMeta = getPageMeta("job", resolvedType);
   const { hideCompany, isCompanyHidden } = useHiddenCompanies();
   const { bookmarks, toggleBookmark, isBookmarked } = useBookmarks();
-  const hydrate = useReadabilityStore((s) => s.hydrate);
-  React.useEffect(() => { hydrate(); }, []);
   const { setLastType } = useLastType();
   const [data, setData] = React.useState(props.data || []);
   const [filter, setFilter] = React.useState<FilterState>({ mode: "all" });
@@ -379,9 +377,11 @@ export default function Post(props: Props) {
               showYearTag={filter.mode === "all"}
             />
             {loadingData && <div className="spinner"></div>}
-            {searchKeyword && visibleData.length === 0 && !loading && (
-              <div className="text-center text-teal-500 text-xl">
-                {searchKeyword} 키워드와 일치하는 데이터가 없습니다.
+            {visibleData.length === 0 && !loading && (
+              <div className="text-center text-gray-400 py-12">
+                {searchKeyword
+                  ? `${searchKeyword} 키워드와 일치하는 데이터가 없습니다.`
+                  : "표시할 공고가 없습니다."}
               </div>
             )}
             <div className="text-center mt-6 mb-2">
