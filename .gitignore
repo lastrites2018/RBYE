@@ -12,7 +12,7 @@ node_modules
 
 # testing
 /coverage
-/src/__snapshots__/
+/src/__snapshots__/fovd
 
 # production
 /build
@@ -41,6 +41,9 @@ config.json
 
 # local docs
 /docs
+
+# OG 이미지 소스 (PNG만 배포, SVG는 편집용)
+public/og/*.svg
 
 # tool/editor metadata
 .claude/
