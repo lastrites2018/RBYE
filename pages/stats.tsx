@@ -1,5 +1,4 @@
 import * as React from "react";
-import fetch from "isomorphic-unfetch";
 import { GetServerSideProps } from "next";
 import parse from "date-fns/parse";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";

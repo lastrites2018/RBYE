@@ -1,5 +1,4 @@
 import * as React from "react";
-import fetch from "isomorphic-unfetch";
 import { GetServerSideProps } from "next";
 import { apiUrl } from "../utils/apiLocation";
 

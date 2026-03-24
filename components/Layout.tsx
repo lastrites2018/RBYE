@@ -147,39 +147,37 @@ const Layout: React.FunctionComponent<Props> = ({
       <nav className="bg-white border-b border-gray-200 mb-4">
         <div className="max-w-[640px] mx-auto px-4 flex items-center justify-between h-11">
           <div className="flex items-center gap-2">
-            <Link href="/">
-              <a className="text-sm font-bold text-teal-700 tracking-tight">RBYE</a>
+            <Link href="/" className="text-sm font-bold text-teal-700 tracking-tight">
+              RBYE
             </Link>
             {!isSettingsPage && (
               <span className="text-xs text-gray-400">{pageMeta.sectionLabel}</span>
             )}
           </div>
           <div className="flex gap-1 items-center">
-            <Link href={jobLink}>
-              <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
-                !isSpecialPage && !isSettingsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
-              }`}>공고</a>
+            <Link href={jobLink} className={`px-3 py-1.5 rounded text-xs transition-colors ${
+              !isSpecialPage && !isSettingsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
+            }`}>
+              공고
             </Link>
-            <Link href={PAGE_META.stats.route}>
-              <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
-                isStatsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
-              }`}>통계</a>
+            <Link href={PAGE_META.stats.route} className={`px-3 py-1.5 rounded text-xs transition-colors ${
+              isStatsPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
+            }`}>
+              통계
             </Link>
-            <Link href={PAGE_META.skillset.route}>
-              <a className={`px-3 py-1.5 rounded text-xs transition-colors ${
-                isSkillsetPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
-              }`}>스킬셋</a>
+            <Link href={PAGE_META.skillset.route} className={`px-3 py-1.5 rounded text-xs transition-colors ${
+              isSkillsetPage ? "bg-teal-700 text-white" : "text-gray-500 hover:bg-gray-100"
+            }`}>
+              스킬셋
             </Link>
             {hasAnyPreferences && (
-              <Link href={PAGE_META.settings.route}>
-                <a className={`ml-1 p-1.5 rounded transition-colors ${
-                  isSettingsPage ? "text-teal-700 bg-gray-100" : "text-gray-400 hover:text-teal-700 hover:bg-gray-100"
-                }`} title="설정">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                  </svg>
-                </a>
+              <Link href={PAGE_META.settings.route} className={`ml-1 p-1.5 rounded transition-colors ${
+                isSettingsPage ? "text-teal-700 bg-gray-100" : "text-gray-400 hover:text-teal-700 hover:bg-gray-100"
+              }`} title="설정">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
               </Link>
             )}
           </div>

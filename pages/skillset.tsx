@@ -1,7 +1,4 @@
 import * as React from "react";
-import fs from "fs";
-import path from "path";
-import fetch from "isomorphic-unfetch";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import parse from "date-fns/parse";
@@ -440,21 +437,25 @@ export const getServerSideProps: GetServerSideProps = async () => {
   } catch {}
 
   // 2) 로컬 fallback
-  try {
-    const candidates = [
-      path.resolve(process.cwd(), "public/stats.json"),
-      path.resolve(process.cwd(), "../RBYE-API/json/stats.json"),
-    ];
-    for (const localPath of candidates) {
-      if (fs.existsSync(localPath)) {
-        const raw = JSON.parse(fs.readFileSync(localPath, "utf-8"));
-        const stats = Array.isArray(raw.stats) && raw.stats.length > 0 ? raw.stats[0] : raw;
-        if (stats.frontend?.categoryStats?.["전체"]?.["기초"]) {
-          return { props: { stats, updated } };
+  if (process.env.NODE_ENV !== "production") {
+    try {
+      const fs = await import("fs");
+      const path = await import("path");
+      const candidates = [
+        path.join(process.cwd(), "public", "stats.json"),
+        path.join(/* turbopackIgnore: true */ process.cwd(), "..", "RBYE-API", "json", "stats.json"),
+      ];
+      for (const localPath of candidates) {
+        if (fs.existsSync(localPath)) {
+          const raw = JSON.parse(fs.readFileSync(localPath, "utf-8"));
+          const stats = Array.isArray(raw.stats) && raw.stats.length > 0 ? raw.stats[0] : raw;
+          if (stats.frontend?.categoryStats?.["전체"]?.["기초"]) {
+            return { props: { stats, updated } };
+          }
         }
       }
-    }
-  } catch {}
+    } catch {}
+  }
 
   return { props: { stats: {}, updated } };
 };

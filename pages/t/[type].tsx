@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import fetch from "isomorphic-unfetch";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import parse from "date-fns/parse";
@@ -284,11 +283,15 @@ export default function Post(props: Props) {
         {/* 카테고리 탭 */}
         <div className="flex justify-center gap-1 mb-4">
           {CATEGORY_OPTIONS.map((cat) => (
-            <Link href={cat.route} key={cat.key}>
-              <a className={currentPageName === cat.key && !isBookmarksMode(filter)
+            <Link
+              href={cat.route}
+              key={cat.key}
+              className={currentPageName === cat.key && !isBookmarksMode(filter)
                 ? "px-4 py-2 rounded-full text-sm font-semibold bg-teal-700 text-white shadow-sm"
                 : "px-4 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-300 transition-colors"
-              }>{cat.label}</a>
+              }
+            >
+              {cat.label}
             </Link>
           ))}
           {bookmarks.length > 0 && (
@@ -382,10 +385,11 @@ export default function Post(props: Props) {
               </div>
             )}
             <div className="text-center mt-6 mb-2">
-              <Link href={`${PAGE_META.skillset.route}?cat=${resolvedType}`}>
-                <a className="text-sm text-gray-400 hover:text-teal-600 transition-colors">
-                  {jobPageMeta.categoryMeta?.label || resolvedType} 스킬 로드맵 보기 →
-                </a>
+              <Link
+                href={`${PAGE_META.skillset.route}?cat=${resolvedType}`}
+                className="text-sm text-gray-400 hover:text-teal-600 transition-colors"
+              >
+                {jobPageMeta.categoryMeta?.label || resolvedType} 스킬 로드맵 보기 →
               </Link>
             </div>
           </>
