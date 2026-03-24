@@ -1,0 +1,23 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="88" y1="42" x2="1096" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15803d" />
+      <stop offset="1" stop-color="#065f46" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#071d14" />
+  <rect x="24" y="24" width="1152" height="582" rx="32" fill="url(#bg)" />
+  <circle cx="1022" cy="144" r="124" fill="#f0fdf4" fill-opacity="0.12" />
+  <circle cx="1112" cy="220" r="52" fill="#dcfce7" fill-opacity="0.18" />
+  <rect x="76" y="86" width="168" height="44" rx="22" fill="#14532d" fill-opacity="0.34" />
+  <text x="108" y="116" fill="#ecfdf5" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="1.4">SKILLSET</text>
+  <text x="76" y="220" fill="#f0fdf4" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="70" font-weight="800">스킬 로드맵</text>
+  <text x="76" y="308" fill="#f0fdf4" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="70" font-weight="800">연차별 학습 우선순위</text>
+  <text x="76" y="382" fill="#dcfce7" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="28" font-weight="500">직무와 경력 구간에 맞춰 먼저 익혀야 할 역량을 정리하고 공유 가능한 스킬셋 지도를 만듭니다.</text>
+  <rect x="76" y="458" width="358" height="74" rx="24" fill="#ffffff" fill-opacity="0.12" />
+  <text x="108" y="505" fill="#f0fdf4" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="28" font-weight="700">RBYE</text>
+  <text x="196" y="505" fill="#dcfce7" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="24" font-weight="500">Learning Roadmap</text>
+  <rect x="756" y="320" width="292" height="58" rx="20" fill="#ffffff" fill-opacity="0.14" />
+  <rect x="826" y="402" width="222" height="58" rx="20" fill="#ffffff" fill-opacity="0.2" />
+  <rect x="700" y="484" width="348" height="58" rx="20" fill="#ffffff" fill-opacity="0.1" />
+</svg>

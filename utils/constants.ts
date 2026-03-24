@@ -11,6 +11,8 @@ export interface CategoryMeta {
   heading: string;
   description: string;
   breadcrumbLabel: string;
+  socialImagePath?: string;
+  socialImageAlt?: string;
   sitemap: {
     changefreq: string;
     priority: number;
@@ -31,6 +33,8 @@ export interface PageMeta {
   sectionLabel: string;
   breadcrumbLabel: string;
   searchTargetPath: string;
+  socialImagePath?: string;
+  socialImageAlt?: string;
   sitemap?: {
     changefreq: string;
     priority: number;

@@ -1,0 +1,23 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="88" y1="40" x2="1080" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f766e" />
+      <stop offset="1" stop-color="#155e75" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#07252d" />
+  <rect x="24" y="24" width="1152" height="582" rx="32" fill="url(#bg)" />
+  <circle cx="1030" cy="140" r="124" fill="#ecfeff" fill-opacity="0.12" />
+  <circle cx="1124" cy="216" r="54" fill="#ecfeff" fill-opacity="0.18" />
+  <rect x="76" y="86" width="172" height="44" rx="22" fill="#082f49" fill-opacity="0.34" />
+  <text x="110" y="116" fill="#ecfeff" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.8">FRONTEND</text>
+  <text x="76" y="220" fill="#f0fdfa" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="70" font-weight="800">프론트엔드</text>
+  <text x="76" y="308" fill="#f0fdfa" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="70" font-weight="800">연차별 요구사항</text>
+  <text x="76" y="382" fill="#ccfbf1" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="28" font-weight="500">채용 공고에서 요구되는 핵심 역량과 기술 키워드를 경력 단계별로 빠르게 확인합니다.</text>
+  <rect x="76" y="458" width="344" height="74" rx="24" fill="#ffffff" fill-opacity="0.12" />
+  <text x="108" y="505" fill="#f0fdfa" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="28" font-weight="700">RBYE</text>
+  <text x="196" y="505" fill="#ccfbf1" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="24" font-weight="500">Career Skill Map</text>
+  <rect x="782" y="332" width="280" height="54" rx="18" fill="#ffffff" fill-opacity="0.12" />
+  <rect x="824" y="410" width="206" height="54" rx="18" fill="#ffffff" fill-opacity="0.16" />
+  <rect x="742" y="488" width="360" height="54" rx="18" fill="#ffffff" fill-opacity="0.1" />
+</svg>

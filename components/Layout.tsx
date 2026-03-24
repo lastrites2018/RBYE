@@ -55,7 +55,9 @@ const Layout: React.FunctionComponent<Props> = ({
   const pageTitle = title.includes("RBYE") ? title : `${title} | RBYE.VERCEL.APP`;
   const websiteUrl = "https://rbye.vercel.app";
   const siteName = "RBYE";
-  const socialImage = `${websiteUrl}/og-image.svg`;
+  const socialImagePath = pageMeta.socialImagePath || "/og/default.png";
+  const socialImage = `${websiteUrl}${socialImagePath}`;
+  const socialImageAlt = pageMeta.socialImageAlt || `${pageTitle} - RBYE`;
   const searchActionTarget = `${websiteUrl}${pageMeta.searchTargetPath}?q={search_term_string}`;
 
   const breadcrumbItems = [
@@ -128,12 +130,14 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta property="og:site_name" content="RBYE" />
         <meta property="og:locale" content="ko_KR" />
         <meta property="og:image" content={socialImage} />
-        <meta property="og:image:alt" content={`${pageTitle} - RBYE`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={socialImageAlt} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={socialImage} />
-        <meta name="twitter:image:alt" content={`${pageTitle} - RBYE`} />
+        <meta name="twitter:image:alt" content={socialImageAlt} />
         <link rel="canonical" href={canonicalUrl} />
         <script
           type="application/ld+json"

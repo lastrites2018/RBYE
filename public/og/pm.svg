@@ -1,0 +1,23 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="88" y1="46" x2="1092" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d97706" />
+      <stop offset="1" stop-color="#9a3412" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#2b1406" />
+  <rect x="24" y="24" width="1152" height="582" rx="32" fill="url(#bg)" />
+  <circle cx="1018" cy="146" r="122" fill="#fffbeb" fill-opacity="0.14" />
+  <circle cx="1106" cy="222" r="50" fill="#fde68a" fill-opacity="0.18" />
+  <rect x="76" y="86" width="102" height="44" rx="22" fill="#7c2d12" fill-opacity="0.32" />
+  <text x="109" y="116" fill="#fffbeb" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="1.8">PM</text>
+  <text x="76" y="220" fill="#fff7ed" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="70" font-weight="800">PM</text>
+  <text x="76" y="308" fill="#fff7ed" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="70" font-weight="800">연차별 요구사항</text>
+  <text x="76" y="382" fill="#fef3c7" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="28" font-weight="500">제품 전략, 실행 우선순위, 협업 리더십까지 PM 채용 공고의 판단 기준을 경력별로 압축합니다.</text>
+  <rect x="76" y="458" width="356" height="74" rx="24" fill="#ffffff" fill-opacity="0.12" />
+  <text x="108" y="505" fill="#fff7ed" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="28" font-weight="700">RBYE</text>
+  <text x="196" y="505" fill="#fef3c7" font-family="Apple SD Gothic Neo, Noto Sans KR, Arial, sans-serif" font-size="24" font-weight="500">Product Hiring Signals</text>
+  <rect x="768" y="332" width="310" height="54" rx="18" fill="#ffffff" fill-opacity="0.12" />
+  <rect x="836" y="410" width="192" height="54" rx="18" fill="#ffffff" fill-opacity="0.18" />
+  <rect x="714" y="488" width="396" height="54" rx="18" fill="#ffffff" fill-opacity="0.08" />
+</svg>

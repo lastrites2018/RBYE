@@ -10,6 +10,8 @@ const CATEGORY_META = {
     heading: "프론트엔드 연차별 요구사항",
     description: "프론트엔드 직무 공고에서 연차별로 요구되는 핵심 역량을 확인합니다.",
     breadcrumbLabel: "프론트엔드 연차별 요구사항",
+    socialImagePath: "/og/frontend.png",
+    socialImageAlt: "프론트엔드 연차별 요구사항 공유 이미지",
     sitemap: {
       changefreq: "daily",
       priority: 0.9,
@@ -23,6 +25,8 @@ const CATEGORY_META = {
     heading: "Node.js 연차별 요구사항",
     description: "Node.js 직무 공고에서 연차별로 요구되는 핵심 역량을 확인합니다.",
     breadcrumbLabel: "Node.js 연차별 요구사항",
+    socialImagePath: "/og/nodejs.png",
+    socialImageAlt: "Node.js 연차별 요구사항 공유 이미지",
     sitemap: {
       changefreq: "daily",
       priority: 0.9,
@@ -36,6 +40,8 @@ const CATEGORY_META = {
     heading: "백엔드 연차별 요구사항",
     description: "백엔드 직무 공고에서 연차별로 요구되는 핵심 역량을 확인합니다.",
     breadcrumbLabel: "백엔드 연차별 요구사항",
+    socialImagePath: "/og/server.png",
+    socialImageAlt: "백엔드 연차별 요구사항 공유 이미지",
     sitemap: {
       changefreq: "daily",
       priority: 0.9,
@@ -49,6 +55,8 @@ const CATEGORY_META = {
     heading: "PM 연차별 요구사항",
     description: "PM 직무 공고에서 연차별로 요구되는 핵심 역량을 확인합니다.",
     breadcrumbLabel: "PM 연차별 요구사항",
+    socialImagePath: "/og/pm.png",
+    socialImageAlt: "PM 연차별 요구사항 공유 이미지",
     sitemap: {
       changefreq: "weekly",
       priority: 0.8,
@@ -76,6 +84,8 @@ const PAGE_META = {
     sectionLabel: "기술 키워드 통계",
     breadcrumbLabel: "기술 통계",
     searchTargetPath: "/stats",
+    socialImagePath: "/og/stats.png",
+    socialImageAlt: "기술 키워드 통계 공유 이미지",
     sitemap: {
       changefreq: "weekly",
       priority: 0.9,
@@ -89,6 +99,8 @@ const PAGE_META = {
     sectionLabel: "스킬 로드맵",
     breadcrumbLabel: "스킬 세트",
     searchTargetPath: "/skillset",
+    socialImagePath: "/og/skillset.png",
+    socialImageAlt: "스킬 로드맵 공유 이미지",
     sitemap: {
       changefreq: "weekly",
       priority: 0.9,

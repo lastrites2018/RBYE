@@ -1,5 +1,6 @@
 // 책임: Layout의 SEO 메타 데이터(canonical URL, 페이지 제목, description, breadcrumb)가 올바르게 생성된다
 import { describe, test, expect } from "bun:test";
+import { getCategoryMeta, getPageMeta } from "../utils/constants";
 
 const WEBSITE_URL = "https://rbye.vercel.app";
 
@@ -9,6 +10,10 @@ const WEBSITE_URL = "https://rbye.vercel.app";
 function buildCanonicalUrl(canonicalPath: string | undefined, routerAsPath: string): string {
   const resolvedPath = (canonicalPath || routerAsPath || "/").split("?")[0];
   return `${WEBSITE_URL}${resolvedPath.startsWith("/") ? resolvedPath : `/${resolvedPath}`}`;
+}
+
+function buildSocialImageUrl(socialImagePath?: string): string {
+  return `${WEBSITE_URL}${socialImagePath || "/og/default.png"}`;
 }
 
 /**
@@ -128,6 +133,30 @@ describe("페이지 description 선택", () => {
 
   test("job 페이지는 기본 description을 반환한다", () => {
     expect(getDescription("job")).toContain("연차별");
+  });
+});
+
+describe("OG 이미지 선택", () => {
+  test("job 페이지는 카테고리별 PNG를 사용한다", () => {
+    const pageMeta = getPageMeta("job", "frontend");
+    expect(buildSocialImageUrl(pageMeta.socialImagePath)).toBe("https://rbye.vercel.app/og/frontend.png");
+    expect(pageMeta.socialImageAlt).toContain("프론트엔드");
+  });
+
+  test("stats 페이지는 전용 PNG를 사용한다", () => {
+    const pageMeta = getPageMeta("stats");
+    expect(buildSocialImageUrl(pageMeta.socialImagePath)).toBe("https://rbye.vercel.app/og/stats.png");
+    expect(pageMeta.socialImageAlt).toContain("기술 키워드 통계");
+  });
+
+  test("settings 페이지는 공통 fallback 이미지를 사용한다", () => {
+    const pageMeta = getPageMeta("settings");
+    expect(buildSocialImageUrl(pageMeta.socialImagePath)).toBe("https://rbye.vercel.app/og/default.png");
+  });
+
+  test("카테고리 메타는 각자 다른 이미지 경로를 가진다", () => {
+    expect(getCategoryMeta("nodejs").socialImagePath).toBe("/og/nodejs.png");
+    expect(getCategoryMeta("server").socialImagePath).toBe("/og/server.png");
   });
 });
 
