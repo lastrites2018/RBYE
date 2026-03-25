@@ -55,7 +55,7 @@ export default function Post(props: Props) {
   const [loadingData, setLoadingData] = React.useState(false);
   const [loadingCompany, setLoadingCompany] = React.useState(false);
   const loading = loadingData || loadingCompany;
-  const isMoreInfo = useReadabilityStore((s) => s.isMoreInfo);
+  const [isMoreInfo, setIsMoreInfo] = React.useState(false);
   const [companyData, setCompanyData] = React.useState([]);
   const [currentPageName, setCurrentPageName] = React.useState(resolvedType);
 
@@ -104,10 +104,9 @@ export default function Post(props: Props) {
     }
   }, [router.query.q]);
 
-  // 회사 데이터 지연 로드: isMoreInfo(store)가 true가 되면 API에서 가져옴 (외부 시스템 동기화)
-  useEffect(() => {
-    if (isMoreInfo && companyData.length === 0) loadCompanyData();
-  }, [isMoreInfo]);
+  const toggleMoreInfo = React.useCallback(() => {
+    setIsMoreInfo((prev) => !prev);
+  }, []);
 
   // --- 핵심: 필터 → 데이터 fetch (단일 useEffect) ---
   useEffect(() => {
@@ -176,6 +175,11 @@ export default function Post(props: Props) {
       setLoadingCompany(false);
     }
   }, []);
+
+  // 회사 데이터 지연 로드: isMoreInfo가 켜지면 API에서 가져옴
+  useEffect(() => {
+    if (isMoreInfo && companyData.length === 0) loadCompanyData();
+  }, [isMoreInfo, companyData.length, loadCompanyData]);
 
   const handleIntersect = React.useCallback(
     (entries, observer) => {
@@ -308,7 +312,11 @@ export default function Post(props: Props) {
         </div>
 
         {isBookmarksMode(filter) ? (
-          <BookmarkView onEmpty={() => setFilter({ mode: "all" })} />
+          <BookmarkView
+            isMoreInfo={isMoreInfo}
+            onEmpty={() => setFilter({ mode: "all" })}
+            onToggleMoreInfo={toggleMoreInfo}
+          />
         ) : (
           <>
             <NavBar
@@ -370,8 +378,10 @@ export default function Post(props: Props) {
               data={visibleData}
               searchKeyword={searchKeyword}
               totalDataCount={totalDataCount}
+              isMoreInfo={isMoreInfo}
               companyData={companyData}
               onHideCompany={hideCompany}
+              onToggleMoreInfo={toggleMoreInfo}
               onToggleBookmark={toggleBookmark}
               isBookmarked={isBookmarked}
               showYearTag={filter.mode === "all"}
