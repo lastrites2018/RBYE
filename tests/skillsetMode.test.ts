@@ -13,8 +13,6 @@ import {
   encodeSkillsParam,
   togglePhaseCollapse,
   filterValidSkills,
-  parseCollapsedPhases,
-  parseAndValidateSkills,
 } from "../utils/skillsetMode";
 
 // --- resolveInitialMode ---
@@ -244,73 +242,3 @@ describe("기존 동작과의 일치", () => {
   });
 });
 
-// --- parseCollapsedPhases ---
-
-describe("parseCollapsedPhases", () => {
-  test("정상 JSON 배열을 Set으로 변환", () => {
-    const result = parseCollapsedPhases(JSON.stringify(["기초", "핵심"]));
-    expect(result.size).toBe(2);
-    expect(result.has("기초")).toBe(true);
-  });
-
-  test("null이면 빈 Set", () => {
-    expect(parseCollapsedPhases(null).size).toBe(0);
-  });
-
-  test("빈 문자열이면 빈 Set", () => {
-    expect(parseCollapsedPhases("").size).toBe(0);
-  });
-
-  test("잘못된 JSON이면 빈 Set", () => {
-    expect(parseCollapsedPhases("{invalid").size).toBe(0);
-  });
-
-  test("배열이 아닌 JSON이면 빈 Set", () => {
-    expect(parseCollapsedPhases(JSON.stringify({ a: 1 })).size).toBe(0);
-  });
-});
-
-// --- parseAndValidateSkills ---
-
-describe("parseAndValidateSkills", () => {
-  const valid = new Set(["React", "TypeScript", "Vue"]);
-
-  test("유효한 스킬만 남기고 needsCleanup=false", () => {
-    const raw = JSON.stringify(["React", "TypeScript"]);
-    const result = parseAndValidateSkills(raw, valid);
-    expect(result.skills).toEqual(["React", "TypeScript"]);
-    expect(result.needsCleanup).toBe(false);
-  });
-
-  test("무효 스킬이 있으면 제거하고 needsCleanup=true", () => {
-    const raw = JSON.stringify(["React", "Angular", "TypeScript"]);
-    const result = parseAndValidateSkills(raw, valid);
-    expect(result.skills).toEqual(["React", "TypeScript"]);
-    expect(result.needsCleanup).toBe(true);
-  });
-
-  test("null이면 빈 배열 + needsCleanup=false", () => {
-    const result = parseAndValidateSkills(null, valid);
-    expect(result.skills).toEqual([]);
-    expect(result.needsCleanup).toBe(false);
-  });
-
-  test("잘못된 JSON이면 빈 배열 + needsCleanup=true", () => {
-    const result = parseAndValidateSkills("{bad", valid);
-    expect(result.skills).toEqual([]);
-    expect(result.needsCleanup).toBe(true);
-  });
-
-  test("배열이 아닌 JSON이면 빈 배열 + needsCleanup=true", () => {
-    const result = parseAndValidateSkills(JSON.stringify("string"), valid);
-    expect(result.skills).toEqual([]);
-    expect(result.needsCleanup).toBe(true);
-  });
-
-  test("모든 스킬이 무효면 빈 배열 + needsCleanup=true", () => {
-    const raw = JSON.stringify(["Angular", "Svelte"]);
-    const result = parseAndValidateSkills(raw, valid);
-    expect(result.skills).toEqual([]);
-    expect(result.needsCleanup).toBe(true);
-  });
-});

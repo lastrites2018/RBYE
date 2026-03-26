@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import useHiddenCompanies from "../hooks/useHiddenCompanies";
 import useBookmarks from "../hooks/useBookmarks";
 import useLastType from "../hooks/useLastType";
-import { CATEGORY_OPTIONS, PAGE_META, VALID_TYPES, getCategoryMeta, getPageMeta } from "../utils/constants";
+import { PAGE_META, VALID_TYPES, getCategoryMeta, getPageMeta } from "../utils/constants";
 import useReadabilityStore from "../stores/useReadabilityStore";
 
 type Props = {
