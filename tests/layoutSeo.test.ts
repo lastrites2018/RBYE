@@ -1,6 +1,6 @@
 // 책임: Layout의 SEO 메타 데이터(canonical URL, 페이지 제목, description, breadcrumb)가 올바르게 생성된다
 import { describe, test, expect } from "bun:test";
-import { getCategoryMeta, getPageMeta } from "../utils/constants";
+import { getCategoryMeta, getPageMeta, getCategorySitemapEntries, getSitemapMeta } from "../utils/constants";
 
 const WEBSITE_URL = "https://rbye.vercel.app";
 
@@ -207,5 +207,62 @@ describe("breadcrumb 생성", () => {
     const items = buildBreadcrumbItems("job", "", "/t/nodejs");
     expect(items).toHaveLength(2);
     expect(items[1]).toEqual({ name: "공고 보기", path: "/t/nodejs" });
+  });
+});
+
+// --- Sitemap ---
+
+describe("getCategorySitemapEntries", () => {
+  test("4개 카테고리 항목을 반환한다", () => {
+    const entries = getCategorySitemapEntries();
+    expect(entries).toHaveLength(4);
+  });
+
+  test("각 항목에 loc, changefreq, priority가 있다", () => {
+    const entries = getCategorySitemapEntries();
+    entries.forEach((entry) => {
+      expect(entry.loc).toBeTruthy();
+      expect(entry.changefreq).toBeTruthy();
+      expect(typeof entry.priority).toBe("number");
+    });
+  });
+
+  test("frontend는 daily, 0.9 이다", () => {
+    const entries = getCategorySitemapEntries();
+    const fe = entries.find((e) => e.loc === "/t/frontend");
+    expect(fe?.changefreq).toBe("daily");
+    expect(fe?.priority).toBe(0.9);
+  });
+});
+
+describe("getSitemapMeta", () => {
+  test("루트는 daily, 1.0", () => {
+    const meta = getSitemapMeta("/");
+    expect(meta.changefreq).toBe("daily");
+    expect(meta.priority).toBe(1.0);
+  });
+
+  test("stats는 weekly, 0.9", () => {
+    const meta = getSitemapMeta("/stats");
+    expect(meta.changefreq).toBe("weekly");
+    expect(meta.priority).toBe(0.9);
+  });
+
+  test("skillset은 weekly, 0.9", () => {
+    const meta = getSitemapMeta("/skillset");
+    expect(meta.changefreq).toBe("weekly");
+    expect(meta.priority).toBe(0.9);
+  });
+
+  test("카테고리 경로는 해당 sitemap 설정을 반환한다", () => {
+    const meta = getSitemapMeta("/t/frontend");
+    expect(meta.changefreq).toBe("daily");
+    expect(meta.priority).toBe(0.9);
+  });
+
+  test("알 수 없는 경로는 기본값 반환", () => {
+    const meta = getSitemapMeta("/unknown");
+    expect(meta.changefreq).toBe("weekly");
+    expect(meta.priority).toBe(0.8);
   });
 });
