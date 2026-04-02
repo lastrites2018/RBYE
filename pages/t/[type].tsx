@@ -283,7 +283,7 @@ export default function Post(props: Props) {
         </div>
 
         {/* 카테고리 탭 */}
-        <div className="flex justify-center gap-1 mb-4">
+        <div className="flex justify-center gap-1 mb-6">
           {CATEGORY_OPTIONS.map((cat) => (
             <Link
               href={cat.route}
