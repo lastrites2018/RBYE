@@ -177,10 +177,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
         {updated?.[0]?.[selectedCategory] && (
           <div className="text-center text-gray-400 text-xs mb-3">
             데이터 업데이트{" "}
-            {formatDistanceToNow(
-              parse(updated[0][selectedCategory], "yyyy-M-dd HH:mm:ss", new Date()),
-              { locale: koLocale }
-            )}{" "}
+            {(() => { try { return formatDistanceToNow(parse(updated[0][selectedCategory], "yyyy-M-dd HH:mm:ss", new Date()), { locale: koLocale }); } catch { return ""; } })()}{" "}
             전
           </div>
         )}

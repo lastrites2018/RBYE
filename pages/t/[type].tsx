@@ -358,21 +358,13 @@ export default function Post(props: Props) {
                 제한없음
               </button>
             </div>
+            {props.updated[0]?.[resolvedType] && (
             <div className="text-center text-gray-400 text-xs mb-3">
               데이터 업데이트{" "}
-              {props.updated[0]?.[resolvedType] &&
-                formatDistanceToNow(
-                  parse(
-                    props.updated && props.updated[0][resolvedType],
-                    "yyyy-M-dd HH:mm:ss",
-                    new Date()
-                  ),
-                  {
-                    locale: koLocale,
-                  }
-                )}{" "}
+              {(() => { try { return formatDistanceToNow(parse(props.updated[0][resolvedType], "yyyy-M-dd HH:mm:ss", new Date()), { locale: koLocale }); } catch { return ""; } })()}{" "}
               전
             </div>
+            )}
             {loadingCompany && <div className="spinner"></div>}
             <JobList
               data={visibleData}
