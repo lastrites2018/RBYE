@@ -123,7 +123,7 @@ const StatsPage = ({ stats, updated, timeline }: Props) => {
       pageType="stats"
       canonicalPath={STATS_PAGE_META.route}
     >
-      <div className="block m-auto lg:max-w-3xl px-4">
+      <div className="block m-auto lg:max-w-3xl px-4 pt-4">
         <div className="sr-only">
           <h1>{STATS_PAGE_META.heading}</h1>
           <p>{STATS_PAGE_META.description}</p>

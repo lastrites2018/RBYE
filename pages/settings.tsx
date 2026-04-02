@@ -18,7 +18,7 @@ export default function SettingsPage() {
   return (
     <Layout title={SETTINGS_PAGE_META.pageTitle} pageType="settings" canonicalPath={SETTINGS_PAGE_META.route} noIndex>
 
-      <div className="max-w-[640px] mx-auto px-4 pb-12">
+      <div className="max-w-[640px] mx-auto px-4 pt-4 pb-12">
         <h1 className="text-lg font-bold text-gray-800 mb-6">{SETTINGS_PAGE_META.heading}</h1>
 
         {!mounted ? null : (

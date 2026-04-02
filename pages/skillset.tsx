@@ -224,7 +224,7 @@ const SkillsetPage = ({ stats, updated }: Props) => {
       canonicalPath={SKILLSET_PAGE_META.route}
       noIndex={hasSharedState}
     >
-      <div className="block m-auto lg:max-w-3xl px-4">
+      <div className="block m-auto lg:max-w-3xl px-4 pt-4">
         <div className="sr-only">
           <h1>{SKILLSET_PAGE_META.heading}</h1>
           <p>{SKILLSET_PAGE_META.description}</p>

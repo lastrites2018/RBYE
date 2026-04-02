@@ -147,7 +147,7 @@ const Layout: React.FunctionComponent<Props> = ({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </Head>
-      <nav className="bg-white border-b border-gray-200 mb-4">
+      <nav className="bg-white border-b border-gray-200">
         <div className="max-w-[640px] mx-auto px-4 flex items-center justify-between h-11">
           <div className="flex items-center gap-2">
             <Link href="/" className="text-sm font-bold text-teal-700 tracking-tight">

@@ -276,7 +276,7 @@ export default function Post(props: Props) {
       canonicalPath={canonicalPath}
       noIndex={hasSearchQuery}
     >
-      <div className="block m-auto max-w-[640px] px-4">
+      <div className="block m-auto max-w-[640px] px-4 pt-4">
         <div className="sr-only">
           <h1>{jobPageMeta.heading}</h1>
           <p>{jobPageMeta.description}</p>
