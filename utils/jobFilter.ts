@@ -124,7 +124,7 @@ export function isBookmarksMode(filter: FilterState): boolean {
  * 누락된 필드는 빈 값으로 채운다.
  */
 export function bookmarksToJobs(bookmarks: BookmarkEntry[]): Job[] {
-  return [...bookmarks].reverse().map((b, i) => ({
+  return bookmarks.map((b, i) => ({
     no: i,
     companyName: b.companyName,
     subject: b.subject,
