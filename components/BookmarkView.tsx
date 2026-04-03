@@ -4,7 +4,9 @@ import useBookmarks from "../hooks/useBookmarks";
 import { bookmarksToJobs } from "../utils/jobFilter";
 
 interface Props {
+  isMoreInfo: boolean;
   onEmpty?: () => void;
+  onToggleMoreInfo: () => void;
 }
 
 /**
@@ -13,9 +15,9 @@ interface Props {
  * 일반 공고 뷰와 분리하여 isBookmarksMode 분기를 한 곳으로 집중.
  * NavBar, 연차 필터, 데이터 업데이트 텍스트, 스킬 로드맵 링크 없음.
  * 숨기기 버튼 비활성화 (onHideCompany 미전달).
- * 회사정보 토글은 store에서 직접 구독 (companyData 미전달이므로 kisCode 링크 제외).
+ * 회사정보 토글은 상위 페이지 상태를 사용 (companyData 미전달이므로 kisCode 링크 제외).
  */
-export default function BookmarkView({ onEmpty }: Props) {
+export default function BookmarkView({ isMoreInfo, onEmpty, onToggleMoreInfo }: Props) {
   const { bookmarks, toggleBookmark, isBookmarked, mounted } = useBookmarks();
   const data = React.useMemo(() => bookmarksToJobs(bookmarks), [bookmarks]);
 
@@ -34,6 +36,8 @@ export default function BookmarkView({ onEmpty }: Props) {
           data={data}
           searchKeyword=""
           totalDataCount={data.length}
+          isMoreInfo={isMoreInfo}
+          onToggleMoreInfo={onToggleMoreInfo}
           onToggleBookmark={toggleBookmark}
           isBookmarked={isBookmarked}
         />

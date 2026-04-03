@@ -10,8 +10,10 @@ interface IJob extends Job {
   searchKeyword: string;
   index: number;
   totalDataCount: number | undefined;
+  isMoreInfo: boolean;
   companyData?: any;
   onHideCompany?: (companyName: string) => void;
+  onToggleMoreInfo: () => void;
   showYearTag?: boolean;
   onToggleBookmark?: (job: { link: string; companyName: string; subject: string; contentObj?: ContentObj }) => void;
   isBookmarked?: boolean;
@@ -27,13 +29,15 @@ const Jobs = ({
   searchKeyword,
   index,
   totalDataCount,
+  isMoreInfo,
   companyData,
   onHideCompany,
+  onToggleMoreInfo,
   onToggleBookmark,
   isBookmarked,
   showYearTag,
 }: IJob) => {
-  const { expandBullets, collapsePreferential, collapseMainTask, isMoreInfo, toggleMoreInfo } = useReadabilityStore();
+  const { expandBullets, collapsePreferential, collapseMainTask } = useReadabilityStore();
   const [prefOpen, setPrefOpen] = React.useState(!collapsePreferential);
   const [taskOpen, setTaskOpen] = React.useState(!collapseMainTask);
 
@@ -81,7 +85,7 @@ const Jobs = ({
           className={`px-1.5 rounded-full cursor-pointer text-center transition-colors ${
             isMoreInfo ? "bg-teal-600 text-white" : "bg-gray-300 text-gray-600 hover:bg-gray-400"
           }`}
-          onClick={toggleMoreInfo}
+          onClick={onToggleMoreInfo}
         >
           회사정보
         </span>

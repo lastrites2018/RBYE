@@ -14,12 +14,10 @@ interface ReadabilityState {
   expandBullets: boolean;
   collapsePreferential: boolean;
   collapseMainTask: boolean;
-  isMoreInfo: boolean;
   mounted: boolean;
   toggleExpandBullets: () => void;
   toggleCollapsePreferential: () => void;
   toggleCollapseMainTask: () => void;
-  toggleMoreInfo: () => void;
   hydrate: () => void;
 }
 
@@ -33,7 +31,6 @@ const useReadabilityStore = create<ReadabilityState>((set) => ({
   expandBullets: false,
   collapsePreferential: false,
   collapseMainTask: false,
-  isMoreInfo: false,
   mounted: false,
 
   hydrate: () => {
@@ -65,9 +62,6 @@ const useReadabilityStore = create<ReadabilityState>((set) => ({
       writeJSON(KEYS.collapseMainTask, next);
       return { collapseMainTask: next };
     }),
-
-  toggleMoreInfo: () =>
-    set((s) => ({ isMoreInfo: !s.isMoreInfo })),
 }));
 
 export default useReadabilityStore;
