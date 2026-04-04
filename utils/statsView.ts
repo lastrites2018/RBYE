@@ -44,26 +44,9 @@ export function setRankingYear(view: StatsViewState, year: string): StatsViewSta
 }
 
 /**
- * trend 모드에서 기간을 변경한다.
- * trend가 아니면 현재 상태를 그대로 반환한다.
- */
-export function setTrendPeriod(view: StatsViewState, period: TrendPeriod): StatsViewState {
-  if (view.mode !== "trend") return view;
-  return { mode: "trend", period };
-}
-
-/**
  * 현재 뷰에서 연차 선택값을 추출한다.
  * ranking이 아니면 null을 반환한다.
  */
 export function deriveSelectedYear(view: StatsViewState): string | null {
   return view.mode === "ranking" ? view.year : null;
-}
-
-/**
- * 현재 뷰에서 트렌드 기간을 추출한다.
- * trend가 아니면 null을 반환한다.
- */
-export function deriveTrendPeriod(view: StatsViewState): TrendPeriod | null {
-  return view.mode === "trend" ? view.period : null;
 }

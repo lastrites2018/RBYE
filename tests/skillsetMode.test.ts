@@ -4,9 +4,7 @@ import {
   SkillsetMode,
   resolveInitialMode,
   isCheckMode,
-  isExploreMode,
   isSharedMode,
-  isLocalCheckMode,
   toggleMode,
   shouldRestoreFromLocal,
   decodeSharedSkills,
@@ -47,22 +45,12 @@ describe("모드 판별", () => {
     expect(isCheckMode(sharedCheck)).toBe(true);
   });
 
-  test("isExploreMode", () => {
-    expect(isExploreMode(explore)).toBe(true);
-    expect(isExploreMode(localCheck)).toBe(false);
-  });
-
   test("isSharedMode", () => {
     expect(isSharedMode(explore)).toBe(false);
     expect(isSharedMode(localCheck)).toBe(false);
     expect(isSharedMode(sharedCheck)).toBe(true);
   });
 
-  test("isLocalCheckMode", () => {
-    expect(isLocalCheckMode(explore)).toBe(false);
-    expect(isLocalCheckMode(localCheck)).toBe(true);
-    expect(isLocalCheckMode(sharedCheck)).toBe(false);
-  });
 });
 
 // --- toggleMode ---
@@ -218,20 +206,20 @@ describe("기존 동작과의 일치", () => {
 
   test("URL에 skills 없음 → explore 모드 + localStorage 복원 가능", () => {
     const mode = resolveInitialMode({});
-    expect(isExploreMode(mode)).toBe(true);
+    expect(mode.mode).toBe("explore");
     expect(shouldRestoreFromLocal(mode)).toBe(true);
   });
 
   test("사용자가 '나의 스킬' 클릭 → local check + localStorage 복원 가능", () => {
     const mode = toggleMode({ mode: "explore" });
     expect(isCheckMode(mode)).toBe(true);
-    expect(isLocalCheckMode(mode)).toBe(true);
+    expect(mode.mode === "check" && mode.source === "local").toBe(true);
     expect(shouldRestoreFromLocal(mode)).toBe(true);
   });
 
   test("공유 URL에서 왔다가 '탐색' 클릭 → explore", () => {
     const mode = toggleMode({ mode: "check", source: "shared" });
-    expect(isExploreMode(mode)).toBe(true);
+    expect(mode.mode).toBe("explore");
   });
 
   test("encode → decode 왕복이 일치한다", () => {

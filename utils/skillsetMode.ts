@@ -34,24 +34,10 @@ export function isCheckMode(mode: SkillsetMode): boolean {
 }
 
 /**
- * 탐색 모드인지 여부.
- */
-export function isExploreMode(mode: SkillsetMode): boolean {
-  return mode.mode === "explore";
-}
-
-/**
  * 공유 URL에서 온 건지 여부.
  */
 export function isSharedMode(mode: SkillsetMode): boolean {
   return mode.mode === "check" && mode.source === "shared";
-}
-
-/**
- * 로컬 스킬 체크 모드인지 여부.
- */
-export function isLocalCheckMode(mode: SkillsetMode): boolean {
-  return mode.mode === "check" && mode.source === "local";
 }
 
 /**

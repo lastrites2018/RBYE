@@ -5,9 +5,7 @@ import {
   switchViewMode,
   getActiveMode,
   setRankingYear,
-  setTrendPeriod,
   deriveSelectedYear,
-  deriveTrendPeriod,
 } from "../utils/statsView";
 
 describe("switchViewMode", () => {
@@ -58,18 +56,6 @@ describe("setRankingYear", () => {
   });
 });
 
-describe("setTrendPeriod", () => {
-  test("trend 모드에서 기간을 변경한다", () => {
-    const view = setTrendPeriod({ mode: "trend", period: "all" }, "week");
-    expect(view).toEqual({ mode: "trend", period: "week" });
-  });
-
-  test("ranking 모드에서는 변경하지 않는다", () => {
-    const view: StatsViewState = { mode: "ranking", year: "전체" };
-    expect(setTrendPeriod(view, "week")).toBe(view);
-  });
-});
-
 describe("deriveSelectedYear", () => {
   test("ranking 모드에서 year를 반환한다", () => {
     expect(deriveSelectedYear({ mode: "ranking", year: "5년" })).toBe("5년");
@@ -81,16 +67,6 @@ describe("deriveSelectedYear", () => {
 
   test("trend 모드에서 null을 반환한다", () => {
     expect(deriveSelectedYear({ mode: "trend", period: "all" })).toBeNull();
-  });
-});
-
-describe("deriveTrendPeriod", () => {
-  test("trend 모드에서 period를 반환한다", () => {
-    expect(deriveTrendPeriod({ mode: "trend", period: "month" })).toBe("month");
-  });
-
-  test("ranking 모드에서 null을 반환한다", () => {
-    expect(deriveTrendPeriod({ mode: "ranking", year: "전체" })).toBeNull();
   });
 });
 
