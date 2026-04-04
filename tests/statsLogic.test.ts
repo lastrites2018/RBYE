@@ -97,6 +97,34 @@ describe("NEW 기술 감지", () => {
   });
 });
 
+/**
+ * TrendView의 NEW 판정: 이전 스냅샷에 없고, "전체" 기간이 아닌 경우만 NEW
+ */
+function isTrendNew(prev: { count: number; rank: number } | undefined, period: string): boolean {
+  return !prev && period !== "all";
+}
+
+describe("트렌드 NEW 감지 (기간별)", () => {
+  test("주간에서 이전 없으면 NEW", () => {
+    expect(isTrendNew(undefined, "week")).toBe(true);
+  });
+
+  test("월간에서 이전 없으면 NEW", () => {
+    expect(isTrendNew(undefined, "month")).toBe(true);
+  });
+
+  test("전체에서 이전 없어도 NEW 아님", () => {
+    expect(isTrendNew(undefined, "all")).toBe(false);
+  });
+
+  test("이전 데이터 있으면 어떤 기간이든 NEW 아님", () => {
+    const prev = { count: 10, rank: 5 };
+    expect(isTrendNew(prev, "all")).toBe(false);
+    expect(isTrendNew(prev, "week")).toBe(false);
+    expect(isTrendNew(prev, "month")).toBe(false);
+  });
+});
+
 describe("급상승 감지", () => {
   test("차이 10%p 이상이고 NEW가 아니면 surge이다", () => {
     expect(isSurge(10, false)).toBe(true);

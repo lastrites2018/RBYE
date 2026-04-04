@@ -134,7 +134,7 @@ const TrendView: React.FC<{
           const prev = prevMap.get(kw.keyword);
           const countDiff = prev ? kw.count - prev.count : kw.count;
           const rankDiff = prev ? prev.rank - (i + 1) : 0;
-          const isNew = !prev;
+          const isNew = !prev && period !== "all";
           const maxCount = latestCat.topKeywords[0]?.count || 1;
           const pct = Math.round((kw.count / maxCount) * 100);
 
