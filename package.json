@@ -14,7 +14,7 @@
   "packageManager": "pnpm@10.5.2",
   "dependencies": {
     "date-fns": "2.30.0",
-    "next": "16.2.1",
+    "next": "16.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-highlight-words": "0.20.0",
